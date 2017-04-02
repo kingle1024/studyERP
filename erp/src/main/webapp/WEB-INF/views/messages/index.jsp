@@ -9,11 +9,13 @@
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
+<div class="jumbotron" id="jumbo">
+	<font size="6">쪽지함</font>-쪽지 기능을 수행할 수 있습니다.
+</div>
 	<div class="container">
 		<div class="jumbotron">
-			<center>
-				<h1>메세지함</h1>
-			</center>
+		<a href="<c:url value="/messages/new" />" class="btn btn-lg btn-primary">
+				<div style="text-align:right;">메시지 보내기</div></a><br><br>
 			<div class="row">
 				<c:forEach var="mybook" items="${mybooks}" varStatus="status">
 					<div class="col-md-4">

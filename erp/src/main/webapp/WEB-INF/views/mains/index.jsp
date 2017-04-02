@@ -41,6 +41,27 @@
 			</tbody>
 			</table>
 		</div>
+		<div class="jumbotron">
+		<a href="<c:url value="/messages/new" />" class="btn btn-lg btn-primary">
+				메시지 보내기</a>
+		<a href="<c:url value="/messages" />" class="btn btn-lg btn-primary">
+				쪽지함 이동</a>
+						
+				<br><br>
+			<div class="row">
+				<c:forEach var="mybook" items="${mybooks}" varStatus="status">
+					<div class="col-md-4">
+						<div class="thumbnail">
+							<div class="caption">
+								<%-- 							<h3>${ mybook.no }</h3> --%>
+								<h3>${ mybook.content }</h3>
+								<h3>${ mybook.email }</h3>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

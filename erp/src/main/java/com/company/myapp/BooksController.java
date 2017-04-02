@@ -98,12 +98,7 @@ public class BooksController {
 	      model.addAttribute("mybooks", mybooks);
 		return "books/testIndex";
 	}
-//	@RequestMapping(value = "/books", method = RequestMethod.GET)
-//	public String index(Model model) {
-//		List<Book> books = bookMapper.getList();
-//		model.addAttribute("books", books);
-//		return "books/index";
-//	}
+
 	
 	
 }

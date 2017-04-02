@@ -13,23 +13,23 @@ public class SessionsController {
 	
 	@Autowired
 	private userMapper userMapper;
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET) // 세션없이 접근했을때
     public String home() {
         return "popUp/statics/login";
     }
     
-    @RequestMapping(value ="/signup", method = RequestMethod.GET)
+    @RequestMapping(value ="/signup", method = RequestMethod.GET) // 회원가입 페이지
     public String signup(Model model){
     	User user = new User();
     	model.addAttribute("user", user);
-    	return "statics/signup";
+    	return "popUp/statics/signup";
     }
     
-    @RequestMapping(value = "/signup", method= RequestMethod.POST)
+    @RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
     public String create(@ModelAttribute User user){
     	userMapper.insertUser(user);
     	userMapper.insertAuthority(user.getEmail(),  "ROLE_USER");
 //    	return "redirect:/statics/login";
-    	return "statics/login";
+    	return "popUp/statics/login";
     }
 }

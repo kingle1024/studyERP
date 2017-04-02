@@ -1,12 +1,8 @@
 package com.company.myapp;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.security.Principal;
 import java.util.List;
-import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.vo.Board;
+import com.mycompany.vo.myBook;
 
 /**
  * Handles requests for the application home page.
@@ -26,11 +23,20 @@ public class HomeController {
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String index1(Model model){
-//		List<Board> boards = boardMapper.getBoardList();
 		List<Board> boards = bookMapper.getBoardList();		
 		model.addAttribute("boards", boards);		
-		return "mains/index";
 		
+		return "redirect:/index";
 	}		
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String goToIndex(Model model, Principal principal) {
+		List<Board> boards = bookMapper.getBoardList();		
+		model.addAttribute("boards", boards);		
+		String name = principal.getName(); 
+	    model.addAttribute("username", name);
+	    List<myBook> mybooks = bookMapper.getMyBook(name);
+	    model.addAttribute("mybooks", mybooks);
+		return "mains/index";
+	}
 	
 }

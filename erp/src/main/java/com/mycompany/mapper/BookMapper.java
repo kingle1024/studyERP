@@ -17,6 +17,9 @@ public interface BookMapper {
 	@Insert("insert into books(title, author, image) values (#{title}, #{author}, #{image})")
 	public boolean create(Book book);
 	
+	@Insert("insert into mybooks(email, content) values (#{email}, #{content})")
+	public boolean createMessage(myBook myBook);
+	
 	@Insert("insert into boards (title, content, author, created) values (#{title}, #{content}, #{author}, now())")
 //	@Insert("insert into boards (title, content, author) values ('test1', 'test2', 'test3')")
 	public void createBoard(Board board);
