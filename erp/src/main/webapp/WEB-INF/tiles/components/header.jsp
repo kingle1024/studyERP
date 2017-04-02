@@ -13,7 +13,7 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="<c:url value="/index" />"><img
+		<a class="navbar-brand" href="<c:url value="/" />"><img
 			width="80px" height="30px"
 			src="http://img.naver.net/static/www/u/2013/0731/nmms_224940510.gif"></a>
 
@@ -72,10 +72,17 @@
   
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
-                  <a href="#">
-                  <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                  <a href="<c:url value="/" />">
+                  
+                  <i class="fa fa-dashboard fa-lg"></i> <font size="3" >홈</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   </a>
                 </li>
+
+				<li>
+                  <a href="<c:url value="/messages" />">
+                  <i class="fa fa-user fa-lg"></i> 쪽지함&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </a>
+                  </li>
 
                 <li  data-toggle="collapse" data-target="#products" class="collapsed active">
                   <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
@@ -112,13 +119,6 @@
                   <li>New New 2</li>
                   <li>New New 3</li>
                 </ul>
-
-
-                 <li>
-                  <a href="#">
-                  <i class="fa fa-user fa-lg"></i> Profile
-                  </a>
-                  </li>
 
                  <li>
                   <a href="#">

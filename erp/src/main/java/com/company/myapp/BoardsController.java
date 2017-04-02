@@ -18,7 +18,7 @@ public class BoardsController {
 	@Autowired		
 	private BookMapper bookMapper;
 	
-	@RequestMapping(value ="/index", method = RequestMethod.GET)
+	@RequestMapping(value ="/indexa", method = RequestMethod.GET)
 	public String index1(Model model){
 //		List<Board> boards = boardMapper.getBoardList();
 		List<Board> boards = bookMapper.getBoardList();		
