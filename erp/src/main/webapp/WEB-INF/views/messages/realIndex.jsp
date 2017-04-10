@@ -9,21 +9,21 @@
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
-<div class="jumbotron" id="subNav">
+<div class="jumbotron" id="jumbo">
 	<font size="6">쪽지함</font>-쪽지 기능을 수행할 수 있습니다.
 </div>
 	<div class="container">
 		<div class="jumbotron">
-		<a href="<c:url value="/messages/new" />" class="btn btn-lg btn-primary">
+		<a href="<c:url value="/messages/newReal" />" class="btn btn-lg btn-primary">
 				<div style="text-align:right;">메시지 보내기</div></a><br><br>
 			<div class="row">
-				<c:forEach var="mybook" items="${mybooks}" varStatus="status">
+				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
 					<div class="col-md-4">
 						<div class="thumbnail">
 							<div class="caption">
 								<%-- 							<h3>${ mybook.no }</h3> --%>
-								<h3>${ mybook.content }</h3>
-								<h3>${ mybook.email }</h3>
+								<h3>${ myMessage.title }</h3>
+								<h3>${ myMessage.content }</h3>
 							</div>
 						</div>
 					</div>

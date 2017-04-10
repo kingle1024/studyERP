@@ -2,7 +2,7 @@
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+	<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <style>
@@ -16,11 +16,11 @@
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 
-<div class="jumbotron" id="jumbo">
+<div class="jumbotron" id="subNav">
 	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.
 </div>
 	<div class="container">
-		<div class="jumbotron">
+		<div class="jumbotron" id="jumbo">
 			<center><h1>공지사항</h1></center>
 			<table border="1" class="table table-striped">
 			<thread>
@@ -33,9 +33,9 @@
 			<tbody>
 				<c:forEach var="board" items="${boards }" varStatus="status">				
 					<tr>
-						<th><a href="http://localhost:8181/myapp/admin/viewBoard/${board.id}">${ board.title }</th></a>	
+						<th><a href="<c:url value="/admin/viewBoard/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
-						<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd"/></th>
+					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd"/></th>
 					</tr>
 				</c:forEach>
 			</tbody>

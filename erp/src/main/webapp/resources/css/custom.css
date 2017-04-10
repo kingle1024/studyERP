@@ -1,6 +1,20 @@
 #jumbo{
   padding-top: 20px;
   padding-bottom: 20px;
+  margin-left:16%;
+}
+#subNav{
+	top: 10%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-left: 16%;
+	margin-top: 3%;
+}
+#setPostion{
+	margin-left:16%;
+	position:fixed;
+	width:84%;
+	top:0%;
 }
 #footer {
 	margin-top: 50px;
@@ -11,8 +25,9 @@
   font-size: 12px;
   font-weight: 200;
   background-color: #2e353d;
-/*   position: fixed; */
-float:left;
+  position: fixed;
+/*   float:left; */
+
   top: 0px;
   width: 300px;
   height: 100%;

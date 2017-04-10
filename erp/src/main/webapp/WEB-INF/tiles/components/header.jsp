@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" id="setPostion">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle collapsed"
@@ -19,7 +19,7 @@
 
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
-	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<div class="collapse navbar-collapse" id="">
 		<ul class="nav navbar-nav">
 <!-- 			<li><a href="#">맛집</a></li> -->
 				<li>

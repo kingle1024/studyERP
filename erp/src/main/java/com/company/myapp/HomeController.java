@@ -25,7 +25,6 @@ public class HomeController {
 	public String index1(Model model){
 		List<Board> boards = bookMapper.getBoardList();		
 		model.addAttribute("boards", boards);		
-		
 		return "redirect:/index";
 	}		
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -38,5 +37,4 @@ public class HomeController {
 	    model.addAttribute("mybooks", mybooks);
 		return "mains/index";
 	}
-	
 }
