@@ -22,16 +22,15 @@ public interface BookMapper {
 	public boolean createMessage(myBook myBook);
 	
 	@Insert("insert into messages (recv_id, send_id, title, content) values (#{recv_id}, #{send_id}, #{title}, #{content})")
-	public boolean createMessageR(Message Message, String recv_id);
+	public boolean createMessageR(Message Message);
 	
 	@Insert("insert into boards (title, content, author, created) values (#{title}, #{content}, #{author}, now())")
-//	@Insert("insert into boards (title, content, author) values ('test1', 'test2', 'test3')")
 	public void createBoard(Board board);
 		
 	@Select("select * from books")
 	public List<Book> getList();
 	
-	@Select("select * from boards")
+	@Select("select * from boards order by id desc")
 	public List<Board> getBoardList();
 
 	@Select("select * from products")
@@ -46,6 +45,9 @@ public interface BookMapper {
 	@Select("select * from boards where id=#{id}")
 	public Board getBoard(int id);
 	
+	@Select("select * from messages where no=#{no}")
+	public Message getMessage(int no);
+	
 	@Update("update books set title = #{title}, author = #{author}, image = #{image} where id = #{id}")
 	public boolean update(Book book);
 	
@@ -57,6 +59,7 @@ public interface BookMapper {
 	
 	@Select("select * from messages where recv_id = #{recv_id}")
 	public List<Message> getMyBookR(String recv_id);
+	
 	
 //	@Insert("insert into boards (title, username, content, books_id, created) values (#{title}, #{username}, #{content}, #{books_id},now() )")
 //	public boolean create1(Board board);

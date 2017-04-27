@@ -9,11 +9,22 @@
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
+<div class="jumbotron" id="subNav">
+	<font size="6">쪽지 보내기</font> - 쪽지를 보낼 수 있습니다.
+</div>
 <div class="container">
 <form action="<c:url value="/messages" />" method="post">
+			
+			<input name="send_id" type="hidden" value="${ username }">
+			
 			<div class="form-group form-group-lg">
 				<label class="control-label">받는 이</label>
-				<input name="email" type="text" class="form-control">
+				<input name="recv_id" type="text" class="form-control">
+			</div>
+			
+			<div class="form-group form-group-lg">
+				<label class="control-label">제목</label>
+				<input name="title" type="text" class="form-control">
 			</div>
 			
 			<div class="form-group form-group-lg">

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.vo.Board;
+import com.mycompany.vo.Message;
 import com.mycompany.vo.myBook;
 
 /**
@@ -33,8 +34,11 @@ public class HomeController {
 		model.addAttribute("boards", boards);		
 		String name = principal.getName(); 
 	    model.addAttribute("username", name);
-	    List<myBook> mybooks = bookMapper.getMyBook(name);
-	    model.addAttribute("mybooks", mybooks);
+	   
+//	    List<myBook> mybooks = bookMapper.getMyBook(name);
+//	    model.addAttribute("mybooks", mybooks);
+	    List<Message> myMessages = bookMapper.getMyBookR(name);
+	    model.addAttribute("myMessages",myMessages);
 		return "mains/index";
 	}
 }

@@ -9,12 +9,9 @@
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
-	<div class="container">
-		<div class="jumbotron">		
-			<h1>게시판 상세보기</h1>
-			<p>views/admins/viewBoard.jsp</p>			
-		</div>		
-	</div>
+	<div class="jumbotron" id="subNav">
+	<font size="6">공지 보기</font> - 공지사항을 확인할 수 있습니다.
+</div>
 	<div class="container">			
 			<table border="1" class="table table-inverse">					
 			<tr>

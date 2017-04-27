@@ -20,11 +20,13 @@
 	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.
 </div>
 	<div class="container">
-		<div class="jumbotron" id="jumbo">
+<!-- 		<div class="jumbotron" id="jumbo"> -->
+	<div class="jumbotron">
 			<center><h1>공지사항</h1></center>
 			<table border="1" class="table table-striped">
 			<thread>
 				<tr>
+					<th>번호</th>
 					<th>제목</th>
 					<th>작성자</th>
 					<th>시간</th>
@@ -33,6 +35,7 @@
 			<tbody>
 				<c:forEach var="board" items="${boards }" varStatus="status">				
 					<tr>
+						<th>${ board.id }</th>
 						<th><a href="<c:url value="/admin/viewBoard/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
 					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd"/></th>
@@ -46,20 +49,24 @@
 				메시지 보내기</a>
 		<a href="<c:url value="/messages" />" class="btn btn-lg btn-primary">
 				쪽지함 이동</a>
-						
+				
 				<br><br>
 			<div class="row">
-				<c:forEach var="mybook" items="${mybooks}" varStatus="status">
-					<div class="col-md-4">
 						<div class="thumbnail">
 							<div class="caption">
-								<%-- 							<h3>${ mybook.no }</h3> --%>
-								<h3>${ mybook.content }</h3>
-								<h3>${ mybook.email }</h3>
+			<table>
+				<tr>
+					<th width="250px">보낸이</th><th width="700px">내용</th><th width="100px">보낸날짜</th>
+				</tr>
+				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
+							<tr>
+								<th><h3>${ myMessage.send_id }</h3></th>
+								<th><h3><a href="#" onclick="window.open('<c:url value="/messages/view/${ myMessage.no }" />', '_blank', 'width=300 height=300')"		>${ myMessage.title }</a></h3></th>
+							</tr>
+				</c:forEach>
+			</table>
 							</div>
 						</div>
-					</div>
-				</c:forEach>
 			</div>
 		</div>
 	</div>
