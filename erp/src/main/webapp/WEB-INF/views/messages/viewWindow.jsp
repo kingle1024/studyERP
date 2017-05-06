@@ -14,8 +14,7 @@
 					<table>
 					<tbody>
 						<tr>
-						
-							<th><hr>보낸사람</th><td>${ message.send_id }</td>
+							<th>보낸사람</th><td>${ message.send_id }</td>
 						</tr>
 						<tr>
 							<th>받은시간</th><td>${ message.send_date }</td>
@@ -25,7 +24,7 @@
 					<th>제목</th><td>${ message.title }</td>
 					</tr>
 					<tr> 
-						<th>내용<hr></th>
+						<th>내용</th>
 					</tr>
 					<tr>
 						<td colspan="2">${ message.content }</td>
@@ -37,7 +36,7 @@
 			</div>
 		</div>
 		<form>
-			답장하기
+			<a href="#" class="btn btn-lg btn-primary"> 답장하기</a>
 		</form>
 </body>
 </html>

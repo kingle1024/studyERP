@@ -51,6 +51,9 @@ public interface BookMapper {
 	@Update("update books set title = #{title}, author = #{author}, image = #{image} where id = #{id}")
 	public boolean update(Book book);
 	
+	@Update("update boards set title = #{title}, content= #{content}, author = #{author}, created = now() where id = #{id}")
+	public boolean updateNotice(Board board);
+	
 	@Delete("delete from books where id = #{id}")
 	public boolean delete(int id);
 		

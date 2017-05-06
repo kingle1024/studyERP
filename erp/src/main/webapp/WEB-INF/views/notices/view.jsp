@@ -28,7 +28,7 @@
 				<th colspan="4">${ board.content }</th>
 			</tr>								
 			</table>				
+		<a href="<c:url value="/notice/edit/${ board.id }" />" class="btn btn-lg btn-primary" >수정</a>
 	</div>
-	
 </body>
 </html>

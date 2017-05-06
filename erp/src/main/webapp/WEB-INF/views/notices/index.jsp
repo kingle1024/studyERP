@@ -35,13 +35,15 @@
 				<c:forEach var="board" items="${boards }" varStatus="status">				
 					<tr>
 						<th>${ board.id }</th>
-						<th><a href="<c:url value="/admin/viewBoard/${ board.id }" /> "> ${ board.title } </a></th>	
+						<th><a href="<c:url value="/notice/view/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
 					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd hh:mm"/></th>
 					</tr>
 				</c:forEach>
 			</tbody>
 			</table>
+				<a href="<c:url value="/notice/new" />" class="btn btn-lg btn-primary" style="width:100%;">
+			글쓰기</a>	
 	</div>
 </body>
 </html>

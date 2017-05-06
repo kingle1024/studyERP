@@ -29,20 +29,27 @@ public class MessagesController {
 	    List<Message> myMessages = bookMapper.getMyBookR(name);
 	    model.addAttribute("myMessages", myMessages);
 	    
-//	    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	    String s = formatter.format(myMessages.);
 		return "messages/index";
 	}
 	
 	@RequestMapping(value = "/messages/new", method = RequestMethod.GET)
-	public String newBookR(ModelMap model,Principal principal) {
+	public String newMessage(ModelMap model,Principal principal) {
 		String name = principal.getName(); 
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
 		return "messages/new";
 	}
+	@RequestMapping(value = "/messages/answer/{send_id}", method = RequestMethod.GET)
+	public String answerMessage(ModelMap model,Principal principal,String send_id) {
+		String name = principal.getName(); 
+	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
+		String recv = send_id;
+		model.addAttribute("sendid", recv);
+		
+		return "messages/answer";
+	}
 	
 	@RequestMapping(value = "/messages", method = RequestMethod.POST)
-	public String createR(@ModelAttribute Message Message, HttpServletRequest request, ModelMap model, Principal principal) {
+	public String createMessage(@ModelAttribute Message Message, HttpServletRequest request, ModelMap model, Principal principal) {
 		String name = principal.getName(); 
 	    model.addAttribute("username", name);
 		bookMapper.createMessageR(Message);

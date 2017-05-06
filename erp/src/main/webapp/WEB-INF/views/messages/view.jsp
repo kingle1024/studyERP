@@ -19,8 +19,8 @@
 							<th>보낸사람</th><td>${ message.send_id }</td>
 						</tr>
 						<tr>
-							<th>받은시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>
-						</tr>
+							<th>받은시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
+						</tr>	
 					<tr>
 					<th>제목</th><td>${ message.title }</td>
 					</tr>
@@ -34,7 +34,7 @@
 					</table>
 					
 		<form>
-			답장하기
+			<a href="<c:url value="/messages/answer/${ message.send_id }" />" class="btn btn-lg btn-primary">답장하기</a>
 		</form>
 			</div>
 	
