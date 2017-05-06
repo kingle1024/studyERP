@@ -22,7 +22,7 @@
 </div>
 	<div class="container">
 <!-- 		<div class="jumbotron" id="jumbo"> -->			
-			<table border="1" class="table table-striped">
+			<table class="table table-striped">
 			<thread>
 				<tr>
 					<th width="70px">번호</th>
@@ -44,6 +44,15 @@
 				</c:forEach>
 			</tbody>
 			</table>
+				<div class="text-center">
+					<ul class="pagination">
+						<li class="active"><a href="#" >1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+					</ul>
+				</div>
 				<a href="<c:url value="/notice/new" />" class="btn btn-lg btn-primary" style="width:100%;">
 			글쓰기</a>	
 	</div>

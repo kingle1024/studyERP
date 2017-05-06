@@ -45,9 +45,7 @@ public class MessagesController {
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
 	    
 		String recv = recv_id;
-		model.addAttribute("recv", recv); // 아직 미구현
-		System.out.println(recv);
-//		bookMapper.answerMessage(recv, Message);
+		model.addAttribute("recv", recv); 
 		
 		return "messages/answer";
 	}

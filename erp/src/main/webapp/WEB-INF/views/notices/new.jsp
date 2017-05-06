@@ -24,11 +24,9 @@
 					<label class="control-label">내용</label>
 					<input name="content" type="text" class="form-control">				
 				</div>
-				<div class="form-group form-group-lg">
-					<label class="control-label">작성자</label>							
-					<input name="author" type="text" class="form-control">
-							
-				</div>
+				
+				<input name="author" type="hidden" value="${ username }" />
+				
 				<button type="submit" class="btn btn-lg btn-primary ">전송</button>
 			</form>
 	</div>

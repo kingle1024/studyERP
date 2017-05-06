@@ -1,5 +1,6 @@
 package com.company.myapp;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.vo.Board;
+import com.mycompany.vo.User;
 
 
 @Controller
@@ -29,8 +32,8 @@ public class AdminsController {
 	}
 	
 	@RequestMapping(value = "notice", method = RequestMethod.POST) // 글쓰기
-	public String createBoard(@ModelAttribute Board board,HttpServletRequest request){
-		bookMapper.createBoard(board);
+	public String createBoard(@ModelAttribute Board board,HttpServletRequest request, Model model){
+		bookMapper.createNotice(board);
 		return "redirect: " + request.getContextPath() + "/notices";
 	}
 
@@ -39,12 +42,15 @@ public class AdminsController {
 		Board board = bookMapper.getBoard(id);
 		model.addAttribute("board", board);
 		bookMapper.updateNoticeHit(id);
-		
 		return "notices/view";
 	}
 	
 	@RequestMapping(value ="/notice/new")
-	public String newBoard(){
+	public String newBoard(ModelMap model, Principal principal){
+		String email = principal.getName(); // 사용자의 아이디(email)를 가져옴
+		User user = bookMapper.getUserList(email);
+		String name = user.getName();
+		model.addAttribute("username", name); // 사용자 이름을 username으로 파싱해줌
 		return "notices/new";
 	}
 
@@ -62,5 +68,9 @@ public class AdminsController {
 	    return "notices/edit";
 	}
 	
-	
+	@RequestMapping(value = "/notice/delete/{id}", method = RequestMethod.GET)
+	public String delete(@PathVariable int id){
+		bookMapper.deleteNotice(id);
+		return "redirect:/notices";
+	}
 }

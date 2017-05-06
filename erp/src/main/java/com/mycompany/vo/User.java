@@ -3,6 +3,7 @@ package com.mycompany.vo;
 public class User {
     int id;
     String email;
+    String name;
     String password;
     public int getId() {
         return id;
@@ -22,8 +23,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", email=" + email + ", password=" + password + "]";
-    }
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + "]";
+	}
+    
 }

@@ -13,30 +13,29 @@
 	<font size="6">쪽지 보기</font>-쪽지를 볼 수 있습니다.
 </div>
 	<div class="container">
-					<table>
+			<div class="thumbnail">
+					<table class="table"> 
 					<tbody>
 						<tr>
-							<th>보낸사람</th><td>${ message.send_id }</td>
+							<th width=" " height="">보낸사람</th><td>${ message.send_id }</td>
 						</tr>
 						<tr>
-							<th>받은시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
+							<th width="" height="">받은시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
 						</tr>	
 					<tr>
-					<th>제목</th><td>${ message.title }</td>
-					</tr>
-					<tr> 
-						<th>내용</th>
+					<th width="" height="">제목</th><td>${ message.title }</td>
 					</tr>
 					<tr>
-						<td colspan="2">${ message.content }</td>
+						<td colspan="2" width="" height="">${ message.content }</td>
 					</tr>
 					</tbody>
 					</table>
+		</div>
 					
 		<form>
 			<a href="<c:url value="/messages/answer/${ message.send_id }" />" class="btn btn-lg btn-primary">답장하기</a>
 		</form>
-			</div>
 	
+	</div>
 </body>
 </html>

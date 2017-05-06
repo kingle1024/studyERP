@@ -11,32 +11,27 @@
 <body>
 		<div class="col-md-4">
 			<div class="thumbnail">
-					<table>
+					<table class="table"> 
 					<tbody>
 						<tr>
 							<th>보낸사람</th><td>${ message.send_id }</td>
 						</tr>
 						<tr>
-							<th>받은시간</th><td>${ message.send_date }</td>
+							<th>보낸시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>
 						</tr>
 						
 					<tr>
 					<th>제목</th><td>${ message.title }</td>
 					</tr>
-					<tr> 
-						<th>내용</th>
-					</tr>
 					<tr>
-						<td colspan="2">${ message.content }</td>
+						<td colspan="2" height="73px">${ message.content }</td>
 					</tr>
-				
 					</tbody>
 					</table>
-					
 			</div>
-		</div>
 		<form>
 			<a href="#" class="btn btn-lg btn-primary"> 답장하기</a>
 		</form>
+		</div>
 </body>
 </html>
