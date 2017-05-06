@@ -1,12 +1,4 @@
 package com.company.myapp;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.RSAPublicKeySpec;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.mycompany.vo.User;
 import com.mycompany.mapper.userMapper;
+@Controller
 public class SessionsController {
 	
 	@Autowired
