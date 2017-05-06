@@ -14,7 +14,7 @@
         </div>
         <div class="form-group">
             <label>비밀번호</label>
-            <input type="password" name="password" class="form-control" placeholder="비밀번호">
+            <input type="password" name="passworda" class="form-control" placeholder="비밀번호">
         </div>
         <div class="form-action">
             <sec:csrfInput />

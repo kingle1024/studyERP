@@ -18,13 +18,13 @@ public class BoardsController {
 	@Autowired		
 	private BookMapper bookMapper;
 	
-	@RequestMapping(value ="/indexa", method = RequestMethod.GET)
+	@RequestMapping(value ="/notices", method = RequestMethod.GET)
 	public String index1(Model model){
-//		List<Board> boards = boardMapper.getBoardList();
 		List<Board> boards = bookMapper.getBoardList();		
 		model.addAttribute("boards", boards);		
-		return "mains/index";
-		
-	}			
+		return "notices/index";
+	}
+	
+	
 	
 }

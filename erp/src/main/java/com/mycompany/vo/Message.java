@@ -11,7 +11,6 @@ public class Message {
 	String content;
 	Date recv_date;
 	Date send_date;
-	
 	public int getNo() {
 		return no;
 	}
@@ -42,6 +41,8 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
+
 	public Date getRecv_date() {
 		return recv_date;
 	}
@@ -54,7 +55,6 @@ public class Message {
 	public void setSend_date(Date send_date) {
 		this.send_date = send_date;
 	}
-	
 	@Override
 	public String toString() {
 		return "Message [no=" + no + ", recv_id=" + recv_id + ", send_id=" + send_id + ", title=" + title + ", content="

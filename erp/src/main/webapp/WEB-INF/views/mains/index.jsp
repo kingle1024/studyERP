@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.vo.Message"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -38,7 +39,7 @@
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/admin/viewBoard/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
-					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd"/></th>
+					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd hh:mm"/></th>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -55,15 +56,27 @@
 						<div class="thumbnail">
 							<div class="caption">
 			<table>
+			<script>
+				var popupX = (window.screen.width / 2) - (200 / 2);
+				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+				var popupY= (window.screen.height /2) - (300 / 2);
+				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+			</script>
 				<tr>
-					<th width="250px">보낸이</th><th width="700px">내용</th><th width="100px">보낸날짜</th>
+					<th width="250px">보낸이</th><th width="500px">제목</th><th width="100px">보낸날짜</th>
 				</tr>
+				<tbody>
 				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
 							<tr>
 								<th><h3>${ myMessage.send_id }</h3></th>
-								<th><h3><a href="#" onclick="window.open('<c:url value="/messages/view/${ myMessage.no }" />', '_blank', 'width=300 height=300')"		>${ myMessage.title }</a></h3></th>
+								<th><h3><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=300, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></h3></th>
+								<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+<%-- 								<th><h3>${ myMessage.send_date }</h3></th> --%>
+<%-- <fmt:parseDate var="parsedDate" value="${myMessage.send_date}" pattern="dd-MM-yyyy HH:mm:ss"/> --%>
 							</tr>
 				</c:forEach>
+				</tbody>
 			</table>
 							</div>
 						</div>

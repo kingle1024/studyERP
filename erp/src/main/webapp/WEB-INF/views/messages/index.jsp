@@ -14,7 +14,6 @@
 </div>
 
 	<div class="container">
-		<div class="jumbotron">
 		<a href="<c:url value="/messages/new" />" class="btn btn-lg btn-primary">
 				<div style="text-align:right;">쪽지 보내기</div></a><br><br>
 			<div class="row">
@@ -22,15 +21,18 @@
 					<div class="col-md-4">
 						<div class="thumbnail">
 							<div class="caption">
-								<%-- 							<h3>${ mybook.no }</h3> --%>
-								<h3>${ myMessage.title }</h3>
-								<h3>${ myMessage.content }</h3>
+								<h3>보낸이:${ myMessage.send_id }</h3>								
+								<h3>제목:<a href="<c:url value="/messages/view/${ myMessage.no }" />">${ myMessage.title }</a></h3>
+<%-- 								<h3>${ myMessage.content }</h3> --%>
+								<h3>날짜:${ myMessage.send_date }</h3>
+<%-- 								<h3>${ myMessage.s }</h3> --%>
+<%-- 								<h3>${ myMessage.send_date }</h3> --%>
+<%-- 								<fmt:formatDate value="${ myMessage.send_date}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
-		</div>
 	</div>
 </body>
 </html>

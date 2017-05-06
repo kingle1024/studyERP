@@ -5,7 +5,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mycompany.vo.User;
 
-public interface userMapper {
+public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
+//	@Insert("INSERT INTO users (email, password, enabled) " + "VALUES (#{email}, HEX(AES_ENCRYPT(#{password},'db')), true)")
 	@Insert("INSERT INTO users (email, password, enabled) " + "VALUES (#{email}, #{password}, true)")
 	public boolean insertUser(User user);
 	

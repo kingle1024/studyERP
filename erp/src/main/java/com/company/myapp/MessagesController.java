@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mycompany.mapper.BookMapper;
-import com.mycompany.vo.Book;
 import com.mycompany.vo.Message;
-import com.mycompany.vo.myBook;
 
 @Controller
 public class MessagesController {
@@ -26,10 +24,13 @@ public class MessagesController {
 
 	@RequestMapping(value="/messages", method=RequestMethod.GET)
 	public String indexTestR(ModelMap model, Principal principal){
-		String name = principal.getName(); 
+		String name = principal.getName();
 	    model.addAttribute("username", name);
 	    List<Message> myMessages = bookMapper.getMyBookR(name);
 	    model.addAttribute("myMessages", myMessages);
+	    
+//	    Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//	    String s = formatter.format(myMessages.);
 		return "messages/index";
 	}
 	
@@ -48,11 +49,18 @@ public class MessagesController {
 		return "redirect:/messages";
 	}
 	
+	@RequestMapping(value="/messages/viewWindow/{no}", method = RequestMethod.GET)
+	public String messageViewWindow(@PathVariable int no, Model model){
+		Message message = bookMapper.getMessage(no);
+		model.addAttribute("message", message);
+		return "popUp/messages/viewWindow";
+	}
+	
 	@RequestMapping(value="/messages/view/{no}", method = RequestMethod.GET)
 	public String messageView(@PathVariable int no, Model model){
 		Message message = bookMapper.getMessage(no);
 		model.addAttribute("message", message);
-		return "popUp/messages/view";
+		return "messages/view";
 	}
 	
 }

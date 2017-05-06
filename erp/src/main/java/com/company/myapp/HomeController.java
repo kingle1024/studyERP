@@ -31,7 +31,8 @@ public class HomeController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String goToIndex(Model model, Principal principal) {
 		List<Board> boards = bookMapper.getBoardList();		
-		model.addAttribute("boards", boards);		
+		model.addAttribute("boards", boards);
+		
 		String name = principal.getName(); 
 	    model.addAttribute("username", name);
 	   

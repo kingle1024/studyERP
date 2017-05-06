@@ -21,7 +21,7 @@ public interface BookMapper {
 	@Insert("insert into mybooks (email, content) values (#{email}, #{content})")
 	public boolean createMessage(myBook myBook);
 	
-	@Insert("insert into messages (recv_id, send_id, title, content) values (#{recv_id}, #{send_id}, #{title}, #{content})")
+	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
 	public boolean createMessageR(Message Message);
 	
 	@Insert("insert into boards (title, content, author, created) values (#{title}, #{content}, #{author}, now())")
@@ -57,9 +57,8 @@ public interface BookMapper {
 	@Select("select * from mybooks where email = #{email}")
 	public List<myBook> getMyBook(String email);
 	
-	@Select("select * from messages where recv_id = #{recv_id}")
+	@Select("select * from messages where recv_id = #{recv_id} order by no desc")
 	public List<Message> getMyBookR(String recv_id);
-	
 	
 //	@Insert("insert into boards (title, username, content, books_id, created) values (#{title}, #{username}, #{content}, #{books_id},now() )")
 //	public boolean create1(Board board);
