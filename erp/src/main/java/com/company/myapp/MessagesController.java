@@ -38,12 +38,16 @@ public class MessagesController {
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
 		return "messages/new";
 	}
-	@RequestMapping(value = "/messages/answer/{send_id}", method = RequestMethod.GET)
-	public String answerMessage(ModelMap model,Principal principal,String send_id) {
-		String name = principal.getName(); 
+	//보낸이의 아이디를 가져와야 한다....
+	@RequestMapping(value = "/messages/answer/{recv_id}", method = RequestMethod.GET) // PathVariable로 {recv_id}를 받는다.
+	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal,@PathVariable String recv_id) {		
+		String name = principal.getName(); // 사용자의 아이디를 가져옴
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
-		String recv = send_id;
-		model.addAttribute("sendid", recv);
+	    
+		String recv = recv_id;
+		model.addAttribute("recv", recv); // 아직 미구현
+		System.out.println(recv);
+//		bookMapper.answerMessage(recv, Message);
 		
 		return "messages/answer";
 	}
@@ -60,6 +64,7 @@ public class MessagesController {
 	public String messageViewWindow(@PathVariable int no, Model model){
 		Message message = bookMapper.getMessage(no);
 		model.addAttribute("message", message);
+		
 		return "popUp/messages/viewWindow";
 	}
 	
@@ -67,6 +72,9 @@ public class MessagesController {
 	public String messageView(@PathVariable int no, Model model){
 		Message message = bookMapper.getMessage(no);
 		model.addAttribute("message", message);
+		if(message.getRecv_date() == null){
+			bookMapper.updateMessageRecvDate(no);
+		}
 		return "messages/view";
 	}
 	

@@ -27,10 +27,11 @@
 			<table border="1" class="table table-striped">
 			<thread>
 				<tr>
-					<th>번호</th>
+					<th width="70px">번호</th>
 					<th>제목</th>
-					<th>작성자</th>
-					<th>시간</th>
+					<th width="70px">작성자</th>
+					<th width="150px">날짜</th>
+					<th width="70px">조회수</th>
 				</tr>
 			</thread>
 			<tbody>
@@ -39,7 +40,8 @@
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
-					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th>${ board.hit } </th>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -72,8 +74,6 @@
 								<th><h3>${ myMessage.send_id }</h3></th>
 								<th><h3><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=300, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></h3></th>
 								<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd hh:mm"/></th>
-<%-- 								<th><h3>${ myMessage.send_date }</h3></th> --%>
-<%-- <fmt:parseDate var="parsedDate" value="${myMessage.send_date}" pattern="dd-MM-yyyy HH:mm:ss"/> --%>
 							</tr>
 				</c:forEach>
 				</tbody>

@@ -24,6 +24,9 @@ public interface BookMapper {
 	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
 	public boolean createMessageR(Message Message);
 	
+	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
+	public boolean answerMessage(Message message);
+	
 	@Insert("insert into boards (title, content, author, created) values (#{title}, #{content}, #{author}, now())")
 	public void createBoard(Board board);
 		
@@ -51,8 +54,14 @@ public interface BookMapper {
 	@Update("update books set title = #{title}, author = #{author}, image = #{image} where id = #{id}")
 	public boolean update(Book book);
 	
-	@Update("update boards set title = #{title}, content= #{content}, author = #{author}, created = now() where id = #{id}")
+	@Update("update boards set title = #{title}, content= #{content}, author = #{author}, update_date = now() where id = #{id}")
 	public boolean updateNotice(Board board);
+	
+	@Update("update messages set recv_date = now() where no = #{ no }")
+	public boolean updateMessageRecvDate(int no);
+	
+	@Update("update boards set hit = hit+1 where id= #{id}")
+	public boolean updateNoticeHit(int id);
 	
 	@Delete("delete from books where id = #{id}")
 	public boolean delete(int id);
@@ -63,6 +72,4 @@ public interface BookMapper {
 	@Select("select * from messages where recv_id = #{recv_id} order by no desc")
 	public List<Message> getMyBookR(String recv_id);
 	
-//	@Insert("insert into boards (title, username, content, books_id, created) values (#{title}, #{username}, #{content}, #{books_id},now() )")
-//	public boolean create1(Board board);
 }

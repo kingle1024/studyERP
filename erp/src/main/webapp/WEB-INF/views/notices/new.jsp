@@ -13,7 +13,6 @@
 	<font size="6">공지사항 작성</font>-공지사항 작성을 수행할 수 있습니다.
 </div>
 	<div class="container">
-		<div class="jumbotron">			
 <%-- 			<form action="<c:url value="/admin" />" method="post"> --%>
 			<form action="<c:url value="/notice" />" method="post">
 			 <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" />
@@ -27,12 +26,11 @@
 				</div>
 				<div class="form-group form-group-lg">
 					<label class="control-label">작성자</label>							
-					<input name="author" type="text" class="form-control">		
+					<input name="author" type="text" class="form-control">
+							
 				</div>
-								
 				<button type="submit" class="btn btn-lg btn-primary ">전송</button>
 			</form>
-		</div>
 	</div>
 </body>
 </html>

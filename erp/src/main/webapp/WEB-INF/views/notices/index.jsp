@@ -12,7 +12,7 @@
   padding-bottom: 20px;
 	}
 </style>
-<title>메인 페이지</title>
+<title>공지사항</title>
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
@@ -25,10 +25,11 @@
 			<table border="1" class="table table-striped">
 			<thread>
 				<tr>
-					<th>번호</th>
+					<th width="70px">번호</th>
 					<th>제목</th>
-					<th>작성자</th>
-					<th>시간</th>
+					<th width="70px">작성자</th>
+					<th width="150px">날짜</th>
+					<th width="70px">조회수</th>
 				</tr>
 			</thread>
 			<tbody>
@@ -37,7 +38,8 @@
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
-					<th><fmt:formatDate value="${ board.created }" pattern="yyyy-MM-dd hh:mm"/></th>
+					<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+					<th>${ board.hit } </th>
 					</tr>
 				</c:forEach>
 			</tbody>

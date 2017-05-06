@@ -38,6 +38,8 @@ public class AdminsController {
 	public String adminViewBoard(@PathVariable int id, Model model){
 		Board board = bookMapper.getBoard(id);
 		model.addAttribute("board", board);
+		bookMapper.updateNoticeHit(id);
+		
 		return "notices/view";
 	}
 	
@@ -48,10 +50,8 @@ public class AdminsController {
 
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정
 	public String update(@ModelAttribute Board board, HttpServletRequest request) {
-		System.out.println(board.toString());
 	    bookMapper.updateNotice(board);
 	    return "redirect: " + request.getContextPath() + "/notices";
-//	    return "";
 	}
 	
 	@RequestMapping(value = "/notice/edit/{id}", method = RequestMethod.GET)

@@ -15,11 +15,12 @@
 <div class="container">
 <form action="<c:url value="/messages" />" method="post">
 			<input name="send_id" type="hidden" value="${ username }">
+			<input name="recv_id" type="hidden" value="${ recv} }">
 			<h1>보낸이 ${ username }</h1>
-			<h1>받는이 ${ sendid }</h1>
+			<h1>받는이 ${ recv }</h1>
 			<div class="form-group form-group-lg">
-				<label class="control-label">받는 이</label>
-				<input name="send_id" type="text" class="form-control" value="${ send_id }">
+<!-- 				<label class="control-label">받는 이</label> -->
+<%-- 				<input name="recv_id" type="text" class="form-control" value="${ send_id }"> --%>
 			</div>
 			
 			<div class="form-group form-group-lg">
