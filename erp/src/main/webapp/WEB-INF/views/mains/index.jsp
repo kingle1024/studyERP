@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<html>
 <head>
@@ -9,7 +10,7 @@
 <style>
 	#jumbo{
 		  padding-top: 20px;
-  padding-bottom: 20px;
+  		  padding-bottom: 20px;
 	}
 </style>
 <title>메인 페이지</title>
@@ -22,10 +23,13 @@
 </div>
 	<div class="container">
 			<center><h1>공지사항</h1></center>			
-			<a href="<c:url value="/notices" />" class="btn btn-default pull-right">
+				<a href="<c:url value="/notices" />" class="btn btn-default pull-right">
 				공지사항 이동</a>
-			<a href="<c:url value="/notice/new" />" class="btn btn-default pull-right">
+			<sec:authorize access="hasRole('ADMIN')">
+				<a href="<c:url value="/notice/new" />" class="btn btn-default pull-right">
 				공지사항 작성</a>
+			</sec:authorize>
+			
 			<table class="table table-hover">
 			<thread>
 				<tr>

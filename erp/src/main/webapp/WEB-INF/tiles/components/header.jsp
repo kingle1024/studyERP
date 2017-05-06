@@ -1,7 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page pageEncoding="utf-8" session="false"%>
+<%-- <%@ page pageEncoding="utf-8" session="false"%> --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% session.setAttribute("ID", "gz"); session.setAttribute("NAME", "갱짱"); %>
+
+
+
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <nav class="navbar navbar-default" id="setPostion">
@@ -13,29 +18,12 @@
 			<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
 			<span class="icon-bar"></span> <span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="<c:url value="/" />"><img
-			width="80px" height="30px"
-			src="http://img.naver.net/static/www/u/2013/0731/nmms_224940510.gif"></a>
 
 	</div>
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="">
 		<ul class="nav navbar-nav">
-<!-- 			<li><a href="#">맛집</a></li> -->
-				<li>
-					<a href="<c:url value="/books" />"> <img width="40px" height="40px" src="<c:url value="/image/book.png" />"></a> 
-				</li>
-				<li>
-					<a href="<c:url value="/signs" />"> <img width="40px" height="40px" src="<c:url value="/image/approval.png" />"></a>
-				</li>
-				<li>
-					<a href="<c:url value="/products" />"> <img width="40px" height="40px" src="<c:url value="/image/management.png" />"></a>
-				</li>
-		<sec:authorize access="hasRole('ADMIN')">
-				<li>
-					<a href="<c:url value="/admin" />"> <img width="40px" height="40px" src="<c:url value="/image/admin.png" />"></a>
-				</li>
-		</sec:authorize>
+ 			<li>아녕하세요</li>
 		</ul>	
 		<!-- 로그인 버튼 -->
 		<sec:authorize access="isAnonymous()">
@@ -59,6 +47,9 @@
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
+		
+
+		
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid -->

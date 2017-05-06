@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,8 +12,9 @@
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 <div class="jumbotron" id="subNav">
-</div>
 	<font size="6">공지 사항 보기</font> - 공지사항을 확인할 수 있습니다.
+</div>
+
 	<div class="container">			
 		 <form id="form1" method="post">
 			<table border="1" class="table table-inverse">					
@@ -31,9 +33,11 @@
 				<th colspan="4" height="300px">${ board.content }</th>
 			</tr>								
 			</table>				
-		<a href="<c:url value="/notice/edit/${ board.id }" />" class="btn btn-lg btn-primary" >수정</a>
-		<a href="<c:url value="/notice/delete/${ board.id }" />" class="btn btn-lg btn-primary" onclick="if(!confirm('삭제 하시겠습니까?')){return false;}" >삭제</a>
-		<a href="<c:url value="/notices"/>" class="btn btn-lg btn-primary" >목록</a>
+			<sec:authorize access="hasRole('ADMIN')">
+				<a href="<c:url value="/notice/edit/${ board.id }" />" class="btn btn-lg btn-primary" >수정</a>
+				<a href="<c:url value="/notice/delete/${ board.id }" />" class="btn btn-lg btn-primary" onclick="if(!confirm('삭제 하시겠습니까?')){return false;}" >삭제</a>
+			</sec:authorize>
+				<a href="<c:url value="/notices"/>" class="btn btn-lg btn-primary" >목록</a>
 		 </form>
 	</div>
 </body>

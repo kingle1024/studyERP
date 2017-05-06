@@ -26,7 +26,7 @@ public class MessagesController {
 	public String indexTestR(ModelMap model, Principal principal){
 		String name = principal.getName();
 	    model.addAttribute("username", name);
-	    List<Message> myMessages = bookMapper.getMyBookR(name);
+	    List<Message> myMessages = bookMapper.getMyMessage(name);
 	    model.addAttribute("myMessages", myMessages);
 	    
 		return "messages/index";
@@ -75,5 +75,24 @@ public class MessagesController {
 		}
 		return "messages/view";
 	}
+	
+	@RequestMapping(value="/messages/sendView/{no}", method = RequestMethod.GET)
+	public String messageSendView(@PathVariable int no, Model model){
+		Message message = bookMapper.getMessage(no);
+		model.addAttribute("message", message);
+		if(message.getRecv_date() == null){
+			bookMapper.updateMessageRecvDate(no);
+		}
+		return "messages/sendView";
+	}
+	
+	@RequestMapping(value="messages/sendIndex", method = RequestMethod.GET)
+	public String sendView(ModelMap model, Principal principal){
+		String name = principal.getName();
+		List<Message> myMessages = bookMapper.getSendMessage(name);
+		model.addAttribute("myMessages", myMessages);
+		return "messages/sendIndex";
+	}
+	
 	
 }

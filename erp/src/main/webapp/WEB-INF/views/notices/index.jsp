@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 	<html>
 <head>
@@ -53,8 +54,10 @@
 						<li><a href="#">5</a></li>
 					</ul>
 				</div>
-				<a href="<c:url value="/notice/new" />" class="btn btn-lg btn-primary" style="width:100%;">
-			글쓰기</a>	
+				<sec:authorize access="hasRole('ADMIN')">
+					<a href="<c:url value="/notice/new" />" class="btn btn-lg btn-primary" style="width:100%;">
+					글쓰기</a>	
+				</sec:authorize>
 	</div>
 </body>
 </html>

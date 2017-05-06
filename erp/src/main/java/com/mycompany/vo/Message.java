@@ -1,9 +1,8 @@
 package com.mycompany.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Message {
-	
 	int no;
 	String recv_id;
 	String send_id;
@@ -41,8 +40,6 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-
 	public Date getRecv_date() {
 		return recv_date;
 	}

@@ -10,26 +10,29 @@
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 <div class="jumbotron" id="subNav">
-	<font size="6">받은 쪽지함</font> - 쪽지 기능을 수행할 수 있습니다.
+	<font size="6">보낸 쪽지함</font> - 보낸 쪽지를 확인할 수 있습니다.
 </div>
 	<div class="container">
-	<a href="<c:url value="/messages/sendIndex " />" class="btn btn-lg btn-primary">보낸쪽지함</a><br>
+	<a href="<c:url value="/messages " />" class="btn btn-lg btn-primary">받은쪽지함</a><br>
 		<a href="<c:url value="/messages/new" />" class="btn btn-default pull-right">
 				쪽지 보내기</a><br><br>
 				<table class="table table-striped">
 				<thread>
 				<tr>
-					<th width="300px">보낸이</th>
+					<th width="300px">받은이</th>
 					<th>제목</th>
 					<th width="150px">날짜</th>
+					<th width="150px">수신일</th>
 				</tr>
 				</thread>		
 				<tbody>		
 				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
 					<tr>
-						<th>${ myMessage.send_id }</th>
-						<th><a href="<c:url value="/messages/view/${ myMessage.no }" />">${ myMessage.title }</a></th>
+						<th>${ myMessage.recv_id }</th>
+						<th><a href="<c:url value="/messages/sendView/${ myMessage.no }" />">${ myMessage.title }</a></th>
 						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+<%-- 						  <c:if test="${param.guess=='5'}">You guessed my number! --%>
 					</tr>
 				</c:forEach>
 				</tbody>				

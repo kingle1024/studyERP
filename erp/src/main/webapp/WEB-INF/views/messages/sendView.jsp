@@ -10,17 +10,17 @@
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 <div class="jumbotron" id="subNav">
-	<font size="6">받은 쪽지 보기</font>-받은 쪽지를 볼 수 있습니다.
+	<font size="6">보낸 쪽지 보기</font> - 보낸 쪽지를 볼 수 있습니다.
 </div>
 	<div class="container">
 			<div class="thumbnail">
 					<table class="table"> 
 					<tbody>
 						<tr>
-							<th width=" " height="">보낸사람</th><td>${ message.send_id }</td>
+							<th width=" " height="">받은사람</th><td>${ message.recv_id }</td>
 						</tr>
 						<tr>
-							<th width="" height="">받은시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
+							<th width="" height="">받은시간</th><td><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
 						</tr>	
 					<tr>
 					<th width="" height="">제목</th><td>${ message.title }</td>
@@ -31,11 +31,6 @@
 					</tbody>
 					</table>
 		</div>
-					
-		<form>
-			<a href="<c:url value="/messages/answer/${ message.send_id }" />" class="btn btn-lg btn-primary">답장하기</a>
-		</form>
-	
 	</div>
 </body>
 </html>

@@ -57,6 +57,9 @@ public interface BookMapper {
 	@Select("select * from messages where no=#{no}")
 	public Message getMessage(int no);
 	
+	@Select("select * from messages where send_id = #{send_id}")
+	public List<Message> getSendMessage(String send_id);
+	
 	@Update("update books set title = #{title}, author = #{author}, image = #{image} where id = #{id}")
 	public boolean update(Book book);
 	
@@ -79,6 +82,8 @@ public interface BookMapper {
 	public List<myBook> getMyBook(String email);
 	
 	@Select("select * from messages where recv_id = #{recv_id} order by no desc")
-	public List<Message> getMyBookR(String recv_id);
+	public List<Message> getMyMessage(String recv_id);
+
+
 	
 }
