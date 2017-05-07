@@ -1,6 +1,6 @@
 package com.company.myapp;
 
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +14,18 @@ public class SessionsController {
 	
 	@Autowired
 	private userMapper userMapper;
+	
+	@Autowired
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
+    public String create(@ModelAttribute User user){
+    	user.setPassword(this.bcryptPasswordEncoder.encode(user.getPassword()));
+    	userMapper.insertUser(user);
+    	userMapper.insertAuthority(user.getEmail(),  "ROLE_USER");
+    	return "popUp/statics/login";
+    }
+	
     @RequestMapping(value = "/login", method = RequestMethod.GET) // 세션없이 접근했을때
     public String home() {
         return "popUp/statics/login";
@@ -26,14 +38,7 @@ public class SessionsController {
     	return "popUp/statics/signup";
     }
     
-    @RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
-    public String create(@ModelAttribute User user){
-    	userMapper.insertUser(user);
-    	userMapper.insertAuthority(user.getEmail(),  "ROLE_USER");
-//    	return "redirect:/statics/login";
-    	return "popUp/statics/login";
-    }
-    
     
     
 }
+

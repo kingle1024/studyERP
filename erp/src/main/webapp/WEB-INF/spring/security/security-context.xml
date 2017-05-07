@@ -11,15 +11,16 @@
 	<sec:http pattern="/image/**" security="none" />
 	<sec:http pattern="/js/**" security="none" />
 	<sec:http pattern="/uploads/**" security="none" />
-
 	<sec:http auto-config='true' use-expressions="true">
 	
 		<!-- 관리자 -->
-		<sec:intercept-url pattern="/admin/viewBoard/**" access="hasRole('USER')"/>
-		<sec:intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
-		<sec:intercept-url pattern="/books/new/**" access="hasRole('ADMIN')"/>
-		<sec:intercept-url pattern="/books/edit/**" access="hasRole('ADMIN')"/>
-		<sec:intercept-url pattern="/books/delete/**" access="hasRole('ADMIN')"/>
+		<sec:intercept-url pattern="/admin/viewBoard/**"
+			access="hasRole('USER')" />
+		<sec:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/books/new/**" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/books/edit/**" access="hasRole('ADMIN')" />
+		<sec:intercept-url pattern="/books/delete/**"
+			access="hasRole('ADMIN')" />
 		<!-- 게스트 -->
 		<sec:intercept-url pattern="/" access="permitAll" />
 		<sec:intercept-url pattern="/login" access="permitAll" />
@@ -37,14 +38,16 @@
 		<!-- enable csrf protection -->
 		<sec:csrf disabled="true" />
 	</sec:http>
+	
+	<bean id ="bcryptPasswordEncoder" class = "org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>	
 	<sec:authentication-manager>
 		<sec:authentication-provider>
 			<sec:jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="SELECT email, password, enabled FROM users WHERE email = ?"
-				authorities-by-username-query="SELECT email, authority FROM authorities WHERE email = ?" />
+				authorities-by-username-query="SELECT email, authority FROM authorities WHERE email = ?" />				
+			<sec:password-encoder ref="bcryptPasswordEncoder"/>
 		</sec:authentication-provider>
 	</sec:authentication-manager>
+</beans>
 
 	
-
-</beans>
