@@ -39,7 +39,7 @@
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
-					<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+					<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 					<th>${ board.hit } </th>
 					</tr>
 				</c:forEach>

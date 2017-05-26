@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <% session.setAttribute("ID", "gz"); session.setAttribute("NAME", "갱짱"); %>
 
 
@@ -23,7 +24,7 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="">
 		<ul class="nav navbar-nav">
- 			<li>아녕하세요</li>
+<!--  			<li>아녕하세요</li> -->
 		</ul>	
 		<!-- 로그인 버튼 -->
 		<sec:authorize access="isAnonymous()">
@@ -76,7 +77,7 @@
                   <a href="<c:url value="/notices" />"><i class="fa fa-gift fa-lg"></i> 공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
                 </li>
                 <ul class="sub-menu collapse" id="products">
-                    <li class="active"><a href="#">CSS3 Animation</a></li>
+                    <li class="active"><a href="#">실습실 관리</a></li>
                     <li><a href="#">General</a></li>
                     <li><a href="#">Buttons</a></li>
                     <li><a href="#">Tabs & Accordions</a></li>
@@ -90,7 +91,7 @@
 
 
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-globe fa-lg"></i> 실습실 관리 <span class="arrow"></span></a>
                 </li>  
                 <ul class="sub-menu collapse" id="service">
                   <li>New Service 1</li>
@@ -100,7 +101,7 @@
 
 
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-car fa-lg"></i> 결재 현황 <span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="new">
                   <li>New New 1</li>
@@ -110,7 +111,7 @@
 
                  <li>
                   <a href="#">
-                  <i class="fa fa-users fa-lg"></i> Users
+                  <i class="fa fa-users fa-lg"></i> 내 작업대
                   </a>
                 </li>
             </ul>

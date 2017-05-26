@@ -46,7 +46,7 @@
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
-						<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 						<th>${ board.hit } </th>
 					</tr>
 				</c:forEach>
@@ -76,7 +76,7 @@
 							<tr>
 								<th>${ myMessage.send_id }</th>
 								<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=300, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
-								<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+								<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 							</tr>
 				</c:forEach>
 				</tbody>

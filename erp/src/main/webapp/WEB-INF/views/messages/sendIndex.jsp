@@ -30,7 +30,7 @@
 					<tr>
 						<th>${ myMessage.recv_id }</th>
 						<th><a href="<c:url value="/messages/sendView/${ myMessage.no }" />">${ myMessage.title }</a></th>
-						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 						<th><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="yyyy-MM-dd hh:mm"/></th>
 <%-- 						  <c:if test="${param.guess=='5'}">You guessed my number! --%>
 					</tr>

@@ -29,7 +29,7 @@
 					<tr>
 						<th>${ myMessage.send_id }</th>
 						<th><a href="<c:url value="/messages/view/${ myMessage.no }" />">${ myMessage.title }</a></th>
-						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 					</tr>
 				</c:forEach>
 				</tbody>				

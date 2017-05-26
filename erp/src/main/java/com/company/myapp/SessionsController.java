@@ -1,5 +1,6 @@
 package com.company.myapp;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,11 @@ public class SessionsController {
 	
 	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
     public String create(@ModelAttribute User user){
-    	user.setPassword(this.bcryptPasswordEncoder.encode(user.getPassword()));
+		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(11)));
+//    	user.setPassword(this.bcryptPasswordEncoder.encode(user.getPassword()));
     	userMapper.insertUser(user);
     	userMapper.insertAuthority(user.getEmail(),  "ROLE_USER");
+
     	return "popUp/statics/login";
     }
 	

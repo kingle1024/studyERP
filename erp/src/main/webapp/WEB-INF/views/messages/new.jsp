@@ -28,7 +28,8 @@
 			
 			<div class="form-group form-group-lg">
 				<label class="control-label">보낼 내용</label>
-				<input name="content" type="text" class="form-control">
+<!-- 				<input name="content" type="text" class="form-control"> -->
+				<textarea rows="10" cols="30" id="text" class="form-control" name="content" ></textarea>
 			</div>
 		
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>

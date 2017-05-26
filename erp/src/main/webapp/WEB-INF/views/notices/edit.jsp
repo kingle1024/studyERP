@@ -20,7 +20,7 @@
 	<font size="6">공지사항 수정</font>-공지사항 수정을 수행할 수 있습니다.
 </div>
 	<div class="container">
-<form action="<c:url value='/notice/update' />" method="post">
+<form action="<c:url value='/notice/update' />" method="post" name="inputForm">
     <div class="form-group form-group-lg">
         <label class="control-label">공지 제목</label>
         <input name="title" type="text" class="form-control" value="${ board.title }">
@@ -29,12 +29,15 @@
         <label class="control-label">글쓴이</label>
         <input name="author" type="text" class="form-control" value="${ board.author }">
     </div>
-    <div class="form-group form-group-lg">
+    <div class="form-group form-group-lg">    
+	</script>
         <label class="control-label">내용</label>
-        <input name="content" type="text" class="form-control" value="${ board.content }">
+        <textarea rows="15" cols="30" id="text" class="form-control" name="content" >${ board.content }</textarea>
+<%--         <input name="content" type="text" class="form-control" value="${ board.content }"> --%>
     </div>
     
     <input name="id" type="hidden" value="${ board.id }">
+    
     <button type="submit" class="btn btn-lg btn-primary">전송</button>  
 </form>
 </div>

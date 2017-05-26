@@ -28,7 +28,6 @@ public class MessagesController {
 	    model.addAttribute("username", name);
 	    List<Message> myMessages = bookMapper.getMyMessage(name);
 	    model.addAttribute("myMessages", myMessages);
-	    
 		return "messages/index";
 	}
 	

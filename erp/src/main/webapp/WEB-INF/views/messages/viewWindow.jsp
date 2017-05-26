@@ -17,14 +17,14 @@
 							<th>보낸사람</th><td>${ message.send_id }</td>
 						</tr>
 						<tr>
-							<th>보낸시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd hh:mm"/></td>
+							<th>보낸시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>
 						</tr>
 						
 					<tr>
 					<th>제목</th><td>${ message.title }</td>
 					</tr>
 					<tr>
-						<td colspan="2" height="73px">${ message.content }</td>
+						<td colspan="2" height="73px"><pre>${ message.content }</pre></td>
 					</tr>
 					</tbody>
 					</table>

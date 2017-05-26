@@ -10,16 +10,24 @@
     <div class="form-group form-group-lg">
         <div class="form-group">
             <label>이메일</label>
-            <f:input path="email" cssClass="form-control" />
+            <f:input path="email" cssClass="form-control" placeholder="이메일"/>
             <f:errors path="email" element="div" cssClass="alert text-danger"/>
-        </div>
+        </div>        
+        
         <div class="form-group">
             <label>비밀번호</label>
             <f:password path="password" cssClass="form-control" placeholder="비밀번호"/>
             <f:errors path="password" element="div" cssClass="alert text-danger"/>
         </div>
         <div class="form-group">
+        </div>        
+        
+        <div class="form-group">
+            <label>이름</label>
+            <f:input path="name" cssClass="form-control" placeholder="이름"/>
+            <f:errors path="name" element="div" cssClass="alert text-danger"/>
         </div>
+        
         <div class="form-action">
             <s:csrfInput />
             <input type="submit" class="btn btn-primary btn-lg btn-block" value="회원 가입">

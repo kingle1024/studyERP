@@ -29,13 +29,13 @@ public interface BookMapper {
 	public boolean answerMessage(Message message);
 	
 	//jsp파일에서 가져온다
-	@Insert("insert into boards (title, content, author, hit, register_date) values (#{title}, #{content}, #{author}, 1, now())")
+	@Insert("insert into boards (title, content, author, hit, register_date, update_date) values (#{title}, #{content}, #{author}, 1, now(), now())")
 	public void createNotice(Board board);
 		
 	@Select("select * from books")
 	public List<Book> getList();
 	
-	@Select("select * from boards order by id desc")
+	@Select("select * from boards where type_code = 1001 order by id desc")
 	public List<Board> getBoardList();
 
 	@Select("select * from products")
@@ -57,7 +57,7 @@ public interface BookMapper {
 	@Select("select * from messages where no=#{no}")
 	public Message getMessage(int no);
 	
-	@Select("select * from messages where send_id = #{send_id}")
+	@Select("select * from messages where send_id = #{send_id} order by no desc")
 	public List<Message> getSendMessage(String send_id);
 	
 	@Update("update books set title = #{title}, author = #{author}, image = #{image} where id = #{id}")
