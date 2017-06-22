@@ -37,7 +37,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="review" items="${ reviews }">
+		<c:forEach var="review" items="${ reviews }"> <!-- BooksController의 /books/{id}에서 불러옴 -->
 			<tr>
 				<td>익명</td>
 				<td>${ review.text }</td>

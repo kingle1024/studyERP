@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.vo.Board;
+import com.mycompany.vo.Comment;
 import com.mycompany.vo.User;
 
 
@@ -38,14 +39,24 @@ public class AdminsController {
 	}
 
 	@RequestMapping(value ="/notice/view/{id}", method = RequestMethod.GET)
-	public String adminViewBoard(@PathVariable int id, Model model){
+	public String adminViewBoard(@PathVariable int id, Model model, Principal principal){
+		String name = principal.getName(); // 아이디를 가져온다
 		Board board = bookMapper.getBoard(id);
 		model.addAttribute("board", board);
+		model.addAttribute("username", name);
 		bookMapper.updateNoticeHit(id);
+		
+		List<Comment> comments = bookMapper.getComments(id);
+		model.addAttribute("comments", comments);
+		
+		Comment comment = new Comment();
+		comment.setBoard_no(id);
+		model.addAttribute("comment",comment);
+		
 		return "notices/view";
 	}
 	
-	@RequestMapping(value ="/notice/new")
+	@RequestMapping(value ="/notice/new", method = RequestMethod.GET)
 	public String newBoard(ModelMap model, Principal principal){
 		String email = principal.getName(); // 사용자의 아이디(email)를 가져옴
 		User user = bookMapper.getUserList(email);
@@ -72,5 +83,6 @@ public class AdminsController {
 	public String delete(@PathVariable int id){
 		bookMapper.deleteNotice(id);
 		return "redirect:/notices";
-	}
+	}	
+	
 }

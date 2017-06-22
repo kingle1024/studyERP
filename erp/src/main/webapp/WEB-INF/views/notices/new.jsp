@@ -38,7 +38,7 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 					<textarea rows="15" cols="30" id="text" class="form-control" name="content" >${ board.content }</textarea>
 				</div>
 				
-				<input name="author" type="hidden" value="${ username }" />
+				<input name="author" type="text" value="${ username }" />
 				
 				<button type="submit" class="btn btn-lg btn-primary ">전송</button>
 			</form>

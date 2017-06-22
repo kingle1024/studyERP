@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Book;
-import com.mycompany.vo.Message;
+import com.mycompany.vo.Comment;
 import com.mycompany.vo.Product;
 import com.mycompany.vo.Sign;
 import com.mycompany.vo.User;
@@ -18,15 +18,9 @@ import com.mycompany.vo.myBook;
 public interface BookMapper {
 	@Insert("insert into books(title, author, image) values (#{title}, #{author}, #{image})")
 	public boolean create(Book book);
-	
+		
 	@Insert("insert into mybooks (email, content) values (#{email}, #{content})")
 	public boolean createMessage(myBook myBook);
-	
-	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
-	public boolean createMessageR(Message Message);
-	
-	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
-	public boolean answerMessage(Message message);
 	
 	//jsp파일에서 가져온다
 	@Insert("insert into boards (title, content, author, hit, register_date, update_date) values (#{title}, #{content}, #{author}, 1, now(), now())")
@@ -52,22 +46,13 @@ public interface BookMapper {
 	
 	//컨트롤러에서 가져온다.
 	@Select("select * from boards where id=#{id}")
-	public Board getBoard(int id);
-	
-	@Select("select * from messages where no=#{no}")
-	public Message getMessage(int no);
-	
-	@Select("select * from messages where send_id = #{send_id} order by no desc")
-	public List<Message> getSendMessage(String send_id);
-	
+	public Board getBoard(int id);	
+		
 	@Update("update books set title = #{title}, author = #{author}, image = #{image} where id = #{id}")
 	public boolean update(Book book);
 	
 	@Update("update boards set title = #{title}, content= #{content}, author = #{author}, update_date = now() where id = #{id}")
 	public boolean updateNotice(Board board);
-	
-	@Update("update messages set recv_date = now() where no = #{ no }")
-	public boolean updateMessageRecvDate(int no);
 	
 	@Update("update boards set hit = hit+1 where id= #{id}")
 	public boolean updateNoticeHit(int id);
@@ -80,10 +65,13 @@ public interface BookMapper {
 	
 	@Select("select * from mybooks where email = #{email}")
 	public List<myBook> getMyBook(String email);
+
+	@Select("SELECT * "+ " FROM board_comment " + " WHERE board_no = #{board_no} and type_code = 1001 " )
+	List<Comment> getComments(int board_no);
 	
-	@Select("select * from messages where recv_id = #{recv_id} order by no desc")
-	public List<Message> getMyMessage(String recv_id);
-
-
+	@Insert("insert into board_comment (board_no, author, comment, register_date, type_code) values ( #{board_no}, #{author}, #{comment}, now(), 1001 )")
+	void createComment(Comment comment);
+	
+	
 	
 }

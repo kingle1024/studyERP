@@ -13,20 +13,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.mycompany.mapper.BookMapper;
+import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Message;
 
 @Controller
 public class MessagesController {
 	@Autowired
-	private BookMapper bookMapper;
-
+	private MessageMapper messageMapper;
+	
 	@RequestMapping(value="/messages", method=RequestMethod.GET)
 	public String indexTestR(ModelMap model, Principal principal){
 		String name = principal.getName();
 	    model.addAttribute("username", name);
-	    List<Message> myMessages = bookMapper.getMyMessage(name);
+	    List<Message> myMessages = messageMapper.getMyMessage(name);
 	    model.addAttribute("myMessages", myMessages);
 		return "messages/index";
 	}
@@ -34,32 +33,34 @@ public class MessagesController {
 	@RequestMapping(value = "/messages/new", method = RequestMethod.GET)
 	public String newMessage(ModelMap model,Principal principal) {
 		String name = principal.getName(); 
-	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
+	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함 
 		return "messages/new";
 	}
+	
 	//보낸이의 아이디를 가져와야 한다....
 	@RequestMapping(value = "/messages/answer/{recv_id}", method = RequestMethod.GET) // PathVariable로 {recv_id}를 받는다.
 	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal,@PathVariable String recv_id) {		
 		String name = principal.getName(); // 사용자의 아이디를 가져옴
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
 	    
-		String recv = recv_id;
+		String recv = recv_id; // 보내는 이의 아이디
 		model.addAttribute("recv", recv); 
 		
 		return "messages/answer";
 	}
 	
+	//메세지를 보내는 과정 hidden 값으로 자신의 아이디를 가지고 있는다.
 	@RequestMapping(value = "/messages", method = RequestMethod.POST)
 	public String createMessage(@ModelAttribute Message Message, HttpServletRequest request, ModelMap model, Principal principal) {
-		String name = principal.getName(); 
+		String name = principal.getName();  
 	    model.addAttribute("username", name);
-		bookMapper.createMessageR(Message);
+	    messageMapper.createMessageR(Message);
 		return "redirect:/messages";
 	}
 	
 	@RequestMapping(value="/messages/viewWindow/{no}", method = RequestMethod.GET)
 	public String messageViewWindow(@PathVariable int no, Model model){
-		Message message = bookMapper.getMessage(no);
+		Message message = messageMapper.getMessage(no);
 		model.addAttribute("message", message);
 		
 		return "popUp/messages/viewWindow";
@@ -67,20 +68,20 @@ public class MessagesController {
 	
 	@RequestMapping(value="/messages/view/{no}", method = RequestMethod.GET)
 	public String messageView(@PathVariable int no, Model model){
-		Message message = bookMapper.getMessage(no);
+		Message message = messageMapper.getMessage(no);
 		model.addAttribute("message", message);
 		if(message.getRecv_date() == null){
-			bookMapper.updateMessageRecvDate(no);
+			messageMapper.updateMessageRecvDate(no);
 		}
 		return "messages/view";
 	}
 	
 	@RequestMapping(value="/messages/sendView/{no}", method = RequestMethod.GET)
 	public String messageSendView(@PathVariable int no, Model model){
-		Message message = bookMapper.getMessage(no);
+		Message message = messageMapper.getMessage(no);
 		model.addAttribute("message", message);
 		if(message.getRecv_date() == null){
-			bookMapper.updateMessageRecvDate(no);
+			messageMapper.updateMessageRecvDate(no);
 		}
 		return "messages/sendView";
 	}
@@ -88,7 +89,7 @@ public class MessagesController {
 	@RequestMapping(value="messages/sendIndex", method = RequestMethod.GET)
 	public String sendView(ModelMap model, Principal principal){
 		String name = principal.getName();
-		List<Message> myMessages = bookMapper.getSendMessage(name);
+		List<Message> myMessages = messageMapper.getSendMessage(name);
 		model.addAttribute("myMessages", myMessages);
 		return "messages/sendIndex";
 	}

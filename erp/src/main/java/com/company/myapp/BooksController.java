@@ -13,11 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.mycompany.helper.FileHelper;
-import com.mycompany.helper.URLHelper;
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.mapper.ReviewMapper;
 import com.mycompany.vo.Review;
@@ -36,8 +31,7 @@ public class BooksController {
 	public String show(@PathVariable int id, Model model) {
 		Book book = bookMapper.getBook(id);
 		model.addAttribute("book", book);
-	
-		List<Review> reviews = reviewMapper.getReviews(id);
+		List<Review> reviews = reviewMapper.getReviews(id); 
 		model.addAttribute("reviews", reviews);
 		
 		if (! model.containsAttribute("review")) {
