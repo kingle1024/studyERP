@@ -1,14 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="s"%>
 <%-- <%@ page pageEncoding="utf-8" session="false"%> --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<% session.setAttribute("ID", "gz"); session.setAttribute("NAME", "갱짱"); %>
-
-
-
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<%-- <% session.setAttribute("ID", "gz"); session.setAttribute("NAME", "갱짱"); %> --%>
 
 <nav class="navbar navbar-default" id="setPostion">
 	<!-- Brand and toggle get grouped for better mobile display -->
@@ -57,38 +54,25 @@
 </nav>
 
 <div class="nav-side-menu">
-    <div class="brand"><img src="<c:url value="/image/brand.png" />"></div>
+    <div class="brand"><img src="<c:url value="/image/brand1.png" />"></div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
   
         <div class="menu-list">
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
                   <a href="<c:url value="/" />">
-                  <i class="fa fa-dashboard fa-lg"></i> <font size="3" >홈</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-dashboard fa-lg"></i> <font size="3" >홈</font>
                   </a>
                 </li>
 				<li>
                   <a href="<c:url value="/messages" />">
-                  <i class="fa fa-user fa-lg"></i> 쪽지함&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <i class="fa fa-user fa-lg"></i> 쪽지함
                   </a>
                   </li>
 
                 <li  data-toggle="collapse" data-target="#products" class="collapsed">
-                  <a href="<c:url value="/notices" />"><i class="fa fa-gift fa-lg"></i> 공지사항&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </a>
+                  <a href="<c:url value="/notices" />"><i class="fa fa-gift fa-lg"></i> 공지사항 </a>
                 </li>
-                <ul class="sub-menu collapse" id="products">
-                    <li class="active"><a href="#">실습실 관리</a></li>
-                    <li><a href="#">General</a></li>
-                    <li><a href="#">Buttons</a></li>
-                    <li><a href="#">Tabs & Accordions</a></li>
-                    <li><a href="#">Typography</a></li>
-                    <li><a href="#">FontAwesome</a></li>
-                    <li><a href="#">Slider</a></li>
-                    <li><a href="#">Panels</a></li>
-                    <li><a href="#">Widgets</a></li>
-                    <li><a href="#">Bootstrap Model</a></li>
-                </ul>
-
 
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
                   <a href="#"><i class="fa fa-globe fa-lg"></i> 실습실 관리 <span class="arrow"></span></a>
@@ -114,6 +98,19 @@
                   <i class="fa fa-users fa-lg"></i> 내 작업대
                   </a>
                 </li>
+                
+                 <li>
+                  <a href="<c:url value="/books/test"/>">
+                  <i class="fa fa-users fa-lg"></i> 테스트공간
+                  </a>
+                </li>
+                <s:authorize access="hasRole('ADMIN')">
+                <li>
+                  <a href="<c:url value="/admin"/>">
+                  <i class="fa fa-users fa-lg"></i> 회원 관리
+                  </a>
+                </li>
+                </s:authorize>
             </ul>
      </div>
 </div>

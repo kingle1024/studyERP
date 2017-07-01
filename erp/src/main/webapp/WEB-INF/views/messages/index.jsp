@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 <div class="jumbotron" id="subNav">
 	<font size="6">받은 쪽지함</font> - 쪽지 기능을 수행할 수 있습니다.

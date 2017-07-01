@@ -39,7 +39,7 @@ public class HomeController {
 		List<Message> myMessages = messageMapper.getMyMessage(name);
 	    model.addAttribute("myMessages",myMessages);
 	    
-		List<Board> boards = bookMapper.getBoardList();		
+		List<Board> boards = bookMapper.mainBoardList();		
 		model.addAttribute("boards", boards);
 		
 		return "mains/index";

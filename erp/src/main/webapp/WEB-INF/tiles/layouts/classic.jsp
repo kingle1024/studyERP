@@ -13,6 +13,10 @@
         <c:url var="custom" value="/css/custom.css" />
         <link href="${ custom }" rel="stylesheet">
         
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        
+        <script src="/myapp/js/jquery-3.2.0.min.js"></script>
+        
     </head>
     <body>
 <!--         <div class="container"> -->

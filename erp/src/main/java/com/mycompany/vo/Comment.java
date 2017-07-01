@@ -1,7 +1,4 @@
 package com.mycompany.vo;
-
-
-
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;

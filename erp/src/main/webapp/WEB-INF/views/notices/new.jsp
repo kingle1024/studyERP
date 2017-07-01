@@ -8,6 +8,19 @@
 src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
+<!-- jquery로 파일 첨부 추가 -->
+$(document).ready(function() {
+    //add more file components if Add is clicked
+    $('#addFile').click(function() {
+        var fileIndex = $('#fileview tr').children().length;      
+        $('#fileview').append(
+                '<tr><td>'+
+                '   <input type="file" name="files['+ fileIndex +']" />'+
+                '</td></tr>');
+    });     
+});
+</script>
+<script>
 	$(function() {
 		$('#btn').click(function() {
 			var dbTxt = $('#src').html();
@@ -18,7 +31,6 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>게시글 생성</title>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
 <body>
 <div class="jumbotron" id="subNav">
@@ -26,7 +38,7 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </div>
 	<div class="container">
 <%-- 			<form action="<c:url value="/admin" />" method="post"> --%>
-			<form action="<c:url value="/notice" />" method="post" name="inputForm">
+			<form action="<c:url value="/notice" />" method="post" name="inputForm" enctype="multipart/form-data">
 			 <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" />
 				<div class="form-group form-group-lg">
 					<label class="control-label">제목</label>					
@@ -35,11 +47,19 @@ src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 				<div class="form-gorup form-group-lg">
 					<label class="control-label">내용</label>
 <!-- 					<input name="content" type="text" class="form-control">				 -->
-					<textarea rows="15" cols="30" id="text" class="form-control" name="content" >${ board.content }</textarea>
+					<textarea rows="15" cols="30" id="text" class="form-control" name="content" ></textarea>
 				</div>
-				
-				<input name="author" type="text" value="${ username }" />
-				
+				<div class="form-gorup form-group-lg">
+					Upload Directory : <input type="text" name="upDir" value="c:/spring/upload/"/><br><br>
+				    <input id="addFile" type="button" value="File Add" />    
+				    <table id="fileview">
+				        <tr>
+				            <td><input name="files[0]" type="file" /></td>
+			    	    </tr>        
+			    	</table>
+			    	<br/> 	
+				</div>
+				<input name="author" type="hidden" value="${ username }" />
 				<button type="submit" class="btn btn-lg btn-primary ">전송</button>
 			</form>
 	</div>

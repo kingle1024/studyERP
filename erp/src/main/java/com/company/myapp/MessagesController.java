@@ -39,7 +39,7 @@ public class MessagesController {
 	
 	//보낸이의 아이디를 가져와야 한다....
 	@RequestMapping(value = "/messages/answer/{recv_id}", method = RequestMethod.GET) // PathVariable로 {recv_id}를 받는다.
-	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal,@PathVariable String recv_id) {		
+	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal, @PathVariable String recv_id) {		
 		String name = principal.getName(); // 사용자의 아이디를 가져옴
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
 	    

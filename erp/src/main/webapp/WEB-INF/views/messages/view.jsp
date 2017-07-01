@@ -7,7 +7,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 </head>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 <div class="jumbotron" id="subNav">
 	<font size="6">받은 쪽지 보기</font>-받은 쪽지를 볼 수 있습니다.
@@ -25,8 +24,11 @@
 					<th width="" height="">제목</th><td>${ message.title }</td>
 				</tr>
 				<tr>
-					<td colspan="2" width="" height="">${ message.content }</td>
+					<td colspan="2"><textarea class="form-control" rows="20" readonly>${message.content }</textarea></td>
 				</tr>
+			
+				
+			
 			</tbody>
 		</table>
 			

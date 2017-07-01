@@ -6,8 +6,16 @@
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <title>Insert title here</title>
+<script>
+	$(function() {
+		$('#btn').click(function() {
+			var dbTxt = $('#src').html();
+			dbTxt = dbTxt.replace(/<br>/g, '\n');
+			$('#trg textarea').text(dbTxt);
+		});
+	});
+</script>
 </head>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 <div class="jumbotron" id="subNav">
 	<font size="6">쪽지 보내기</font> - 쪽지를 보낼 수 있습니다.

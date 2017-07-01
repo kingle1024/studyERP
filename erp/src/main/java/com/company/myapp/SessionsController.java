@@ -1,31 +1,41 @@
 package com.company.myapp;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.mycompany.vo.User;
 import com.mycompany.mapper.userMapper;
 @Controller
 public class SessionsController {
-	
 	@Autowired
 	private userMapper userMapper;
 	
-	@Autowired
-    private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
 	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
-    public String create(@ModelAttribute User user){
+    public String create(@Valid @ModelAttribute User user, BindingResult result, RedirectAttributes flash){
+		if (result.hasErrors() || user.getPassword() != user.getPasswordCheck()) {
+			System.out.println("에러 진입");
+	        List<FieldError> fieldErrors = result.getFieldErrors();
+	        flash.addFlashAttribute("fieldErrors", fieldErrors);
+	        flash.addFlashAttribute("user", user);	        
+	        return "popUp/statics/signup"; 
+	    }
+		System.out.println("에러가 아니네");
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(11)));
-//    	user.setPassword(this.bcryptPasswordEncoder.encode(user.getPassword()));
     	userMapper.insertUser(user);
     	userMapper.insertAuthority(user.getEmail(),  "ROLE_USER");
-
     	return "popUp/statics/login";
     }
 	
@@ -40,8 +50,6 @@ public class SessionsController {
     	model.addAttribute("user", user);
     	return "popUp/statics/signup";
     }
-    
-    
     
 }
 

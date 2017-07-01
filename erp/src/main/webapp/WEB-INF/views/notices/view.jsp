@@ -14,10 +14,10 @@ pre {
 	background-color: #ffffff;
 }
 </style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>view Board</title>
 </head>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
 	<div class="jumbotron" id="subNav">
 		<font size="6">공지 사항 보기</font> - 공지사항을 확인할 수 있습니다.
@@ -46,6 +46,12 @@ pre {
 			</tr>
 			<tr>
 				<th colspan="4" height=""><textarea class="form-control" rows="20" readonly>${ board.content }</textarea></th>
+			</tr>
+			<tr>
+				<th>첨부파일</th>
+				<c:forEach var="file" items="${files }">
+					<th><a href="<c:url value="/download.action?name=${file.save_name}"/>">${ file.real_name }</a></th>	
+				</c:forEach>
 			</tr>
 		</table>
 		<sec:authorize access="hasRole('ADMIN')">
@@ -78,9 +84,9 @@ pre {
 						<strong>${ error.getField() }</strong>: ${ error.getDefaultMessage() }
 					</div>
 				</c:forEach>
-				<f:textarea path="comment" cssClass="form-control" rows="2" />
+				<f:textarea path="comment" cssClass="form-control" rows="2" /> <!-- path는 이름 -->
 				<f:hidden path="board_no" />
-				<button class="btn btn-block btn-primary" type="submit">리뷰
+				<button class="btn btn-block btn-primary" type="submit">댓글
 					등록</button>
 				<input name="author" type="hidden" value="${ username }" />
 				<!-- Controller에서 username을 받아온다 -->

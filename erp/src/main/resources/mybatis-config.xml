@@ -19,4 +19,8 @@
         <mapper resource="org/mybatis/example/BlogMapper.xml" />
     </mappers>
     -->
+    <mappers>
+<!--     	<mapper resource="ttestMapper.xml" /> -->
+    	<mapper resource="/com/company/myapp/UserMapper.xml" /> 
+    </mappers>
 </configuration>

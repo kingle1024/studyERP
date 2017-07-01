@@ -35,5 +35,5 @@
 
 	<!-- Mappers -->
 	<mybatis:scan base-package="com.mycompany.mapper" />
-
+	
 </beans>

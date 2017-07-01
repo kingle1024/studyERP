@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.vo.Sign;
 
+// 결재 Controller임. 현재는 쓰이는곳 없음
 @Controller
 public class SignsController {
 	@Autowired
