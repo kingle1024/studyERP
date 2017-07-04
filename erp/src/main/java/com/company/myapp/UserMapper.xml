@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.myapp">
+    <update id="updateUser"
+            parameterType="com.mycompany.vo.Test">
+        UPDATE USER SET
+            user_pw=#{userPw}
+        WHERE user_id=#{userId}
+    </update>
+   
+    <delete id="deleteUser"
+            parameterType="com.mycompany.vo.Test">
+        DELETE FROM USER
+        WHERE user_id=#{userId} AND user_pw=#{userPw}
+    </delete>
+   
+    <select id="selectUserByIdAndPw"
+            parameterType="com.mycompany.vo.Test"
+            resultType="com.mycompany.vo.Test">
+        SELECT
+            user_id as userId,
+            user_pw as userPw
+        FROM USER
+        WHERE user_id=#{userId} AND user_pw=#{userPw}
+    </select>
+   
+    <select id="selectTotalCount"
+            resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM USER
+    </select>
+    
+    <select id="selectTotalNoticeCount"
+    		resultType="Integer">
+    	SELECT
+    		COUNT(*)
+    	FROM boards		
+    </select>
+    
+    <select id="selectTotalMessageCount"
+    		resultType="Integer">
+    	SELECT
+    		COUNT(*)
+    	FROM messages		
+    </select>
+   
+    <select id="selectUserList"
+            parameterType="java.util.Map"
+            resultType="com.mycompany.vo.Test">
+        SELECT  
+            user_no as userNo,
+            user_id as userId,
+            user_pw as userPw
+        FROM USER
+        <where>
+            <if test="word != null">
+                user_id like CONCAT('%',#{word},'%')
+            </if>
+        </where>
+        ORDER BY user_no DESC
+        LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
+<!-- 			SELECT user_no as userNo, user_id as userId, user_pw as userPw FROM USER -->
+    </select>
+   
+   <select id="selectNoticeList"
+   			parameterType="java.util.Map"
+   			resultType="com.mycompany.vo.Board">
+   		SELECT *
+   		FROM boards
+   		<where>
+   			<if test="word != null">
+   				title like CONCAT('%', #{word}, '%')
+   			</if>
+   		</where>
+   		order by id desc
+   		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
+   </select>
+   
+   <select id="selectMessageList"
+   			parameterType="java.util.Map"
+   			resultType="com.mycompany.vo.Message">
+   		SELECT *
+   		FROM messages
+   		<where>
+   			<if test="word != null">
+   				title like CONCAT('%', #{word}, '%')
+   			</if>
+   		</where>		
+   		order by no desc
+   		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
+   	</select>
+   
+    <insert id="insertUser" parameterType="com.mycompany.vo.Test">
+        INSERT INTO
+        USER(
+            user_id,
+            user_pw
+        ) VALUES(
+            #{userId},
+            #{userPw}
+        )
+    </insert>
+</mapper>
