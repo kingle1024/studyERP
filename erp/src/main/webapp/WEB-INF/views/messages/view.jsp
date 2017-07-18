@@ -27,8 +27,6 @@
 					<td colspan="2"><textarea class="form-control" rows="20" readonly>${message.content }</textarea></td>
 				</tr>
 			
-				
-			
 			</tbody>
 		</table>
 			

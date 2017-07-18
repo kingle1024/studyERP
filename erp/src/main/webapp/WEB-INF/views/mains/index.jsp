@@ -19,7 +19,7 @@
 <body>
 
 <div class="jumbotron" id="subNav">
-	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.
+	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/07/16)
 </div>
 	<div class="container">
 			<center><h1>공지사항</h1></center>			
@@ -44,7 +44,7 @@
 				<c:forEach var="board" items="${boards }" varStatus="status">				
 					<tr>
 						<th>${ board.id }</th>
-						<th><a href="<c:url value="/notice/view/${ board.id }" /> "> ${ board.title } </a></th>	
+						<th><a href="<c:url value="/notice/view/${ board.id }?page=1" /> "> ${ board.title } </a></th>	
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 						<th>${ board.hit } </th>
@@ -75,7 +75,7 @@
 				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
 							<tr>
 								<th>${ myMessage.send_id }</th>
-								<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=300, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
+								<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
 								<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
 							</tr>
 				</c:forEach>

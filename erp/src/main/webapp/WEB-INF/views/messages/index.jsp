@@ -39,12 +39,12 @@
 					<ul class="pagination">
 						<c:if test="${page>1}">
 							<c:forEach var="previous" begin="1" end="${page-1 }" step="1">
-								<li><a href="/myapp/messages?page=${previous }">${previous }</a></li>
+								<li><a href="<c:url value="/messages?page=${previous }" /> "> ${previous }</a></li>
 							</c:forEach>
 						</c:if>
 						<li class="active"><a href="#">${page }</a></li>
 						<c:forEach var="next" begin="${page+1 }" end="${lastPage }" step="1">
-							<li><a href="/myapp/messages?page=${next }">${next }</a></li>
+							<li><a href="<c:url value="/messages?page=${next }" /> ">${next }</a></li>
 						</c:forEach>
 					</ul>
 				</div>

@@ -40,6 +40,9 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 	
 	@Delete("DELETE FROM authorities WHERE email = #{email} AND authority = #{role}")
 	public void deleteAuthority(@Param("email") String email, @Param("role") String role);
+
+	@Delete("delete from users where id = #{userId}")
+	public void deleteUser(@Param("userId") int userId);
 	
 	@Select("SELECT email, authority "
             + "FROM authorities "

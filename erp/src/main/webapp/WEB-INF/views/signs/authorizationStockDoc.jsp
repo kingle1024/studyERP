@@ -11,42 +11,27 @@
 <body>
 	<div class="container">
 		<div class="jumbotron">
-		<h1>재고신청</h1>
+		<h1>비정형 문서</h1>
 		<form>
-			<table>
-				<tr>
-					<td width="100px">기안자</td>
-					<td width=""><input type="text" class="form-control"></td>					
-				</tr>
-				<tr>
-					<td width="100px">기안일</td>
-					<td width=""><input type="text" class="form-control"></td>					
-				</tr>				
-			</table>		
-			<br><br>	
 			<table>										
 				<tr>
-					<td width="100px">제목</td><td width=""><input type="text" class="form-control"></td>
-					<td width="100px"></td>
-					<td width="">수신자</td><td width=""><input type="text" class="form-control"></td>					
-				</tr>				
+					<td width="100px">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
+				</tr>
 			</table>
 			<br><br>				
 			<table>
 				<tr>
-					<td width="100px">신청제품</td>
-					<td width=""><input type="text" class="form-control"></td>					
+					<td width="100px">내용</td>
+					<td width="100px"><textarea cols="110" rows="10" name="content"></textarea></td>
 				</tr>
 				<tr>
-					<td width="100px">신청수량</td>
-					<td width=""><input type="text" class="form-control"></td>
 				</tr>
 				<tr>
-					<td width="100px">비고</td>
-					<td width=""><input type="text" class="form-control"></td>
+					<td width="100px">기타</td>
+					<td width="100px"><input type="text" class="form-control" name="etc"></td>
 				</tr>
 			</table>	
-			<button type="submit" class="btn btn-lg btn-primary ">전송</button>		
+			<button type="submit" class="btn btn-lg btn-primary" style="width:100%">전송</button>		
 		</form>
 		</div>
 	</div>

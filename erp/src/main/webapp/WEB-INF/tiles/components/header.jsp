@@ -52,7 +52,6 @@
 	</div>
 	<!-- /.container-fluid -->
 </nav>
-
 <div class="nav-side-menu">
     <div class="brand"><img src="<c:url value="/image/brand1.png" />"></div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
@@ -64,47 +63,47 @@
                   <i class="fa fa-dashboard fa-lg"></i> <font size="3" >홈</font>
                   </a>
                 </li>
+                
 				<li>
                   <a href="<c:url value="/messages" />">
-                  <i class="fa fa-user fa-lg"></i> 쪽지함
-                  </a>
+                  <i class="fa fa-user fa-lg"></i> 쪽지함</a>
                   </li>
 
-                <li  data-toggle="collapse" data-target="#products" class="collapsed">
+                <li>
                   <a href="<c:url value="/notices" />"><i class="fa fa-gift fa-lg"></i> 공지사항 </a>
                 </li>
 
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
                   <a href="#"><i class="fa fa-globe fa-lg"></i> 실습실 관리 <span class="arrow"></span></a>
                 </li>  
-                <ul class="sub-menu collapse" id="service">
-                  <li>New Service 1</li>
-                  <li>New Service 2</li>
-                  <li>New Service 3</li>
-                </ul>
+	                <ul class="sub-menu collapse" id="service">
+	                  <li>18302</li>
+	                  <li>18412</li>
+	                  <li>18520</li>
+	                </ul>
 
 
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <a href="#"><i class="fa fa-car fa-lg"></i> 결재 현황 <span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-car fa-lg"></i> 결재<span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="new">
-                  <li>New New 1</li>
-                  <li>New New 2</li>
-                  <li>New New 3</li>
+                  <li class="active"><a href="<c:url value="/signs" />" >결재</a></li>
+                  <li><a href="<c:url value="/signs" />">받은문서</a></li>
+                  <li><a href="<c:url value="/signs" />">보낸문서</a></li>
                 </ul>
 
                  <li>
-                  <a href="#">
+                  <a href="<c:url value="/mywork" /> ">
                   <i class="fa fa-users fa-lg"></i> 내 작업대
                   </a>
                 </li>
                 
+                <s:authorize access="hasRole('ADMIN')">
                  <li>
                   <a href="<c:url value="/books/test"/>">
                   <i class="fa fa-users fa-lg"></i> 테스트공간
                   </a>
                 </li>
-                <s:authorize access="hasRole('ADMIN')">
                 <li>
                   <a href="<c:url value="/admin"/>">
                   <i class="fa fa-users fa-lg"></i> 회원 관리

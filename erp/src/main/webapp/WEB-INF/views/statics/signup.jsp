@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="utf-8" %>
+
 <script src="/myapp/js/jquery-3.2.0.min.js"></script>
 <script>
 function checkPwd(){
@@ -73,11 +74,7 @@ $("#email").keyup(function() {
 });
 }
   </script>
-<script>
-var foo = function check(){	
-	alert('hi~~');
-}
-</script>
+
 <div class="jumbotron">
     <h1>가입하기</h1>
 </div>
@@ -117,8 +114,20 @@ var foo = function check(){
         
         <div class="form-action">
             <s:csrfInput />
-            <input type="submit" class="btn btn-primary btn-lg btn-block" value="회원 가입" onclick="foo">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="회원 가입" onclick="return check()">
             <a href="/myapp/">돌아가기</a>
         </div>
     </div>
 </f:form>
+<script>
+function check(){	
+	if(search.password.value !=""){
+		alert('hi~');
+		return false;
+	}else{
+		alert('bye');
+		return false;
+	}
+	return false;
+}
+</script>

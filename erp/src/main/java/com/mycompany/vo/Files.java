@@ -1,16 +1,17 @@
 package com.mycompany.vo;
 
 public class Files {
-	int id;
+	int no;
 	int board_no;
 	String save_name;
 	String real_name;
 	String path;
-	public int getId() {
-		return id;
+	
+	public int getNo() {
+		return no;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setNo(int no) {
+		this.no = no;
 	}
 	public int getBoard_no() {
 		return board_no;
@@ -39,7 +40,8 @@ public class Files {
 	}
 	@Override
 	public String toString() {
-		return "Files [id=" + id + ", board_no=" + board_no + ", save_name=" + save_name + ", real_name=" + real_name
+		return "Files [no=" + no + ", board_no=" + board_no + ", save_name=" + save_name + ", real_name=" + real_name
 				+ ", path=" + path + "]";
 	}
+	
 }

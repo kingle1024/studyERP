@@ -38,7 +38,6 @@ table, tr, td {
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <script type="text/javascript" src="<c:url value="/js/map.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/stringBuffer.js" />"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -223,10 +222,8 @@ $(document).ready(function() {
           </tr>
         </table>
     </div>
-    <input type="button" onclick="submitFile()" value="전송">
-    <input type="hidden" value="추가데이터테스트!" name='temp' id='temp'>
-
-
+	    <input type="button" onclick="submitFile()" value="전송">
+	    <input type="hidden" value="추가데이터테스트!" name='temp' id='temp'>
 	</div>
 </body>
 </html>

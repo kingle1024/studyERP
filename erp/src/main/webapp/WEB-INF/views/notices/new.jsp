@@ -37,7 +37,6 @@ $(document).ready(function() {
 	<font size="6">공지사항 작성</font>-공지사항 작성을 수행할 수 있습니다.
 </div>
 	<div class="container">
-<%-- 			<form action="<c:url value="/admin" />" method="post"> --%>
 			<form action="<c:url value="/notice" />" method="post" name="inputForm" enctype="multipart/form-data">
 			 <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" />
 				<div class="form-group form-group-lg">
@@ -49,9 +48,12 @@ $(document).ready(function() {
 <!-- 					<input name="content" type="text" class="form-control">				 -->
 					<textarea rows="15" cols="30" id="text" class="form-control" name="content" ></textarea>
 				</div>
-				<div class="form-gorup form-group-lg">
-					Upload Directory : <input type="text" name="upDir" value="c:/spring/upload/"/><br><br>
-				    <input id="addFile" type="button" value="File Add" />    
+				<br>
+				<div class="panel panel-default">
+				<div class="panel-heading">파일 첨부</div>
+				<div class="panel-body">
+<!-- 					Upload Directory : <input type="hidden" name="upDir" value="c:/Spring/upload/"/><br><br> 업로드 경로 -->
+				    <input id="addFile" type="button" value="더 추가" />    
 				    <table id="fileview">
 				        <tr>
 				            <td><input name="files[0]" type="file" /></td>
@@ -59,8 +61,12 @@ $(document).ready(function() {
 			    	</table>
 			    	<br/> 	
 				</div>
+				</div>
 				<input name="author" type="hidden" value="${ username }" />
+				<span style="float: right;">
+				<button onclick="javascript:history.back();" class="btn btn-lg btn-primary ">이전</button>
 				<button type="submit" class="btn btn-lg btn-primary ">전송</button>
+				</span>
 			</form>
 	</div>
 </body>

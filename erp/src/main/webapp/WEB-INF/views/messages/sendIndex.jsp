@@ -17,14 +17,12 @@
 		<a href="<c:url value="/messages/new" />" class="btn btn-default pull-right">
 				쪽지 보내기</a><br><br>
 				<table class="table table-striped">
-				<thread>
 				<tr>
 					<th width="300px">받은이</th>
 					<th>제목</th>
 					<th width="150px">날짜</th>
 					<th width="150px">수신일</th>
 				</tr>
-				</thread>		
 				<tbody>		
 				<c:forEach var="myMessage" items="${messageList}" varStatus="status">
 					<tr>

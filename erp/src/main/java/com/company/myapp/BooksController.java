@@ -155,20 +155,21 @@ public class BooksController {
 	// http://blog.naver.com/PostView.nhn?blogId=tkddlf4209&logNo=220579326002
 //	@RequestMapping(value="/download/{name}", method=RequestMethod.GET)
 //    public ModelAndView download(@PathVariable String name){
-	  @RequestMapping("/download.action")
-	    public ModelAndView download(@RequestParam("name") String name){
-		System.out.println("hi~");
-		System.out.println(name);
-        ModelAndView mav = new ModelAndView(); 
-        //파라미터를 이용하여 file객체 생성
-        File f = new File("c:\\Spring\\upload\\"+name); // 경로에 있는 파일을 가져온다
-        //file 객체를 저장
-        String real_name = bookMapper.getRealName(name); // 디비에서 실제 이름을 가져온다.
-        mav.addObject("real_name",real_name);
-        mav.addObject("download",f);
-        //출력할 뷰이름 설정
-        mav.setViewName("download"); // 여기서 DownloadView.java로 이동
-//        mav.setViewName("");
-        return mav;
-    }
+	
+//	  @RequestMapping("/download.action")
+//	    public ModelAndView download(@RequestParam("name") String name){
+//		System.out.println("hi~");
+//		System.out.println(name);
+//        ModelAndView mav = new ModelAndView(); 
+//        //파라미터를 이용하여 file객체 생성
+//        File f = new File("c:\\Spring\\upload\\"+name); // 경로에 있는 파일을 가져온다
+//        //file 객체를 저장
+//        String real_name = bookMapper.getRealName(name); // 디비에서 실제 이름을 가져온다.
+//        mav.addObject("real_name",real_name);
+//        mav.addObject("download",f);
+//        //출력할 뷰이름 설정
+//        mav.setViewName("download"); // 여기서 DownloadView.java로 이동
+////        mav.setViewName("");
+//        return mav;
+//    }
 }

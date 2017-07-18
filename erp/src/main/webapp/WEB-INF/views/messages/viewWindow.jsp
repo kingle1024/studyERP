@@ -6,6 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<style>
+pre {
+	border: 0;
+	background-color: #ffffff;
+}
+</style>
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
@@ -14,23 +20,31 @@
 					<table class="table"> 
 					<tbody>
 						<tr>
-							<th>보낸사람</th><td>${ message.send_id }</td>
+							<th>보낸사람</th><td>${ message.send_id }</td><td>	
+							<button type="button" onclick="location.href='javascript:window.close()' " class="btn btn-warning" style="width: 100%;">창닫기</button>
+<!-- 							<a href="javascript:window.close()" class="btn btn-warning" style="width: 100%;">창닫기</a>  -->
+							</td>
 						</tr>
 						<tr>
-							<th>보낸시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>
+							<th>보낸시간</th><td colspan="2"><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>
 						</tr>
 						
 					<tr>
-					<th>제목</th><td>${ message.title }</td>
+					<th>제목</th><td colspan="2">${ message.title }</td>
 					</tr>
 					<tr>
-						<td colspan="2" height="73px"><pre>${ message.content }</pre></td>
+						<td colspan="3" height="73px"><textarea class="form-control" rows="4" readonly>${ message.content }</textarea></td>
 					</tr>
 					</tbody>
 					</table>
 			</div>
 		<form>
-			<a href="#" class="btn btn-lg btn-primary"> 답장하기</a>
+		<table>
+			<tr>
+			<td>
+				<a href="#" class="btn btn-lg btn-primary"> 답장하기</a>
+			</td> 
+		</table>
 		</form>
 		</div>
 </body>

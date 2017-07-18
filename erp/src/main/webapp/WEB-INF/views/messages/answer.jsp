@@ -15,7 +15,7 @@
 <div class="container">
 <form action="<c:url value="/messages" />" method="post">
 			<input name="send_id" type="hidden" value="${ username }">
-			<input name="recv_id" type="hidden" value="${ recv} }">
+			<input name="recv_id" type="hidden" value="${ recv }">
 			<h1>보낸이 ${ username }</h1>
 			<h1>받는이 ${ recv }</h1>
 			<div class="form-group form-group-lg">

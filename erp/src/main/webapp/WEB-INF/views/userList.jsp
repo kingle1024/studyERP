@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="jumbotron" id="subNav">
-	<font size="6">유저 리스트</font> - 쪽지 기능을 수행할 수 있습니다.
+	<font size="6">유저 리스트</font> - 테스트 페이지입니다
 </div>
 <div class="container">
 <table>

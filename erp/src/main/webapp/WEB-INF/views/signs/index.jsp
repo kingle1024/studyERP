@@ -6,15 +6,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
 <body>
-	<div class="container">
-		<div class="jumbotron">
-			<h1>결재메뉴</h1>
-			<p>views/signs/index.jsp</p>			
-		</div>		
-	</div>	
+	<div class="jumbotron" id="subNav">
+		<font size="6">결재하기</font>-결재 기능을 수행할 수 있습니다.
+	</div>
 	<div class="container">
 		<a href="#" class="btn btn-lg btn-primary" style="width: 33%;"
 			onclick="window.open('<c:url value="signs/stockDoc"/>', '_blank', 'width=1300 height=750')">

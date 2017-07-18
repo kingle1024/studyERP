@@ -16,7 +16,6 @@
 </style>
 <title>공지사항</title>
 </head>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
  
 	<div class="jumbotron" id="subNav">
@@ -36,7 +35,7 @@
 				<c:forEach var="board" items="${boardList }" varStatus="status">
 					<tr>
 						<th>${ board.id }</th>
-						<th><a href="<c:url value="/notice/view/${ board.id }" /> ">
+						<th><a href="<c:url value="/notice/view/${ board.id }?page=${page }" /> ">
 								${ board.title } </a></th>
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }"
@@ -52,12 +51,12 @@
 			<ul class="pagination">
 				<c:if test="${page>1}"> <!-- 2페이지 이후일 때 부터 출력 -->
 					<c:forEach var="previous" begin="1" end="${page-1}" step="1">
-						<li><a href="/myapp/notices?page=${previous }">${previous}</a></li>					
+						<li><a href="<c:url value="/notices?page=${previous }" /> ">${previous}</a></li>					
 					</c:forEach>
 				</c:if>				
 				<li class="active"><a href="#">${page}</a></li> <!-- 현재 페이지 -->
 				<c:forEach var="next" begin="${page+1}" end="${lastPage}" step="1">
-					<li><a href="/myapp/notices?page=${next }">${next }</a></li>
+					<li><a href="<c:url value="/notices?page=${next }" /> ">${next }</a></li>
 				</c:forEach>
 			</ul>
 		</div>

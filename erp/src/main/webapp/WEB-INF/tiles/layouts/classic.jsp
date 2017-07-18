@@ -15,10 +15,12 @@
         
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         
-        <script src="/myapp/js/jquery-3.2.0.min.js"></script>
-        
+        <script src="<c:url value="/js/jquery-3.2.0.min.js" /> " ></script>
+      
+    <script src="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script> <!--  없으면 drop-down 안됨 -->
     </head>
     <body>
+    
 <!--         <div class="container"> -->
             <tiles:insertAttribute name="header" />
             <tiles:insertAttribute name="content" />

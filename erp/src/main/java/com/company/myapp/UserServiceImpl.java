@@ -58,8 +58,6 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectNoticeList(map);
 	}
 
-	
-
 	@Override
 	public List<Message> getMessageList(int page, String word) {
 		// TODO Auto-generated method stub

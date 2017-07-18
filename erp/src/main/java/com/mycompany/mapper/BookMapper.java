@@ -44,13 +44,16 @@ public interface BookMapper {
 	@Select("select * from boards where type_code = 1001 order by id desc limit 5")
 	public List<Board> mainBoardList();
 	
-	@Select("select * from files where board_no=#{board_no}") // 파일 가져오기
+	@Select("select * from files where board_no= #{board_no}" ) // 파일 가져오기
 	public List<Files> getFileList(int board_no);
+	
+	@Select("select * from files where no= #{no}")
+	public List<Files> getFileEditUpLoadList(int no);
 	
 	@Select("select * from products")
 	public List<Product> getProductList();
 	
-	@Select("select * from signs")
+	@Select("select * from approvals")
 	public List<Sign> getSignList();
 	
 	@Select("select * from users where email=#{email}")
@@ -88,11 +91,17 @@ public interface BookMapper {
 	@Update("update boards set hit = hit+1 where id= #{id}")
 	public boolean updateNoticeHit(int id);
 	
+	@Delete("delete from board_comment where board_no = #{board_no} and no = #{no}")
+	public boolean deleteComment(@Param("board_no") int board_no, @Param("no") int no);
+	
 	@Delete("delete from books where id = #{id}")
 	public boolean delete(int id);
 		
 	@Delete("delete from boards where id = #{id}")
 	public boolean deleteNotice(int id);
+	
+	@Delete("delete from files where no = #{no}")
+	public boolean deleteFileInEdit(@Param("no") int no);
 	
 	@Insert("insert into board_comment (board_no, author, comment, register_date, type_code) values ( #{board_no}, #{author}, #{comment}, now(), 1001 )")
 	void createComment(Comment comment);
