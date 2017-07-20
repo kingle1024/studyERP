@@ -12,8 +12,6 @@
 	padding-bottom: 20px;
 }
 </style>
-<script type="text/javascript"
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value="/js/map.js" />"></script>
 <script>
 <!-- jquery로 파일 첨부 추가 -->
@@ -205,6 +203,6 @@ var tempDel = function(no){
 		</form>
 		<!-- <input type="submit" class="btn btn-lg btn-primary" style="width:100%;" value="전송"> -->
 	</div>
-
+<script src="<c:url value="/js/commonBack.js" /> " ></script>
 </body>
 </html>
