@@ -19,7 +19,7 @@
 <body>
 
 <div class="jumbotron" id="subNav">
-	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/07/16)
+	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/ )
 </div>
 	<div class="container">
 			<center><h1>공지사항</h1></center>			
