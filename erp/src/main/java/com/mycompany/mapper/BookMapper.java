@@ -14,7 +14,6 @@ import com.mycompany.vo.Book;
 import com.mycompany.vo.Comment;
 import com.mycompany.vo.Files;
 import com.mycompany.vo.Product;
-import com.mycompany.vo.Sign;
 import com.mycompany.vo.User;
 import com.mycompany.vo.myBook;
 
@@ -52,9 +51,6 @@ public interface BookMapper {
 	
 	@Select("select * from products")
 	public List<Product> getProductList();
-	
-	@Select("select * from approvals")
-	public List<Sign> getSignList();
 	
 	@Select("select * from users where email=#{email}")
 	public User getUserList(String email);
