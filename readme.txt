@@ -1,4 +1,4 @@
-1. 개발환경
+Development
 - Spring
 - jdk 1.8
 - tomcat 7.0 
