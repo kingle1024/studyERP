@@ -1,9 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" session="false"%>
+<%@ page pageEncoding="utf-8" session="false"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>결재 하기</title>
 <script>
 	var loadCheckBoolean = 0;
@@ -42,19 +43,19 @@ function display(num){
 	if(loadCheckBoolean){ // 이동한 적이 있으면
 		if (confirm('현재 작성중인 내용이 있습니다 \n이동하시겠습니까?')) {
 			if(num == 1){
-				$("#div1").load("atypicalDoc");
+				$("#div1").load("signs/atypicalDoc");
 			}else if(num ==2){
-				$("#div1").load("test");
+				$("#div1").load("signs/test");
 			}else{
 				alert('왔긴한데..11');
 			}
 		}
 	}else{ // 아니면 바로 이동
 		if(num == 1){
-			$("#div1").load("atypicalDoc");
+			$("#div1").load("signs/atypicalDoc");
 			loadCheckBoolean = 1; // true 값으로 변환
 		}else if(num ==2){
-			$("#div1").load("test");
+			$("#div1").load("signs/test");
 			loadCheckBoolean = 1; // true 값으로 변환
 		}else{
 			alert('왔긴한데..22');

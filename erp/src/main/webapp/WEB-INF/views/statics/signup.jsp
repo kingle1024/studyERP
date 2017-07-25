@@ -3,16 +3,13 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="utf-8" %>
 
-<title>회원가입 페이지 </title>
 <script src="/myapp/js/jquery-3.2.0.min.js"></script>
-
-
 <script>
 function checkPwd(){
 	  var f1 = document.forms["search"];	  
 	  var pw1 = f1.password.value;
 	  var pw2 = f1.passwordCheck.value;
-	  if(pw1.length < 4){
+	  if(pw1.length < 5){
 		  document.getElementById('Pwd').style.color="red";
 		  document.getElementById('Pwd').innerHTML = "4자 이상 입력해 주세요";
 	  }
@@ -46,7 +43,7 @@ $(document).ready(function() {
 function checkEmail(){
 $("#email").keyup(function() {	
 	$.ajax({
-		url : "${pageContext.request.contextPath}/duplicationCheck.do",
+		url : "/myapp/duplicationCheck.do",
 		type : "post",
 		data : $("form").serialize(),
 		success : function(data) {
@@ -82,13 +79,12 @@ $("#email").keyup(function() {
     <h1>가입하기</h1>
 </div>
 <c:url var="signUpPath" value="/signup" />
-      <article class="container">
 <f:form modelAttribute="user" action="${ signUpPath }" method="post" name="search" onsubmit="return check()">
     <div class="form-group form-group-lg">
         <div class="form-group">
 			<input type="hidden" id="check" name="check" value="N" readonly>
             <label>이메일</label>
-            <f:input path="email" cssClass="form-control" placeholder="email@email.com" value="${user.email }" onkeyup="checkEmail()"/>
+            <f:input path="email" cssClass="form-control" placeholder="이메일" value="${user.email }" onkeyup="checkEmail()"/>
             <f:errors path="email" element="div" cssClass="alert text-danger"/>
 	        <div id="duplicateResult">
 	            <c:out value="${duplicateUserId}"/>
@@ -115,29 +111,14 @@ $("#email").keyup(function() {
             <f:input path="name" cssClass="form-control" placeholder="이름" value="${ user.name }"/>
             <f:errors path="name" element="div" cssClass="alert text-danger"/>
         </div>
-   		<label for="ex1">주민등록번호</label><div>
-   		<input type="text" placeholder="앞자리" size="10" name="socialNumFront">
-   			<span>-</span>
-       	<input type="text"size="10" readonly >
-       	</div>
-       <div class="form-group">
-                <label>약관 동의</label>
-              <div data-toggle="buttons">
-              <label class="btn btn-primary active">
-                  <span class="fa fa-check"></span>
-                  <input id="agree" type="checkbox" autocomplete="off" checked>
-              </label>
-              <a href="#">이용약관</a>에 동의합니다.
-              </div>
-       </div>
-          <div class="form-group text-center">
+        
+        <div class="form-action">
             <s:csrfInput />
-              <button type="submit" class="btn btn-info" onclick="return check()" onkeyPress="if (event.keyCode==13){return false;}">회원가입<i class="fa fa-check spaceLeft"></i></button>
-              <button type="button" class="btn btn-warning" onclick="location.href='<c:url value="/" />' ">가입취소<i class="fa fa-times spaceLeft"></i></button>
-            </div>
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="회원 가입" onclick="return check()">
+            <a href="/myapp/">돌아가기</a>
+        </div>
     </div>
 </f:form>
-</article>
 <script>
 function check(){	
 	if(search.password.value !=""){

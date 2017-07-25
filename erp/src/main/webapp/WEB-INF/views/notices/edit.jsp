@@ -43,7 +43,7 @@ function delFile(e) {
     $(e).parents('tr').remove();
     $.ajax({
 		type : "GET",
-		url:"${pageContext.request.contextPath}/testUploadRemoveaaa",
+		url:"/myapp/testUploadRemoveaaa",
 		data:fd,
 		success:function(data){
 			if(data){
@@ -73,7 +73,7 @@ var ajaxExample = function(no){
 
 		function sendPlz(){
 			$.ajax({
-				url:"${pageContext.request.contextPath}/notice/updateUpdate",
+				url:"/myapp/notice/updateUpdate",
 				type:'POST',
 				data:allData,
 				success:function(data){
@@ -94,7 +94,7 @@ var tempDel = function(no){
 		test.push(no);
 // 		testArray.push(no);
 		$.ajax({
-			url:"${pageContext.request.contextPath}/testUploadRemove/",
+			url:"/myapp/testUploadRemove/",
 			type:'GET',
 			data:allData,
 			success:function(data){

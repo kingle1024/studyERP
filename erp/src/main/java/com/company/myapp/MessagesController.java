@@ -106,9 +106,9 @@ public class MessagesController {
 		model.addAttribute("myMessages", myMessages);
 		
 		 List<Message> messageList = userService.getMessageList(page, word);
-		 model.addAttribute("messageList", messageList);
-		 model.addAttribute("page", page);
-		 model.addAttribute("lastPage", userService.getMessageLastPage());
+		    model.addAttribute("messageList", messageList);
+		    model.addAttribute("page", page);
+		    model.addAttribute("lastPage", userService.getMessageLastPage());
 		
 		return "messages/sendIndex";
 	}
