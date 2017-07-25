@@ -8,20 +8,20 @@
 <title>받은 문서</title>
 <script>
 	function viewDoc(num){
-		window.open("atypicalDoc?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
+		window.open("?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
 	}  
 </script>
 </head>
 <body>
 	<div class="jumbotron" id="subNav">
-		<font size="6">받은 문서(진행)</font>- 진행 문서함 입니다.
+		<font size="6">받은 문서(반려)</font>- 반려 문서함 입니다.
 	</div>
 	<div class="container">
 		<ul class="nav nav-tabs">
   			<li><a href="<c:url value="/signs/recv?type=recvWaiting" /> ">대기</a></li>
-		  	<li class="active"><a href="<c:url value="/signs/recv?type=recvIng" /> ">진행</a></li>
+		  	<li><a href="<c:url value="/signs/recv?type=recvIng" /> ">진행</a></li>
 			<li><a href="<c:url value="/signs/recv?type=recvApproval" /> ">승인</a></li>
-		  	<li><a href="<c:url value="/signs/recv?type=recvReject" /> ">반려</a></li>
+		  	<li class="active"><a href="<c:url value="/signs/recv?type=recvReject" /> ">반려</a></li>
 		</ul>
 		<table class="table table-striped">
     <thead>
