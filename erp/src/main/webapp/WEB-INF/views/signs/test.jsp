@@ -4,22 +4,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
 <body>
 <script>
-window.onbeforeunload = function(e) {
-	  var dialogText = 'Dialog text here';
-	  e.returnValue = dialogText;
-	  return dialogText;
-	};
+// window.onbeforeunload = function(e) {
+// 	  var dialogText = 'Dialog text here';
+// 	  e.returnValue = dialogText;
+// 	  return dialogText;
+// 	};
 </script>
 	<div class="container">
 		<div class="jumbotron">
-		<h1>문서 변환 테스트 </h1>
-		<form>
+		<h1>2단계 결재 문서</h1>
+		<form id="formname1" method="post" action="<c:url value="/signs/testDoc" /> ">
 			<table>										
 				<tr>
 					<td width="100px">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
