@@ -6,42 +6,41 @@
 	<html>
 <head>
 <title>받은 문서</title>
+<script>
+	function viewDoc(num){
+		window.open("atypicalDoc?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
+	}  
+</script>
 </head>
 <body>
 	<div class="jumbotron" id="subNav">
-		<font size="6">받은 문서</font>- 받은 문서함 입니다.
+		<font size="6">받은 문서(진행)</font>- 진행 문서함 입니다.
 	</div>
 	<div class="container">
 		<ul class="nav nav-tabs">
-  			<li class="active"><a href="#">진행</a></li>
-		  	<li><a href="#">대기</a></li>
-			<li><a href="#">승인</a></li>
-		  	<li><a href="#">반려</a></li>
+  			<li><a href="<c:url value="/signs/recv?type=recvWaiting" /> ">대기</a></li>
+		  	<li class="active"><a href="<c:url value="/signs/recv?type=recvIng" /> ">진행</a></li>
+			<li><a href="<c:url value="/signs/recv?type=recvApproval" /> ">승인</a></li>
+		  	<li><a href="<c:url value="/signs/recv?type=recvReject" /> ">반려</a></li>
 		</ul>
 		<table class="table table-striped">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th width="10%">번호</th>
+        <th>제목</th>
+        <th width="10%">보낸이</th>
+        <th width="10%">날짜</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
-      </tr>
+    	<c:forEach var="approval" items="${approval }" varStatus="status">
+    		<tr>
+    			<td>${approval.no }</td>
+    			<td><a href="#" onclick="viewDoc(${approval.no })">${approval.title }</a></td>
+    			<td>${approval.send_id }</td>
+    			<td>${approval.register_date }</td>
+    		</tr>
+    	</c:forEach>
     </tbody>
   </table>
 	</div>
