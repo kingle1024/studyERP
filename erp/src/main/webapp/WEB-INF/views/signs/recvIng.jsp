@@ -7,9 +7,9 @@
 <head>
 <title>받은 문서</title>
 <script>
-	function viewDoc(num){
-		window.open("atypicalDoc?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
-	}  
+function viewDoc(num){
+	window.open("${pageContext.request.contextPath}/signs/docAtypicalView?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
+}  
 </script>
 </head>
 <body>

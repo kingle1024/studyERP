@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.mycompany.vo.Approval;
+import com.mycompany.vo.ApprovalSub;
 public interface SignMapper {
 	@Select("select * from approvals where state = 'processing' and recv_id = #{recv_id} order by no desc") 	// 대기
 	public List<Approval> getApprovalWaiting(@Param("recv_id")String recv_id);
@@ -43,6 +44,9 @@ public interface SignMapper {
 	@Insert("insert into approvals (title, content, etc, state, stepIng, stepFinal, send_id, recv_id, type_code, register_date) "+
 			" values ( #{title}, #{content}, #{etc}, 'processing', 1, 2, #{send_id}, #{recv_id}, 1300, now() )")
 	public boolean testDoc(Approval approval);
+	
+	@Insert("insert into approvals_sub (doc_no, recv_id, update_date) values ( #{doc_no}, #{recv_id}, now() )")
+	public boolean approvalSub(@Param("doc_no") String doc_no, @Param("recv_id") String recv_id);
 	
 	@Update("update approvals set state = 'reject' where no = #{Doc} ")
 	public boolean rejectDoc(@Param("Doc") String Doc);

@@ -7,6 +7,7 @@
 
 <%-- <% session.setAttribute("ID", "gz"); session.setAttribute("NAME", "갱짱"); %> --%>
 
+
 <nav class="navbar navbar-default" id="setPostion">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
@@ -22,7 +23,10 @@
 	<div class="collapse navbar-collapse" id="">
 		<ul class="nav navbar-nav">
 <!--  			<li>아녕하세요</li> -->
-		</ul>	
+			<sec:authentication var="principal" property="principal" />
+			<li>${principal.username}님 접속중</li>
+		</ul>
+			
 		<!-- 로그인 버튼 -->
 		<sec:authorize access="isAnonymous()">
 			<c:url var="loginUrl" value="/login" />

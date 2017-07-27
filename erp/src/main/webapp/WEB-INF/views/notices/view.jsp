@@ -16,7 +16,7 @@ pre {
 </style>
 
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>view Board</title>
+<title>공지 보기</title>
 </head>
 <body>
 	<div class="jumbotron" id="subNav">

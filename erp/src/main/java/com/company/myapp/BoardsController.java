@@ -149,7 +149,7 @@ public class BoardsController {
 				Pattern p = Pattern.compile(pattern); // 패턴을 컴파일
 				Matcher m = p.matcher(fileName); // fileName에 정규식 적용
 				String extension = "";
-				String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql)"; // 파일 형식 제어
+				String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql|SQL)"; // 파일 형식 제어
 //				String fileUploadPath = "/root/upload/";
 				String fileUploadPath = collect.getCommonUploadPath();
 				

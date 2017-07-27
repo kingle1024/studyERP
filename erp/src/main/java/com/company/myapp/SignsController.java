@@ -41,6 +41,8 @@ public class SignsController {
 	
 	@RequestMapping(value="/signs/atypicalDoc", method=RequestMethod.GET)
 	public ModelAndView stockDoc(){
+		
+		
 		ModelAndView mv = new ModelAndView("popUp/signs/atypicalDoc"); 
 		return mv;
 	}
@@ -48,9 +50,10 @@ public class SignsController {
 	@RequestMapping(value="/signs/atypicalDoc", method=RequestMethod.POST)
 	public ModelAndView stockDocData(Principal principal, @ModelAttribute Approval approval){
 		System.out.println("/signs/atypicalDoc");
-		String send_id = principal.getName();
+		String send_id = principal.getName(); // 접속중인 계정
 		System.out.println(send_id);
-		String recv_id = "admin@naver.com";
+//		String recv_id = "admin@naver.com";
+		String recv_id = "teran1024@naver.com";
 		approval.setSend_id(send_id);
 		approval.setRecv_id(recv_id);
 		System.out.println(approval.toString());
@@ -72,6 +75,7 @@ public class SignsController {
 		System.out.println(approval.toString());
 		
 		signmapper.testDoc(approval);
+		
 		
 		ModelAndView mv = new ModelAndView("redirect:/signs"); 
 		return mv;
@@ -134,7 +138,7 @@ public class SignsController {
 	  public void approval(HttpServletRequest request){
 		  System.out.println("승인");
 		  String Doc = request.getParameter("Doc");
-		  String recv_id = "admin@naver.com";
+		  String recv_id = "admin";
 		  Approval approval = signmapper.getApprovalAll(Doc);
 		  if(approval.getStepIng() != approval.getStepFinal()){
 			  System.out.println("다르므로 1을 더해준다. 그리고 다음 결재로 넘겨준다"); 
@@ -143,7 +147,6 @@ public class SignsController {
 			  System.out.println("같으므로 완료 상태로 바꿔준다");
 			  signmapper.approvalState(Doc); // state를 approval로 바꿔준다. 
 		  }
-		  
 	  }
 	  
 	  @ResponseBody
@@ -156,8 +159,12 @@ public class SignsController {
 	  }
 	  
 	  @RequestMapping(value="/signs/docAtypicalView", method=RequestMethod.GET)
-	  public ModelAndView showDoc(){
-		  ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView"); 
+	  public ModelAndView showDoc(@RequestParam("Doc")String Doc,Principal principal){
+		  ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView");
+		  //문서의 정보를 가져온다
+		  System.out.println(Doc);
+		  mv.addObject("approval", signmapper.getApprovalAll(Doc));
+		  mv.addObject("principal",principal);
 		  return mv;
 	  }
 }

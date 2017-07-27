@@ -5,8 +5,9 @@ import java.util.Date;
 public class ApprovalSub {
 	private int no;
 	private int doc_no;
-	String recv_id;
-	Date update_date;
+	private String recv_id;
+	private String state;
+	private Date update_date;
 	public int getNo() {
 		return no;
 	}
@@ -25,6 +26,12 @@ public class ApprovalSub {
 	public void setRecv_id(String recv_id) {
 		this.recv_id = recv_id;
 	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
 	public Date getUpdate_date() {
 		return update_date;
 	}
@@ -33,9 +40,7 @@ public class ApprovalSub {
 	}
 	@Override
 	public String toString() {
-		return "ApprovalSub [no=" + no + ", doc_no=" + doc_no + ", recv_id=" + recv_id + ", update_date=" + update_date
-				+ "]";
+		return "ApprovalSub [no=" + no + ", doc_no=" + doc_no + ", recv_id=" + recv_id + ", state=" + state
+				+ ", update_date=" + update_date + "]";
 	}
-	
-	
 }

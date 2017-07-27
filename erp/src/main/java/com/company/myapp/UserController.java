@@ -23,7 +23,7 @@ public class UserController {
 	    public String userList(Model model,
 	                @RequestParam(value="page", defaultValue="1") int page,
 	                @RequestParam(value="word", required=false) String word) {
-		 //왜 안오냐 ㅅㅂ
+		 //왜 안오냐 
 	        List<User> userList = userService.getUserList(page, word);
 	        model.addAttribute("userList", userList);
 	        model.addAttribute("page", page);
