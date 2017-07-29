@@ -93,7 +93,7 @@
                 <ul class="sub-menu collapse" id="new">
                   <li class="active"><a href="<c:url value="/signs/" />" >결재</a></li>
                   <li><a href="<c:url value="/signs/recv" />">받은문서함</a></li>
-                  <li><a href="<c:url value="/signs/send/ing" />">보낸문서함</a></li>
+                  <li><a href="<c:url value="/signs/send" />">보낸문서함</a></li>
                 </ul>
 
                  <li>

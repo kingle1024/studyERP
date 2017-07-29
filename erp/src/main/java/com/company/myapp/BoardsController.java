@@ -60,7 +60,7 @@ public class BoardsController {
 		model.addAttribute("boards", boards);
 
 		List<Board> boardList = userService.getNoticeList(page, word);
-		System.out.println(boardList);
+//		System.out.println(boardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
 		model.addAttribute("lastPage", userService.getNoticeLastPage());

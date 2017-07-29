@@ -54,11 +54,10 @@ public class SignsController {
 		System.out.println(send_id);
 //		String recv_id = "admin@naver.com";
 		String recv_id = "teran1024@naver.com";
-		approval.setSend_id(send_id);
 		approval.setRecv_id(recv_id);
 		System.out.println(approval.toString());
 		
-		signmapper.atypicalDoc(approval);
+//		signmapper.atypicalDoc(approval);
 		
 		ModelAndView mv = new ModelAndView("redirect:/signs"); 
 		return mv;
@@ -70,11 +69,10 @@ public class SignsController {
 		String send_id = principal.getName();
 		System.out.println(send_id);
 		String recv_id = "teran1024@naver.com";
-		approval.setSend_id(send_id);
 		approval.setRecv_id(recv_id);
 		System.out.println(approval.toString());
 		
-		signmapper.testDoc(approval);
+//		signmapper.testDoc(approval);
 		
 		
 		ModelAndView mv = new ModelAndView("redirect:/signs"); 
@@ -89,47 +87,57 @@ public class SignsController {
 	  }
 	  
 	  @RequestMapping(value="/signs/recv", method={RequestMethod.GET})
-	  public ModelAndView  recv(@RequestParam(value="type", defaultValue="recvWaiting") String type, Principal principal, HttpServletRequest request, HttpServletResponse response)
+	  public ModelAndView recv(@RequestParam(value="type", defaultValue="recvWaiting") String type, Principal principal, HttpServletRequest request, HttpServletResponse response)
 	  {
 		  ModelAndView mv = new ModelAndView("signs/"+type); // 진행, 대기, 승인, 반려 페이지로 이동
 		  String email = principal.getName(); // 로그인한 사람의 계정
-		  /*
-		   * 1 - 근장장 진행 
-		   * 2 - 근장장 승인
-		   * 3 - 근장장 반려
-		   * 4 - 관리자 진행
-		   * 5 - 관리자 승인
-		   * 6 - 관리자 반려
-		   */
 		  switch(type){
 		  	case "recvWaiting":{
-	  			mv.addObject("approval", signmapper.getApprovalWaiting(email)); // 대기인것을 가져온다
+	  			mv.addObject("approval", signmapper.showRecvWaitingList(email)); // 대기인것을 가져온다
 		  		break;
 		  	}
 		  	case "recvIng":{
-		  		mv.addObject("approval", signmapper.getApprovalIng(email)); // 진행인 모든 것을 가져온다
+		  		mv.addObject("approval", signmapper.showRecvIngList(email)); // 진행인 모든 것을 가져온다
 		  		break;
 		  	}
 		  	case "recvApproval":{
-		  		mv.addObject("approval", signmapper.getApprovalFinal(email)); // 승인인 경우  
+		  		mv.addObject("approval", signmapper.showRecvApprovalList(email)); // 승인인 경우  
 		  		break;
 		  	}
 		  	case "recvReject":{
-		  		mv.addObject("approval", signmapper.getApprovalReject(email)); // 반려인 경우 모두 
+		  		mv.addObject("approval", signmapper.showRecvRejectList(email)); // 반려인 경우 모두 
 		  		break;
 		  	}
 		  	default:{
-		  		
+		  		System.out.println("Recvdefault");
 		  	}
 		  }
-		  
 		  return mv;
 	  }
 	  
-	  @RequestMapping(value={"/signs/send/ing"}, method={RequestMethod.GET})
-	  public ModelAndView send()
+	  @RequestMapping(value={"/signs/send"}, method={RequestMethod.GET})
+	  public ModelAndView send(@RequestParam(value="type", defaultValue="sendIng") String type, Principal principal)
 	  {
-		  ModelAndView mv = new ModelAndView("signs/sendIndex"); 
+		  ModelAndView mv = new ModelAndView("signs/"+type); // 진행, 대기, 승인, 반려 페이지로 이동
+		  String email = principal.getName();
+		  switch(type){
+		  	case "sendIng":{
+		  		mv.addObject("approval", signmapper.showSendIng(email));
+		  		break;
+		  	}
+		  	case "sendApproval":{
+		  		mv.addObject("approval", signmapper.showSendApprovalList(email));
+		  		break;
+		  	}
+	  		case "sendReject":{
+	  			mv.addObject("approval", signmapper.showSendReject(email));
+	  			break;
+	  		}
+	  		default:{
+	  			System.out.println("Senddefault");
+	  		}
+		  }
+		  
 		  return mv;
 	  }
 	  
@@ -139,31 +147,26 @@ public class SignsController {
 		  System.out.println("승인");
 		  String Doc = request.getParameter("Doc");
 		  String recv_id = "admin";
-		  Approval approval = signmapper.getApprovalAll(Doc);
-		  if(approval.getStepIng() != approval.getStepFinal()){
-			  System.out.println("다르므로 1을 더해준다. 그리고 다음 결재로 넘겨준다"); 
-			  signmapper.plusStateIng(Doc, recv_id); // 만약 완료 단계가 아니면 stateIng를 1 더해준다
-		  }else{
-			  System.out.println("같으므로 완료 상태로 바꿔준다");
-			  signmapper.approvalState(Doc); // state를 approval로 바꿔준다. 
-		  }
+		  
+		  
 	  }
 	  
 	  @ResponseBody
 	  @RequestMapping(value="/signs/reject", method=RequestMethod.POST)
-	  public void reject(HttpServletRequest request){
+	  public void reject(HttpServletRequest request,Principal principal){
 		  System.out.println("반려");
 		  String Doc = request.getParameter("Doc");
-		  signmapper.rejectDoc(Doc);
 		  
 	  }
 	  
 	  @RequestMapping(value="/signs/docAtypicalView", method=RequestMethod.GET)
 	  public ModelAndView showDoc(@RequestParam("Doc")String Doc,Principal principal){
 		  ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView");
+		  
 		  //문서의 정보를 가져온다
 		  System.out.println(Doc);
-		  mv.addObject("approval", signmapper.getApprovalAll(Doc));
+		  
+//		  mv.addObject("approval", signmapper.getApprovalAll(Doc));
 		  mv.addObject("principal",principal);
 		  return mv;
 	  }

@@ -32,7 +32,7 @@
 					<c:set var="approvalstepFinal" value="${approval.stepFinal }" />
 					
 					<td>
-					<c:if test=${approvalstepIng eq approvalstepFinal }></c:if>
+<%-- 					<c:if test=${approvalstepIng eq approvalstepFinal }>aaa</c:if> --%>
 					
 					승인여부
 					

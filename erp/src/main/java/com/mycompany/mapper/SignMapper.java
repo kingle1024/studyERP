@@ -10,51 +10,34 @@ import org.apache.ibatis.annotations.Update;
 import com.mycompany.vo.Approval;
 import com.mycompany.vo.ApprovalSub;
 public interface SignMapper {
-	@Select("select * from approvals where state = 'processing' and recv_id = #{recv_id} order by no desc") 	// 대기
-	public List<Approval> getApprovalWaiting(@Param("recv_id")String recv_id);
+	@Select("select * from approvals where recv_id = #{recv_id} and state = 0 ")
+	public List<Approval> showRecvWaitingList(@Param("recv_id")String recv_id); // 자신이 받는 상태에서 대기인 것 모두
 	
-	// select * from approvals where state = 'processing' and recv_id != 'teran1024@naver.com' and exists (select * from approvals_sub where doc_no = 36 and recv_id='teran1024@naver.com');
 	@Select(""
 			+ "select * "
 			+ "from approvals "
-			+ "where state = 'processing' and recv_id != #{recv_id} "
-			+ "and exists ("
-			+ "	select * "
-			+ "	from approvals_sub "
-			+ "	where recv_id= #{recv_id} "
-			+ ") order by no desc") // 대기 . 근장장 대기 - 근장장이 승인을 하여 관리자에게 간 경우 
-	public List<Approval> getApprovalIng(@Param("recv_id") String recv_id); // 진행
+			+ "where state = 0 and (recv_id) "
+			+ "not in ("
+			+ "	select recv_id "
+			+ "	from approvals_system "
+			+ "	where recv_id=#{recv_id})")
+	public List<Approval> showRecvIngList(@Param("recv_id")String recv_id ); // 상태가 0인것 중에서 approval_system에 자신의 아이디가 포함되어 있는 것, 진행
 	
-	@Select("select * from approvals where no = #{Doc}")
-	public Approval getApprovalAll(@Param("Doc")String Doc);
+	@Select("select * from approvals where recv_id = #{recv_id} and state = 1 ") 
+	public List<Approval> showRecvApprovalList(@Param("recv_id")String recv_id); // 자신이 받는 상태에서 승인인 것 모두
 	
-	@Select("select * from approvals where state = 'approval' and recv_id = #{recv_id} order by no desc") // 승인
-	public List<Approval> getApprovalFinal(@Param("recv_id")String recv_id);
-	
-	@Select("select * from approvals where state = 'reject' and recv_id = #{recv_id} order by no desc") // 반려
-	public List<Approval> getApprovalReject(@Param("recv_id")String recv_id);
-	
-	@Select("select * from authorities where email = #{email} ") // 아이디로 권한 찾기
-	public Object getAuthorityCheck(@Param("email") String email);
-	
-	@Insert("insert into approvals (title, content, etc, state, stepIng, stepFinal, send_id, recv_id, type_code, register_date) "+
-			" values ( #{title}, #{content}, #{etc}, 'processing', 1, 1, #{send_id}, #{recv_id}, 1200, now() )")
-	public boolean atypicalDoc(Approval approval);
+	@Select("select * from approvals where recv_id = #{recv_id} and state = 2 ")
+	public List<Approval> showRecvRejectList(@Param("recv_id")String recv_id ); // 자신이 받는 상태에서 반려인 것 모두
 
-	@Insert("insert into approvals (title, content, etc, state, stepIng, stepFinal, send_id, recv_id, type_code, register_date) "+
-			" values ( #{title}, #{content}, #{etc}, 'processing', 1, 2, #{send_id}, #{recv_id}, 1300, now() )")
-	public boolean testDoc(Approval approval);
+	@Select("select * from approvals where send_id = #{send_id} and state = 0 ")
+	public List<Approval> showSendIng(@Param("send_id")String send_id);
 	
-	@Insert("insert into approvals_sub (doc_no, recv_id, update_date) values ( #{doc_no}, #{recv_id}, now() )")
-	public boolean approvalSub(@Param("doc_no") String doc_no, @Param("recv_id") String recv_id);
+	@Select("select * from approvals where send_id = #{send_id} and state = 1")
+	public List<Approval> showSendApprovalList(@Param("send_id")String send_id);
 	
-	@Update("update approvals set state = 'reject' where no = #{Doc} ")
-	public boolean rejectDoc(@Param("Doc") String Doc);
+	@Select("select * from approvals where send_id = #{send_id} and state = 2")
+	public List<Approval> showSendReject(@Param("send_id")String send_id);
 	
-	@Update("update approvals set stepIng = stepIng + 1, recv_id = #{recv_id} where no = #{Doc}")
-	public boolean plusStateIng(@Param("Doc") String Doc,@Param("recv_id") String recv_id);
-	
-	@Update("update approvals set state = 'approval' where no = #{Doc} ")
-	public boolean approvalState(@Param("Doc") String Doc);
-	
+	@Update("update approvals set state = 2 where no=#{no}")
+	public boolean reject(@Param("no")int no);
 }
