@@ -63,7 +63,7 @@ public class MessagesController {
 	
 	//메세지를 보내는 과정 hidden 값으로 자신의 아이디를 가지고 있는다.
 	@RequestMapping(value = "/messages", method = RequestMethod.POST)
-	public String createMessage(@ModelAttribute Message Message, HttpServletRequest request, ModelMap model, Principal principal) {
+	public String createMessage(@ModelAttribute Message Message, ModelMap model, Principal principal) {
 		String name = principal.getName();  
 	    model.addAttribute("username", name);
 	    messageMapper.createMessageR(Message);

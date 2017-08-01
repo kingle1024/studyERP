@@ -18,7 +18,7 @@
 	<div class="container">
 		<div class="jumbotron">
 		<h1>2단계 결재 문서</h1>
-		<form id="formname1" method="post" action="<c:url value="/signs/testDoc" /> ">
+		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> ">
 			<table>										
 				<tr>
 					<td width="100px">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
@@ -37,6 +37,8 @@
 					<td width="100px"><input type="text" class="form-control" name="etc"></td>
 				</tr>
 			</table>	
+			<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
+			<input type="hidden" name="type_code" value="1100">
 			<button type="submit" class="btn btn-lg btn-primary" style="width:100%">전송</button>		
 		</form>
 		</div>

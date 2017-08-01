@@ -72,6 +72,11 @@ function display(num){
 // 	};
 </script>
 <script>
+	var popupX = (window.screen.width / 2) - (200 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	var popupY= (window.screen.height /2) - (300 / 2);
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 </script>
 	<div class="jumbotron" id="subNav">
 		<font size="6">결재하기</font>-결재 기능을 수행할 수 있습니다.
@@ -82,7 +87,9 @@ function display(num){
 <!-- 			재고신청</a> -->
 		<button id="a" class="btn btn btn-primary" onclick="display(1)">재고신청</button>	
 		<button id="b" class="btn btn btn-primary" onclick="display(2)">테스트신청</button>
-		<div id="div1"></div>
+		<a href="#" onclick="window.open('<c:url value="/signs/atypicalDoc" />', '_blank', 'status=no, height=500, width=1300, left='+ popupX +1000+ ', top='+ popupY + ', screenX='+ popupX + 1000 +', screenY= '+ popupY)" class="btn btn btn-primary"> window 문서</a>
+		
+		<div id="div1" style="height: 600px; width: 100%; border:1px solid black;"></div>
 		
 	</div>
 </body>

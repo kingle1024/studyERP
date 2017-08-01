@@ -8,51 +8,64 @@
 <%
 	Object Doc = request.getParameter("Doc");
 %>
+<style>
+	.setPadding{
+		padding:10px;
+	}
+</style>
 </head>
 <body>
 	<div class="container">
 		<div class="jumbotron">
 			<form id="form1" name="form1" method="POST">
-			<c:set var="approvalName" value="${approval.recv_id}" />
-			<sec:authentication var="principal" property="principal" />
+			
 			<!-- 받는사람인 경우만 승인/반려 버튼이 보인다 -->
-			<c:if test="${approvalName eq principal }">
-				<input type="button" value="승인" onclick="check(1,<%=Doc %>)" />
-				<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
-			</c:if>
+			
 			</form>
 			<div style="float:right">
-			<table>
+			<table cellpadding="20px" border="1">
 				<tr>
-					<td>근장장</td><td>관리자</td>
+					<td class="setPadding">근장장</td><td class="setPadding">관리자</td>
 				</tr>
 				<tr>
-					<c:set var="approvalYN" value="${approval.state }" />
-					<c:set var="approvalstepIng" value="${approval.stepIng }" />
-					<c:set var="approvalstepFinal" value="${approval.stepFinal }" />
-					
-					<td>
-<%-- 					<c:if test=${approvalstepIng eq approvalstepFinal }>aaa</c:if> --%>
-					
-					승인여부
-					
+					<c:set var="approvalState" value="${ approval.state }" />
+					<c:set var="approvalName" value="${ approval.recv_id}" />
+					<c:set var="principal" value="${ principal  }" />
+					<td class="setPadding">
+						<c:if test="${ approvalState eq 0 }" >
+							<c:if test="${ principal eq approvalName }">
+								<input type="button" value="승인" onclick="check(1,<%=Doc %>)" /><br>
+								<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
+							</c:if>
+						</c:if>
 					</td>
-					
-					
-					<td>승인여부</td>
+					<td class="setPadding">
+						<c:if test="${ approvalState eq 0 }" >
+							<c:if test="${ principal eq approvalName }">
+								<input type="button" value="승인" onclick="check(1,<%=Doc %>)" /><br>
+								<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
+							</c:if>
+						</c:if>
+					</td>
 				</tr>
 			</table>
 			</div>
 			<br><br><br>
 			<table>
 				<tr>
-					<td>제목</td><td>${approval.title }</td>
+					<th width="12%">제목</th><td>${approval.title }</td>
 				</tr>
 				<tr>
-					<td>보낸이 </td><td>${approval.send_id }</td>	
+					<th>보낸이 </th><td>${approval.send_id }</td>	
 				</tr>
 				<tr>
-					<td>보낸날짜</td><td>${approval.register_date }</td>
+					<th>보낸날짜</th><td>${approval.register_date }</td>
+				</tr>
+				<tr>
+					<th>내용</th><td><textarea cols="63" rows="6" readonly>${approval.content }</textarea></td>
+				</tr>
+				<tr>
+					<th>기타</th><td><textarea cols="63" rows="2" readonly>${approval.etc }</textarea></td>
 				</tr>
 			</table>
 		</div>

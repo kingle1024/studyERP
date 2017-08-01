@@ -10,6 +10,7 @@ public class Approval {
 	private String state;
 	private String send_id;
 	private String recv_id;
+	private String type_code;
 	private Date register_date;
 	public int getNo() {
 		return no;
@@ -53,7 +54,12 @@ public class Approval {
 	public void setRegister_date(Date register_date) {
 		this.register_date = register_date;
 	}
-	
+	public String getType_code() {
+		return type_code;
+	}
+	public void setType_code(String type_code) {
+		this.type_code = type_code;
+	}
 	public String getSend_id() {
 		return send_id;
 	}
@@ -63,7 +69,8 @@ public class Approval {
 	@Override
 	public String toString() {
 		return "Approval [no=" + no + ", title=" + title + ", content=" + content + ", etc=" + etc + ", state=" + state
-				+ ", send_id=" + send_id + ", recv_id=" + recv_id + ", register_date=" + register_date + "]";
+				+ ", send_id=" + send_id + ", recv_id=" + recv_id + ", type_code=" + type_code + ", register_date="
+				+ register_date + "]";
 	}
 	
 }

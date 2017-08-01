@@ -45,10 +45,8 @@
 // var data2 = {userId : userid, name: name, password: password };
 // var data = JSON.stringify(data2);
 </script>
-	<div class="container">
-		<div class="jumbotron">
+		<div class="jumbotron" >
 		<h1>비정형 문서</h1>
-<!-- 		<form id="formname1" > -->
 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> ">
 			<table>				
 				<tr>
@@ -71,11 +69,11 @@
 					<td width="100px"><input type="text" class="form-control" name="etc"></td>
 				</tr>
 			</table>	
-<!-- 			<a href="#" onclick="formSubmit()" class="btn btn-lg btn-primary" style="width:100%" >전송</a> -->
+			<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
+			<input type="hidden" name="type_code" value="1000">
 			<input type="submit" class="btn btn-lg btn-primary" style="width:100%" value="전송">		
 		</form>
 		</div>
-	</div>
 
 </body>
 </html>

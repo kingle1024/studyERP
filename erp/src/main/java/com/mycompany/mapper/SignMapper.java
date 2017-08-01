@@ -9,8 +9,9 @@ import org.apache.ibatis.annotations.Update;
 
 import com.mycompany.vo.Approval;
 import com.mycompany.vo.ApprovalSub;
+import com.mycompany.vo.ApprovalSystem;
 public interface SignMapper {
-	@Select("select * from approvals where recv_id = #{recv_id} and state = 0 ")
+	@Select("select * from approvals where recv_id = #{recv_id} and state = 0 order by no desc ")
 	public List<Approval> showRecvWaitingList(@Param("recv_id")String recv_id); // 자신이 받는 상태에서 대기인 것 모두
 	
 	@Select(""
@@ -20,24 +21,51 @@ public interface SignMapper {
 			+ "not in ("
 			+ "	select recv_id "
 			+ "	from approvals_system "
-			+ "	where recv_id=#{recv_id})")
+			+ "	where recv_id=#{recv_id}) order by no desc ")
 	public List<Approval> showRecvIngList(@Param("recv_id")String recv_id ); // 상태가 0인것 중에서 approval_system에 자신의 아이디가 포함되어 있는 것, 진행
 	
-	@Select("select * from approvals where recv_id = #{recv_id} and state = 1 ") 
+	@Select("select * from approvals where recv_id = #{recv_id} and state = 1 order by no desc") 
 	public List<Approval> showRecvApprovalList(@Param("recv_id")String recv_id); // 자신이 받는 상태에서 승인인 것 모두
 	
-	@Select("select * from approvals where recv_id = #{recv_id} and state = 2 ")
+	@Select("select * from approvals where recv_id = #{recv_id} and state = 2 order by no desc")
 	public List<Approval> showRecvRejectList(@Param("recv_id")String recv_id ); // 자신이 받는 상태에서 반려인 것 모두
 
-	@Select("select * from approvals where send_id = #{send_id} and state = 0 ")
+	@Select("select * from approvals where send_id = #{send_id} and state = 0 order by no desc")
 	public List<Approval> showSendIng(@Param("send_id")String send_id);
 	
-	@Select("select * from approvals where send_id = #{send_id} and state = 1")
+	@Select("select * from approvals where send_id = #{send_id} and state = 1 order by no desc")
 	public List<Approval> showSendApprovalList(@Param("send_id")String send_id);
 	
-	@Select("select * from approvals where send_id = #{send_id} and state = 2")
+	@Select("select * from approvals where send_id = #{send_id} and state = 2 order by no desc")
 	public List<Approval> showSendReject(@Param("send_id")String send_id);
+
+	@Select("select * from approvals where no = #{doc} ")
+	public Approval getApproval(@Param("doc")String doc);
 	
-	@Update("update approvals set state = 2 where no=#{no}")
-	public boolean reject(@Param("no")int no);
+	@Select("select * from approvals_sub where doc = #{doc} and send_id = #{send_id}")
+	public ApprovalSub getApprovalSub(@Param("doc")String doc, @Param("send_id")String send_id);
+	
+	@Select("select * from approvals_system where type_code = #{type_code} and recv_id = #{recv_id}")
+	public ApprovalSystem getApprovalSystem(@Param("type_code")String type_code, @Param("recv_id")String recv_id);
+	
+	@Update("update approvals set state = 1 where no=#{no}")
+	public boolean approvalEnd(@Param("no")String no);
+	
+	@Update("update approvals set state = 2 where no=#{Doc}")
+	public boolean reject(@Param("Doc")String Doc);
+	
+	@Update("update approvals set recv_id = #{recv_id} where no = #{Doc}")
+	public boolean changeApprovalRecvId(@Param("recv_id")String recv_id, @Param("Doc")String Doc);
+	
+	@Insert("insert into approvals_sub (doc, ing, last, state, update_date, send_id, type_code) values (#{doc}, #{ing}, #{last}, #{state}, now(), #{send_id}, #{type_code }) ")
+	public boolean approvals_sub(@Param("doc")String doc, @Param("ing")int ing, @Param("last")int last, @Param("state")int state, @Param("send_id")String send_id, @Param("type_code")String type_code);
+	
+	@Insert("insert into approvals (title, content, etc, state, send_id, recv_id, type_code, register_date) values( #{title}, #{content}, #{etc}, 0, #{send_id}, #{recv_id}, #{type_code}, now() ) ")
+	public boolean insertApproval(Approval approval);
+	
+	@Select("select recv_id from approvals_system where type_code = #{type_code} and ing=1") // 처음 문서를 보낼 때 받을 사람의 아이디를 가져온다 그래서 ing = 1이다.
+	public String ListgetApprovalSystem(@Param("type_code")String type_code);
+	
+	@Select("select recv_id from approvals_system where type_code = #{type_code} and ing = #{ing} +1")
+	public String getNextApprovalUser(@Param("type_code")String type_code, @Param("ing")int ing);
 }
