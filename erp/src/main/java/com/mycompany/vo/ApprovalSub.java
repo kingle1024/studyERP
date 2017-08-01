@@ -8,7 +8,7 @@ public class ApprovalSub {
 	private int ing;
 	private int last;
 	private int state;
-	private Date date;
+	private Date update_date;
 	private String send_id;
 	private String type_code;
 	public int getNo() {
@@ -41,11 +41,11 @@ public class ApprovalSub {
 	public void setState(int state) {
 		this.state = state;
 	}
-	public Date getDate() {
-		return date;
+	public Date getUpdate_date() {
+		return update_date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setUpdate_date(Date update_date) {
+		this.update_date = update_date;
 	}
 	public String getSend_id() {
 		return send_id;
@@ -62,6 +62,6 @@ public class ApprovalSub {
 	@Override
 	public String toString() {
 		return "ApprovalSub [no=" + no + ", doc=" + doc + ", ing=" + ing + ", last=" + last + ", state=" + state
-				+ ", date=" + date + ", send_id=" + send_id + ", type_code=" + type_code + "]";
+				+ ", update_date=" + update_date + ", send_id=" + send_id + ", type_code=" + type_code + "]";
 	}
 }

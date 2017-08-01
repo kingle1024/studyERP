@@ -4,6 +4,10 @@ package com.company.myapp;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,14 +38,12 @@ public class SignsController {
 	
 	@RequestMapping(value ="/signs", method = RequestMethod.GET)	
 	public ModelAndView indexSigns(Model model){
-		
 		ModelAndView mv = new ModelAndView("signs/index"); 
 		return mv;
 	}
 	
 	@RequestMapping(value="/signs/atypicalDoc", method=RequestMethod.GET)
 	public ModelAndView stockDoc(){
-		
 		ModelAndView mv = new ModelAndView("popUp/signs/atypicalDoc"); 
 		return mv;
 	}
@@ -169,16 +171,34 @@ public class SignsController {
 	  
 	  @RequestMapping(value="/signs/docAtypicalView", method=RequestMethod.GET)
 	  public ModelAndView showDoc(@RequestParam("Doc")String Doc,Principal principal){
-		  ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView");
-		  
-		  //문서의 정보를 가져온다
 		  System.out.println(Doc);
-		  
-		  //만약 상태가 0이면서 recv_id가 자신이면 보이게 한다
+		  ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView");
+		  //문서의 정보를 가져온다
 		  mv.addObject("approval", signmapper.getApproval(Doc));
-		  mv.addObject("principal",principal.getName());
+		  //만약 상태가 0이면서 recv_id가 자신이면 보이게 하기 위해 jsp에 자신의 아이디의 정보를 보낸다
+		  String email = principal.getName();
+		  mv.addObject("principal", email);
 		  
+		  //manager의 정보를 가져온다
+		  Approval approval = signmapper.getApproval(Doc);
+		  String type_code = approval.getType_code();
+		  List<ApprovalSystem> approvalSystem = signmapper.getApprovalSystemList(type_code);
+		  mv.addObject("approvalSystem",approvalSystem);
+		  System.out.println("정보:"+approvalSystem);
 		  
+		  //해당 문서 번호에 대한 결재 된 정보를 모두 가져온다
+		  List<ApprovalSub> approvalSub = signmapper.getApprovalSubList(Doc); // 이미 Map으로 들어와있다? 굳이 한번 더 가공할 필요는 없을듯?
+		  mv.addObject("approvalSub",approvalSub);
+		  System.out.println(approvalSub);
+		  
+		  /*
+		   * 다음 결재자가 몇밍인지 체크하기 위한 로직
+		   */
+		  ApprovalSystem currentApprovalSystem = signmapper.getCurrent(type_code, email);
+		  // last의 번호를 가져온다
+		  mv.addObject("currentIng",currentApprovalSystem.getIng());
+		  // 현재 나의 번호를 가져온다
+		  mv.addObject("currentLast",currentApprovalSystem.getLast()-1);
 		  
 		  return mv;
 	  }

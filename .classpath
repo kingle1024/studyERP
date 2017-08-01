@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="com/mycompany/service/|com/mycompany/mapper/" kind="src" path="erp/src/main/java"/>
+	<classpathentry kind="src" path="erp/src/main/java/com/mycompany/mapper"/>
+	<classpathentry kind="src" path="erp/src/main/java/com/mycompany/service"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="erp/target/classes"/>
+</classpath>

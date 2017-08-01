@@ -6,6 +6,7 @@ public class ApprovalSystem {
 	private int last;
 	private String recv_id;
 	private String type_code;
+	private String manager;
 	
 	public int getNo() {
 		return no;
@@ -37,9 +38,15 @@ public class ApprovalSystem {
 	public void setLast(int last) {
 		this.last = last;
 	}
+	public String getManager() {
+		return manager;
+	}
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
 	@Override
 	public String toString() {
 		return "ApprovalSystem [no=" + no + ", ing=" + ing + ", last=" + last + ", recv_id=" + recv_id + ", type_code="
-				+ type_code + "]";
+				+ type_code + ", manager=" + manager + "]";
 	}
 }
