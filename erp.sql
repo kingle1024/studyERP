@@ -19,52 +19,93 @@ USE `erp`;
 -- 테이블 erp.approvals 구조 내보내기
 CREATE TABLE IF NOT EXISTS `approvals` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
-  `content` varchar(200) CHARACTER SET utf8 DEFAULT NULL,
+  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `content` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `etc` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
-  `state` varchar(50) DEFAULT NULL,
-  `stepIng` int(11) DEFAULT NULL,
-  `stepFinal` int(11) DEFAULT NULL,
-  `send_id` varchar(50) DEFAULT NULL,
-  `recv_id` varchar(50) DEFAULT NULL,
+  `state` int(11) DEFAULT '0',
+  `send_id` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `recv_id` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   `type_code` varchar(50) DEFAULT NULL,
   `register_date` datetime DEFAULT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 erp.approvals:~6 rows (대략적) 내보내기
+-- 테이블 데이터 erp.approvals:~16 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `approvals` DISABLE KEYS */;
-INSERT INTO `approvals` (`no`, `title`, `content`, `etc`, `state`, `stepIng`, `stepFinal`, `send_id`, `recv_id`, `type_code`, `register_date`) VALUES
-	(36, 'state1', 'state1', 'ㄴㅇㄹ', 'processing', 1, 2, '11111@naver.com', 'admin@naver.com', '1200', '2017-07-22 21:59:09'),
-	(37, 'state2', 'ㅇㄴㄹ', 'ㄴㅇㄹ', 'reject', 1, 2, '22222@naver.com', 'admin@naver.com', '1200', '2017-07-22 21:59:41'),
-	(38, 'state3', 'ㅋㅋㅋ', 'ㅋㅋㅋ', 'approval', 1, 1, '33333@naver.com', 'admin@naver.com', '1200', '2017-07-22 22:02:16'),
-	(39, 'state4', 'ㄴㅇㄹ', 'ㄴㅇㄹ', 'approval', 2, 2, '44444@naver.com', 'admin@naver.com', '1200', '2017-07-22 22:06:02'),
-	(40, 'state5', 'ㅋㅋ', 'ㅋㅋ', 'reject', 1, 2, '55555@naver.com', 'admin@naver.com', '1200', '2017-07-22 22:06:05'),
-	(41, 'state6', 'ㅌㅌ', 'ㅊㅊ', 'reject', 1, 2, '66666@naver.com', 'admin@naver.com', '1200', '2017-07-23 22:41:19'),
-	(43, 'sdf', 'sdf', 'sdf', 'reject', 1, 1, 'admin@naver.com', 'admin@naver.com', '1200', '2017-07-25 16:34:54'),
-	(44, '반려테스트', '반려테스트', '반려테스트', 'reject', 1, 1, 'admin@naver.com', 'admin@naver.com', '1200', '2017-07-25 19:13:06'),
-	(45, '11', '11', '11', 'processing', 1, 1, 'test@naver.com', 'admin@naver.com', '1200', '2017-07-25 19:40:02'),
-	(46, '22', '2', '22', 'approval', 2, 2, 'test@naver.com', 'admin@naver.com', '1300', '2017-07-25 19:43:30'),
-	(47, '33', '33', '33', 'approval', 2, 2, 'test@naver.com', 'admin@naver.com', '1300', '2017-07-25 19:51:31');
+INSERT INTO `approvals` (`no`, `title`, `content`, `etc`, `state`, `send_id`, `recv_id`, `type_code`, `register_date`) VALUES
+	(1, '관리자의 대기 근장장의 진행', 'content1', 'etc1', 0, 'admin', 'admin', '1100', '2017-07-29 14:54:03'),
+	(2, '근장장의 반려', 'content2', 'etc2', 2, 'admin', 'admin', '1100', '2017-07-29 14:54:43'),
+	(3, '근장장 승인, 관리자 승인', 'content3', 'etc3', 1, 'admin', 'admin', '1100', '2017-07-29 14:56:16'),
+	(4, '근장장 승인, 관리자 반려', 'content4', 'etc4', 2, 'admin', 'admin', '1100', '2017-07-29 15:55:44'),
+	(5, '근장장 대기', 'content5', 'etc5', 0, 'admin', 'admin', '1000', '2017-07-29 15:55:45'),
+	(6, '근장장 승인 끝', 'content6', 'etc6', 1, 'admin', 'admin', '1000', '2017-07-29 16:46:54'),
+	(16, '근장장이 받습니다', '근장장이 받습니다', '근장장이 받습니다', 0, 'admin', 'admin', NULL, '2017-07-30 17:33:00'),
+	(23, '근장장 후 관리자1', '근장장 후 관리자1', '근장장 후 관리자1', 0, 'admin', 'admin', '1100', '2017-07-31 21:40:34'),
+	(26, '근장장이 결정', '근장장이 결정', '근장장이 결정', 0, 'teran1024@naver.com', 'teran1024@naver.com', '1000', '2017-07-31 22:18:32'),
+	(27, '근장장 후에 관리자_1', '근장장 후에 관리자_1', '근장장 후에 관리자_1', 0, 'teran1024@naver.com', 'admin', '1100', '2017-07-31 22:18:46'),
+	(28, '111111', '111', '111', 0, 'teran1024@naver.com', 'teran1024@naver.com', '1000', '2017-07-31 22:21:39'),
+	(29, '222', '222', '222', 1, 'teran1024@naver.com', 'admin', '1100', '2017-07-31 22:21:50'),
+	(30, '반려할것임111', '반려할것임111', '반려할것임111', 2, 'teran1024@naver.com', 'teran1024@naver.com', '1000', '2017-07-31 22:29:27'),
+	(31, '22', '222', '22', 2, 'teran1024@naver.com', 'teran1024@naver.com', '1100', '2017-07-31 22:30:44'),
+	(32, '반려2', '2', '2', 2, 'teran1024@naver.com', 'teran1024@naver.com', '1100', '2017-07-31 22:31:07'),
+	(33, '반려22', '반려22', '22', 2, 'teran1024@naver.com', 'admin', '1100', '2017-07-31 22:31:29');
 /*!40000 ALTER TABLE `approvals` ENABLE KEYS */;
 
 -- 테이블 erp.approvals_sub 구조 내보내기
 CREATE TABLE IF NOT EXISTS `approvals_sub` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
-  `doc_no` int(11) DEFAULT NULL,
-  `recv_id` varchar(50) DEFAULT NULL,
+  `doc` int(11) DEFAULT NULL,
+  `ing` int(11) DEFAULT NULL,
+  `last` int(11) DEFAULT NULL,
+  `state` int(11) DEFAULT NULL,
   `update_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`no`),
-  KEY `FK_approvals_sub_approvals` (`doc_no`),
-  CONSTRAINT `FK_approvals_sub_approvals` FOREIGN KEY (`doc_no`) REFERENCES `approvals` (`no`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `send_id` varchar(50) DEFAULT NULL,
+  `type_code` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 erp.approvals_sub:~2 rows (대략적) 내보내기
+-- 테이블 데이터 erp.approvals_sub:~7 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `approvals_sub` DISABLE KEYS */;
-INSERT INTO `approvals_sub` (`no`, `doc_no`, `recv_id`, `update_date`) VALUES
-	(1, 36, 'teran1024@naver.com', NULL),
-	(2, 36, 'admin@naver.com', NULL);
+INSERT INTO `approvals_sub` (`no`, `doc`, `ing`, `last`, `state`, `update_date`, `send_id`, `type_code`) VALUES
+	(1, 1, 1, 2, 1, '2017-07-29 14:57:05', 'teran1024@naver.com', '1100'),
+	(2, 2, 1, 2, 2, '2017-07-29 14:57:30', 'teran1024@naver.com', '1100'),
+	(3, 3, 1, 2, 1, '2017-07-29 15:06:55', 'teran1024@naver.com', '1100'),
+	(4, 3, 2, 2, 1, '2017-07-29 15:07:07', 'admin', '1100'),
+	(5, 4, 1, 2, 1, '2017-07-29 15:07:57', 'teran1024@naver.com', '1100'),
+	(6, 4, 2, 2, 2, '2017-07-29 15:08:10', 'admin', '1100'),
+	(7, 5, 1, 1, 1, '2017-07-29 16:47:12', 'teran1024@naver.com', '1000'),
+	(8, 25, 1, 1, 1, '2017-07-31 22:06:20', 'teran1024@naver.com', '1000'),
+	(9, 23, 1, 2, 1, '2017-07-31 22:14:43', 'teran1024@naver.com', '1100'),
+	(10, 23, 1, 2, 1, '2017-07-31 22:17:34', 'teran1024@naver.com', '1100'),
+	(11, 27, 1, 2, 1, '2017-07-31 22:18:52', 'teran1024@naver.com', '1100'),
+	(12, 29, 1, 2, 1, '2017-07-31 22:21:56', 'teran1024@naver.com', '1100'),
+	(13, 29, 1, 2, 1, '2017-07-31 22:22:46', 'teran1024@naver.com', '1100'),
+	(14, 29, 1, 2, 1, '2017-07-31 22:23:19', 'teran1024@naver.com', '1100'),
+	(15, 29, 2, 2, 1, '2017-07-31 22:23:48', 'admin', '1100'),
+	(16, 30, 1, 1, 2, '2017-07-31 22:30:34', 'teran1024@naver.com', '1000'),
+	(17, 31, 1, 2, 2, '2017-07-31 22:30:49', 'teran1024@naver.com', '1100'),
+	(18, 32, 1, 2, 2, '2017-07-31 22:31:16', 'teran1024@naver.com', '1100'),
+	(19, 33, 1, 2, 1, '2017-07-31 22:31:33', 'teran1024@naver.com', '1100'),
+	(20, 33, 2, 2, 2, '2017-07-31 22:31:45', 'admin', '1100');
 /*!40000 ALTER TABLE `approvals_sub` ENABLE KEYS */;
+
+-- 테이블 erp.approvals_system 구조 내보내기
+CREATE TABLE IF NOT EXISTS `approvals_system` (
+  `no` int(11) NOT NULL AUTO_INCREMENT,
+  `ing` int(11) DEFAULT NULL,
+  `last` int(11) DEFAULT NULL,
+  `recv_id` varchar(50) DEFAULT NULL,
+  `type_code` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`no`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- 테이블 데이터 erp.approvals_system:~3 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `approvals_system` DISABLE KEYS */;
+INSERT INTO `approvals_system` (`no`, `ing`, `last`, `recv_id`, `type_code`) VALUES
+	(1, 1, 2, 'teran1024@naver.com', '1100'),
+	(2, 2, 2, 'admin', '1100'),
+	(3, 1, 1, 'teran1024@naver.com', '1000');
+/*!40000 ALTER TABLE `approvals_system` ENABLE KEYS */;
 
 -- 테이블 erp.authorities 구조 내보내기
 CREATE TABLE IF NOT EXISTS `authorities` (
@@ -74,12 +115,12 @@ CREATE TABLE IF NOT EXISTS `authorities` (
   CONSTRAINT `FK_authorities_users` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 erp.authorities:~6 rows (대략적) 내보내기
+-- 테이블 데이터 erp.authorities:~8 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
 INSERT INTO `authorities` (`email`, `authority`) VALUES
-	('admin@naver.com', 'ROLE_ADMIN'),
+	('admin', 'ROLE_ADMIN'),
 	('teran1024@naver.com', 'ROLE_USER'),
-	('admin@naver.com', 'ROLE_USER'),
+	('admin', 'ROLE_USER'),
 	('kingle@nate.com', 'ROLE_USER'),
 	('dlwodn907@gmail.com', 'ROLE_USER'),
 	('tmzkdlgo@daum.net', 'ROLE_USER'),
@@ -99,9 +140,9 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `delete_yn` tinyint(4) DEFAULT NULL,
   `type_code` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 erp.boards:~31 rows (대략적) 내보내기
+-- 테이블 데이터 erp.boards:~35 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `boards` DISABLE KEYS */;
 INSERT INTO `boards` (`id`, `title`, `content`, `author`, `hit`, `register_date`, `update_date`, `delete_yn`, `type_code`) VALUES
 	(1, '2017학년도 실습실 근로장학생 명단입니다.', '정보통신학부 201255093 엄지용, 정보통신학부 201255043 이대근', '관리자', 127, '2017-03-05 09:37:39', '2017-03-02 22:14:30', 0, '1001'),
@@ -134,7 +175,11 @@ INSERT INTO `boards` (`id`, `title`, `content`, `author`, `hit`, `register_date`
 	(28, '근로장학생 회식 장소 및 일정 이에요~', '5월 20일날 기말고사 끝나고 나누리에서 회식해요! 회비는 오천원~~', '관리자', 94, '2017-05-09 09:33:38', '2017-05-09 01:34:01', 0, '1001'),
 	(29, '근로장학생 회식 장소 및 일정 이에요~', '5월 20일날 기말고사 끝나고 나누리에서 회식해요! 회비는 오천원~~', '관리자', 94, '2017-05-09 09:33:38', '2017-05-09 01:34:01', 0, '1001'),
 	(30, '근로장학생 회식 장소 및 일정 이에요~', '5월 20일날 기말고사 끝나고 나누리에서 회식해요! 회비는 오천원~~', '관리자', 96, '2017-05-09 09:33:38', '2017-05-09 01:34:01', 0, '1001'),
-	(31, '근로장학생 회식 장소 및 일정 이에요~', '5월 20일날 기말고사 끝나고 나누리에서 회식해요! 회비는 오천원~', '관리자', 205, '2017-05-09 09:33:38', '2017-07-25 21:34:50', 0, '1001');
+	(31, '근로장학생 회식 장소 및 일정 이에요~', '5월 20일날 기말고사 끝나고 나누리에서 회식해요! 회비는 오천원~', '관리자', 205, '2017-05-09 09:33:38', '2017-07-25 21:34:50', 0, '1001'),
+	(33, 'erp.war', 'erp.war', '관리자', 2, '2017-07-27 10:41:05', '2017-07-27 10:41:05', NULL, '1001'),
+	(34, 'erp.war', 'erp.war', '관리자', 3, '2017-07-27 10:41:22', '2017-07-27 10:41:22', NULL, '1001'),
+	(35, 'erp.warerp.war', 'erp.warerp.war', '관리자', 3, '2017-07-27 10:41:36', '2017-07-27 10:41:36', NULL, '1001'),
+	(36, 'erp.war', 'erp.war', '관리자', 2, '2017-07-27 10:42:28', '2017-07-27 10:42:28', NULL, '1001');
 /*!40000 ALTER TABLE `boards` ENABLE KEYS */;
 
 -- 테이블 erp.board_comment 구조 내보내기
@@ -238,9 +283,9 @@ CREATE TABLE IF NOT EXISTS `files` (
   `real_name` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '0',
   `path` varchar(200) NOT NULL DEFAULT '0',
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 erp.files:~41 rows (대략적) 내보내기
+-- 테이블 데이터 erp.files:~44 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `files` DISABLE KEYS */;
 INSERT INTO `files` (`no`, `board_no`, `save_name`, `real_name`, `path`) VALUES
 	(8, 0, '0', '0', 'c:/spring/upload/'),
@@ -283,7 +328,10 @@ INSERT INTO `files` (`no`, `board_no`, `save_name`, `real_name`, `path`) VALUES
 	(144, 31, '201707150937142.PNG', '2.PNG', 'C:\\Spring\\upload\\'),
 	(146, 31, '20170717013832.PNG', '11.PNG', '/upload/'),
 	(150, 75, '20170720014815.zip', 'excelTest (1).zip', '/upload/'),
-	(153, 76, '20170720085554.war', 'erp.war', '/upload/');
+	(153, 76, '20170720085554.war', 'erp.war', '/upload/'),
+	(154, 33, '20170727104105.war', 'erp.war', '/upload/'),
+	(155, 34, '201707271041221.war', 'erp.war', '/upload/'),
+	(156, 35, '201707271041362.war', 'erp.war', '/upload/');
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 
 -- 테이블 erp.free_document 구조 내보내기
@@ -367,12 +415,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 erp.users:~5 rows (대략적) 내보내기
+-- 테이블 데이터 erp.users:~7 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `email`, `name`, `password`, `socialNumFront`, `enabled`) VALUES
 	(1, 'dlwodn907@gmail.com', '이재우', '$2a$10$.ohfiNj9Hh44W3h7D0JPk.vMy6ssCW6LQThBUA.nu6LQhTavTdKLW', '', 1),
 	(2, 'teran1024@naver.com', '엄지용', '$2a$10$tIbjyBa2Ipc8.g3vS6uPYesU/Rzas.J2toGdKYqbQxF2JWe1aypiO', '', 1),
-	(3, 'admin@naver.com', '관리자', '$2a$10$C309v2FBo3lbPUCzt5bdrewQ6qPOpnhgEyhhrqLNLsFoFA7xQXgeO', '', 1),
+	(3, 'admin', '관리자', '$2a$10$C309v2FBo3lbPUCzt5bdrewQ6qPOpnhgEyhhrqLNLsFoFA7xQXgeO', '', 1),
 	(4, 'tmzkdlgo@daum.net', '이대근', '$2a$11$/.ej4SKI/VaogwQJzMLJBenzrVbDN9O8WHyuhHgJ89qJEftaz2PPi', '', 1),
 	(5, 'kingle@nate.com', '김연아', '$2a$11$iLYWb0GPXzcrGqaDtBuYeu9A45alChqBrX4Z.QHUH1rwA0Tu6X6Z.', '', 1),
 	(7, 'test@naver.com', '엄지용', '$2a$11$1JNaUZc3zVzPFYpj9gTE3ul1yTR7R/G2hYJ7yMCJ9xrPMIl16BRDa', '931024', 1),
