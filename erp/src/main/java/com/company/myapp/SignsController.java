@@ -189,17 +189,17 @@ public class SignsController {
 		  //해당 문서 번호에 대한 결재 된 정보를 모두 가져온다
 		  List<ApprovalSub> approvalSub = signmapper.getApprovalSubList(Doc); // 이미 Map으로 들어와있다? 굳이 한번 더 가공할 필요는 없을듯?
 		  mv.addObject("approvalSub",approvalSub);
+		  
 		  System.out.println(approvalSub);
 		  
 		  /*
 		   * 다음 결재자가 몇밍인지 체크하기 위한 로직
 		   */
 		  ApprovalSystem currentApprovalSystem = signmapper.getCurrent(type_code, email);
-		  // last의 번호를 가져온다
-		  mv.addObject("currentIng",currentApprovalSystem.getIng());
 		  // 현재 나의 번호를 가져온다
-		  mv.addObject("currentLast",currentApprovalSystem.getLast()-1);
+		  mv.addObject("currentIng",currentApprovalSystem.getIng());
 		  
+		  mv.addObject("cntDoc",signmapper.cntApprovalSub(Doc));
 		  return mv;
 	  }
 }

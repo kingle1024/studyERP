@@ -62,14 +62,17 @@ public interface SignMapper {
 	@Select("select * from approvals_sub where doc = #{Doc}")
 	public ApprovalSub checkEmptyApprovalSubList(@Param("Doc")String Doc);
 	
-	@Select("select * from approvals_system where type_code = #{type_code} and recv_id = #{recv_id}")
-	public ApprovalSystem getApprovalSystem(@Param("type_code")String type_code, @Param("recv_id")String recv_id);
+	@Select("select count(no) from approvals_sub where doc = #{Doc} order by ing asc")
+	public int cntApprovalSub(@Param("Doc")String Doc);
 	
 	@Select("select recv_id from approvals_system where type_code = #{type_code} and ing=1") // 처음 문서를 보낼 때 받을 사람의 아이디를 가져온다 그래서 ing = 1이다.
 	public String ListgetApprovalSystem(@Param("type_code")String type_code);
 	
 	@Select("select recv_id from approvals_system where type_code = #{type_code} and ing = #{ing} +1")
 	public String getNextApprovalUser(@Param("type_code")String type_code, @Param("ing")int ing);
+	
+	@Select("select * from approvals_system where type_code = #{type_code} and recv_id = #{recv_id}")
+	public ApprovalSystem getApprovalSystem(@Param("type_code")String type_code, @Param("recv_id")String recv_id);
 	
 	@Select("select * from approvals_system where type_code = #{type_code}") // /signs/docAtypicalView에서 사용함
 	public List<ApprovalSystem> getApprovalSystemList(@Param("type_code")String type_code);

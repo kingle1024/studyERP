@@ -18,58 +18,32 @@
 <body>
 	<div class="container">
 		<div class="jumbotron">
-			<form id="form1" name="form1" method="POST">
-			
-			<!-- 받는사람인 경우만 승인/반려 버튼이 보인다 -->
-			
-			</form>
 			<div style="float:right">
 			<table cellpadding="20px" border="1">
 				<c:set var="approvalState" value="${ approval.state }" />
 				<c:set var="approvalName" value="${ approval.recv_id}" />
 				<c:set var="principal" value="${ principal  }" />
-				
 				<tr>
-				<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
-					<td class="setPadding"> ${ approvalsystem.manager }</td> <!-- 표시 -->					
-				</c:forEach>
+					<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
+						<td class="setPadding"> ${ approvalsystem.manager } </td> <!-- 표시 -->	
+					</c:forEach>
 				</tr>
 				<tr>
-					<c:set var="check" value="${approvalSub }" />
-					
-					<c:if test="${empty check  }" >
-						<c:if test="${ principal ne approvalName }">
-						<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
-							<td class="setPadding">대기1</td>
-						</c:forEach>	
-						</c:if>
-					</c:if>
-					<!-- 앞에 있는 결재 내용 만큼 뿌려준다 -->
-					<c:forEach var="approvalsub" items="${ approvalSub }" varStatus="status">
-					<td class="setPadding">						
-						<fmt:formatDate value="${approvalsub.update_date }" pattern="yy-MM-dd HH:mm"/><br />
-						${approvalsub.send_id }
-					</td>
-					</c:forEach>
-					
-					<c:if test="${ approvalState eq 0 }" >
-						<c:if test="${ principal eq approvalName }">
-					<td class="setPadding">	
-						<input type="button" value="승인" onclick="check(1,<%=Doc %>)" />
-						<br/>
-						<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
-					</td>
-						</c:if>
-					</c:if>
-					
-					<c:if test="${ principal eq approvalName }">					
-					<!-- 다음 결재자가 몇명인지 체크해야 한다.. -->
-					<c:forEach var="i" begin="${currentIng }" end="${currentLast }" step="1">
-						<td>
-							<center>대기2</center>
+					<c:forEach var="i"  begin="1" end="${ approvalSystem[0].last }" step="1">
+						<td class="setPadding">  <!-- 해당 계정이 몇번째 ing인지 가져온다. 그리고 step이랑 ing랑 같으면 표시한다 -->
+							<c:choose>
+								<c:when test="${ approvalState eq 0 and principal eq approvalName and currentIng eq i}">
+									<input type="button" value="승인" onclick="check(1,<%=Doc %>)" />
+									<br/>
+									<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
+								</c:when>
+								<c:otherwise>
+										<fmt:formatDate value="${approvalSub[i-1].update_date }" pattern="yy-MM-dd HH:mm"/><br />
+										${approvalSub[i-1].send_id }
+								</c:otherwise>
+							</c:choose>
 						</td>
 					</c:forEach>
-					</c:if>
 				</tr>
 				
 			</table>

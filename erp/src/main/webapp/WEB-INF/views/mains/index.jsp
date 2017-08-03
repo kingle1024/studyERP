@@ -56,7 +56,6 @@
 				쪽지함 이동</a>
 		<a href="<c:url value="/messages/new" />" class="btn btn-default pull-right">
 				메시지 보내기</a>
-			<table class="table table-hover">
 			<script>
 				var popupX = (window.screen.width / 2) - (200 / 2);
 				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
@@ -64,11 +63,12 @@
 				var popupY= (window.screen.height /2) - (300 / 2);
 				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 			</script>
-			<thread>
+			<table class="table table-hover">
+			<thead>
 				<tr>
 					<th width="250px">보낸이</th><th width="670px">제목</th><th width="100px">보낸날짜</th>
 				</tr>
-			</thread>
+			</thead>
 				<tbody>
 				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
 							<tr>
