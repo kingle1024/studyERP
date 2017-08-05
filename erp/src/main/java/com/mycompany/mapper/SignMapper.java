@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import com.mycompany.vo.Approval;
 import com.mycompany.vo.ApprovalSub;
 import com.mycompany.vo.ApprovalSystem;
+import com.mycompany.vo.BreakDownDocument;
 public interface SignMapper {
 	@Select("select * from approvals where recv_id = #{recv_id} and state = 0 order by no desc ")
 	public List<Approval> showRecvWaitingList(@Param("recv_id")String recv_id); // 자신이 받는 상태에서 대기인 것 모두
@@ -53,6 +54,7 @@ public interface SignMapper {
 	@Select("select * from approvals where no = #{doc} ")
 	public Approval getApproval(@Param("doc")String doc);
 	
+	
 	@Select("select * from approvals_sub where doc = #{doc} and send_id = #{send_id}")
 	public ApprovalSub getApprovalSub(@Param("doc")String doc, @Param("send_id")String send_id);
 	
@@ -80,8 +82,14 @@ public interface SignMapper {
 	@Select("select * from approvals_system where type_code = #{type_code} and recv_id = #{recv_id}")
 	public ApprovalSystem getCurrent(@Param("type_code")String type_code, @Param("recv_id")String recv_id);
 	
-	@Update("update approvals set state = 1 where no=#{no}")
-	public boolean approvalEnd(@Param("no")String no);
+	@Select("select no from approvals order by no desc limit 1")
+	public int recentLimitOne();
+	
+	@Select("select * from breakdown_document where no = #{Doc} ")
+	public BreakDownDocument showBreakDownDocument(@Param("Doc")String Doc);
+	
+	@Update("update approvals set state = 1 where no=#{Doc}")
+	public boolean approvalEnd(@Param("Doc")String Doc);
 	
 	@Update("update approvals set state = 2 where no=#{Doc}")
 	public boolean reject(@Param("Doc")String Doc);
@@ -95,5 +103,7 @@ public interface SignMapper {
 	@Insert("insert into approvals (title, content, etc, state, send_id, recv_id, type_code, register_date) values( #{title}, #{content}, #{etc}, 0, #{send_id}, #{recv_id}, #{type_code}, now() ) ")
 	public boolean insertApproval(Approval approval);
 	
+	@Insert("insert into breakdown_document (no, distinguish, item, room_num) values (#{no}, #{distinguish}, #{item}, #{room_num})")
+	public boolean insertBreakDownDocument(BreakDownDocument breakDownDocument);
 	
 }

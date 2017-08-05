@@ -38,10 +38,11 @@
 									<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
 								</c:when>
 								<c:otherwise>
-										<fmt:formatDate value="${approvalSub[i-1].update_date }" pattern="yy-MM-dd HH:mm"/><br />
-										${approvalSub[i-1].send_id }
+									<fmt:formatDate value="${approvalSub[i-1].update_date }" pattern="yy-MM-dd HH:mm"/><br />
+									${approvalSub[i-1].send_id }
 								</c:otherwise>
 							</c:choose>
+							&nbsp;
 						</td>
 					</c:forEach>
 				</tr>
@@ -59,9 +60,15 @@
 				<tr>
 					<th>보낸날짜</th><td>${approval.register_date }</td>
 				</tr>
+				<c:forEach var="entry" items="${map}" varStatus="status">
+					<tr>
+						<th>${entry.key }</th>
+						<td>${entry.value }</td>
+					</tr>
+				</c:forEach>
 				<tr>
 					<th>내용</th><td><textarea cols="63" rows="6" readonly>${approval.content }</textarea></td>
-				</tr>
+				</tr>				
 				<tr>
 					<th>기타</th><td><textarea cols="63" rows="2" readonly>${approval.etc }</textarea></td>
 				</tr>

@@ -8,13 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import com.mycompany.mapper.BookMapper;
+
+import com.mycompany.mapper.BoardMapper;
  
 
 @Controller
 public class HandcodingController {
 	@Autowired
-	private BookMapper bookMapper;
+	private BoardMapper boardMapper;
 	
 	@RequestMapping(value = "/books/coding.do")
 	  public String coding() {

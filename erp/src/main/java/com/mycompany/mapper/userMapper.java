@@ -1,6 +1,7 @@
 package com.mycompany.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -38,18 +39,29 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 	})
 	public User selectUserById(int userId);
 	
-	@Delete("DELETE FROM authorities WHERE email = #{email} AND authority = #{role}")
-	public void deleteAuthority(@Param("email") String email, @Param("role") String role);
+	@Select("select * from users where email=#{email}")
+	public User getUserList(String email);
+	
+	@Select("select email from users where email=#{email}")
+	public String getUserEmail(@Param("email") String email);
+	
+	@Select(" SELECT id as userNo, email as userId, password as userPw FROM users ")
+	List<User> selectUserList(Map<String, Object> map);
 
-	@Delete("delete from users where id = #{userId}")
-	public void deleteUser(@Param("userId") int userId);
+	@Select(" SELECT id as userNo, email as userId, password as userPw FROM users ")
+	List<User> selectUserList2(Map<String, Object> map);
+	
+	@Select("select count(*) from users")
+	public int getLastPage();
 	
 	@Select("SELECT email, authority "
             + "FROM authorities "
             + "WHERE email = #{email}")
     public List<Authority> selectAuthority(String email);
 	
-	
-	
-	
+	@Delete("DELETE FROM authorities WHERE email = #{email} AND authority = #{role}")
+	public void deleteAuthority(@Param("email") String email, @Param("role") String role);
+
+	@Delete("delete from users where id = #{userId}")
+	public void deleteUser(@Param("userId") int userId);	
 }

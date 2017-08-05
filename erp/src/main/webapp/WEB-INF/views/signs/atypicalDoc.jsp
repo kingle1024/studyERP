@@ -4,6 +4,11 @@
 <html>
 <head>
 <title>결재 하기</title>
+<style>
+	.setPadding{
+		padding:10px;
+	}
+</style>
 </head>
 <body>
 <script>
@@ -46,12 +51,23 @@
 // var data = JSON.stringify(data2);
 </script>
 		<div class="jumbotron" >
+		<div style="float:right;">
+		<table cellpadding="20px" border="1">
+			<tr>
+				<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
+					<td class="setPadding"> ${ approvalsystem.manager } </td> <!-- 표시 -->	
+				</c:forEach>
+			</tr>
+			<tr>
+				<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
+					<td class="setPadding">&nbsp;</td>
+				</c:forEach>
+			</tr>
+		</table>
+		</div>
 		<h1>비정형 문서</h1>
 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> ">
 			<table>				
-				<tr>
-					<td>받는이:근장장</td>
-				</tr>						
 				<tr>
 					<td width="100px">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
 				</tr>

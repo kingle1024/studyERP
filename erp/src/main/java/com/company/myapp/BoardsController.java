@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mycompany.mapper.BookMapper;
+import com.mycompany.mapper.BoardMapper;
+import com.mycompany.mapper.FileMapper;
+import com.mycompany.mapper.userMapper;
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Comment;
 import com.mycompany.vo.FileForm;
@@ -41,9 +43,16 @@ public class BoardsController {
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
 	
 	static int cnt = 0;
-	@Autowired
-	private BookMapper bookMapper;
 
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	@Autowired
+	private FileMapper fileMapper;
+	
+	@Autowired
+	private userMapper userMapper;
+	
 	@Autowired
 	private UserService userService;
 	/*
@@ -55,7 +64,7 @@ public class BoardsController {
 	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "word", required = false) String word) {
 
-		List<Board> boards = bookMapper.getBoardList();
+		List<Board> boards = boardMapper.getBoardList();
 		System.out.println(boards);
 		model.addAttribute("boards", boards);
 
@@ -70,7 +79,7 @@ public class BoardsController {
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정
 	public String update(@ModelAttribute("inputForm") FileForm uploadForm, @ModelAttribute Board board, HttpServletRequest request, MultipartHttpServletRequest multipartRequest, @RequestParam(value = "page") int page) throws Exception{
 		System.out.println("/notice/update 왔다간당");
-		bookMapper.updateNotice(board);
+		boardMapper.updateNotice(board);
 
 		// 파일 업로드 시작하는 부분 
 		int no = board.getId();
@@ -106,7 +115,7 @@ public class BoardsController {
 									// static으로 선언
 					sdfFiletoString += cnt; // 다중 업로드 시 파일 이름을 다르게 해준다.
 //					bookMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, uploadForm.getUpDir()); // 파일 디비 저장
-					bookMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, fileUploadPath); // 파일 디비 저장
+					fileMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, fileUploadPath); // 파일 디비 저장
 
 					cnt++; // 다중 업로드 인지 확인하는 부분.
 //					String path = uploadForm.getUpDir() + sdfFiletoString + "." + extension; // 실제 파일 저장 하는 부분. 경로+이름+확장자
@@ -131,8 +140,8 @@ public class BoardsController {
 	@RequestMapping(value = "/notice", method = RequestMethod.POST) // 글쓰기
 	public String createBoard(@ModelAttribute("inputForm") FileForm uploadForm, Model map, @ModelAttribute Board board,
 			HttpServletRequest request, Model model) throws Exception {
-		bookMapper.createNotice(board); // 게시글 생성 후 번호를 받아와야 한다..................
-		int no = bookMapper.getLastID(); // 생성 후 바로 게시글의 번호를 가져오는 과정.
+		boardMapper.createNotice(board); // 게시글 생성 후 번호를 받아와야 한다..................
+		int no = boardMapper.getLastID(); // 생성 후 바로 게시글의 번호를 가져오는 과정.
 		List<MultipartFile> files = uploadForm.getFiles();
 		
 		Date dt = new Date();
@@ -166,7 +175,7 @@ public class BoardsController {
 									// static으로 선언
 					sdfFiletoString += cnt; // 다중 업로드 시 파일 이름을 다르게 해준다.
 //					bookMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, uploadForm.getUpDir()); // 파일 디비 저장
-					bookMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, fileUploadPath); // 파일 디비 저장
+					fileMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, fileUploadPath); // 파일 디비 저장
 
 					cnt++; // 다중 업로드 인지 확인하는 부분.
 //					String path = uploadForm.getUpDir() + sdfFiletoString + "." + extension; // 실제 파일 저장 하는 부분. 경로+이름+확장자
@@ -192,7 +201,7 @@ public class BoardsController {
 		for(int j=0; j< arrayTest.size(); j++){ // 효율적인 방법은 아닌 것 같지만 일단 구현. 이 방식이 비효율적인 이유는 항상 인덱스가 0부터 size까지 돌기 때문이다
 		
 		List<Files> files;
-		files = bookMapper.getFileEditUpLoadList(Integer.parseInt(arrayTest.get(j).trim())); // 해당하는 값을 List로 받아온다.
+		files = fileMapper.getFileEditUpLoadList(Integer.parseInt(arrayTest.get(j).trim())); // 해당하는 값을 List로 받아온다.
 		
 		//디비에서 번호로 삭제하는 파일의 이름을 가져와야 한다
 		System.out.println("files:"+files);
@@ -206,7 +215,7 @@ public class BoardsController {
 				System.out.println("삭제 실패!" + files.get(i).getSave_name());
 			}
 		}
-		bookMapper.deleteFileInEdit(Integer.parseInt(arrayTest.get(j).trim())); // 디비에서 삭제
+		fileMapper.deleteFileInEdit(Integer.parseInt(arrayTest.get(j).trim())); // 디비에서 삭제
 		}
 	}
 	
@@ -221,7 +230,7 @@ public class BoardsController {
 		File f = new File(collect.getCommonUploadPath() + name); // 경로에 있는 파일을 가져온다
 		
 		// file 객체를 저장
-		String real_name = bookMapper.getRealName(name); // 디비에서 실제 이름을 가져온다.
+		String real_name = fileMapper.getRealName(name); // 디비에서 실제 이름을 가져온다.
 		mav.addObject("real_name", real_name);
 		mav.addObject("download", f);
 		// 출력할 뷰이름 설정
@@ -234,15 +243,15 @@ public class BoardsController {
 	public String adminViewBoard(@PathVariable int id, Model model, Principal principal,
 			@RequestParam(value = "page") int page) {
 		String name = principal.getName(); // 아이디를 가져온다
-		Board board = bookMapper.getBoard(id);
+		Board board = boardMapper.getBoard(id);
 		model.addAttribute("board", board);
 		model.addAttribute("username", name);
-		bookMapper.updateNoticeHit(id); // 조회수 1 증가
+		boardMapper.updateNoticeHit(id); // 조회수 1 증가
 
 		model.addAttribute("page", page); // 게시판 페이지 번호
 
 		// 댓글 가져오기 왜 2개지? 정리 필요 할듯;
-		List<Comment> comments = bookMapper.getComments(id); // 코멘트 가져오기
+		List<Comment> comments = boardMapper.getComments(id); // 코멘트 가져오기
 		model.addAttribute("comments", comments);
 
 		Comment comment = new Comment();
@@ -250,7 +259,7 @@ public class BoardsController {
 		model.addAttribute("comment", comment);
 
 		// 업로드 파일 가져오기
-		List<Files> files = bookMapper.getFileList(id);
+		List<Files> files = fileMapper.getFileList(id);
 		model.addAttribute("files", files);
 		
 		model.addAttribute("page",page);
@@ -261,7 +270,7 @@ public class BoardsController {
 	@RequestMapping(value = "/notice/new", method = RequestMethod.GET)
 	public String newBoard(ModelMap model, Principal principal) {
 		String email = principal.getName(); // 사용자의 아이디(email)를 가져옴
-		User user = bookMapper.getUserList(email);
+		User user = userMapper.getUserList(email);
 		String name = user.getName();
 		model.addAttribute("username", name); // 사용자 이름을 username으로 파싱해줌
 		return "notices/new";
@@ -280,12 +289,12 @@ public class BoardsController {
 	public String edit(@ModelAttribute("inputForm") FileForm uploadForm, @PathVariable int id, Model model, @RequestParam(value = "page") int page) {
 		// @PathVariable int id는 value에 속해있어야함. 
 		// @RequestParam(value = "page") int page는 실제 url에서 page라는 값이 있는지 판단
-		Board board = bookMapper.getBoard(id);
+		Board board = boardMapper.getBoard(id);
 		// 뷰 페이지로 데이터를 전달(key/value 형식)
 		model.addAttribute("board", board);
 		
 		// 업로드 파일 가져오기
-		List<Files> files = bookMapper.getFileList(id);
+		List<Files> files = fileMapper.getFileList(id);
 		System.out.println(files);
 		model.addAttribute("files", files);
 		model.addAttribute("no",id); // 글 no가 몇인지 ?
@@ -296,8 +305,8 @@ public class BoardsController {
 
 	@RequestMapping(value = "/notice/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable int id) {
-		bookMapper.deleteNotice(id);
-		List<Files> files = bookMapper.getFileList(id); // 해당하는 값을 List로 받아온다.
+		boardMapper.deleteNotice(id);
+		List<Files> files = fileMapper.getFileList(id); // 해당하는 값을 List로 받아온다.
 		for (int i = 0; i < files.size(); i++) {
 			File f = new File(files.get(i).getPath() + files.get(i).getSave_name()); // 저장한 이름을 가져온다.
 			if (f.delete()) { // 삭제한다.

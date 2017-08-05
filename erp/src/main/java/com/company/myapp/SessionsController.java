@@ -24,15 +24,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mycompany.vo.User;
-import com.mycompany.mapper.BookMapper;
+import com.mycompany.mapper.BoardMapper;
 import com.mycompany.mapper.userMapper;
 @Controller
 public class SessionsController {
 	@Autowired
 	private userMapper userMapper;
 	
+	
 	@Autowired 
-	private BookMapper bookMapper;
+	private BoardMapper boardMapper;
 	
 	
 	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
@@ -66,7 +67,7 @@ public class SessionsController {
     //아이디 중복체크 하는 ajax 메소드
     @RequestMapping(value = "/duplicationCheck.do")
 	public @ResponseBody Object duplicationCheck(@ModelAttribute("user") User user, @RequestParam("email") String email) throws Exception {
-		String resultVO = bookMapper.getUserEmail(email);
+		String resultVO = userMapper.getUserEmail(email);
 		return resultVO;
 	}
 

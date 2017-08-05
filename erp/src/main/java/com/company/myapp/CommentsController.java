@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import com.mycompany.mapper.BookMapper;
+
+import com.mycompany.mapper.BoardMapper;
 import com.mycompany.vo.Comment;
 @Controller
 public class CommentsController {
 	@Autowired
-	private BookMapper bookMapper;
+	private BoardMapper boardMapper;
 	
 	@RequestMapping(value ="/comments", method= RequestMethod.POST)
 	public String index(@Valid @ModelAttribute Comment comment, BindingResult result, RedirectAttributes flash, Principal principal, @RequestParam(value = "page") int page ){
@@ -32,13 +33,13 @@ public class CommentsController {
 			return "redirect:/notice/view/"+comment.getBoard_no();
 		}
 		
-		bookMapper.createComment(comment); // 코맨트 등록 
+		boardMapper.createComment(comment); // 코맨트 등록 
 		return "redirect:/notice/view/"+comment.getBoard_no()+"?page="+page;
 	}
 	
 	@RequestMapping(value="/commentDelete/{board_no}/{no}", method=RequestMethod.GET)
 	public String delete(@PathVariable int no, @PathVariable int board_no, @RequestParam(value = "page") int page){
-		bookMapper.deleteComment(board_no, no);
+		boardMapper.deleteComment(board_no, no);
 		return "redirect:/notice/view/"+board_no+"?page="+page;
 	}
 }

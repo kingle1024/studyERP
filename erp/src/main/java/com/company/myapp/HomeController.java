@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mycompany.mapper.BookMapper;
+import com.mycompany.mapper.BoardMapper;
 import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
@@ -20,14 +20,14 @@ import com.mycompany.vo.Message;
 @Controller
 public class HomeController {
 	@Autowired		
-	private BookMapper bookMapper;	
+	private BoardMapper boardMapper;	
 	
 	@Autowired
 	private MessageMapper messageMapper;
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String index1(Model model){
-		List<Board> boards = bookMapper.getBoardList();		
+		List<Board> boards = boardMapper.getBoardList();		
 		model.addAttribute("boards", boards);		
 		return "redirect:/index";
 	}		
@@ -39,7 +39,7 @@ public class HomeController {
 		List<Message> myMessages = messageMapper.getMyMessage(name);
 	    model.addAttribute("myMessages",myMessages);
 	    
-		List<Board> boards = bookMapper.mainBoardList();		
+		List<Board> boards = boardMapper.mainBoardList();		
 		model.addAttribute("boards", boards);
 		
 		return "mains/index";
