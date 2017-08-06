@@ -31,11 +31,6 @@ public class SessionsController {
 	@Autowired
 	private userMapper userMapper;
 	
-	
-	@Autowired 
-	private BoardMapper boardMapper;
-	
-	
 	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
     public String create(@Valid @ModelAttribute User user, BindingResult result, RedirectAttributes flash){
 		if (result.hasErrors()) {

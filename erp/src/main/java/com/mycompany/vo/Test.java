@@ -24,4 +24,9 @@ public class Test {
     public void setUserPw(String userPw) {
         this.userPw = userPw;
     }
+	@Override
+	public String toString() {
+		return "Test [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + "]";
+	}
+    
 }

@@ -11,15 +11,26 @@
 	}
 </style>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
+<script>
+function formSubmit() {
+	var params = $("#formname1").serialize().replace(/%/g,'%25');
+    jQuery.ajax({
+        url: "signs/atypicalDoc",
+        type: "POST",
+//         data : params,
+//         data : $("#formname1").serialize(),
+//         dataType: "html",
+//         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        error:function(jqXHR, textStatus, errorThrown){
+        	alert('에러 발생~~\n'+jqXHR.textStatus+"/"+ textStatus+"/"+errorThrown+"/"+result);
+//         	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+        alert('완료');
+}
+</script>
 </head>
 <body>
-<script>
-// window.onbeforeunload = function(e) {
-// 	  var dialogText = 'Dialog text here';
-// 	  e.returnValue = dialogText;
-// 	  return dialogText;
-// 	};
-</script>
 	<div class="container">
 		<div class="jumbotron">
 		<div style="float:right;">

@@ -21,30 +21,22 @@
 	});
 </script>
 <script>
-// 향후 개선 사항_ ajax json 통신
-// function formSubmit() {
-// 	var params = $('#formname1').serialize().replace(/%/g,'%25');
-//     jQuery.ajax({
-//         url: 'signs/atypicalDoc',
-//         type: 'POST',
+function formSubmit() {
+	var params = $("#formname1").serialize().replace(/%/g,'%25');
+    jQuery.ajax({
+        url: "signs/atypicalDoc",
+        type: "POST",
 //         data : params,
-//         dataType: 'text',
+//         data : $("#formname1").serialize(),
+//         dataType: "html",
 //         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-//         timeout: 10000, 
-//         success: function (result) {
-//             if (result){
-//                 // 데이타 성공일때 이벤트 작성
-//                 alert(params);
-//             }else{
-//             	alert('bye'+params);
-//             }
-//                 location.reload();
-//         },
-//         error:function(jqXHR, textStatus, errorThrown){
-//         	alert('에러 발생~~\n'+params);
-//         }
-//     });
-// }
+        error:function(jqXHR, textStatus, errorThrown){
+        	alert('에러 발생~~\n'+jqXHR.textStatus+"/"+ textStatus+"/"+errorThrown+"/"+result);
+//         	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+        },
+    });
+        alert('완료');
+}
 </script>
 <script>
 // var data2 = {userId : userid, name: name, password: password };
@@ -66,6 +58,7 @@
 		</table>
 		</div>
 		<h1>비정형 문서</h1>
+<%-- 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> "> --%>
 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> ">
 			<table>				
 				<tr>
@@ -87,7 +80,8 @@
 			</table>	
 			<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
 			<input type="hidden" name="type_code" value="1000">
-			<input type="submit" class="btn btn-lg btn-primary" style="width:100%" value="전송">		
+<!-- 			<input type="submit" class="btn btn-lg btn-primary" style="width:100%" value="전송">		 -->
+			<input type="submit" onclick="formSubmit()" value="제출">
 		</form>
 		</div>
 

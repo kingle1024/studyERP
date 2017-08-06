@@ -48,8 +48,9 @@ public class SignsController {
 		return mv;
 	}
 
+	@ResponseBody
 	@RequestMapping(value = "/signs/atypicalDoc", method = RequestMethod.POST) // 비정형
-	public ModelAndView stockDocData(HttpServletRequest request, HttpServletResponse response,
+	public void stockDocData(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute Approval approval, BreakDownDocument breakDownDocument, Principal principal) {
 		System.out.println("/signs/atypicalDoc");
 		ModelAndView mv = new ModelAndView("redirect:/signs"); 
@@ -62,7 +63,6 @@ public class SignsController {
 
 		if(type_code.equals("1100")){ 
 			// 최신 번호를 하나 가져와야 한다
-			
 			System.out.println(signmapper.recentLimitOne());
 			int no = signmapper.recentLimitOne();
 			breakDownDocument.setNo(no);
@@ -70,8 +70,10 @@ public class SignsController {
 		}else{
 			System.out.println("else다");
 		}
+		mv.addObject("person","abc");
 		
-		return mv;
+//		return "redirect:/signs";
+//		return mv;
 	}
 
 	@RequestMapping(value = "/signs/breakdownDoc", method = RequestMethod.GET )
@@ -158,10 +160,11 @@ public class SignsController {
 		 * 다음 결재자가 몇밍인지 체크하기 위한 로직
 		 */
 		ApprovalSystem currentApprovalSystem = signmapper.getCurrent(type_code, email);
-		// 현재 나의 번호를 가져온다
-		mv.addObject("currentIng", currentApprovalSystem.getIng());
+		// 현재 나의 번호를 가져온다 
+		if(currentApprovalSystem != null){ // 내가 결재자에 포함되어 있지 않을 수도 있기 때문에 if를 걸어준다
+			mv.addObject("currentIng", currentApprovalSystem.getIng());
+		}
 		mv.addObject("cntDoc", signmapper.cntApprovalSub(Doc));
-		
 		
 		//이거를 어떻게 뿌려줄까................................ 
 		/*
@@ -173,8 +176,10 @@ public class SignsController {
 		if(type_code.equals("1100")){ // 고장신청 문서이면
 			BreakDownDocument breakDownDocument = signmapper.showBreakDownDocument(Doc);
 			mv.addObject("map",breakDownDocument.getMap());
+		}else{
+			mv.addObject("map","aaaa");
 		}
-		
+		System.out.println("여기4");
 	    /*
 	     * <tr>
 	     * 	<td>고장종류</td>
