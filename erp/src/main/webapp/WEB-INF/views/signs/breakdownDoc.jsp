@@ -4,32 +4,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>2단계 결재 문서</title>
+<title>고장 신청 문서</title>
 <style>
-	.setPadding{
-		padding:10px;
-	}
+.setPadding{
+	padding:10px;
+}
 </style>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
-<script>
-function formSubmit() {
-	var params = $("#formname1").serialize().replace(/%/g,'%25');
-    jQuery.ajax({
-        url: "signs/atypicalDoc",
-        type: "POST",
-//         data : params,
-//         data : $("#formname1").serialize(),
-//         dataType: "html",
-//         contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-        error:function(jqXHR, textStatus, errorThrown){
-        	alert('에러 발생~~\n'+jqXHR.textStatus+"/"+ textStatus+"/"+errorThrown+"/"+result);
-//         	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-        },
-    });
-        alert('완료');
-}
-</script>
 </head>
+<script src="<c:url value="/js/approvalModule.js" />"></script>
 <body>
 	<div class="container">
 		<div class="jumbotron">
@@ -48,7 +31,7 @@ function formSubmit() {
 		</table>
 		</div>
 		<h1>실습실 고장 신청 문서</h1>
-		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> ">
+		<form id="formname1" method="post">
 			<table>										
 				<tr>
 					<td width="100px">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
@@ -107,7 +90,7 @@ function formSubmit() {
 			</table>	
 			<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
 			<input type="hidden" name="type_code" value="1100">
-			<button type="submit" class="btn btn-lg btn-primary" style="width:100%">전송</button>		
+			<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-primary" style="width:100%" value="제출">		
 		</form>
 		</div>
 	</div>

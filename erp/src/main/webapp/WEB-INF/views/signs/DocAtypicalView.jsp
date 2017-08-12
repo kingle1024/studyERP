@@ -62,13 +62,12 @@
 				</tr>
 				<c:set var="data" value="${ map }"/>
 				<c:if test="${data ne 'aaaa' }">
-<%-- 				<th>${data }</th> --%>
-<%-- 					<c:forEach var="entry" items="${map}" varStatus="status"> --%>
-<!-- 						<tr> -->
-<%-- 							<th>${entry.key }</th> --%>
-<%-- 							<td>${entry.value }</td> --%>
-<!-- 						</tr> -->
-<%-- 					</c:forEach> --%>
+					<c:forEach var="entry" items="${map}" varStatus="status">
+						<tr>
+							<th>${entry.key }</th>
+							<td>${entry.value }</td>
+						</tr>
+					</c:forEach>
 				</c:if>
 				<tr>
 					<th>내용</th><td><textarea cols="63" rows="6" readonly>${approval.content }</textarea></td>

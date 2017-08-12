@@ -2,11 +2,8 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="utf-8" %>
-
 <title>회원가입 페이지 </title>
-<script src="/myapp/js/jquery-3.2.0.min.js"></script>
-
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.0.min.js"></script>
 <script>
 function checkPwd(){
 	  var f1 = document.forms["search"];	  

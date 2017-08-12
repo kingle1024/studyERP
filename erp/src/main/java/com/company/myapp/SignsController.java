@@ -59,7 +59,7 @@ public class SignsController {
 		String type_code = request.getParameter("type_code"); // 문서마다 있는 hidden
 		String recv_id = signmapper.ListgetApprovalSystem(type_code); // 문서의 형식이
 		approval.setRecv_id(recv_id);
-		System.out.println(signmapper.insertApproval(approval)); // 디비 저장
+		System.out.println("저장여부:"+signmapper.insertApproval(approval)); // 디비 저장
 
 		if(type_code.equals("1100")){ 
 			// 최신 번호를 하나 가져와야 한다
@@ -70,10 +70,6 @@ public class SignsController {
 		}else{
 			System.out.println("else다");
 		}
-		mv.addObject("person","abc");
-		
-//		return "redirect:/signs";
-//		return mv;
 	}
 
 	@RequestMapping(value = "/signs/breakdownDoc", method = RequestMethod.GET )
@@ -111,9 +107,7 @@ public class SignsController {
 			signmapper.approvalEnd(Doc);
 		} else { // 다음 단계자가 있으면
 			String nextApprovalUser = signmapper.getNextApprovalUser(type_code, ing);
-			signmapper.changeApprovalRecvId(nextApprovalUser, Doc); // 현재 상태를 다음
-																	// 받을 사람의
-																	// 아이디로 바꿔준다
+			signmapper.changeApprovalRecvId(nextApprovalUser, Doc); // 현재 상태를 다음 받을 사람의 아이디로 바꿔준다
 		}
 	}
 
@@ -180,20 +174,6 @@ public class SignsController {
 			mv.addObject("map","aaaa");
 		}
 		System.out.println("여기4");
-	    /*
-	     * <tr>
-	     * 	<td>고장종류</td>
-	     * 	<td>data[0]</td>
-	     * </tr>
-	     * <tr>
-	     * 	<td>타입</td>
-	     * 	<td>data[1]</td>
-	     * </tr>
-	     * <tr>
-	     * 	<td>강의실 번호</td>
-	     * 	<td>data[2]</td>
-	     * </tr>
-	     */
 		return mv;
 	}
 

@@ -1,13 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="s"%>
-<%-- <%@ page pageEncoding="utf-8" session="false"%> --%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> 
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%-- <% session.setAttribute("ID", "gz"); session.setAttribute("NAME", "갱짱"); %> --%>
-
-
+<style>
+ @import url(//fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+      h1 { font-family: 'Nanum Pen Script', cursive; }
+</style>
 <nav class="navbar navbar-default" id="setPostion">
 	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
@@ -49,15 +48,13 @@
 			</div>
 			<button type="submit" class="btn btn-default">Submit</button>
 		</form>
-		
-
-		
-		<!-- /.navbar-collapse -->
 	</div>
-	<!-- /.container-fluid -->
 </nav>
 <div class="nav-side-menu">
-    <div class="brand"><img src="<c:url value="/image/brand1.png" />"></div>
+<!--     <div class="brand"> -->
+<%--     <img src="<c:url value="/image/center.png" />"><br> --%>
+  	 	<div style="text-align:center;"><h1>실 습 실  관리 센터</h1></div>
+<!--     </div> -->
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
   
         <div class="menu-list">
