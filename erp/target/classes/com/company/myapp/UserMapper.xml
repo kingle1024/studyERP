@@ -103,4 +103,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{userPw}
         )
     </insert>
+    
+    <insert id="insertExcel" parameterType="com.mycompany.vo.workExcel">
+    	insert into 
+    	workexcel(
+    		workDate,
+    		week,
+    		startTime,
+    		endTime,
+    		endSubStart,
+    		content
+    	) values(
+    		#{workDate} ,
+    		#{week},
+    		#{startTime},
+    		#{endTime},
+    		#{endSubStart},
+    		#{content}
+    	)
+    </insert>
 </mapper>

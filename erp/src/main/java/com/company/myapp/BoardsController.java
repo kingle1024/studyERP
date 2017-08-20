@@ -38,7 +38,7 @@ import com.company.myapp.CommonCollectClass;
 // Java Annotation 을 이용한 Ibatis 개발
 
 @Controller
-@SessionAttributes(value = { "sessionUser" })
+//@SessionAttributes(value = { "sessionUser" })
 public class BoardsController {
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
 	
@@ -65,7 +65,6 @@ public class BoardsController {
 			@RequestParam(value = "word", required = false) String word) {
 
 		List<Board> boards = boardMapper.getBoardList();
-		System.out.println(boards);
 		model.addAttribute("boards", boards);
 
 		List<Board> boardList = userService.getNoticeList(page, word);
@@ -142,12 +141,12 @@ public class BoardsController {
 			HttpServletRequest request, Model model) throws Exception {
 		boardMapper.createNotice(board); // 게시글 생성 후 번호를 받아와야 한다..................
 		int no = boardMapper.getLastID(); // 생성 후 바로 게시글의 번호를 가져오는 과정.
-		List<MultipartFile> files = uploadForm.getFiles();
-		
+		List<MultipartFile> files = uploadForm.getFiles(); // 
+		System.out.println("files:"+files);
 		Date dt = new Date();
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
-
+		
 		if (null != files && files.size() > 0) { // 파일이 존재하면
 			for (MultipartFile multipartFile : files) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss"); // 날짜 포맷 형식

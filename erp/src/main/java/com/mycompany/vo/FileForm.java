@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileForm {
 	private List<MultipartFile> files;
 	private String upDir;
+	
 	public List<MultipartFile> getFiles() {
 		return files;
 	}

@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Message;
 
 @Controller
 public class MessagesController {
+	@Autowired
+	private CommonMapper commonMapper;
+	
 	@Autowired
 	private MessageMapper messageMapper;
 	
@@ -29,12 +33,11 @@ public class MessagesController {
 	@RequestMapping(value="/messages", method=RequestMethod.GET)
 	public String indexTestR(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1")int page, 
 								@RequestParam(value="word", required=false) String word){
-		String name = principal.getName();
-	    model.addAttribute("username", name);
-	    List<Message> myMessages = messageMapper.getMyMessage(name);
-	    model.addAttribute("myMessages", myMessages);
-	    
 	    List<Message> messageList = userService.getMessageList(page, word);
+	    for(int i=0; i<messageList.size(); i++){
+			String email = messageList.get(i).getSend_id();
+			messageList.get(i).setSend_id(commonMapper.getEmailFromUsers(email));
+		}
 	    model.addAttribute("messageList", messageList);
 	    model.addAttribute("page", page);
 	    model.addAttribute("lastPage", userService.getMessageLastPage());
@@ -73,16 +76,19 @@ public class MessagesController {
 	@RequestMapping(value="/messages/viewWindow/{no}", method = RequestMethod.GET)
 	public String messageViewWindow(@PathVariable int no, Model model){
 		Message message = messageMapper.getMessage(no);
-		model.addAttribute("message", message);
+		model.addAttribute("sendName",commonMapper.getEmailFromUsers(message.getSend_id()));
 		
+		model.addAttribute("message", message);
 		return "popUp/messages/viewWindow";
 	}
 	
 	@RequestMapping(value="/messages/view/{no}", method = RequestMethod.GET)
 	public String messageView(@PathVariable int no, Model model){
-		Message message = messageMapper.getMessage(no);
+		Message message = messageMapper.getMessage(no); // 메세지에 대한 정보를 불러온다
+		model.addAttribute("sendName",commonMapper.getEmailFromUsers(message.getSend_id()));
+		
 		model.addAttribute("message", message);
-		if(message.getRecv_date() == null){
+		if(message.getRecv_date() == null){ // 해당 쪽지가 미수신이였으면  수신으로 바꾼다.
 			messageMapper.updateMessageRecvDate(no);
 		}
 		return "messages/view";

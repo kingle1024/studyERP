@@ -18,15 +18,16 @@
 <body>
 	<div class="container">
 		<div class="jumbotron">
-			<div style="float:right">
+			<div style="float:right">	
 			<table cellpadding="20px" border="1">
 				<c:set var="approvalState" value="${ approval.state }" />
 				<c:set var="approvalName" value="${ approval.recv_id}" />
 				<c:set var="principal" value="${ principal  }" />
 				<tr>
 					<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
-						<td class="setPadding"> ${ approvalsystem.manager } </td> <!-- 표시 -->	
+						<td class="setPadding"> ${ approvalsystem.manager }</td> <!-- 표시 -->	
 					</c:forEach>
+					
 				</tr>
 				<tr>
 					<c:forEach var="i"  begin="1" end="${ approvalSystem[0].last }" step="1">
@@ -38,24 +39,32 @@
 									<input type="button" value="반려" onclick="check(2,<%=Doc %>)" />
 								</c:when>
 								<c:otherwise>
-									<fmt:formatDate value="${approvalSub[i-1].update_date }" pattern="yy-MM-dd HH:mm"/><br />
-									${approvalSub[i-1].send_id }
+									<fmt:formatDate value="${approvalSub[i-1].update_date }" pattern="yy-MM-dd HH:mm"/>
+									<br />
+									<c:choose>
+										<c:when test="${approvalSub[i-1].state eq '1' }">
+											승인
+										</c:when>
+										<c:when test="${approvalSub[i-1].state eq '2' }">
+											반려
+										</c:when>
+									</c:choose>
 								</c:otherwise>
 							</c:choose>
 							&nbsp;
 						</td>
 					</c:forEach>
 				</tr>
-				
 			</table>
 			</div>
-			<br><br><br>
+			
+			<br><br><br><br><br><br><br>
 			<table>
 				<tr>
-					<th width="12%">제목</th><td>${approval.title }</td>
+					<th width="16%">제목</th><td>${approval.title }</td>
 				</tr>
 				<tr>
-					<th>보낸이 </th><td>${approval.send_id }</td>	
+					<th>보낸이 </th><td>${sendName }(${approval.send_id })</td>	
 				</tr>
 				<tr>
 					<th>보낸날짜</th><td>${approval.register_date }</td>
@@ -70,10 +79,10 @@
 					</c:forEach>
 				</c:if>
 				<tr>
-					<th>내용</th><td><textarea cols="63" rows="6" readonly>${approval.content }</textarea></td>
+					<th>내용</th><td><textarea cols="83" rows="6" readonly>${approval.content }</textarea></td>
 				</tr>				
 				<tr>
-					<th>기타</th><td><textarea cols="63" rows="2" readonly>${approval.etc }</textarea></td>
+					<th>기타</th><td><textarea cols="83" rows="3" readonly>${approval.etc }</textarea></td>
 				</tr>
 			</table>
 		</div>

@@ -1,18 +1,35 @@
 package com.mycompany.vo;
 
-import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.List;
 
 public class workExcel {
-	private Date workDate;
+	private int no;
+	private String workDate;
 	private String week;
-	private Date startTime;
-	private Date endTime;
-	private Date endSubStart;
+	private String startTime;
+	private String endTime;
+	private String endSubStart;
 	private String content;
-	public Date getWorkDate() {
+	private List <workExcel> excelList;
+	
+	public List<workExcel> getExcelList() {
+		return excelList;
+	}
+	public void setExcelList(List<workExcel> excelList) {
+		this.excelList = excelList;
+	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public String getWorkDate() {
 		return workDate;
 	}
-	public void setWorkDate(Date workDate) {
+	public void setWorkDate(String workDate) {
 		this.workDate = workDate;
 	}
 	public String getWeek() {
@@ -21,22 +38,22 @@ public class workExcel {
 	public void setWeek(String week) {
 		this.week = week;
 	}
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	public Date getEndSubStart() {
+	public String getEndSubStart() {
 		return endSubStart;
 	}
-	public void setEndSubStart(Date endSubStart) {
+	public void setEndSubStart(String endSubStart) {
 		this.endSubStart = endSubStart;
 	}
 	public String getContent() {
@@ -45,10 +62,4 @@ public class workExcel {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@Override
-	public String toString() {
-		return "workExcel [workDate=" + workDate + ", week=" + week + ", startTime=" + startTime + ", endTime="
-				+ endTime + ", endSubStart=" + endSubStart + ", content=" + content + "]";
-	}
-	
 }

@@ -1,6 +1,5 @@
 package com.mycompany.vo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BreakDownDocument {
@@ -49,9 +48,9 @@ public class BreakDownDocument {
 
 	public HashMap<Object, Object> getMap(){
 		HashMap<Object, Object> map = new HashMap<Object,Object>();
-		map.put("°íÀå±¸ºÐ", getDistinguish());
-		map.put("¹°Ç°", getItem());
-		map.put("½Ç½À½Ç¹øÈ£", getRoom_num());
+		map.put("êµ¬ë¶„", getDistinguish());
+		map.put("ë¬¼í’ˆ", getItem());
+		map.put("ì‹¤ìŠµì‹¤ ë²ˆí˜¸", getRoom_num());
 		return map;
 	}
 	

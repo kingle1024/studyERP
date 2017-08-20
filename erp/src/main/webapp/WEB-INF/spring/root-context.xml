@@ -9,7 +9,8 @@
 		<property name="locations" value="classpath:/jdbc.properties" />
 		<property name="fileEncoding" value="UTF-8" />
 	</bean>
-	<!-- JDBC-PostgreSQL -->
+	
+	<!-- JDBC-MySQL -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -28,6 +29,12 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="100000000" />
 		<property name="maxInMemorySize" value="100000000" />
+	</bean>
+	
+	<!-- Mapper -->
+	<bean id="commonMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.mycompany.mapper.CommonMapper" />
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
 	<!-- Maper -->
@@ -51,11 +58,6 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
-	<bean id="workMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="com.mycompany.mapper.WorkMapper" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-	
 	<bean id="signMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.mycompany.mapper.SignMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />

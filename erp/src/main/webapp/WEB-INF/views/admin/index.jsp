@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>관리자 페이지</title>
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     <tbody>
         <c:forEach var="user" items="${ users }">
             <tr>
-                <td width="30%">${ user.email }</td>
+                <td width="30%">${user.name } (${ user.email })</td>
                 <td width="">
                     <c:forEach var="authority" items="${ user.authorities }">
                         ${ authority.authority } / 

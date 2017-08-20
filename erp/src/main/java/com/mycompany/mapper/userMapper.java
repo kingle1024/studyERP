@@ -23,10 +23,11 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 	public boolean insertAuthority(@Param("email") String email, @Param("authority") String authority);
 	
 	////////////////////추가부분
-	@Select("SELECT id, email FROM users")
+	@Select("SELECT id, email, name FROM users")
 	@Results(value = {
 	        @Result(property = "id", column = "id"),
 	        @Result(property = "email", column = "email"),
+	        @Result(property = "name", column ="name"),
 	        @Result(property = "authorities", column = "email", javaType = List.class, many = @Many(select = "selectAuthority"))
 	})
 	public List<User> selectUsers();

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>받은 쪽지 보기</title>
 <style>
 pre {
 	border: 0;
@@ -20,7 +20,7 @@ pre {
 					<table class="table"> 
 					<tbody>
 						<tr>
-							<th>보낸사람</th><td>${ message.send_id }</td><td>	
+							<th>보낸사람</th><td>${sendName }(${ message.send_id })</td><td>	
 							<button type="button" onclick="location.href='javascript:window.close()' " class="btn btn-warning" style="width: 100%;">창닫기</button>
 <!-- 							<a href="javascript:window.close()" class="btn btn-warning" style="width: 100%;">창닫기</a>  -->
 							</td>

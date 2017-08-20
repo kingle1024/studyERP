@@ -1,7 +1,6 @@
 package com.mycompany.mapper;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -9,6 +8,7 @@ import org.apache.ibatis.annotations.Update;
 import com.mycompany.vo.Message;
 
 public interface MessageMapper {
+	
 	@Update("update messages set recv_date = now() where no = #{ no }")
 	public boolean updateMessageRecvDate(int no);
 	

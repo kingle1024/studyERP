@@ -21,9 +21,7 @@
 	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse" id="">
 		<ul class="nav navbar-nav">
-<!--  			<li>아녕하세요</li> -->
-			<sec:authentication var="principal" property="principal" />
-			<li>${principal.username}님 접속중</li>
+			<li>${sessionUserName}님 접속중</li>
 		</ul>
 			
 		<!-- 로그인 버튼 -->
