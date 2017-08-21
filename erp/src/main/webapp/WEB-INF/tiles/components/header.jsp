@@ -59,21 +59,22 @@
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
                   <a href="<c:url value="/" />">
-                  <i class="fa fa-dashboard fa-lg"></i> <font size="3" >홈</font>
+                  <i class="fa fa-home fa-lg"></i> <font size="3" >홈</font>
                   </a>
                 </li>
                 
 				<li>
                   <a href="<c:url value="/messages" />">
-                  <i class="fa fa-user fa-lg"></i> 쪽지함</a>
+                  <i class="fa fa-envelope fa-lg"></i> 쪽지함</a>
+                  
                   </li>
 
                 <li>
-                  <a href="<c:url value="/notices" />"><i class="fa fa-gift fa-lg"></i> 공지사항 </a>
+                  <a href="<c:url value="/notices" />"><i class="fa fa-newspaper-o fa-lg"></i> 공지사항 </a>
                 </li>
 
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
-                  <a href="#"><i class="fa fa-globe fa-lg"></i> 실습실 관리 <span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-database fa-lg"></i> 실습실 관리 <span class="arrow"></span></a>
                 </li>  
 	                <ul class="sub-menu collapse" id="service">
 	                  <li>18302</li>
@@ -83,7 +84,7 @@
 
 
                 <li data-toggle="collapse" data-target="#new" class="collapsed">
-                  <a href="#"><i class="fa fa-car fa-lg"></i> 결재<span class="arrow"></span></a>
+                  <a href="#"><i class="fa fa-paper-plane fa-lg"></i> 결재<span class="arrow"></span></a>
                 </li>
                 <ul class="sub-menu collapse" id="new">
                   <li class="active"><a href="<c:url value="/signs/" />" >결재</a></li>
@@ -93,16 +94,16 @@
 
                  <li>
                   <a href="<c:url value="/mywork" /> ">
-                  <i class="fa fa-users fa-lg"></i> 내 작업대
+                  <i class="fa fa-folder-open fa-lg"></i> 내 작업대
                   </a>
                 </li>
                 
                 <s:authorize access="hasRole('ADMIN')">
-                 <li>
-                  <a href="<c:url value="/books/test"/>">
-                  <i class="fa fa-users fa-lg"></i> 테스트공간
-                  </a>
-                </li>
+<!--                  <li> -->
+<%--                   <a href="<c:url value="/books/test"/>"> --%>
+<!--                   <i class="fa fa-users fa-lg"></i> 테스트공간 -->
+<!--                   </a> -->
+<!--                 </li> -->
                 <li>
                   <a href="<c:url value="/admin"/>">
                   <i class="fa fa-users fa-lg"></i> 회원 관리
