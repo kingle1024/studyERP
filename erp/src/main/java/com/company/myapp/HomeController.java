@@ -57,4 +57,9 @@ public class HomeController {
 		
 		return "mains/index";
 	}
+	
+	@RequestMapping(value= "/books/test", method = RequestMethod.GET)
+	public String tt(){
+		return "books/testIndex";
+	}
 }
