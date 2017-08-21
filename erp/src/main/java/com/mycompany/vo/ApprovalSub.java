@@ -5,8 +5,8 @@ import java.util.Date;
 public class ApprovalSub {
 	private int no;
 	private int doc;
-	private int ing;
-	private int last;
+	private int step;
+	private int lastStep;
 	private int state;
 	private Date update_date;
 	private String send_id;
@@ -23,17 +23,17 @@ public class ApprovalSub {
 	public void setDoc(int doc) {
 		this.doc = doc;
 	}
-	public int getIng() {
-		return ing;
+	public int getStep() {
+		return step;
 	}
-	public void setIng(int ing) {
-		this.ing = ing;
+	public void setStep(int step) {
+		this.step = step;
 	}
-	public int getLast() {
-		return last;
+	public int getLastStep() {
+		return lastStep;
 	}
-	public void setLast(int last) {
-		this.last = last;
+	public void setLastStep(int lastStep) {
+		this.lastStep = lastStep;
 	}
 	public int getState() {
 		return state;
@@ -61,7 +61,7 @@ public class ApprovalSub {
 	}
 	@Override
 	public String toString() {
-		return "ApprovalSub [no=" + no + ", doc=" + doc + ", ing=" + ing + ", last=" + last + ", state=" + state
-				+ ", update_date=" + update_date + ", send_id=" + send_id + ", type_code=" + type_code + "]";
+		return "ApprovalSub [no=" + no + ", doc=" + doc + ", step=" + step + ", lastStep=" + lastStep + ", state="
+				+ state + ", update_date=" + update_date + ", send_id=" + send_id + ", type_code=" + type_code + "]";
 	}
 }

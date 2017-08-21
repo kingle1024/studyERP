@@ -30,7 +30,7 @@
 					
 				</tr>
 				<tr>
-					<c:forEach var="i"  begin="1" end="${ approvalSystem[0].last }" step="1">
+					<c:forEach var="i"  begin="1" end="${ approvalSystem[0].lastStep }" step="1">
 						<td class="setPadding">  <!-- 해당 계정이 몇번째 ing인지 가져온다. 그리고 step이랑 ing랑 같으면 표시한다 -->
 							<c:choose>
 								<c:when test="${ approvalState eq 0 and principal eq approvalName and currentIng eq i}">

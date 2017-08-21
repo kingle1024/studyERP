@@ -2,8 +2,8 @@ package com.mycompany.vo;
 
 public class ApprovalSystem {
 	private int no;
-	private int ing;
-	private int last;
+	private int step;
+	private int lastStep;
 	private String recv_id;
 	private String type_code;
 	private String manager;
@@ -13,12 +13,6 @@ public class ApprovalSystem {
 	}
 	public void setNo(int no) {
 		this.no = no;
-	}
-	public int getIng() {
-		return ing;
-	}
-	public void setIng(int ing) {
-		this.ing = ing;
 	}
 	public String getRecv_id() {
 		return recv_id;
@@ -32,21 +26,27 @@ public class ApprovalSystem {
 	public void setType_code(String type_code) {
 		this.type_code = type_code;
 	}
-	public int getLast() {
-		return last;
-	}
-	public void setLast(int last) {
-		this.last = last;
-	}
 	public String getManager() {
 		return manager;
 	}
 	public void setManager(String manager) {
 		this.manager = manager;
 	}
+	public int getStep() {
+		return step;
+	}
+	public void setStep(int step) {
+		this.step = step;
+	}
+	public int getLastStep() {
+		return lastStep;
+	}
+	public void setLastStep(int lastStep) {
+		this.lastStep = lastStep;
+	}
 	@Override
 	public String toString() {
-		return "ApprovalSystem [no=" + no + ", ing=" + ing + ", last=" + last + ", recv_id=" + recv_id + ", type_code="
-				+ type_code + ", manager=" + manager + "]";
+		return "ApprovalSystem [no=" + no + ", step=" + step + ", lastStep=" + lastStep + ", recv_id=" + recv_id
+				+ ", type_code=" + type_code + ", manager=" + manager + "]";
 	}
 }

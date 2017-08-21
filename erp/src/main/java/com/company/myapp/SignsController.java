@@ -101,15 +101,15 @@ public class SignsController {
 		String type_code = approval.getType_code(); // 현재 문서에 대한 타입코드를 가져와야 한다
 													// ->
 		ApprovalSystem approvalSystem = signMapper.getApprovalSystem(type_code, email);
-		int ing = approvalSystem.getIng();
-		int last = approvalSystem.getLast();
+		int step = approvalSystem.getStep();
+		int lastStep = approvalSystem.getLastStep();
 		// System의 ing와 last가 같은데 recv_id가 자신이면 -> approvals에서 최신상태를 1로 바꾸고
-		signMapper.approvals_sub(Doc, ing, last, 1, email, type_code); // 자신이
+		signMapper.approvals_sub(Doc, step, lastStep, 1, email, type_code); // 자신이
 																		// 저장한다
-		if (ing == last) { // 자신이 마지막 단계이면
+		if (step == lastStep) { // 자신이 마지막 단계이면
 			signMapper.approvalEnd(Doc);
 		} else { // 다음 단계자가 있으면
-			String nextApprovalUser = signMapper.getNextApprovalUser(type_code, ing);
+			String nextApprovalUser = signMapper.getNextApprovalUser(type_code, step);
 			signMapper.changeApprovalRecvId(nextApprovalUser, Doc); // 현재 상태를 다음 받을 사람의 아이디로 바꿔준다
 		}
 	}
@@ -123,11 +123,11 @@ public class SignsController {
 		Approval approval = signMapper.getApproval(Doc); // 현재 문서에 대한 정보를 가져온다
 		String type_code = approval.getType_code();
 		ApprovalSystem approvalSystem = signMapper.getApprovalSystem(type_code, recv_id);
-		int ing = approvalSystem.getIng();
-		int last = approvalSystem.getLast();
+		int step = approvalSystem.getStep();
+		int lastStep = approvalSystem.getLastStep();
 
 		signMapper.reject(Doc);
-		signMapper.approvals_sub(Doc, ing, last, 2, recv_id, type_code);
+		signMapper.approvals_sub(Doc, step, lastStep, 2, recv_id, type_code);
 		System.out.println("반려 완료");
 	}
 
@@ -161,7 +161,7 @@ public class SignsController {
 		ApprovalSystem currentApprovalSystem = signMapper.getCurrent(type_code, email);
 		// 현재 나의 번호를 가져온다 
 		if(currentApprovalSystem != null){ // 내가 결재자에 포함되어 있지 않을 수도 있기 때문에 if를 걸어준다
-			mv.addObject("currentIng", currentApprovalSystem.getIng());
+			mv.addObject("currentIng", currentApprovalSystem.getStep());
 		}
 		mv.addObject("cntDoc", signMapper.cntApprovalSub(Doc));
 		
