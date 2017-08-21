@@ -20,6 +20,8 @@ public interface UserService {
 
 	public List<Board> getNoticeList(int page, String word);
 	
-	public List<Message> getMessageList(int page, String word);
+	public List<Message> getRecvMessageList(int page, String word, String recv_id);
+	
+	public List<Message> getSendMessageList(int page, String word, String send_id);
 	
 }

@@ -20,6 +20,8 @@ public interface UserDao {
 
 	public List<Board> selectNoticeList(Map<String, Object> map);
 	
-	public List<Message> selectMessageList(Map<String, Object> map);
+	public List<Message> selectRecvMessageList(Map<String, Object> map);
+	
+	public List<Message> selectSendMessageList(Map<String, Object> map);
 	
 }

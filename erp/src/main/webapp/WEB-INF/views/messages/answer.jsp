@@ -5,7 +5,7 @@
 <html>
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
-<title>Insert title here</title>
+<title>쪽지 답장하기</title>
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>

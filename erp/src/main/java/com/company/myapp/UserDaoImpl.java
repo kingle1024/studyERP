@@ -55,10 +55,17 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<Message> selectMessageList(Map<String, Object> map) {
+	public List<Message> selectRecvMessageList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(
-				NS+".selectMessageList",map);
+				NS+".selectRecvMessageList",map);
+	}
+
+	@Override
+	public List<Message> selectSendMessageList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(
+				NS+".selectSendMessageList",map);
 	}
 
 

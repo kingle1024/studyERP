@@ -79,19 +79,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
    </select>
    
-   <select id="selectMessageList"
+   <select id="selectRecvMessageList"
    			parameterType="java.util.Map"
    			resultType="com.mycompany.vo.Message">
    		SELECT *
    		FROM messages
    		<where>
+   		recv_id = #{recv_id}  
    			<if test="word != null">
-   				title like CONCAT('%', #{word}, '%')
+   				and title like CONCAT('%', #{word}, '%')
    			</if>
-   		</where>		
+   		</where>
    		order by no desc
    		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
    	</select>
+   	
+   <select id="selectSendMessageList"
+   			parameterType="java.util.Map"
+   			resultType="com.mycompany.vo.Message">
+   		SELECT *
+   		FROM messages
+   		<where>
+   		send_id = #{send_id}  
+   			<if test="word != null">
+   				and title like CONCAT('%', #{word}, '%')
+   			</if>
+   		</where>
+   		order by no desc
+   		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
+   	</select>
+   		
+   	
    
     <insert id="insertUser" parameterType="com.mycompany.vo.Test">
         INSERT INTO

@@ -33,7 +33,8 @@ public class MessagesController {
 	@RequestMapping(value="/messages", method=RequestMethod.GET)
 	public String indexTestR(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1")int page, 
 								@RequestParam(value="word", required=false) String word){
-	    List<Message> messageList = userService.getMessageList(page, word);
+		String recv_id = principal.getName();
+	    List<Message> messageList = userService.getRecvMessageList(page, word, recv_id);
 	    for(int i=0; i<messageList.size(); i++){
 			String email = messageList.get(i).getSend_id();
 			messageList.get(i).setSend_id(commonMapper.getEmailFromUsers(email));
@@ -43,6 +44,22 @@ public class MessagesController {
 	    model.addAttribute("lastPage", userService.getMessageLastPage());
 	    
 		return "messages/index";
+	}
+
+	@RequestMapping(value="messages/sendIndex", method = RequestMethod.GET)
+	public String sendView(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1") int page, 
+							@RequestParam(value="word", required=false)String word){
+		String name = principal.getName();
+		String recv_id = name;
+		 List<Message> messageList = userService.getSendMessageList(page, word, recv_id);
+		 for(int i=0; i<messageList.size(); i++){
+			 messageList.get(i).setRecv_id(commonMapper.getEmailFromUsers(messageList.get(i).getRecv_id())); // 받은사람의 email을 가지고 users 테이블에 가서 이름을 가져온다
+		 }
+		 model.addAttribute("messageList", messageList);
+		 model.addAttribute("page", page);
+		 model.addAttribute("lastPage", userService.getMessageLastPage());
+		
+		return "messages/sendIndex";
 	}
 	
 	@RequestMapping(value = "/messages/new", method = RequestMethod.GET)
@@ -57,10 +74,8 @@ public class MessagesController {
 	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal, @PathVariable String recv_id) {		
 		String name = principal.getName(); // 사용자의 아이디를 가져옴
 	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
-	    
 		String recv = recv_id; // 보내는 이의 아이디
 		model.addAttribute("recv", recv); 
-		
 		return "messages/answer";
 	}
 	
@@ -97,27 +112,11 @@ public class MessagesController {
 	@RequestMapping(value="/messages/sendView/{no}", method = RequestMethod.GET)
 	public String messageSendView(@PathVariable int no, Model model){
 		Message message = messageMapper.getMessage(no);
+		
+		model.addAttribute("recvName",commonMapper.getEmailFromUsers(message.getRecv_id()));
 		model.addAttribute("message", message);
-		if(message.getRecv_date() == null){
-			messageMapper.updateMessageRecvDate(no);
-		}
+		
 		return "messages/sendView";
 	}
-	
-	@RequestMapping(value="messages/sendIndex", method = RequestMethod.GET)
-	public String sendView(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1") int page, 
-							@RequestParam(value="word", required=false)String word){
-		String name = principal.getName();
-		List<Message> myMessages = messageMapper.getSendMessage(name);
-		model.addAttribute("myMessages", myMessages);
-		
-		 List<Message> messageList = userService.getMessageList(page, word);
-		 model.addAttribute("messageList", messageList);
-		 model.addAttribute("page", page);
-		 model.addAttribute("lastPage", userService.getMessageLastPage());
-		
-		return "messages/sendIndex";
-	}
-	
 	
 }

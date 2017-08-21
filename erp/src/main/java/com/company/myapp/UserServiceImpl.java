@@ -59,12 +59,26 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<Message> getMessageList(int page, String word) {
+	public List<Message> getRecvMessageList(int page, String word, String recv_id) {
 		// TODO Auto-generated method stub
 		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageHelper", pageHelper);
 		map.put("word", word);
-		return userDao.selectMessageList(map);
+		map.put("recv_id", recv_id); 
+		return userDao.selectRecvMessageList(map);
 	}
+
+	@Override
+	public List<Message> getSendMessageList(int page, String word, String send_id) {
+		// TODO Auto-generated method stub
+		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageHelper", pageHelper);
+		map.put("word", word);
+		map.put("send_id", send_id); 
+		return userDao.selectSendMessageList(map);
+	}
+	
+	
 }
