@@ -42,11 +42,8 @@ $(function() {
   });
 });
 
-
-$(function(){
 $('.timePicker').timepicker({
-	step: 10,            //시간간격 : 5분
-	timeFormat: "H:i"    //시간:분 으로표시
-
+    'minTime': '09:00',
+    'maxTime': '19:00',
+    'timeFormat': 'H:i',
 });
-})

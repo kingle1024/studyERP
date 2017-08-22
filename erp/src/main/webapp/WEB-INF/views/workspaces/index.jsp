@@ -18,7 +18,7 @@
 	</div>
 	<div class="container">
 		<a href="<c:url value="/upload" /> ">엑셀 업로드</a>
-		<a href="#" onclick="window.open('<c:url value="/workspaces/upload" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">엑셀 업로드</a>
+		<a href="#" onclick="window.open('<c:url value="/workspaces/upload" />', '_blank', 'status=no, height=400, width=1000, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">엑셀 업로드</a>
 	</div>
 </body>
 </html>

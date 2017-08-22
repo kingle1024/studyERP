@@ -9,8 +9,9 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
-<script src="<c:url value="/js/jquery.timepicker.css" /> " ></script>
-<script src="<c:url value="/js/jquery.timepicker.min.js" /> " ></script>
+
+<script type="text/javascript" src="<c:url value="/js/jquery.timepicker.js" /> "></script>
+<link rel="stylesheet" type="text/css" href="<c:url value="/css/jquery.timepicker.css" /> "/>
 <script>
 //숫자만 입력과  특수문자('-','.',...)도 허용한다.
 function onlyNumber() {
@@ -20,23 +21,23 @@ function onlyNumber() {
 }
 </script>
 <script>
-// $(document).ready(function(){
-// 	$("#ReadingInfoSelectBtn").click(function(){
-// 		var formData = $("#dataForm").serialize();
-// 		$.ajax({
-// 			type : "POST",
-// 			url : "${pageContext.request.contextPath}/workspaces/uploadTest",
-// 			cache : false,
-// 			data : formData,
-// 			success : function(json, status){
-// 				alert('성공 했습니다');
-// 			},
-// 			error : function(request,status,error){
-// 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-// 			}
-// 		});
-// 	});
-// });
+$(document).ready(function(){
+	$("#ReadingInfoSelectBtn").click(function(){
+		var formData = $("#dataForm").serialize();
+		$.ajax({
+			type : "POST",
+			url : "${pageContext.request.contextPath}/workspaces/uploadTest",
+			cache : false,
+			data : formData,
+			success : function(json, status){
+				alert('성공 했습니다');
+			},
+			error : function(request,status,error){
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	});
+});
 </script>
 </head>
 <body>
@@ -45,9 +46,6 @@ function onlyNumber() {
 <%-- <form:form method="post"  modelAttribute="contactForm"> --%>
 
 <form:form commandName="dataForm" name="dataForm" id="dataForm" onsubmit="return validateForm()" >
-<!-- <input type="text" name="nameVOList[0].name" > -->
-<!-- <input type="text" name="nameVOList[1].name" > -->
-<!-- <input type="text" name="nameVOList[2].name" > -->
 	<table border="1" id="table">
 		<c:forEach var="headerList" items="${testList }">
 		<tr>
@@ -102,7 +100,6 @@ function onlyNumber() {
 // 		});
 // 	}
 // });
-
 </script>
 
 <script src="<c:url value="/js/commonBack.js" /> " ></script>

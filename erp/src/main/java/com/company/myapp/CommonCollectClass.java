@@ -28,11 +28,11 @@ public class CommonCollectClass {
 				break;
 			}
 			case "endTime":{
-				column = "<input type='text' name='"+name+"["+index+"]."+column+"' value='"+value+"'>";
+				column = "<input type='text' class='timePicker' name='"+name+"["+index+"]."+column+"' value='"+value+"'>";
 				break;
 			}
 			case "endSubStart":{
-				column = "<input type='text' name='"+name+"["+index+"]."+column+"' value='"+value+"'>";
+				column = "<input type='text' class='timePicker' name='"+name+"["+index+"]."+column+"' value='"+value+"'>";
 				break;
 			}
 			case "accumluate":{
@@ -44,7 +44,7 @@ public class CommonCollectClass {
 				break;
 			}
 			default:{
-				column="";
+				column="<center>-</center>";
 				break;
 			}
 				
