@@ -23,3 +23,27 @@ $('INPUT[type="file"]').change(function () {
             this.value = '';
     }
 });
+
+//script구문 내부에 해당 메소드를 입력합니다.
+$(function() {
+  $('.datePicker').datepicker({
+	  nextText: '다음 달',
+	  prevText: '이전 달',
+     showButtonPanel: true, 
+     	currentText: '오늘',
+     	closeText: '닫기',
+     	dateFormat: "yy-mm-dd",
+     changeMonth: true, 
+     	dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
+     	dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
+      monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
+     maxDate: "+3D",
+		changeYear: true
+  });
+});
+
+$('.timePicker').timepicker({
+    'minTime': '09:00',
+    'maxTime': '19:00',
+    'timeFormat': 'H:i',
+});

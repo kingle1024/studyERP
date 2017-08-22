@@ -40,6 +40,7 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript">
+var timer = null;
 function checkEmail(){
 $("#email").keyup(function() {	
 	$.ajax({
@@ -72,6 +73,7 @@ $("#email").keyup(function() {
 	});
 	return false;
 });
+	
 }
   </script>
 
