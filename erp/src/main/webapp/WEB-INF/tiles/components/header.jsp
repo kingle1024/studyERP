@@ -91,13 +91,11 @@
                   <li><a href="<c:url value="/signs/recv" />">받은문서함</a></li>
                   <li><a href="<c:url value="/signs/send" />">보낸문서함</a></li>
                 </ul>
-
                  <li>
                   <a href="<c:url value="/mywork" /> ">
                   <i class="fa fa-folder-open fa-lg"></i> 내 작업대
                   </a>
                 </li>
-                
                 <s:authorize access="hasRole('ADMIN')">
 <!--                  <li> -->
 <%--                   <a href="<c:url value="/books/test"/>"> --%>

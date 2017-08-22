@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.mapper.BoardMapper;
+import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.FileMapper;
 import com.mycompany.mapper.userMapper;
 import com.mycompany.vo.Board;
@@ -43,6 +44,8 @@ public class BoardsController {
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
 	
 	static int cnt = 0;
+	@Autowired
+	private CommonMapper commonMapper;
 
 	@Autowired
 	private BoardMapper boardMapper;
@@ -128,12 +131,7 @@ public class BoardsController {
 			}
 		}
 		
-//		System.out.println("page : "+page);
 		return "redirect:/notice/view/"+no+"?page="+page;
-//		<th><a href="<c:url value="/notice/view/${ board.id }?page=${page }" /> ">
-//		return "redirect:/notices";
-//		/notice/view/{id}
-//		return "notices/index";
 	}
 	
 	@RequestMapping(value = "/notice", method = RequestMethod.POST) // 글쓰기
@@ -242,6 +240,7 @@ public class BoardsController {
 	public String adminViewBoard(@PathVariable int id, Model model, Principal principal,
 			@RequestParam(value = "page") int page) {
 		String name = principal.getName(); // 아이디를 가져온다
+		String email = name;
 		Board board = boardMapper.getBoard(id);
 		model.addAttribute("board", board);
 		model.addAttribute("username", name);
@@ -251,10 +250,14 @@ public class BoardsController {
 
 		// 댓글 가져오기 왜 2개지? 정리 필요 할듯;
 		List<Comment> comments = boardMapper.getComments(id); // 코멘트 가져오기
+		for(int i=0; i<comments.size(); i++){
+			comments.get(i).setAuthor(commonMapper.getEmailFromUsers(email));
+		}
 		model.addAttribute("comments", comments);
-
+		
 		Comment comment = new Comment();
 		comment.setBoard_no(id);
+		
 		model.addAttribute("comment", comment);
 
 		// 업로드 파일 가져오기

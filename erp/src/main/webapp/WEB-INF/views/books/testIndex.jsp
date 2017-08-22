@@ -37,7 +37,6 @@ table, tr, td {
 	border-collapse: collapse;
 }
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <script type="text/javascript" src="<c:url value="/js/map.js" />"></script>
 <script type="text/javascript" src="<c:url value="/js/stringBuffer.js" />"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -213,15 +212,15 @@ $(document).ready(function() {
     
     <hr><hr>
     
-    <div id="fileUpload" class="dragDropDiv">
-        <table id='fileTable'>
-          <tr>
-                <td id='tabFileName'>파일명</td>
-                <td id='tabFileSize'>사이즈</td>
-                <td id='tabFileDel'>삭제 </td>
-          </tr>
-        </table>
-    </div>
+<!--     <div id="fileUpload" class="dragDropDiv"> -->
+<!--         <table id='fileTable'> -->
+<!--           <tr> -->
+<!--                 <td id='tabFileName'>파일명</td> -->
+<!--                 <td id='tabFileSize'>사이즈</td> -->
+<!--                 <td id='tabFileDel'>삭제 </td> -->
+<!--           </tr> -->
+<!--         </table> -->
+<!--     </div> -->
 	    <input type="button" onclick="submitFile()" value="전송">
 	    <input type="hidden" value="추가데이터테스트!" name='temp' id='temp'>
 	</div>

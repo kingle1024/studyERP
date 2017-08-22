@@ -258,7 +258,11 @@ public class MyWorkController {
 		            if(value.equals("오류")){
 		            	listA.add("<font color='red'>오류</font><button>수정</button>");
 		            }else{
-		            	listA.add("<input type='text' name='excelList["+(rowindex-startRowindex)+"]."+array.get(columnindex)+"' value='"+value+"' >");
+		            	CommonCollectClass common = new CommonCollectClass();
+		            	listA.add(common.excelUploadCategoryGetModule("excelList",rowindex-startRowindex,array.get(columnindex),value));
+//		            	listA.add("<input type='text' name='excelList["+(rowindex-startRowindex)+"]."+array.get(columnindex)+"' value='"+value+"' >");
+		            	
+		            	System.out.println(array.get(columnindex));
 		            }
 		        }
 		        listA.add("</td><tr>");	
