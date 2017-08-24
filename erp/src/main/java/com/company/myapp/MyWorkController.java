@@ -1,6 +1,8 @@
 package com.company.myapp;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,13 +14,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.hssf.util.CellRangeAddress;
+import org.apache.poi.hssf.util.Region;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -44,6 +52,235 @@ public class MyWorkController {
 	public String index(ModelAndView model){
 		model.addObject("message", "success");
 		return "workspaces/index";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/workspaces/downloadTest", method=RequestMethod.GET)
+	public void downloadTest(ModelAndView model) throws IOException{
+		ArrayList<String> header = new ArrayList<String>();
+		header.add("날짜");
+		header.add("요일");
+		header.add("근무시작");
+		header.add("근무종료");
+		header.add("근무시간");
+		header.add("누계");
+		header.add("근로상세내역");
+		//임의의 VO가 되주는 MAP 객체
+		Map<String,Object>map=null;
+		//가상 DB조회후 목록을 담을 LIST객체
+		ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
+		ArrayList<String> columnList=new ArrayList<String>();
+		//DB조회후 데이터를 담았다는 가상의 데이터
+		for(int i=0;i<10;i++){
+		    map=new HashMap<String,Object>();
+		    map.put("seq", i+1);
+		    map.put("title", "제목이다"+i);
+		    map.put("content", "내용입니다"+i);
+		    list.add(map); 
+		}
+		
+		//MAP의 KEY값을 담기위함
+		if(list !=null &&list.size() >0){
+		    //LIST의 첫번째 데이터의 KEY값만 알면 되므로
+		    Map<String,Object> m = list.get(0);
+		    //MAP의 KEY값을 columnList객체에 ADD
+		    for(String k : m.keySet()){
+		        columnList.add(k);
+		    }
+		}
+		//1차로 workbook을 생성
+		XSSFWorkbook workbook=new XSSFWorkbook();
+		
+	    // font 설정
+	    XSSFFont font = workbook.createFont();
+	    font.setFontName("맑은 고딕"); // 위에 있지 않으면 적용 안됨
+	    font.setBoldweight((short)font.BOLDWEIGHT_BOLD);
+	    
+		// cell style 만듬
+		XSSFCellStyle cs = workbook.createCellStyle();
+		cs.setAlignment(CellStyle.ALIGN_CENTER);
+	    cs.setBorderRight(CellStyle.BORDER_THIN);
+	    cs.setBorderLeft(CellStyle.BORDER_THIN);
+	    cs.setBorderTop(CellStyle.BORDER_THIN);
+	    cs.setBorderBottom(CellStyle.BORDER_THIN);
+	    cs.setFont(font);
+	    
+	    XSSFCellStyle csHidden = workbook.createCellStyle();
+	    cs.setHidden(true);
+
+	    
+		//2차는 sheet생성
+		XSSFSheet sheet = workbook.createSheet("근무일지");
+		//엑셀의 행
+		XSSFRow row=null;
+		//엑셀의 셀
+		XSSFCell cell=null;
+		
+		sheet.addMergedRegion(new CellRangeAddress(
+				3, // 시작 행 번호
+				3, // 마지막 행 번호
+				1, // 시작 열 번호
+				2  // 마지막 열 번호
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				3,
+				3,
+				4,
+				5
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				4,
+				4,
+				1,
+				2
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				4,
+				4,
+				4,
+				5
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				5,
+				5,
+				1,
+				2
+				));
+		sheet.addMergedRegion(new CellRangeAddress(
+				5,
+				5,
+				4,
+				5
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				6,
+				6,
+				0,
+				7
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				4,
+				5,
+				7,
+				7
+		));
+		
+		sheet.addMergedRegion(new CellRangeAddress(
+				8,
+				8,
+				6,
+				7
+		));
+		
+		
+		
+		//임의의 DB데이터 조회
+		if(list !=null &&list.size() >0){
+//		    int i=4;
+//		    for(Map<String,Object>mapobject : list){
+//		        // 시트에 하나의 행을 생성한다(i 값이 0이면 첫번째 줄에 해당)
+//		        row=sheet.createRow((short)i);
+//		        i++;
+//		        if(columnList !=null &&columnList.size() >0){
+//		            for(int j=0;j<columnList.size();j++){
+//		                //생성된 row에 컬럼을 생성한다
+//		                cell=row.createCell(j);
+//		                System.out.println("cell시작:"+cell+", "+j);
+//		                //map에 담긴 데이터를 가져와 cell에 add한다
+//		                cell.setCellValue(String.valueOf(mapobject.get(columnList.get(j))));
+//		                System.out.println("cell끄티:"+cell+", "+j);
+//		            }
+//		        }
+//		    }
+			row = sheet.createRow((short)2);
+			row.setHeight((short)630);
+			
+			sheet.setColumnWidth(0,4850);
+			sheet.setColumnWidth(1,1450);
+			sheet.setColumnWidth(2,2050);
+			sheet.setColumnWidth(3,2050);
+			sheet.setColumnWidth(4,2050);
+			sheet.setColumnWidth(5,2050);
+			sheet.setColumnWidth(6,5970);
+			sheet.setColumnWidth(7,2800);
+			row = sheet.createRow((short)3);
+			row.setHeight((short)465);
+		    cell = row.createCell(0);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("학년도");
+		    
+		    cell = row.createCell(1); cell.setCellStyle(cs);  cell = row.createCell(2); cell.setCellStyle(cs);
+		    
+		    cell = row.createCell(3);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("학 기");
+		    
+		    
+		    cell = row.createCell(4); cell.setCellStyle(cs); cell = row.createCell(5); cell.setCellStyle(cs);
+		    
+		    cell = row.createCell(7);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("담당자");
+		    
+		    row = sheet.createRow((short)4);
+		    row.setHeight((short)465);
+		    cell = row.createCell(0);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("학 과");
+		    cell = row.createCell(1); cell.setCellStyle(cs); cell = row.createCell(2); cell.setCellStyle(cs);
+		    cell = row.createCell(3);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("학 번");
+		    cell = row.createCell(4); cell.setCellStyle(cs); cell = row.createCell(5); cell.setCellStyle(cs);
+		    cell = row.createCell(7);
+		    cell.setCellStyle(cs);
+		    
+		    
+		    row = sheet.createRow((short)5);
+		    row.setHeight((short)460);
+		    cell = row.createCell(0);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("이 름");
+		    cell = row.createCell(1);
+		    cell.setCellStyle(cs);
+		    cell = row.createCell(2);
+		    cell.setCellStyle(cs);
+		    cell = row.createCell(3);
+		    cell.setCellStyle(cs);
+		    cell.setCellValue("근무부서");
+		    cell = row.createCell(4);
+		    cell.setCellStyle(cs);
+		    cell = row.createCell(5);
+		    cell.setCellStyle(cs);
+		    cell = row.createCell(7);
+		    cell.setCellStyle(cs);
+		    
+		    row = sheet.createRow((short)6);
+		    cell = row.createCell(0);
+		    cell.setCellValue("* 하루 중 근로 시간이 분산되어 근무하는 경우, 각각 작성");
+		    
+		    row = sheet.createRow((short)7);
+		    row.setRowStyle(csHidden);
+		    
+		    row = sheet.createRow((short)8);		    
+		    row.setHeight((short)540);
+		    for(int i=0; i<header.size(); i++){
+		    	cell = row.createCell(i);
+		    	cs.setAlignment(CellStyle.ALIGN_CENTER);
+		    	cell.setCellValue(header.get(i));
+		    }
+		    
+		    
+		    
+		    
+		}
+		FileOutputStream fileoutputstream=new FileOutputStream("D:\\roqkffhwk2.xlsx");
+		//파일을 쓴다
+		workbook.write(fileoutputstream);
+		//필수로 닫아주어야함
+		fileoutputstream.close();
+		System.out.println("엑셀 파일 생성 성공");
+
 	}
 	
 	@RequestMapping(value="/workspaces/uploadTest", method=RequestMethod.POST)
