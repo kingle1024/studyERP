@@ -50,12 +50,13 @@ $(document).ready(function(){
 		<c:forEach var="headerList" items="${testList }">
 		<tr>
 			<c:forEach var="listL" items="${headerList }" varStatus="status" >
-				<td>${listL }</td>
+				<c:if test="${not status.last }"><td>${listL }</td> </c:if>
+				
 			</c:forEach>
 		</tr>
 		</c:forEach>
 		<tr>
-			<c:forEach var="obj" items="${listA}">
+			<c:forEach var="obj" items="${listA}" varStatus="status">
 				<td> ${ obj } </td>
 			</c:forEach>
 		</tr>

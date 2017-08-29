@@ -71,9 +71,6 @@ public class MyWorkController {
 		//DB조회후 데이터를 담았다는 가상의 데이터
 		for(int i=0;i<10;i++){
 		    map=new HashMap<String,Object>();
-		    map.put("seq", i+1);
-		    map.put("title", "제목이다"+i);
-		    map.put("content", "내용입니다"+i);
 		    list.add(map); 
 		}
 		
@@ -273,8 +270,22 @@ public class MyWorkController {
 		    cell.setCellValue("* 하루 중 근로 시간이 분산되어 근무하는 경우, 각각 작성");
 		    
 		    row = sheet.createRow((short)7);
-		    row.setRowStyle(csHidden);	
-		    cell.setCellStyle(csHidden);
+//		    row.setRowStyle(csHidden);	
+//		    cell.setCellStyle(csHidden);
+		    cell = row.createCell(0);
+			cell.setCellValue("workDate");
+			cell = row.createCell(1);
+			cell.setCellValue("week");
+			cell = row.createCell(2);
+			cell.setCellValue("startTime");
+			cell = row.createCell(3);
+			cell.setCellValue("endTime");
+			cell = row.createCell(4);
+			cell.setCellValue("endSubStart");
+			cell = row.createCell(5);
+			cell.setCellValue("accumulate");
+			cell = row.createCell(6);
+			cell.setCellValue("content");
 		    
 		    row = sheet.createRow((short)8);		    
 		    row.setHeight((short)540);
@@ -287,7 +298,6 @@ public class MyWorkController {
 		}
 		List<workExcel> workExcel = excelService.getExcel();
 		for(int i=0; i<workExcel.size(); i++){
-			
 			row = sheet.createRow((short)9+i);
 			ArrayList<Object> getColumn = new ArrayList<Object>();
 //			getColumn.add(moduleDayToString(workExcel.get(i).getWorkDate(),2));
@@ -315,12 +325,27 @@ public class MyWorkController {
 					cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 					cell.setCellStyle(csMonthFormat);
 					cell.setCellValue((Date)getColumn.get(j));
+				}else if(j==6){ // 근로상세내역
+					
+					cell.setCellValue((String)getColumn.get(j));
 				}else{
 					cell.setCellStyle(csFormat);
 					cell.setCellValue((String)getColumn.get(j));
 				}
 			}
 		}
+		row = sheet.createRow((short)9+workExcel.size());
+		cell = row.createCell(6);
+		cell.setCellValue("근로장학생 : ");
+		cell = row.createCell(7);
+		cell.setCellValue("(자필서명)");
+		
+		row = sheet.createRow((short)9+workExcel.size()+1);
+		cell = row.createCell(0);
+		cell.setCellValue("** 상기와 같이 근무하였음을 확인하며, 사실과 다를 경우 근로장학금을 환불할 것을 서약합니다.");
+		
+		
+		
 		FileOutputStream fileoutputstream=new FileOutputStream("C:\\Spring\\workBookz.xlsx");
 		
 		//파일을 쓴다
@@ -373,7 +398,7 @@ public class MyWorkController {
 	
 	@RequestMapping(value="/workspaces/upload")
 	public String excelUpload(Model model,HttpSession session) throws IOException{
-		FileInputStream fis=new FileInputStream("C:\\Spring\\workBook.xlsx");
+		FileInputStream fis=new FileInputStream("C:\\Spring\\workBookz.xlsx");
 //		FileInputStream fis=new FileInputStream("/upload/excel");
 		XSSFWorkbook workbook=new XSSFWorkbook(fis);
 		int rowindex=0;
@@ -477,11 +502,6 @@ public class MyWorkController {
 				}
 			}
 		}
-		System.out.print("array값:");
-		for(int i=0; i<array.size(); i++){
-			System.out.print(" "+array.get(i));
-		}
-		System.out.println("");
 		
 		/*
 		 * 본문 내용 가져오기
@@ -496,7 +516,7 @@ public class MyWorkController {
 		        //셀의 수
 		        int cells=row.getPhysicalNumberOfCells();
 		        System.out.println(rows);
-		        for(columnindex=0; columnindex<cells-1; columnindex++){
+		        for(columnindex=0; columnindex<cells; columnindex++){
 		            //셀값을 읽는다
 		            XSSFCell cell=row.getCell(columnindex);
 		            String value="";
@@ -511,19 +531,19 @@ public class MyWorkController {
 			                    break;
 			                }
 			                case XSSFCell.CELL_TYPE_NUMERIC:{
+			                	double ddata = cell.getNumericCellValue();
 			                	if( HSSFDateUtil.isCellDateFormatted(cell)){ // 시간 형식
 		                			SimpleDateFormat fommatter = new SimpleDateFormat("HH:mm");
 			                		value = fommatter.format(cell.getDateCellValue())+"";
-			                	} else {
-			                		double ddata = cell.getNumericCellValue();
-			                		if ( HSSFDateUtil.isValidExcelDate(ddata) ){ // 날짜 형식
+			                	} else if ( HSSFDateUtil.isValidExcelDate(ddata) ){ // 날짜 형식
 			                		SimpleDateFormat fommatter = new SimpleDateFormat("yyyy-MM-dd");
 			                		value = fommatter.format(cell.getDateCellValue())+""; 
-				                	} else {
-				                		value = String.valueOf(ddata);
-				                	}
+				                } else {
+				                	
 			                	}
+			                	
 			                    break;
+			                    
 			                }
 			                case XSSFCell.CELL_TYPE_STRING:
 			                    value=cell.getStringCellValue()+"";
@@ -531,6 +551,7 @@ public class MyWorkController {
 			                case XSSFCell.CELL_TYPE_BLANK:
 //			                    value=cell.getBooleanCellValue()+"";
 			                    value=cell.toString()+"오류";
+//			                    value=cell.toString()+"";
 			                    break;
 			                case XSSFCell.CELL_TYPE_ERROR:
 			                    value=cell.getErrorCellValue()+"#5번#";
@@ -542,7 +563,8 @@ public class MyWorkController {
 		            }
 		            if(value.equals("finish")) break; 
 		            if(value.equals("오류")){
-		            	listA.add("<font color='red'>오류</font><button>수정</button>");
+//		            	listA.add("<font color='red'>오류</font><button>수정</button>");
+		            	listA.add(" ");
 		            }else{
 		            	CommonCollectClass common = new CommonCollectClass();
 		            	listA.add(common.excelUploadCategoryGetModule("excelList",rowindex-startRowindex,array.get(columnindex),value));
