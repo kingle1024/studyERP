@@ -35,7 +35,7 @@ $(document).ready(function(){
 	<div class="container">
 		<input type="button" id="ReadingExcelDownload" value="엑셀 다운로드" />
 <%-- 		<a href="<c:url value="/upload" /> ">엑셀 업로드</a> --%>
-		<a href="#" onclick="window.open('<c:url value="/workspaces/upload" />', '_blank', 'status=no, height=400, width=1500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">엑셀 업로드</a>
+		<a href="#" onclick="window.open('<c:url value="/workspaces/uploadForm" />', '_blank', 'status=no, height=400, width=1500, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">엑셀 업로드</a>
 	</div>
 </body>
 </html>

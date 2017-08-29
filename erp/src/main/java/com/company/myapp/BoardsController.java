@@ -89,18 +89,25 @@ public class BoardsController {
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
 		
+		String sdfFiletoString = null;
+		String fileName = null;
+		String pattern = "(.*)\\.(.*)"; // 정규식
+		Pattern p = null;
+		Matcher m = null;
+		String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql)"; // 파일 형식 제어
+		
 		List<MultipartFile> files = uploadForm.getFiles();
 		if (null != files && files.size() > 0) { // 파일이 존재하면
 			for (MultipartFile multipartFile : files) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss"); // 날짜 포맷 형식
-				String sdfFiletoString = sdf.format(dt).toString(); // 날짜 형식을 저장할 공간
-				String fileName = multipartFile.getOriginalFilename(); // 파일의 실제 이름을 가져옴.
+				sdfFiletoString = sdf.format(dt).toString(); // 날짜 형식을 저장할 공간
+				fileName = multipartFile.getOriginalFilename(); // 파일의 실제 이름을 가져옴.
 				System.out.println("파일의 이름 : "+fileName);
-				String pattern = "(.*)\\.(.*)"; // 정규식
-				Pattern p = Pattern.compile(pattern); // 패턴을 컴파일
-				Matcher m = p.matcher(fileName); // fileName에 정규식 적용
+				
+				p = Pattern.compile(pattern); // 패턴을 컴파일
+				m = p.matcher(fileName); // fileName에 정규식 적용
 				String extension = "";
-				String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql)"; // 파일 형식 제어
+				
 //				String fileUploadPath = "/root/upload/";
 				String fileUploadPath = collect.getCommonUploadPath();
 				
@@ -144,12 +151,13 @@ public class BoardsController {
 		Date dt = new Date();
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
-		
+		String sdfFiletoString  = null;
+		String fileName = null;
 		if (null != files && files.size() > 0) { // 파일이 존재하면
 			for (MultipartFile multipartFile : files) {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss"); // 날짜 포맷 형식
-				String sdfFiletoString = sdf.format(dt).toString(); // 날짜 형식을 저장할 공간
-				String fileName = multipartFile.getOriginalFilename(); // 파일의 실제 이름을 가져옴.
+				sdfFiletoString = sdf.format(dt).toString(); // 날짜 형식을 저장할 공간
+				fileName = multipartFile.getOriginalFilename(); // 파일의 실제 이름을 가져옴.
 				System.out.println("파일의 이름 : "+fileName);
 				String pattern = "(.*)\\.(.*)"; // 정규식
 				Pattern p = Pattern.compile(pattern); // 패턴을 컴파일

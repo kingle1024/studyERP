@@ -1,6 +1,7 @@
 package com.company.myapp;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -36,6 +37,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.vo.workExcel;
@@ -395,10 +398,24 @@ public class MyWorkController {
 			}
 		}
 	}
-	
+	@RequestMapping(value="/workspaces/uploadForm")
+	public String excelUploadForm(){
+		return "popUp/workspaces/uploadForm";
+		
+	}
 	@RequestMapping(value="/workspaces/upload")
-	public String excelUpload(Model model,HttpSession session) throws IOException{
-		FileInputStream fis=new FileInputStream("C:\\Spring\\workBookz.xlsx");
+	public String excelUpload(Model model,HttpSession session, @RequestParam(value="image_file") String filePath) throws IOException{
+
+
+		System.out.println("filePath:"+filePath);
+		
+//		FileInputStream fis=new FileInputStream("C:\\Spring\\workBookz.xlsx");
+		FileInputStream fis= null;
+				try{
+					fis = new FileInputStream(filePath);
+				}catch(FileNotFoundException e){
+					throw new RuntimeException(e.getMessage(), e);
+				}
 //		FileInputStream fis=new FileInputStream("/upload/excel");
 		XSSFWorkbook workbook=new XSSFWorkbook(fis);
 		int rowindex=0;
