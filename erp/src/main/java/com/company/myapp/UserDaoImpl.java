@@ -14,8 +14,8 @@ import com.mycompany.vo.User;
 public class UserDaoImpl implements UserDao {
 	
 	private final String NS = "com.company.myapp";
-	 @Autowired 
-	    private SqlSessionTemplate sqlSession;
+	@Autowired 
+	private SqlSessionTemplate sqlSession;
 	
     @Override
     public User selectUserByIdAndPw(User user) {

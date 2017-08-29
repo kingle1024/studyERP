@@ -140,4 +140,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		#{content}
     	)
     </insert>
+    <select id="selectExcel" 
+    		parameterType="com.mycompany.vo.workExcel" 
+    		resultType="com.mycompany.vo.workExcel">
+		select * from workexcel order by workDate asc
+    </select>
 </mapper>

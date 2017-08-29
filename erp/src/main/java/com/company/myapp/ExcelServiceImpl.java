@@ -1,5 +1,9 @@
 package com.company.myapp;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +19,12 @@ public class ExcelServiceImpl implements ExcelService {
 		// TODO Auto-generated method stub
 		return excelDao.insertExcel(workExcel);
 	}
+
+	@Override
+	public List<workExcel> getExcel() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		return excelDao.selectExcel(map);
+		// TODO Auto-generated method stub
+	}
+	
 }

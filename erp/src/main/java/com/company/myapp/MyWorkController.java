@@ -1,19 +1,14 @@
 package com.company.myapp;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,9 +18,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.Region;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -56,7 +54,7 @@ public class MyWorkController {
 	
 	@ResponseBody
 	@RequestMapping(value="/workspaces/downloadTest", method=RequestMethod.GET)
-	public void downloadTest(ModelAndView model) throws IOException{
+	public void downloadTest(ModelAndView model) throws IOException, ParseException{
 		ArrayList<String> header = new ArrayList<String>();
 		header.add("날짜");
 		header.add("요일");
@@ -105,9 +103,26 @@ public class MyWorkController {
 	    cs.setBorderBottom(CellStyle.BORDER_THIN);
 	    cs.setFont(font);
 	    
+	    XSSFCellStyle csTime = workbook.createCellStyle();
+	    csTime.setAlignment(CellStyle.ALIGN_CENTER);
+	    byte[] rgb = new byte[3];
+	    rgb[0] = (byte) 197; // red
+	    rgb[1] = (byte) 217; // green
+	    rgb[2] = (byte) 241; // blue
+	    XSSFColor myColor = new XSSFColor(rgb); // #f2dcdb
+	    csTime.setFillForegroundColor(myColor);
+	    csTime.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	    
+	    XSSFCellStyle csFormat = workbook.createCellStyle();
+	    XSSFDataFormat format = workbook.createDataFormat();
+	    csFormat.setDataFormat(format.getFormat("hh:mm"));
+	    
+	    XSSFCellStyle csMonthFormat = workbook.createCellStyle();
+	    XSSFDataFormat monthFormat = workbook.createDataFormat();
+	    csMonthFormat.setDataFormat(format.getFormat("mm월 dd일"));
+	    
 	    XSSFCellStyle csHidden = workbook.createCellStyle();
-	    cs.setHidden(true);
-
+	    csHidden.setHidden(true);
 	    
 		//2차는 sheet생성
 		XSSFSheet sheet = workbook.createSheet("근무일지");
@@ -171,8 +186,6 @@ public class MyWorkController {
 				6,
 				7
 		));
-		
-		
 		
 		//임의의 DB데이터 조회
 		if(list !=null &&list.size() >0){
@@ -260,21 +273,56 @@ public class MyWorkController {
 		    cell.setCellValue("* 하루 중 근로 시간이 분산되어 근무하는 경우, 각각 작성");
 		    
 		    row = sheet.createRow((short)7);
-		    row.setRowStyle(csHidden);
+		    row.setRowStyle(csHidden);	
+		    cell.setCellStyle(csHidden);
 		    
 		    row = sheet.createRow((short)8);		    
 		    row.setHeight((short)540);
 		    for(int i=0; i<header.size(); i++){
 		    	cell = row.createCell(i);
-		    	cs.setAlignment(CellStyle.ALIGN_CENTER);
 		    	cell.setCellValue(header.get(i));
+		    	cell.setCellStyle(csTime);
 		    }
 		    
-		    
-		    
-		    
 		}
-		FileOutputStream fileoutputstream=new FileOutputStream("D:\\roqkffhwk2.xlsx");
+		List<workExcel> workExcel = excelService.getExcel();
+		for(int i=0; i<workExcel.size(); i++){
+			
+			row = sheet.createRow((short)9+i);
+			ArrayList<Object> getColumn = new ArrayList<Object>();
+//			getColumn.add(moduleDayToString(workExcel.get(i).getWorkDate(),2));
+			
+			SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+			Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
+			
+//			SimpleDateFormat transFormatHM = new SimpleDateFormat("HH:mm");
+//			Time toHM = (Time) transFormatHM.parse(workExcel.get(i).getStartTime());
+			
+			getColumn.add(toYMD);
+//			getColumn.add(workExcel.get(i).getWorkDate());
+			getColumn.add(workExcel.get(i).getWeek());
+			getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
+//			getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
+			
+			getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
+			getColumn.add(moduleDayToString(workExcel.get(i).getEndSubStart(),1));
+			getColumn.add("-");
+			getColumn.add(workExcel.get(i).getContent());
+			
+			for(int j=0; j<getColumn.size(); j++){
+				cell = row.createCell(j);
+				if(j==0){
+					cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+					cell.setCellStyle(csMonthFormat);
+					cell.setCellValue((Date)getColumn.get(j));
+				}else{
+					cell.setCellStyle(csFormat);
+					cell.setCellValue((String)getColumn.get(j));
+				}
+			}
+		}
+		FileOutputStream fileoutputstream=new FileOutputStream("C:\\Spring\\workBookz.xlsx");
+		
 		//파일을 쓴다
 		workbook.write(fileoutputstream);
 		//필수로 닫아주어야함
@@ -336,8 +384,6 @@ public class MyWorkController {
 		
 		ArrayList<ArrayList<String>> mGroupList = null;
 	    ArrayList<String> mChildList = null;
-	    
-	    HashMap map = new HashMap();
 	    
 	    mGroupList = new ArrayList<ArrayList<String>>();
         mChildList = new ArrayList<String>();
@@ -489,6 +535,9 @@ public class MyWorkController {
 			                case XSSFCell.CELL_TYPE_ERROR:
 			                    value=cell.getErrorCellValue()+"#5번#";
 			                    break;
+			                default:
+			                	value="왜 없니";
+			                	break;
 		                }
 		            }
 		            if(value.equals("finish")) break; 
@@ -498,7 +547,6 @@ public class MyWorkController {
 		            	CommonCollectClass common = new CommonCollectClass();
 		            	listA.add(common.excelUploadCategoryGetModule("excelList",rowindex-startRowindex,array.get(columnindex),value));
 //		            	listA.add("<input type='text' name='excelList["+(rowindex-startRowindex)+"]."+array.get(columnindex)+"' value='"+value+"' >");
-		            	
 		            	System.out.println(array.get(columnindex));
 		            }
 		        }
@@ -538,5 +586,20 @@ public class MyWorkController {
 		
 		return "popUp/workspaces/excelUpload";
 		
+	}
+	public String moduleDayToString(String st,int num) throws ParseException{
+		Date to;
+		SimpleDateFormat fommat;
+		if(num==1){
+			SimpleDateFormat fommatter = new SimpleDateFormat("HH:mm");
+			to = fommatter.parse(st);
+			fommat = new SimpleDateFormat("HH:mm");
+		}else{
+			SimpleDateFormat fommatter = new SimpleDateFormat("yyyy-MM-dd");
+			to = fommatter.parse(st);
+			fommat = new SimpleDateFormat("yyyy-MM-dd");
+		}
+		
+		return fommat.format(to);
 	}
 }
