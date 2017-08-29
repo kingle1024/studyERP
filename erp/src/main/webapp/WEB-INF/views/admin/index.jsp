@@ -26,15 +26,28 @@
                 <td width="30%">${user.name } (${ user.email })</td>
                 <td width="">
                     <c:forEach var="authority" items="${ user.authorities }">
-                        ${ authority.authority } / 
+	                    <c:choose>
+					       <c:when test="${authority.authority == 'ROLE_ADMIN'}">
+	          				 	관리자 /
+	     				  </c:when>
+	    				   <c:when test="${authority.authority == 'ROLE_MANAGER'}">
+	           근장 /
+	       </c:when>
+	       <c:when test="${authority.authority == 'ROLE_USER'}">
+	           	학생
+	       </c:when>
+	       <c:otherwise>
+	           다른 데이터가 들어왔습니다
+	       </c:otherwise>
+	   			</c:choose>
                     </c:forEach>
                 </td>
                   <td width="21%">
                     <p>
                         <c:url var="changeRolePath" value="/admin/role/${ user.id }" />
                         <a href="${ changeRolePath }/admin" class="btn btn-default <c:if test="${ user.hasRole('ADMIN') }">btn-primary</c:if>">관리자</a>
-                        <a href="${ changeRolePath }/manager" class="btn btn-default <c:if test="${ user.hasRole('MANAGER') }">btn-primary</c:if>">매니저</a>
-                        <a href="${ changeRolePath }/user" class="btn btn-default <c:if test="${ user.hasRole('USER') }">btn-primary</c:if>">사용자</a>
+                        <a href="${ changeRolePath }/manager" class="btn btn-default <c:if test="${ user.hasRole('MANAGER') }">btn-primary</c:if>">근장</a>
+                        <a href="${ changeRolePath }/user" class="btn btn-default <c:if test="${ user.hasRole('USER') }">btn-primary</c:if>">학생</a>
                     </p>
                 </td>
                 <td width="6%">
