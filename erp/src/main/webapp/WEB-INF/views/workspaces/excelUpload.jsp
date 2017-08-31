@@ -51,7 +51,6 @@ $(document).ready(function(){
 		<tr>
 			<c:forEach var="listL" items="${headerList }" varStatus="status" >
 				<c:if test="${not status.last }"><td>${listL }</td> </c:if>
-				
 			</c:forEach>
 		</tr>
 		</c:forEach>

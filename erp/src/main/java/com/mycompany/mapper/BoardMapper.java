@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Comment;
+import com.mycompany.vo.Files;
 
 public interface BoardMapper {
 	// jsp파일에서 가져온다
@@ -49,4 +50,5 @@ public interface BoardMapper {
 	
 	@Delete("delete from boards where id = #{id}")
 	public boolean deleteNotice(int id);
+	
 }

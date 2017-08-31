@@ -20,10 +20,6 @@
         <script src="<c:url value="/js/jquery-3.2.0.min.js" /> " ></script>
         
 	    <script src="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script> <!--  없으면 drop-down 안됨 그리고 이 위치에 있어야 함-->
-      
-    
-    
-    
     </head>
     <body>
     
