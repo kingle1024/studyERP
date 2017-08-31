@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
 -- 호스트:                          127.0.0.1
--- 서버 버전:                        5.5.30 - MySQL Community Server (GPL)
--- 서버 OS:                        Win32
+-- 서버 버전:                        5.6.37-log - MySQL Community Server (GPL)
+-- 서버 OS:                        Win64
 -- HeidiSQL 버전:                  9.4.0.5125
 -- --------------------------------------------------------
 
@@ -13,10 +13,12 @@
 
 
 -- erp 데이터베이스 구조 내보내기
+DROP DATABASE IF EXISTS `erp`;
 CREATE DATABASE IF NOT EXISTS `erp` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `erp`;
 
 -- 테이블 erp.approvals 구조 내보내기
+DROP TABLE IF EXISTS `approvals`;
 CREATE TABLE IF NOT EXISTS `approvals` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
@@ -42,6 +44,7 @@ INSERT INTO `approvals` (`no`, `title`, `content`, `etc`, `state`, `send_id`, `r
 /*!40000 ALTER TABLE `approvals` ENABLE KEYS */;
 
 -- 테이블 erp.approvals_sub 구조 내보내기
+DROP TABLE IF EXISTS `approvals_sub`;
 CREATE TABLE IF NOT EXISTS `approvals_sub` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `doc` int(11) NOT NULL,
@@ -67,6 +70,7 @@ INSERT INTO `approvals_sub` (`no`, `doc`, `step`, `lastStep`, `state`, `update_d
 /*!40000 ALTER TABLE `approvals_sub` ENABLE KEYS */;
 
 -- 테이블 erp.approvals_system 구조 내보내기
+DROP TABLE IF EXISTS `approvals_system`;
 CREATE TABLE IF NOT EXISTS `approvals_system` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `step` int(11) DEFAULT NULL,
@@ -75,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `approvals_system` (
   `type_code` varchar(50) DEFAULT NULL,
   `manager` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- 테이블 데이터 erp.approvals_system:~6 rows (대략적) 내보내기
 DELETE FROM `approvals_system`;
@@ -90,6 +94,7 @@ INSERT INTO `approvals_system` (`no`, `step`, `lastStep`, `recv_id`, `type_code`
 /*!40000 ALTER TABLE `approvals_system` ENABLE KEYS */;
 
 -- 테이블 erp.authorities 구조 내보내기
+DROP TABLE IF EXISTS `authorities`;
 CREATE TABLE IF NOT EXISTS `authorities` (
   `email` varchar(50) NOT NULL,
   `authority` varchar(50) NOT NULL,
@@ -97,21 +102,23 @@ CREATE TABLE IF NOT EXISTS `authorities` (
   CONSTRAINT `FK_authorities_users` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 erp.authorities:~8 rows (대략적) 내보내기
+-- 테이블 데이터 erp.authorities:~9 rows (대략적) 내보내기
 DELETE FROM `authorities`;
 /*!40000 ALTER TABLE `authorities` DISABLE KEYS */;
 INSERT INTO `authorities` (`email`, `authority`) VALUES
 	('admin', 'ROLE_ADMIN'),
-	('teran1024@naver.com', 'ROLE_USER'),
 	('admin', 'ROLE_USER'),
 	('kingle@naver.com', 'ROLE_USER'),
 	('dlwodn907@gmail.com', 'ROLE_USER'),
 	('tmzkdlgo@daum.net', 'ROLE_USER'),
 	('test1@naver.com', 'ROLE_USER'),
-	('kingle', 'ROLE_USER');
+	('kingle', 'ROLE_USER'),
+	('teran1024@naver.com', 'ROLE_MANAGER'),
+	('teran1024@naver.com', 'ROLE_USER');
 /*!40000 ALTER TABLE `authorities` ENABLE KEYS */;
 
 -- 테이블 erp.boards 구조 내보내기
+DROP TABLE IF EXISTS `boards`;
 CREATE TABLE IF NOT EXISTS `boards` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
@@ -123,9 +130,9 @@ CREATE TABLE IF NOT EXISTS `boards` (
   `delete_yn` tinyint(4) DEFAULT NULL,
   `type_code` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 erp.boards:~35 rows (대략적) 내보내기
+-- 테이블 데이터 erp.boards:~36 rows (대략적) 내보내기
 DELETE FROM `boards`;
 /*!40000 ALTER TABLE `boards` DISABLE KEYS */;
 INSERT INTO `boards` (`id`, `title`, `content`, `author`, `hit`, `register_date`, `update_date`, `delete_yn`, `type_code`) VALUES
@@ -163,10 +170,12 @@ INSERT INTO `boards` (`id`, `title`, `content`, `author`, `hit`, `register_date`
 	(33, 'erp.war', 'erp.war', '관리자', 2, '2017-07-27 10:41:05', '2017-07-27 10:41:05', NULL, '1001'),
 	(34, 'erp.war', 'erp.war', '관리자', 3, '2017-07-27 10:41:22', '2017-07-27 10:41:22', NULL, '1001'),
 	(35, 'erp.warerp.war', 'erp.warerp.war', '관리자', 8, '2017-07-27 10:41:36', '2017-07-27 10:41:36', NULL, '1001'),
-	(38, '파일 여러개 업로드', '파일 여러개 업로드', '관리자', 13, '2017-08-17 11:42:59', '2017-08-17 11:42:59', NULL, '1001');
+	(38, '파일 여러개 업로드', '파일 여러개 업로드', '관리자', 13, '2017-08-17 11:42:59', '2017-08-17 11:42:59', NULL, '1001'),
+	(39, '12', '121', '관리자', 5, '2017-08-31 16:42:22', '2017-08-31 16:42:22', NULL, '1001');
 /*!40000 ALTER TABLE `boards` ENABLE KEYS */;
 
 -- 테이블 erp.board_comment 구조 내보내기
+DROP TABLE IF EXISTS `board_comment`;
 CREATE TABLE IF NOT EXISTS `board_comment` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `board_no` int(11) NOT NULL,
@@ -196,6 +205,7 @@ INSERT INTO `board_comment` (`no`, `board_no`, `author`, `comment`, `register_da
 /*!40000 ALTER TABLE `board_comment` ENABLE KEYS */;
 
 -- 테이블 erp.breakdown_document 구조 내보내기
+DROP TABLE IF EXISTS `breakdown_document`;
 CREATE TABLE IF NOT EXISTS `breakdown_document` (
   `no` int(11) NOT NULL,
   `distinguish` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
@@ -216,6 +226,7 @@ INSERT INTO `breakdown_document` (`no`, `distinguish`, `item`, `room_num`) VALUE
 /*!40000 ALTER TABLE `breakdown_document` ENABLE KEYS */;
 
 -- 테이블 erp.common_code 구조 내보내기
+DROP TABLE IF EXISTS `common_code`;
 CREATE TABLE IF NOT EXISTS `common_code` (
   `group_code` int(11) NOT NULL,
   `type_code` varchar(50) NOT NULL,
@@ -240,6 +251,7 @@ INSERT INTO `common_code` (`group_code`, `type_code`, `name_code`) VALUES
 /*!40000 ALTER TABLE `common_code` ENABLE KEYS */;
 
 -- 테이블 erp.common_group 구조 내보내기
+DROP TABLE IF EXISTS `common_group`;
 CREATE TABLE IF NOT EXISTS `common_group` (
   `group_code` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -258,6 +270,7 @@ INSERT INTO `common_group` (`group_code`, `name`) VALUES
 /*!40000 ALTER TABLE `common_group` ENABLE KEYS */;
 
 -- 테이블 erp.consumables_document 구조 내보내기
+DROP TABLE IF EXISTS `consumables_document`;
 CREATE TABLE IF NOT EXISTS `consumables_document` (
   `no` int(11) NOT NULL,
   `num` int(11) DEFAULT NULL,
@@ -271,6 +284,7 @@ DELETE FROM `consumables_document`;
 /*!40000 ALTER TABLE `consumables_document` ENABLE KEYS */;
 
 -- 테이블 erp.files 구조 내보내기
+DROP TABLE IF EXISTS `files`;
 CREATE TABLE IF NOT EXISTS `files` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `board_no` int(11) NOT NULL DEFAULT '0',
@@ -278,16 +292,12 @@ CREATE TABLE IF NOT EXISTS `files` (
   `real_name` varchar(200) CHARACTER SET utf8 NOT NULL DEFAULT '0',
   `path` varchar(200) NOT NULL DEFAULT '0',
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 erp.files:~52 rows (대략적) 내보내기
+-- 테이블 데이터 erp.files:~57 rows (대략적) 내보내기
 DELETE FROM `files`;
 /*!40000 ALTER TABLE `files` DISABLE KEYS */;
 INSERT INTO `files` (`no`, `board_no`, `save_name`, `real_name`, `path`) VALUES
-	(8, 0, '0', '0', 'c:/spring/upload/'),
-	(9, 0, '20170626045700', '0', 'c:/spring/upload/'),
-	(10, 0, '20170626045851', '0', 'c:/spring/upload/'),
-	(11, 0, '20170626045920', '0', 'c:/spring/upload/'),
 	(66, 42, '20170627055930', '20170622091243', 'c:/spring/upload/'),
 	(67, 43, '20170627062411.jpg', '2014-1-정통-전자회로이론및실습-기말시험지,모범답안(1).jpg', 'c:/spring/upload/'),
 	(68, 43, '201706270624111.jpg', '2014-1-정통-전자회로이론및실습-기말시험지,모범답안(2).jpg', 'c:/spring/upload/'),
@@ -335,10 +345,20 @@ INSERT INTO `files` (`no`, `board_no`, `save_name`, `real_name`, `path`) VALUES
 	(161, 37, '201708171141041.PNG', '2.PNG', '/upload/'),
 	(162, 38, '20170817114259.PNG', '1.PNG', '/upload/'),
 	(163, 38, '201708171142591.PNG', '2.PNG', '/upload/'),
-	(164, 1, '20170819082431.xlsx', '2017_행정(일반)근로_표준근무일지.xlsx', '/upload/');
+	(164, 1, '20170819082431.xlsx', '2017_행정(일반)근로_표준근무일지.xlsx', '/upload/'),
+	(165, 39, '20170831044222.hwp', '실습실 관리 프로그램(엄지용,이대근,이재우).hwp', 'C:\\Spring\\upload\\'),
+	(166, 0, '20170831051639.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(167, 0, '20170831053657.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(168, 0, '20170831054300.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(169, 0, '20170831054501.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(170, 0, '20170831060012.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(171, 0, '20170831062656.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(172, 0, '20170831062729.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\'),
+	(173, 0, '20170831084537.xlsx', 'workBook.xlsx', 'C:\\Spring\\upload\\');
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 
 -- 테이블 erp.free_document 구조 내보내기
+DROP TABLE IF EXISTS `free_document`;
 CREATE TABLE IF NOT EXISTS `free_document` (
   `no` int(11) unsigned zerofill NOT NULL,
   `content` varchar(50) DEFAULT NULL,
@@ -352,6 +372,7 @@ DELETE FROM `free_document`;
 /*!40000 ALTER TABLE `free_document` ENABLE KEYS */;
 
 -- 테이블 erp.messages 구조 내보내기
+DROP TABLE IF EXISTS `messages`;
 CREATE TABLE IF NOT EXISTS `messages` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `recv_id` varchar(50) NOT NULL,
@@ -385,6 +406,7 @@ INSERT INTO `messages` (`no`, `recv_id`, `send_id`, `title`, `content`, `send_da
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 
 -- 테이블 erp.users 구조 내보내기
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
@@ -410,6 +432,7 @@ INSERT INTO `users` (`id`, `email`, `name`, `password`, `socialNumFront`, `enabl
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- 테이블 erp.workexcel 구조 내보내기
+DROP TABLE IF EXISTS `workexcel`;
 CREATE TABLE IF NOT EXISTS `workexcel` (
   `no` int(11) NOT NULL AUTO_INCREMENT,
   `workDate` date DEFAULT NULL,
@@ -418,34 +441,50 @@ CREATE TABLE IF NOT EXISTS `workexcel` (
   `endTime` time DEFAULT NULL,
   `endSubStart` time DEFAULT NULL,
   `content` varchar(50) CHARACTER SET utf8 DEFAULT NULL,
+  `userEmail` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`no`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
 
--- 테이블 데이터 erp.workexcel:~21 rows (대략적) 내보내기
+-- 테이블 데이터 erp.workexcel:~33 rows (대략적) 내보내기
 DELETE FROM `workexcel`;
 /*!40000 ALTER TABLE `workexcel` DISABLE KEYS */;
-INSERT INTO `workexcel` (`no`, `workDate`, `week`, `startTime`, `endTime`, `endSubStart`, `content`) VALUES
-	(58, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검'),
-	(59, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검'),
-	(60, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검'),
-	(61, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검'),
-	(62, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검'),
-	(63, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검'),
-	(64, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검'),
-	(65, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검'),
-	(66, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검'),
-	(67, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검'),
-	(68, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검'),
-	(69, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검'),
-	(70, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검'),
-	(71, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검'),
-	(72, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검'),
-	(73, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검'),
-	(74, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검'),
-	(75, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검'),
-	(76, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검'),
-	(77, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검'),
-	(78, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검');
+INSERT INTO `workexcel` (`no`, `workDate`, `week`, `startTime`, `endTime`, `endSubStart`, `content`, `userEmail`) VALUES
+	(58, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검', NULL),
+	(59, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검', NULL),
+	(60, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검', NULL),
+	(61, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검', NULL),
+	(62, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검', NULL),
+	(63, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검', NULL),
+	(64, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검', NULL),
+	(65, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검', NULL),
+	(66, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검', NULL),
+	(67, '2017-01-02', '금', '13:00:00', '18:00:00', '05:00:00', '네트워크 점검', NULL),
+	(68, '2017-01-02', '토', '16:00:00', '18:00:00', '02:00:00', '월간 점검', NULL),
+	(69, '2017-01-04', '일', '16:00:00', '18:00:00', '02:00:00', '아무거나 점검', NULL),
+	(70, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(71, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(72, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(73, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(74, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(75, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(76, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(77, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(78, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(79, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(80, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(81, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(82, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(83, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(84, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(85, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(86, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(87, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(88, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', NULL),
+	(89, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', NULL),
+	(90, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', NULL),
+	(91, '2017-01-02', '금', '13:00:00', '13:09:00', '00:09:00', '네트워크 점검', 'admin'),
+	(92, '2017-01-02', '토', '16:00:00', '17:30:00', '01:30:00', '월간 점검', 'admin'),
+	(93, '2017-01-04', '일', '16:00:00', '17:45:00', '01:45:00', '아무거나 점검', 'admin');
 /*!40000 ALTER TABLE `workexcel` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
