@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,63 +81,13 @@ public class BoardsController {
 	
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정
 	public String update(@ModelAttribute("inputForm") FileForm uploadForm, @ModelAttribute Board board, HttpServletRequest request, MultipartHttpServletRequest multipartRequest, @RequestParam(value = "page") int page) throws Exception{
-		System.out.println("/notice/update 왔다간당");
 		boardMapper.updateNotice(board);
-
-		// 파일 업로드 시작하는 부분 
-		int no = board.getId();
-		Date dt = new Date();
-		// success.jsp로 보낼 파일 이름 저장
-		List<String> fileNames = new ArrayList<String>();
-		
-		String sdfFiletoString = null;
-		String fileName = null;
-		String pattern = "(.*)\\.(.*)"; // 정규식
-		Pattern p = null;
-		Matcher m = null;
-		String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql)"; // 파일 형식 제어
 		
 		List<MultipartFile> files = uploadForm.getFiles();
-		if (null != files && files.size() > 0) { // 파일이 존재하면
-			for (MultipartFile multipartFile : files) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss"); // 날짜 포맷 형식
-				sdfFiletoString = sdf.format(dt).toString(); // 날짜 형식을 저장할 공간
-				fileName = multipartFile.getOriginalFilename(); // 파일의 실제 이름을 가져옴.
-				System.out.println("파일의 이름 : "+fileName);
-				
-				p = Pattern.compile(pattern); // 패턴을 컴파일
-				m = p.matcher(fileName); // fileName에 정규식 적용
-				String extension = "";
-				
-//				String fileUploadPath = "/root/upload/";
-				String fileUploadPath = collect.getCommonUploadPath();
-				
-				// 디렉토리가 없으면 생성해준다
-				File fileuploadPath = new File(fileUploadPath);
-				if(!fileuploadPath.exists()) fileuploadPath.mkdirs(); 
-				//
-				
-				while (m.find()) {
-					extension = m.group(2); // 확장자를 저장
-				}
-				if (Pattern.matches(extensionCheck, extension)) { // 확장자 검사를 만족하면 디비에 넣는다.
-					if (cnt != 0) // for문 안에 cnt값이 있으면 계속 0 으로 초기화 되기 때문에
-									// static으로 선언
-					sdfFiletoString += cnt; // 다중 업로드 시 파일 이름을 다르게 해준다.
-//					bookMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, uploadForm.getUpDir()); // 파일 디비 저장
-					fileMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, fileUploadPath); // 파일 디비 저장
-
-					cnt++; // 다중 업로드 인지 확인하는 부분.
-//					String path = uploadForm.getUpDir() + sdfFiletoString + "." + extension; // 실제 파일 저장 하는 부분. 경로+이름+확장자
-					String path = fileUploadPath + sdfFiletoString + "." + extension; // 실제 파일 저장 하는 부분. 경로+이름+확장자
-					File f = new File(path);
-					multipartFile.transferTo(f);
-					fileNames.add(fileName);
-				} else {
-					// 뭔가 처리를 해줘야 하는데..
-				}
-			}
-		}
+		List<String> fileNames = new ArrayList<String>();		
+		// 파일 업로드 시작하는 부분 
+		int no = board.getId();	
+		collect.insertFileModule(no, uploadForm);
 		
 		return "redirect:/notice/view/"+no+"?page="+page;
 	}
@@ -148,61 +99,20 @@ public class BoardsController {
 		int no = boardMapper.getLastID(); // 생성 후 바로 게시글의 번호를 가져오는 과정.
 		List<MultipartFile> files = uploadForm.getFiles(); // 
 		System.out.println("files:"+files);
-		Date dt = new Date();
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
-		String sdfFiletoString  = null;
-		String fileName = null;
-		if (null != files && files.size() > 0) { // 파일이 존재하면
-			for (MultipartFile multipartFile : files) {
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss"); // 날짜 포맷 형식
-				sdfFiletoString = sdf.format(dt).toString(); // 날짜 형식을 저장할 공간
-				fileName = multipartFile.getOriginalFilename(); // 파일의 실제 이름을 가져옴.
-				System.out.println("파일의 이름 : "+fileName);
-				String pattern = "(.*)\\.(.*)"; // 정규식
-				Pattern p = Pattern.compile(pattern); // 패턴을 컴파일
-				Matcher m = p.matcher(fileName); // fileName에 정규식 적용
-				String extension = "";
-				String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql|SQL)"; // 파일 형식 제어
-//				String fileUploadPath = "/root/upload/";
-				String fileUploadPath = collect.getCommonUploadPath();
-				
-				// 디렉토리가 없으면 생성해준다
-				File fileuploadPath = new File(fileUploadPath);
-				if(!fileuploadPath.exists()) fileuploadPath.mkdirs(); 
-				//
-				
-				while (m.find()) {
-					extension = m.group(2); // 확장자를 저장
-				}
-				if (Pattern.matches(extensionCheck, extension)) { // 확장자 검사를 만족하면 디비에 넣는다.
-					if (cnt != 0) // for문 안에 cnt값이 있으면 계속 0 으로 초기화 되기 때문에
-									// static으로 선언
-					sdfFiletoString += cnt; // 다중 업로드 시 파일 이름을 다르게 해준다.
-//					bookMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, uploadForm.getUpDir()); // 파일 디비 저장
-					fileMapper.insertFiles(no, sdfFiletoString + "." + extension, fileName, fileUploadPath); // 파일 디비 저장
 
-					cnt++; // 다중 업로드 인지 확인하는 부분.
-//					String path = uploadForm.getUpDir() + sdfFiletoString + "." + extension; // 실제 파일 저장 하는 부분. 경로+이름+확장자
-					String path = fileUploadPath + sdfFiletoString + "." + extension; // 실제 파일 저장 하는 부분. 경로+이름+확장자
-					File f = new File(path);
-					multipartFile.transferTo(f);
-					fileNames.add(fileName);
-				} else {
-					// 뭔가 처리를 해줘야 하는데..
-				}
-			}
-		}
+		collect.insertFileModule(no, uploadForm);
+		
 		return "redirect:/notices";
 //		return "redirect: " + request.getContextPath() + "/notices";
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/testUploadRemove", method = RequestMethod.GET) // 게시판 삭제시
-//	public void  testUpload(@RequestParam(value="fileArray[]")List <String> arrayParams, @RequestParam(value="fileNo[]")List <String> arrayNos, @RequestParam(value="testArray[]")ArrayList <String> arrayTest){
-	public void  testUpload(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
+//	public void testUpload(@RequestParam(value="fileArray[]")List <String> arrayParams, @RequestParam(value="fileNo[]")List <String> arrayNos, @RequestParam(value="testArray[]")ArrayList <String> arrayTest){
+	public void testUpload(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
 		System.out.println("/testUploadRemove 진입");	
-		System.out.println("array:"+arrayTest);
 		for(int j=0; j< arrayTest.size(); j++){ // 효율적인 방법은 아닌 것 같지만 일단 구현. 이 방식이 비효율적인 이유는 항상 인덱스가 0부터 size까지 돌기 때문이다
 		
 		List<Files> files;
