@@ -9,7 +9,6 @@
 		<property name="locations" value="classpath:/jdbc.properties" />
 		<property name="fileEncoding" value="UTF-8" />
 	</bean>
-	
 	<!-- JDBC-MySQL -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -76,5 +75,6 @@
 	</bean>
 
 	<bean id="download" class="com.company.myapp.DownloadView" />
-
+	
+	<import resource="classpath:/context-scheduler.xml" />
 </beans>
