@@ -79,6 +79,5 @@ public class UserServiceImpl implements UserService{
 		map.put("send_id", send_id); 
 		return userDao.selectSendMessageList(map);
 	}
-	
-	
+
 }

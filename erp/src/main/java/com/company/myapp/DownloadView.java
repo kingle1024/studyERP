@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
-
 public class DownloadView extends AbstractView {
 	 public void Download(){ // download.action?name=
 	        setContentType("application/download; utf-8");

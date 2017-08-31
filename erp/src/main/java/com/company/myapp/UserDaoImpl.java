@@ -68,6 +68,4 @@ public class UserDaoImpl implements UserDao {
 				NS+".selectSendMessageList",map);
 	}
 
-
-
 }

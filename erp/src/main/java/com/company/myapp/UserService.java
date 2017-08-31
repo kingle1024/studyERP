@@ -23,5 +23,4 @@ public interface UserService {
 	public List<Message> getRecvMessageList(int page, String word, String recv_id);
 	
 	public List<Message> getSendMessageList(int page, String word, String send_id);
-	
 }
