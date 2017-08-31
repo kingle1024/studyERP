@@ -11,28 +11,33 @@
 </head>
 <body>
 <script type="text/javascript">
-
-function reviewUploadImg(fileObj)
-{
+function reviewUploadImg(fileObj){
  var filePath = fileObj.value;
  var fileName = filePath.substring(filePath.lastIndexOf("\\")+1);
  var fileKind = fileName.split(".")[1];
- if(fileKind != "jpg" && fileKind != "gif" && fileKind != "png" && fileKind !="xlsx")
- {
-  alert("jpg, gif, png 확장자를 가진 이미지 파일만 올려주세요.");
-  document.getElementById("image_file").value = "";
-  document.getElementById("image_file").select();
-  document.selection.clear();
+ if(fileKind !="xlsx"){
+	 alert("xlsx 확장자를 가진 이미지 파일만 올려주세요.");
+	 document.getElementById("files[0]").value = "";
+	 document.getElementById("files[0]").select();
+	 document.selection.clear();
  }
 }
-
 </script>
-
-
-	<form action="<c:url value="/workspaces/upload" />" enctype="multipart/form-data" >
-		파일업로드<input type="file" id="fileup" onchange="this.select(); document.getElementById('filetext').value=document.body.createTextRange().text.toString();" />
-실제 값<input type="text" id="filetext" />
-
+<script>
+function test(){
+	if (document.selection) { //IE
+	    var range = document.body.createTextRange();
+	    range.moveToElementText(document.getElementById("fileup"));
+	    range.select();
+	} else if (window.getSelection) { //others
+	    var range = document.createRange();
+	    range.selectNode(document.getElementById("fileup"));
+	    window.getSelection().addRange(range);
+	}
+}
+</script>
+	<form action="<c:url value="/workspaces/uploadForm" />" name="inputForm" enctype="multipart/form-data" method="POST">
+		파일업로드<input type="file" id="fileup" name="files[0]" />
 		<input type="submit" value="확인"> 
 	</form>
 </body>

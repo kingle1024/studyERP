@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.vo.Files;
 import com.mycompany.vo.workExcel;
 
 @Service
@@ -26,5 +27,14 @@ public class ExcelServiceImpl implements ExcelService {
 		return excelDao.selectExcel(map);
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public Files getFiles() {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		return excelDao.selectFiles(map);
+	}
+	
+	
 	
 }

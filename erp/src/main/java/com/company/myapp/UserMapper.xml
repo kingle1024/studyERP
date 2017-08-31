@@ -26,6 +26,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE user_id=#{userId} AND user_pw=#{userPw}
     </select>
    
+   <select id="selectFiles"
+   			resultType="com.mycompany.vo.Files">
+   		SELECT
+   			*
+   		FROM FILES
+   		ORDER BY no DESC
+   		LIMIT 1		
+   	</select>
+   
     <select id="selectTotalCount"
             resultType="Integer">
         SELECT
@@ -130,14 +139,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		startTime,
     		endTime,
     		endSubStart,
-    		content
+    		content,
+    		userEmail
     	) values(
     		#{workDate} ,
     		#{week},
     		#{startTime},
     		#{endTime},
     		#{endSubStart},
-    		#{content}
+    		#{content},
+    		#{userEmail}
     	)
     </insert>
     <select id="selectExcel" 

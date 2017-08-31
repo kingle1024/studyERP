@@ -11,7 +11,7 @@ import com.mycompany.vo.Files;
 
 public interface FileMapper {
 	@Insert("insert into files (board_no, save_name, real_name, path) values (#{no}, #{save_name}, #{real_name}, #{path} )")
-	public void insertFiles(@Param("no") int no, @Param("save_name") String save_name,
+	public boolean insertFiles(@Param("no") int no, @Param("save_name") String save_name,
 			@Param("real_name") String real_name, @Param("path") String path);
 
 	@Select("select * from files where no= #{no}")

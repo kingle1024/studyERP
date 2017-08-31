@@ -13,6 +13,7 @@ public class workExcel {
 	private String endSubStart;
 	private String content;
 	private List <workExcel> excelList;
+	private String userEmail;
 	
 	public List<workExcel> getExcelList() {
 		return excelList;
@@ -62,4 +63,11 @@ public class workExcel {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	
 }

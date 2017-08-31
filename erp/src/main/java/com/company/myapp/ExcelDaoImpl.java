@@ -6,7 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.mycompany.vo.Files;
 import com.mycompany.vo.workExcel;
 @Repository
 public class ExcelDaoImpl implements ExcelDao{
@@ -25,6 +25,12 @@ public class ExcelDaoImpl implements ExcelDao{
 	public List<workExcel> selectExcel(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(NS+".selectExcel");
+	}
+
+	@Override
+	public Files selectFiles(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NS+".selectFiles");
 	}
 
 }

@@ -1,16 +1,21 @@
 package com.company.myapp;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,10 +46,27 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mycompany.mapper.BoardMapper;
+import com.mycompany.mapper.CommonMapper;
+import com.mycompany.mapper.FileMapper;
+import com.mycompany.vo.FileForm;
+import com.mycompany.vo.Files;
 import com.mycompany.vo.workExcel;
 
 @Controller
 public class MyWorkController {
+	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
+	
+	static int cnt = 0;
+	
+	@Autowired
+	private BoardMapper boardMapper;
+	
+	@Autowired
+	private CommonMapper commonMapper;
+	
+	@Autowired
+	private FileMapper fileMapper;
 	
 	@Autowired
 	private ExcelService excelService;
@@ -56,8 +78,8 @@ public class MyWorkController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/workspaces/downloadTest", method=RequestMethod.GET)
-	public void downloadTest(ModelAndView model) throws IOException, ParseException{
+	@RequestMapping(value="/workspaces/download", method=RequestMethod.GET)
+	public ModelAndView downloadTest(ModelAndView model, Principal principal) throws IOException, ParseException{
 		ArrayList<String> header = new ArrayList<String>();
 		header.add("날짜");
 		header.add("요일");
@@ -67,10 +89,10 @@ public class MyWorkController {
 		header.add("누계");
 		header.add("근로상세내역");
 		//임의의 VO가 되주는 MAP 객체
-		Map<String,Object>map=null;
+		Map<String,Object> map = null;
 		//가상 DB조회후 목록을 담을 LIST객체
-		ArrayList<Map<String,Object>> list=new ArrayList<Map<String,Object>>();
-		ArrayList<String> columnList=new ArrayList<String>();
+		ArrayList<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		ArrayList<String> columnList = new ArrayList<String>();
 		//DB조회후 데이터를 담았다는 가상의 데이터
 		for(int i=0;i<10;i++){
 		    map=new HashMap<String,Object>();
@@ -300,44 +322,53 @@ public class MyWorkController {
 		    
 		}
 		List<workExcel> workExcel = excelService.getExcel();
+		
+		int cnt=0;
+		
 		for(int i=0; i<workExcel.size(); i++){
-			row = sheet.createRow((short)9+i);
-			ArrayList<Object> getColumn = new ArrayList<Object>();
-//			getColumn.add(moduleDayToString(workExcel.get(i).getWorkDate(),2));
-			
-			SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
-			Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
-			
-//			SimpleDateFormat transFormatHM = new SimpleDateFormat("HH:mm");
-//			Time toHM = (Time) transFormatHM.parse(workExcel.get(i).getStartTime());
-			
-			getColumn.add(toYMD);
-//			getColumn.add(workExcel.get(i).getWorkDate());
-			getColumn.add(workExcel.get(i).getWeek());
-			getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-//			getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-			
-			getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
-			getColumn.add(moduleDayToString(workExcel.get(i).getEndSubStart(),1));
-			getColumn.add("-");
-			getColumn.add(workExcel.get(i).getContent());
-			
-			for(int j=0; j<getColumn.size(); j++){
-				cell = row.createCell(j);
-				if(j==0){
-					cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-					cell.setCellStyle(csMonthFormat);
-					cell.setCellValue((Date)getColumn.get(j));
-				}else if(j==6){ // 근로상세내역
+				try{
+					if(workExcel.get(i).getUserEmail().equals(principal.getName())){
+					row = sheet.createRow((short)9+cnt);
+					ArrayList<Object> getColumn = new ArrayList<Object>();
+		//			getColumn.add(moduleDayToString(workExcel.get(i).getWorkDate(),2));
 					
-					cell.setCellValue((String)getColumn.get(j));
-				}else{
-					cell.setCellStyle(csFormat);
-					cell.setCellValue((String)getColumn.get(j));
-				}
+					SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+					Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
+					
+		//			SimpleDateFormat transFormatHM = new SimpleDateFormat("HH:mm");
+		//			Time toHM = (Time) transFormatHM.parse(workExcel.get(i).getStartTime());
+					
+					getColumn.add(toYMD);
+		//			getColumn.add(workExcel.get(i).getWorkDate());
+					getColumn.add(workExcel.get(i).getWeek());
+					getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
+		//			getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
+					
+					getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
+					getColumn.add(moduleDayToString(workExcel.get(i).getEndSubStart(),1));
+					getColumn.add("-");
+					getColumn.add(workExcel.get(i).getContent());
+					
+					for(int j=0; j<getColumn.size(); j++){
+						cell = row.createCell(j);
+						if(j==0){
+							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+							cell.setCellStyle(csMonthFormat);
+							cell.setCellValue((Date)getColumn.get(j));
+						}else if(j==6){ // 근로상세내역
+							
+							cell.setCellValue((String)getColumn.get(j));
+						}else{
+							cell.setCellStyle(csFormat);
+							cell.setCellValue((String)getColumn.get(j));
+						}
+					}
+					cnt++;
+					}
+			}catch(Exception e){
 			}
 		}
-		row = sheet.createRow((short)9+workExcel.size());
+		row = sheet.createRow((short)9+cnt);
 		cell = row.createCell(6);
 		cell.setCellValue("근로장학생 : ");
 		cell = row.createCell(7);
@@ -346,21 +377,44 @@ public class MyWorkController {
 		row = sheet.createRow((short)9+workExcel.size()+1);
 		cell = row.createCell(0);
 		cell.setCellValue("** 상기와 같이 근무하였음을 확인하며, 사실과 다를 경우 근로장학금을 환불할 것을 서약합니다.");
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		String nowTime = (String)dateFormat.format(calendar.getTime());
 		
 		
-		
-		FileOutputStream fileoutputstream=new FileOutputStream("C:\\Spring\\workBookz.xlsx");
+		File fileuploadPath = new File(collect.getCommonUploadTempPath()); 
+		if(!fileuploadPath.exists()) fileuploadPath.mkdirs(); // 디겔토리가 존재하지 않으면 생성
+		FileOutputStream fileoutputstream=new FileOutputStream(collect.getCommonUploadTempPath()+nowTime+".xlsx"); //디렉토리에 저장
 		
 		//파일을 쓴다
 		workbook.write(fileoutputstream);
 		//필수로 닫아주어야함
 		fileoutputstream.close();
-		System.out.println("엑셀 파일 생성 성공");
-
+        
+		ModelAndView mav = new ModelAndView();
+		File f = new File(collect.getCommonUploadTempPath()+nowTime+".xlsx"); // 바로 위에서 저장한 파일을 불러와서 f에 저장 
+		String real_name = "근로장학생 근무일지.xlsx";
+		mav.addObject("real_name", real_name);
+		mav.addObject("download", f);
+		mav.setViewName("download"); // 여기서 DownloadView.java로 이동
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/workspaces/form", method=RequestMethod.GET)
+	public String form(){
+		return "popUp/workspaces/uploadForm";
+	}
+	
+	@RequestMapping(value="/workspaces/uploadForm", method=RequestMethod.POST)
+	public String excelUploadForm(@ModelAttribute("inputForm") FileForm uploadForm) throws Exception{
+		int no = 0;
+		collect.insertFileModule(no, uploadForm);
+		return "redirect:/workspaces/upload";
 	}
 	
 	@RequestMapping(value="/workspaces/uploadTest", method=RequestMethod.POST)
-	public @ResponseBody void uploadTest(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws Exception{
+	public @ResponseBody void uploadTest(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session, Principal principal) throws Exception{
 //		System.out.println(NameVo.getNameVOList().get(0).getName());
 		System.out.println(workExcel.getExcelList().get(0).getContent());
 		System.out.println("하이염!");
@@ -381,6 +435,7 @@ public class MyWorkController {
 			if(null != workExcel.getExcelList() && workExcel.getExcelList().size() > 0 ){
 				System.out.println("세개 나오기:"+workExcel.getExcelList().size());
 				for(workExcel work : workExcelList){
+					work.setUserEmail(principal.getName());
 //					work.setEndSubStart(work.getEndTime()-work.getStartTime());
 			        SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm");
 			        Date end = transFormat.parse(work.getEndTime());
@@ -398,15 +453,13 @@ public class MyWorkController {
 			}
 		}
 	}
-	@RequestMapping(value="/workspaces/uploadForm")
-	public String excelUploadForm(){
-		return "popUp/workspaces/uploadForm";
-		
-	}
+	
 	@RequestMapping(value="/workspaces/upload")
-	public String excelUpload(Model model,HttpSession session, @RequestParam(value="image_file") String filePath) throws IOException{
-
-
+	public String excelUpload(Model model,HttpSession session) throws IOException{
+		Files files = excelService.getFiles();
+		String filePath = files.getPath()+files.getSave_name();
+		
+		System.out.println("files:"+files);
 		System.out.println("filePath:"+filePath);
 		
 //		FileInputStream fis=new FileInputStream("C:\\Spring\\workBookz.xlsx");
