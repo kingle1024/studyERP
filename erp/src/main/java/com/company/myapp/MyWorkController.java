@@ -108,6 +108,7 @@ public class MyWorkController {
 		        columnList.add(k);
 		    }
 		}
+		
 		//1차로 workbook을 생성
 		XSSFWorkbook workbook=new XSSFWorkbook();
 		
@@ -152,81 +153,11 @@ public class MyWorkController {
 		XSSFRow row=null;
 		//엑셀의 셀
 		XSSFCell cell=null;
-		
-		sheet.addMergedRegion(new CellRangeAddress(
-				3, // 시작 행 번호
-				3, // 마지막 행 번호
-				1, // 시작 열 번호
-				2  // 마지막 열 번호
-		));
-		sheet.addMergedRegion(new CellRangeAddress(
-				3,
-				3,
-				4,
-				5
-		));
-		sheet.addMergedRegion(new CellRangeAddress(
-				4,
-				4,
-				1,
-				2
-		));
-		sheet.addMergedRegion(new CellRangeAddress(
-				4,
-				4,
-				4,
-				5
-		));
-		sheet.addMergedRegion(new CellRangeAddress(
-				5,
-				5,
-				1,
-				2
-				));
-		sheet.addMergedRegion(new CellRangeAddress(
-				5,
-				5,
-				4,
-				5
-		));
-		sheet.addMergedRegion(new CellRangeAddress(
-				6,
-				6,
-				0,
-				7
-		));
-		sheet.addMergedRegion(new CellRangeAddress(
-				4,
-				5,
-				7,
-				7
-		));
-		
-		sheet.addMergedRegion(new CellRangeAddress(
-				8,
-				8,
-				6,
-				7
-		));
+  
+		collectExcelMergePosition(sheet); // merge 데이터를 밑에 따로 뺴놓았음
 		
 		//임의의 DB데이터 조회
 		if(list !=null &&list.size() >0){
-//		    int i=4;
-//		    for(Map<String,Object>mapobject : list){
-//		        // 시트에 하나의 행을 생성한다(i 값이 0이면 첫번째 줄에 해당)
-//		        row=sheet.createRow((short)i);
-//		        i++;
-//		        if(columnList !=null &&columnList.size() >0){
-//		            for(int j=0;j<columnList.size();j++){
-//		                //생성된 row에 컬럼을 생성한다
-//		                cell=row.createCell(j);
-//		                System.out.println("cell시작:"+cell+", "+j);
-//		                //map에 담긴 데이터를 가져와 cell에 add한다
-//		                cell.setCellValue(String.valueOf(mapobject.get(columnList.get(j))));
-//		                System.out.println("cell끄티:"+cell+", "+j);
-//		            }
-//		        }
-//		    }
 			row = sheet.createRow((short)2);
 			row.setHeight((short)630);
 			
@@ -330,20 +261,12 @@ public class MyWorkController {
 					if(workExcel.get(i).getUserEmail().equals(principal.getName())){
 					row = sheet.createRow((short)9+cnt);
 					ArrayList<Object> getColumn = new ArrayList<Object>();
-		//			getColumn.add(moduleDayToString(workExcel.get(i).getWorkDate(),2));
-					
 					SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
 					Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
 					
-		//			SimpleDateFormat transFormatHM = new SimpleDateFormat("HH:mm");
-		//			Time toHM = (Time) transFormatHM.parse(workExcel.get(i).getStartTime());
-					
 					getColumn.add(toYMD);
-		//			getColumn.add(workExcel.get(i).getWorkDate());
 					getColumn.add(workExcel.get(i).getWeek());
 					getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-		//			getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-					
 					getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
 					getColumn.add(moduleDayToString(workExcel.get(i).getEndSubStart(),1));
 					getColumn.add("-");
@@ -393,7 +316,7 @@ public class MyWorkController {
         
 		ModelAndView mav = new ModelAndView();
 		File f = new File(collect.getCommonUploadTempPath()+nowTime+".xlsx"); // 바로 위에서 저장한 파일을 불러와서 f에 저장 
-		String real_name = "근로장학생 근무일지.xlsx";
+		String real_name = "근로장학생 근무일지.xlsx"; // 저장할 이름 제공 
 		mav.addObject("real_name", real_name);
 		mav.addObject("download", f);
 		mav.setViewName("download"); // 여기서 DownloadView.java로 이동
@@ -407,19 +330,19 @@ public class MyWorkController {
 	}
 	
 	@RequestMapping(value="/workspaces/uploadForm", method=RequestMethod.POST)
-	public String excelUploadForm(@ModelAttribute("inputForm") FileForm uploadForm) throws Exception{
+	public String excelUploadForm(@ModelAttribute("inputForm") FileForm uploadForm, HttpSession session) throws Exception{
 		int no = 0;
-		collect.insertFileModule(no, uploadForm);
-		return "redirect:/workspaces/upload";
+		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm);
+		String excelFileName = rs.get("path")+rs.get("save_name");
+		session.setAttribute("excelFileName", excelFileName );
+		return "redirect:/workspaces/uploadView";
 	}
 	
-	@RequestMapping(value="/workspaces/uploadTest", method=RequestMethod.POST)
+	@RequestMapping(value="/workspaces/upload", method=RequestMethod.POST)
 	public @ResponseBody void uploadTest(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session, Principal principal) throws Exception{
 //		System.out.println(NameVo.getNameVOList().get(0).getName());
-		System.out.println(workExcel.getExcelList().get(0).getContent());
-		System.out.println("하이염!");
 		ArrayList<String> list = (ArrayList<String>)session.getAttribute("productlist");
-		
+		session.removeAttribute("productlist"); // 세션에 있는 자원 해제
 		List<workExcel> workExcelList = workExcel.getExcelList();
 		/*
 		 * 공백제거 하는 for문
@@ -454,14 +377,12 @@ public class MyWorkController {
 		}
 	}
 	
-	@RequestMapping(value="/workspaces/upload")
+	@RequestMapping(value="/workspaces/uploadView")
 	public String excelUpload(Model model,HttpSession session) throws IOException{
 		Files files = excelService.getFiles();
-		String filePath = files.getPath()+files.getSave_name();
-		
-		System.out.println("files:"+files);
-		System.out.println("filePath:"+filePath);
-		
+//		String filePath = files.getPath()+files.getSave_name();
+		String filePath = (String)session.getAttribute("excelFileName");
+		session.removeAttribute("excelFileName");
 //		FileInputStream fis=new FileInputStream("C:\\Spring\\workBookz.xlsx");
 		FileInputStream fis= null;
 				try{
@@ -473,7 +394,7 @@ public class MyWorkController {
 		XSSFWorkbook workbook=new XSSFWorkbook(fis);
 		int rowindex=0;
 		int columnindex=0;
-		List<String> listA = new ArrayList<String>();
+		List<String> excelData = new ArrayList<String>();
 		ArrayList<String> headerList = new ArrayList<String>();
 		ArrayList<String> array = new ArrayList<String>();
 		
@@ -585,7 +506,6 @@ public class MyWorkController {
 		    if(row !=null){ 
 		        //셀의 수
 		        int cells=row.getPhysicalNumberOfCells();
-		        System.out.println(rows);
 		        for(columnindex=0; columnindex<cells; columnindex++){
 		            //셀값을 읽는다
 		            XSSFCell cell=row.getCell(columnindex);
@@ -634,21 +554,19 @@ public class MyWorkController {
 		            if(value.equals("finish")) break; 
 		            if(value.equals("오류")){
 //		            	listA.add("<font color='red'>오류</font><button>수정</button>");
-		            	listA.add(" ");
+		            	excelData.add(" ");
 		            }else{
 		            	CommonCollectClass common = new CommonCollectClass();
-		            	listA.add(common.excelUploadCategoryGetModule("excelList",rowindex-startRowindex,array.get(columnindex),value));
+		            	excelData.add(common.excelUploadCategoryGetModule("excelList",rowindex-startRowindex,array.get(columnindex),value));
 //		            	listA.add("<input type='text' name='excelList["+(rowindex-startRowindex)+"]."+array.get(columnindex)+"' value='"+value+"' >");
 		            	System.out.println(array.get(columnindex));
 		            }
 		        }
-		        listA.add("</td><tr>");	
+		        excelData.add("</td><tr>");	
 		    }
 		}
-		System.out.println(listA);
-		model.addAttribute("listA",listA);
+		model.addAttribute("excelData", excelData);
 		model.addAttribute("headerList", headerList);
-	    System.out.println("출력해보자");
 	    /*
 	     *  먼저 아래가 null인데 위에가 null이 아니면 rowspan
 	     */
@@ -669,12 +587,8 @@ public class MyWorkController {
 				}
 			}
 		}
-		model.addAttribute("testList",mGroupList);
-		
-		System.out.println(mGroupList);
-
+		model.addAttribute("uploadHeader",mGroupList);
 		session.setAttribute("productlist", array);
-		
 		
 		return "popUp/workspaces/excelUpload";
 		
@@ -693,5 +607,62 @@ public class MyWorkController {
 		}
 		
 		return fommat.format(to);
+	}
+	public void collectExcelMergePosition(XSSFSheet sheet){
+		sheet.addMergedRegion(new CellRangeAddress(
+				3, // 시작 행 번호
+				3, // 마지막 행 번호
+				1, // 시작 열 번호
+				2  // 마지막 열 번호
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				3,
+				3,
+				4,
+				5
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				4,
+				4,
+				1,
+				2
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				4,
+				4,
+				4,
+				5
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				5,
+				5,
+				1,
+				2
+				));
+		sheet.addMergedRegion(new CellRangeAddress(
+				5,
+				5,
+				4,
+				5
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				6,
+				6,
+				0,
+				7
+		));
+		sheet.addMergedRegion(new CellRangeAddress(
+				4,
+				5,
+				7,
+				7
+		));
+		
+		sheet.addMergedRegion(new CellRangeAddress(
+				8,
+				8,
+				6,
+				7
+		));
 	}
 }
