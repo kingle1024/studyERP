@@ -32,7 +32,7 @@ $(document).ready(function() {
 <div class="jumbotron" id="subNav">
 	<font size="6">공지사항 작성</font>-공지사항 작성을 수행할 수 있습니다.
 </div>
-	<div class="container">
+	<div class="containerRegulate">
 			<form action="<c:url value="/notice" />" method="post" name="inputForm" enctype="multipart/form-data">
 			 <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" />
 				<div class="form-group form-group-lg">

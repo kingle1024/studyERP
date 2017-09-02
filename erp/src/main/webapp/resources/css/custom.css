@@ -1,3 +1,9 @@
+.containerRegulate{
+	padding-right: 15px;
+    padding-left: 235px;
+    margin-right: auto;
+    margin-left: auto;
+}
 #setPositionMy{
 	top:80px;
 	left:300px;
@@ -11,7 +17,7 @@
 	top: 10%;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	margin-left: 18%;
+	margin-left: 16%;
 	margin-top: 3%;
 }
 #setPostion{

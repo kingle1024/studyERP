@@ -59,7 +59,7 @@
 	<div class="jumbotron" id="subNav">
 		<font size="6">내 작업대</font>- 내 작업대를 작성합니다
 	</div>
-	<div class="container">
+	<div class="containerRegulate">
 	
 <!-- 		<input type="button" id="ReadingExcelDownload" value="엑셀 다운로드" /> -->
 <span data-tooltip-text="엑셀 다운로드">

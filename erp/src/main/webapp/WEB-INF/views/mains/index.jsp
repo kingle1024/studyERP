@@ -19,7 +19,7 @@
 <div class="jumbotron" id="subNav">
 	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/ )
 </div>
-	<div class="container">
+	<div class="containerRegulate">
 			<center><h1>공지사항</h1></center>			
 				<a href="<c:url value="/notices" />" class="btn btn-default pull-right">
 				공지사항 이동</a>
@@ -71,14 +71,17 @@
 			</thead>
 				<tbody>
 				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
-							<tr>
-								<th>${ myMessage.send_id }</th>
-								<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
-								<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
-							</tr>
+					<tr>
+						<th>${ myMessage.send_id }</th>
+						<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
+						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
+					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
+			<c:if test="${empty myMessages }">
+    			<img src="<c:url value="/image/emptyContent.gif"/>">
+    		</c:if>
 			</div>
 </body>
 </html>

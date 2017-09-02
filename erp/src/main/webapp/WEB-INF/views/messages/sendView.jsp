@@ -10,7 +10,7 @@
 <div class="jumbotron" id="subNav">
 	<font size="6">보낸 쪽지 보기</font> - 보낸 쪽지를 볼 수 있습니다.
 </div>
-	<div class="container">
+	<div class="containerRegulate">
 		<div class="thumbnail">
 			<table class="table"> 
 			<tbody>

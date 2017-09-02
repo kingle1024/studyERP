@@ -10,7 +10,7 @@
 <div class="jumbotron" id="subNav">
 	<font size="6">받은 쪽지 보기</font>-받은 쪽지를 볼 수 있습니다.
 </div>
-	<div class="container">
+	<div class="containerRegulate">
 		<table class="table"> 
 			<tbody>
 				<tr>
@@ -28,7 +28,6 @@
 			
 			</tbody>
 		</table>
-			
 		<form>
 			<a href="<c:url value="/messages/answer/${ message.send_id }" />" class="btn btn-lg btn-primary">답장하기</a>
 		</form>

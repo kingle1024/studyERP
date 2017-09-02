@@ -11,7 +11,7 @@
 <div class="jumbotron" id="subNav">
 	<font size="6">관리자 페이지</font> - 회원을 관리할 수 있습니다.
 </div>
-<div class="container">
+<div class="containerRegulate">
 <table class="table table-striped">
 	
     <thead>

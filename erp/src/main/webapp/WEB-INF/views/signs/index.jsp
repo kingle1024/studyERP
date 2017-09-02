@@ -9,7 +9,7 @@
 	<div class="jumbotron" id="subNav">
 		<font size="6">결재하기</font>-결재 기능을 수행할 수 있습니다.
 	</div>
-	<div class="container">
+	<div class="containerRegulate">
 		<a href="#" onclick="window.open('<c:url value="/signs/atypicalDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary" >비정형 문서</a>
 		<a href="#" onclick="window.open('<c:url value="/signs/breakdownDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary" >실습실 고장 문서</a>
 <%-- 		<a href="#" onclick="window.open('<c:url value="/signs/scholarshipDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary">장학금 신청 문서</a> --%>

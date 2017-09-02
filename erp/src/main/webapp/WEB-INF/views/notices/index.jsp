@@ -20,7 +20,7 @@
 	<div class="jumbotron" id="subNav">
 		<font size="6">공지사항</font>-공지사항 기능을 수행할 수 있습니다.
 	</div>
-	<div class="container">
+	<div class="containerRegulate">
 		<!-- 		<div class="jumbotron" id="jumbo"> -->
 		<table class="table table-striped">
 			<tr>

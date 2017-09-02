@@ -123,7 +123,7 @@ var tempDel = function(no){
 	<div class="jumbotron" id="subNav">
 		<font size="6">공지사항 수정</font>-공지사항 수정을 수행할 수 있습니다.
 	</div>
-	<div class="container">
+	<div class="containerRegulate">
 		<form action="<c:url value='/notice/update' />" method="post"
 			name="inputForm" enctype="multipart/form-data">
 		<input type="hidden" name="page" value="${page }"> <!-- 없으면 없다고 오류남 -->

@@ -10,7 +10,7 @@
 <div class="jumbotron" id="subNav">
 	<font size="6">보낸 쪽지함</font> - 보낸 쪽지를 확인할 수 있습니다.
 </div>
-	<div class="container">
+	<div class="containerRegulate">
 	<a href="<c:url value="/messages " />" class="btn btn-lg btn-primary">받은쪽지함</a><br>
 		<a href="<c:url value="/messages/new" />" class="btn btn-default pull-right">
 				쪽지 보내기</a><br><br>
@@ -34,6 +34,9 @@
 				</tbody>				
 <%-- 					<fmt:formatDate value="${ myMessage.send_date}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
 				</table>
+				<c:if test="${empty messageList }">
+    				<img src="<c:url value="/image/emptyContent.gif"/>">
+    			</c:if>
 				<hr>
 				<div class="text-center">
 					<ul class="pagination">
@@ -48,6 +51,7 @@
 						</c:forEach>
 					</ul>
 				</div>
+				
 	</div>
 </body>
 </html>

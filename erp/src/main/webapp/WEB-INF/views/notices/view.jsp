@@ -20,7 +20,7 @@ pre {
 	<div class="jumbotron" id="subNav">
 		<font size="6">공지 사항 보기</font> - 공지사항을 확인할 수 있습니다.
 	</div>
-	<div class="container">
+	<div class="containerRegulate">
 		<span style="float: right;"><a href="<c:url value="/notices?page=${page }"/>"
 			class="btn btn-lg btn-primary">목록</a></span>
 		<table border="0" class="table table-inverse">
