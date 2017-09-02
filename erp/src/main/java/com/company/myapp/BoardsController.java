@@ -5,6 +5,7 @@ import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,7 +88,10 @@ public class BoardsController {
 		List<String> fileNames = new ArrayList<String>();		
 		// 파일 업로드 시작하는 부분 
 		int no = board.getId();	
-		collect.insertFileModule(no, uploadForm);
+		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm);
+		if(rs.size() > 0){
+			fileMapper.insertFiles(no, rs.get("save_name"), rs.get("real_name"), rs.get("path"));
+		}
 		
 		return "redirect:/notice/view/"+no+"?page="+page;
 	}
@@ -102,7 +106,10 @@ public class BoardsController {
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
 
-		collect.insertFileModule(no, uploadForm);
+		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm);
+		if(rs.size() > 0){
+			fileMapper.insertFiles(no, rs.get("save_name"), rs.get("real_name"), rs.get("path"));
+		}
 		
 		return "redirect:/notices";
 //		return "redirect: " + request.getContextPath() + "/notices";
@@ -114,23 +121,20 @@ public class BoardsController {
 	public void testUpload(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
 		System.out.println("/testUploadRemove 진입");	
 		for(int j=0; j< arrayTest.size(); j++){ // 효율적인 방법은 아닌 것 같지만 일단 구현. 이 방식이 비효율적인 이유는 항상 인덱스가 0부터 size까지 돌기 때문이다
-		
-		List<Files> files;
-		files = fileMapper.getFileEditUpLoadList(Integer.parseInt(arrayTest.get(j).trim())); // 해당하는 값을 List로 받아온다.
-		
-		//디비에서 번호로 삭제하는 파일의 이름을 가져와야 한다
-		System.out.println("files:"+files);
-		for (int i = 0; i < files.size(); i++) {
-			File f = new File(files.get(i).getPath() + files.get(i).getSave_name()); // 저장한 이름을 가져온다.
-			if (f.delete()) { // 삭제한다.
-				System.out.println(files.get(i).getPath() + files.get(i).getSave_name());
-				System.out.println("삭제 성공!" + files.get(i).getSave_name());
-			}else {
-				System.out.println(files.get(i).getPath() + files.get(i).getSave_name());
-				System.out.println("삭제 실패!" + files.get(i).getSave_name());
+			List<Files> files;
+			files = fileMapper.getFileEditUpLoadList(Integer.parseInt(arrayTest.get(j).trim())); // 해당하는 값을 List로 받아온다.
+			//디비에서 번호로 삭제하는 파일의 이름을 가져와야 한다
+			for (int i = 0; i < files.size(); i++) {
+				File f = new File(files.get(i).getPath() + files.get(i).getSave_name()); // 저장한 이름을 가져온다.
+				if (f.delete()) { // 삭제한다.
+					System.out.println(files.get(i).getPath() + files.get(i).getSave_name());
+					System.out.println("삭제 성공!" + files.get(i).getSave_name());
+				}else {
+					System.out.println(files.get(i).getPath() + files.get(i).getSave_name());
+					System.out.println("삭제 실패!" + files.get(i).getSave_name());
+				}
 			}
-		}
-		fileMapper.deleteFileInEdit(Integer.parseInt(arrayTest.get(j).trim())); // 디비에서 삭제
+			fileMapper.deleteFileInEdit(Integer.parseInt(arrayTest.get(j).trim())); // 디비에서 삭제
 		}
 	}
 	
@@ -195,15 +199,6 @@ public class BoardsController {
 		model.addAttribute("username", name); // 사용자 이름을 username으로 파싱해줌
 		return "notices/new";
 	}
-
-//	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정
-//	public String update(@ModelAttribute Board board, HttpServletRequest request) {
-//		bookMapper.updateNotice(board);
-//		List<String> fileNames = new ArrayList<String>();
-//		
-//		
-//		return "redirect: " + request.getContextPath() + "/notices";
-//	}
 
 	@RequestMapping(value = "/notice/edit/{id}", method = RequestMethod.GET) // 수정 모드 
 	public String edit(@ModelAttribute("inputForm") FileForm uploadForm, @PathVariable int id, Model model, @RequestParam(value = "page") int page) {
