@@ -21,10 +21,12 @@ $(function() {
 });
 </script>
 <script src="<c:url value="/js/approvalModule.js" />"></script>
-	<div class="jumbotron" >
+	<div class="">
+	<h1>비정형 문서</h1>
 	<div style="float:right;">
 	<table cellpadding="20px" border="1">
 		<tr>
+			<td rowspan="2" bgcolor="#EEEAF8">결<br>재</td>
 			<c:forEach var="approvalsystem" items="${ approvalSystem }" varStatus="status">
 				<td class="setPadding"> ${ approvalsystem.manager } </td> <!-- 표시 -->	
 			</c:forEach>
@@ -36,30 +38,31 @@ $(function() {
 		</tr>
 	</table>
 	</div>
-	<h1>비정형 문서</h1>
+	<br/><br/><br/><br/><br/><br/>
 <%-- 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> "> --%>
 	<form id="formname1" method="post" >
-		<table>				
+		<table cellpadding="1">				
 			<tr>
-				<td width="100px">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
+				<td width="100px" align="center" bgcolor="#EEEAF8">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
 			</tr>
 		</table>
 		<br><br>				
-		<table>
+		<table cellpadding="1">
 			<tr>
-				<td width="100px">내용</td>
-				<td width="100px"><textarea cols="110" rows="10" name="content"></textarea></td>
+				<td width="100px" align="center" bgcolor="#EEEAF8">내용</td>
+				<td width="100px" bgcolor="#EEEAF8"><textarea cols="110" rows="10" name="content"></textarea></td>
 			</tr>
 			<tr>
 			</tr>
 			<tr>
-				<td width="100px">기타</td>
+				<td width="100px" align="center" bgcolor="#EEEAF8">기타</td>
 				<td width="100px"><input type="text" class="form-control" name="etc"></td>
 			</tr>
 		</table>	
+		<br><br><br>
+		<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-info" style="width:100%" value="제출">
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
 		<input type="hidden" name="type_code" value="1000">
-		<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-primary" style="width:100%" value="제출">
 	</form>
 	</div>
 </body>
