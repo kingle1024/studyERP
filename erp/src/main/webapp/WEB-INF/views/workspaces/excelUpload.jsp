@@ -26,7 +26,7 @@ $(document).ready(function(){
 		var formData = $("#dataForm").serialize();
 		$.ajax({
 			type : "POST",
-			url : "${pageContext.request.contextPath}/workspaces/uploadTest",
+			url : "${pageContext.request.contextPath}/workspaces/upload",
 			cache : false,
 			data : formData,
 			success : function(json, status){
@@ -47,21 +47,23 @@ $(document).ready(function(){
 
 <form:form commandName="dataForm" name="dataForm" id="dataForm" onsubmit="return validateForm()" >
 	<table border="1" id="table">
-		<c:forEach var="headerList" items="${testList }">
+		<c:forEach var="uploadHeader" items="${uploadHeader }">
 		<tr>
-			<c:forEach var="listL" items="${headerList }" varStatus="status" >
-				<c:if test="${not status.last }"><td>${listL }</td> </c:if>
+			<c:forEach var="headerListDisassemble" items="${uploadHeader }" varStatus="status" >
+<%-- 				<c:if test="${not status.last }"><td>${listL }</td> </c:if> --%>
+				<td>${headerListDisassemble }</td>
 			</c:forEach>
 		</tr>
 		</c:forEach>
 		<tr>
-			<c:forEach var="obj" items="${listA}" varStatus="status">
-				<td> ${ obj } </td>
+			<c:forEach var="data" items="${excelData}" varStatus="status">
+				<td> ${ data } </td>
 			</c:forEach>
 		</tr>
 	</table>
 	<input type="hidden" value="test" name="test">
-	<input type="button"  id="ReadingInfoSelectBtn" value="제출">
+	<input type="button"  id="ReadingInfoSelectBtn" value="제출">&nbsp;
+	<input type="button" onclick="history.back(-1); return false;" value="취소">
 </form:form>
 <script>
 // $('#dataForm').validate({
