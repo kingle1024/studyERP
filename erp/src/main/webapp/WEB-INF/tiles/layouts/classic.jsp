@@ -23,10 +23,8 @@
     </head>
     <body>
     
-<!--         <div class="container"> -->
-            <tiles:insertAttribute name="header" />
-            <tiles:insertAttribute name="content" />
-            <tiles:insertAttribute name="footer" />
-<!--         </div> -->
+		<tiles:insertAttribute name="header" />
+			<tiles:insertAttribute name="content" />
+        <tiles:insertAttribute name="footer" />
     </body>
 </html>

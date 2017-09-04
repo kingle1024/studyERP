@@ -19,7 +19,7 @@
 <div class="jumbotron" id="subNav">
 	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/ )
 </div>
-	<div class="containerRegulate">
+<div class="containerRegulate">
 			<center><h1>공지사항</h1></center>			
 				<a href="<c:url value="/notices" />" class="btn btn-default pull-right">
 				공지사항 이동</a>
@@ -29,7 +29,7 @@
 			</sec:authorize>
 			
 			<table class="table table-hover">
-			<thread>
+			<thead>
 				<tr>
 					<th width="70px">번호</th>
 					<th>제목</th>
@@ -37,7 +37,7 @@
 					<th width="150px">날짜</th>
 					<th width="70px">조회수</th>
 				</tr>
-			</thread>
+			</thead>
 			<tbody>
 				<c:forEach var="board" items="${boards }" varStatus="status">				
 					<tr>
