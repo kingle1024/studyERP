@@ -16,7 +16,6 @@
 <title>공지사항</title>
 </head>
 <body>
- 
 	<div class="jumbotron" id="subNav">
 		<font size="6">공지사항</font>-공지사항 기능을 수행할 수 있습니다.
 	</div>
@@ -24,11 +23,11 @@
 		<!-- 		<div class="jumbotron" id="jumbo"> -->
 		<table class="table table-striped">
 			<tr>
-				<th width="70px">번호</th>
+				<th width="5%" nowrap>번호</th>
 				<th>제목</th>
-				<th width="70px">작성자</th>
-				<th width="150px">날짜</th>
-				<th width="70px">조회수</th>
+				<th width="1%" nowrap>작성자</th>
+				<th width="9%" nowrap>날짜</th>
+				<th width="1%" nowrap>조회수</th>
 			</tr>
 			<tbody>
 				<c:forEach var="board" items="${boardList }" varStatus="status">
@@ -38,7 +37,7 @@
 								${ board.title } </a></th>
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }"
-								pattern="yyyy-MM-dd HH:mm" /></th>
+								pattern="MM-dd HH:mm" /></th>
 						<th>${ board.hit }</th>
 					</tr>
 				</c:forEach>

@@ -88,11 +88,8 @@ public interface SignMapper {
 	@Select("select * from breakdown_document where no = #{Doc} ")
 	public BreakDownDocument showBreakDownDocument(@Param("Doc")String Doc);
 	
-	@Update("update approvals set state = 1 where no=#{Doc}")
-	public boolean approvalEnd(@Param("Doc")String Doc);
-	
-	@Update("update approvals set state = 2 where no=#{Doc}")
-	public boolean reject(@Param("Doc")String Doc);
+	@Update("update approvals set state = #{state} where no=#{Doc}")
+	public boolean documentStateChange(@Param("state")int state, @Param("Doc")String Doc);
 	
 	@Update("update approvals set recv_id = #{recv_id} where no = #{Doc}")
 	public boolean changeApprovalRecvId(@Param("recv_id")String recv_id, @Param("Doc")String Doc);

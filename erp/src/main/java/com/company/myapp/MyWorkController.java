@@ -36,6 +36,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +55,7 @@ import com.mycompany.vo.Files;
 import com.mycompany.vo.workExcel;
 
 @Controller
+@Service
 public class MyWorkController {
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
 	
@@ -79,7 +81,7 @@ public class MyWorkController {
 	
 	@ResponseBody
 	@RequestMapping(value="/workspaces/download", method=RequestMethod.GET)
-	public ModelAndView downloadTest(ModelAndView model, Principal principal) throws IOException, ParseException{
+	public ModelAndView download(ModelAndView model, Principal principal) throws IOException, ParseException{
 		ArrayList<String> header = new ArrayList<String>();
 		header.add("날짜");
 		header.add("요일");
@@ -253,9 +255,7 @@ public class MyWorkController {
 		    
 		}
 		List<workExcel> workExcel = excelService.getExcel();
-		
 		int cnt=0;
-		
 		for(int i=0; i<workExcel.size(); i++){
 				try{
 					if(workExcel.get(i).getUserEmail().equals(principal.getName())){
@@ -289,6 +289,7 @@ public class MyWorkController {
 					cnt++;
 					}
 			}catch(Exception e){
+				
 			}
 		}
 		row = sheet.createRow((short)9+cnt);
@@ -339,39 +340,32 @@ public class MyWorkController {
 	}
 	
 	@RequestMapping(value="/workspaces/upload", method=RequestMethod.POST)
-	public @ResponseBody void uploadTest(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session, Principal principal) throws Exception{
-//		System.out.println(NameVo.getNameVOList().get(0).getName());
-		ArrayList<String> list = (ArrayList<String>)session.getAttribute("productlist");
+	public @ResponseBody void upload(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session, Principal principal) throws Exception{
+		ArrayList<String> list = (ArrayList<String>)session.getAttribute("productlist"); //    
 		session.removeAttribute("productlist"); // 세션에 있는 자원 해제
 		List<workExcel> workExcelList = workExcel.getExcelList();
-		/*
-		 * 공백제거 하는 for문
-		 */
-		for(int i=0; i<list.size(); i++){
+		
+		for(int i=0; i<list.size(); i++){ // 공백을 제거하는 for문
 			if(list.get(i).equals("")) list.remove(i);
 		}
 		
 		// list값을 비교해서 무슨 엑셀 파일인지 구분한다. 그 뒤에 엑셀 업로드를 한다
-		if(list.toString().equals("[workDate, week, startTime, endTime, endSubStart, accumulate, content]")){
-			System.out.println("들어왔어연");
-			System.out.println(workExcel.getExcelList());
-			if(null != workExcel.getExcelList() && workExcel.getExcelList().size() > 0 ){
-				System.out.println("세개 나오기:"+workExcel.getExcelList().size());
-				for(workExcel work : workExcelList){
-					work.setUserEmail(principal.getName());
-//					work.setEndSubStart(work.getEndTime()-work.getStartTime());
-			        SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm");
-			        Date end = transFormat.parse(work.getEndTime());
-			        Date start = transFormat.parse(work.getStartTime());
-			        long diff = (end.getTime() - start.getTime()) / 60000 ;
+		if(list.toString().equals("[workDate, week, startTime, endTime, endSubStart, accumulate, content]")){ // 무슨 엑셀 파일인지 확인 한다 
+			if(null != workExcel.getExcelList() && workExcel.getExcelList().size() > 0 ){ 
+				for(workExcel work : workExcelList){ // 업로드 내용을 가져온다.
+					work.setUserEmail(principal.getName()); // 사용자를 판별하기 위해 현재 로그인한 사용자의 계정을 입력한다. 
+			        SimpleDateFormat transFormat = new SimpleDateFormat("HH:mm"); // 원하는 형식으로 바꾼다.
+			        Date end = transFormat.parse(work.getEndTime()); // 종료시간을 가져온다.
+			        Date start = transFormat.parse(work.getStartTime()); // 시작시간을 가져온다.
+			        long diff = (end.getTime() - start.getTime()) / 60000 ; 
 			        long hourGet = diff/60;
 			        long minutGet = diff%60;
-			        String minute = Long.toString(minutGet);
+			        String minute = Long.toString(minutGet); 
 			        if(minutGet < 10){
-			        	minute = "0"+Long.toString(minutGet);
+			        	minute = "0"+Long.toString(minutGet); // 한 자리 숫자인 경우 앞에 0을 추가한다.
 			        }
-			        work.setEndSubStart(Long.toString(hourGet)+":"+minute);	
-			        excelService.addExcel(work);
+			        work.setEndSubStart(Long.toString(hourGet)+":"+minute); 	
+			        excelService.addExcel(work); // DB에 엑셀 업로드 내용을 저장한다.
 				}
 			}
 		}
@@ -380,17 +374,14 @@ public class MyWorkController {
 	@RequestMapping(value="/workspaces/uploadView")
 	public String excelUpload(Model model,HttpSession session) throws IOException{
 		Files files = excelService.getFiles();
-//		String filePath = files.getPath()+files.getSave_name();
 		String filePath = (String)session.getAttribute("excelFileName");
 		session.removeAttribute("excelFileName");
-//		FileInputStream fis=new FileInputStream("C:\\Spring\\workBookz.xlsx");
 		FileInputStream fis= null;
 				try{
 					fis = new FileInputStream(filePath);
 				}catch(FileNotFoundException e){
 					throw new RuntimeException(e.getMessage(), e);
 				}
-//		FileInputStream fis=new FileInputStream("/upload/excel");
 		XSSFWorkbook workbook=new XSSFWorkbook(fis);
 		int rowindex=0;
 		int columnindex=0;

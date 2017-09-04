@@ -45,7 +45,7 @@
 			</tbody>
 		</table>
 		<c:if test="${empty approval }">
-			<img src="<c:url value="/image/emptyContent.gif"/>">
+			<img src="<c:url value="/image/emptyContent.gif"/>" width="100%">
 		</c:if>
 	</div>
 

@@ -18,9 +18,9 @@
 		<br>
 		<table class="table table-striped">
 			<tr>
-				<th width="300px">보낸이</th>
+				<th width="9%" nowrap>보낸이</th>
 				<th>제목</th>
-				<th width="150px">날짜</th>
+				<th width="12%" nowrap>날짜</th>
 			</tr>
 			<tbody>
 				<c:forEach var="myMessage" items="${messageList}" varStatus="status">
@@ -36,7 +36,7 @@
 			<%-- 					<fmt:formatDate value="${ myMessage.send_date}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
 		</table>
 		<c:if test="${empty messageList }">
-			<img src="<c:url value="/image/emptyContent.gif"/>">
+			<img src="<c:url value="/image/emptyContent.gif"/>" width="100%">
 		</c:if>
 		<hr>
 		<div class="text-center">

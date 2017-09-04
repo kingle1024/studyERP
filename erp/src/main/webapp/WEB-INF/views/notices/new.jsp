@@ -61,7 +61,7 @@ $(document).ready(function() {
 				<input name="author" type="hidden" value="${ username }" />
 				<span style="float: right;">
 				<button onclick="javascript:history.back();" class="btn btn-lg btn-primary ">이전</button>
-				<button type="submit" class="btn btn-lg btn-primary ">전송</button>
+				<button type="submit" class="btn btn-lg btn-primary ">등록</button>
 				</span>
 			</form>
 	</div>

@@ -25,16 +25,16 @@ pre {
 			class="btn btn-lg btn-primary">목록</a></span>
 		<table border="0" class="table table-inverse">
 			<tr>
-				<th width="100px">번호</th>
-				<th width="400px">${ board.id }</th>
-				<th width="">작성자</th>
+				<th width="1%" nowrap>번호</th>
+				<th width="">${ board.id }</th>
+				<th width="" nowrap>작성자</th>
 				<th width="">${ board.author }</th>
 			</tr>
 			<tr>
-				<th>작성일</th>
+				<th nowrap>작성일</th>
 				<th><fmt:formatDate value="${ board.register_date }"
 						pattern="yyyy-MM-dd hh:mm" /></th>
-				<th>수정일</th>
+				<th nowrap>수정일</th>
 				<th><fmt:formatDate value="${ board.update_date }"
 						pattern="yyyy-MM-dd hh:mm" /></th>
 			</tr>
@@ -67,10 +67,10 @@ pre {
 			<table class="table table-stripeed">
 				<thead>
 					<tr>
-						<th width="2%">작성자</th>
-						<th width="19%">내용</th>
-						<th width="6%">날짜</th>
-						<th width="1%"></th>
+						<th width="10%" nowrap>작성자</th>
+						<th width="">내용</th>
+						<th width="16%">날짜</th>
+						<th width="2%"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -79,7 +79,7 @@ pre {
 							<td>${ comment.author }</td>
 							<td>${ comment.comment }</td>
 							<td><fmt:formatDate value="${ comment.register_date }"
-									pattern="yyyy-MM-dd HH:mm" /></td>
+									pattern="MM-dd HH:mm" /></td>
 							<td><a href="<c:url value="/commentDelete/${board.id }/${comment.no }?page=${page }" />" class="btn btn-block btn-danger">삭제</a></td>
 						</tr>
 					</c:forEach>
