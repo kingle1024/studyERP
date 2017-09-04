@@ -58,7 +58,7 @@
 		<a href="<c:url value="/messages" />" class="btn btn-default pull-right">
 				쪽지함 이동</a>
 		<a href="<c:url value="/messages/new" />" class="btn btn-default pull-right">
-				메시지 보내기</a>
+				쪽지 보내기</a>
 			<script>
 				var popupX = (window.screen.width / 2) - (200 / 2);
 				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
