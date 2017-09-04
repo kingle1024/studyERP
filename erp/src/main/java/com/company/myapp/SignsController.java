@@ -7,7 +7,10 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.CronTask;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +32,8 @@ import com.mycompany.vo.BreakDownDocument;
 
 @Controller
 public class SignsController {
+	private static final Logger logger = LoggerFactory.getLogger(CronTask.class);
+	
 	@Autowired
 	private CommonMapper commonMapper;
 	
@@ -37,7 +42,7 @@ public class SignsController {
 
 	@RequestMapping(value = "/signs", method = RequestMethod.GET)
 	public ModelAndView indexSigns(Model model) {
-		System.out.println("signs 진입");
+		System.out.println("/signs ");
 		ModelAndView mv = new ModelAndView("signs/index");
 		return mv;
 	}
@@ -66,12 +71,9 @@ public class SignsController {
 
 		if(type_code.equals("1100")){ 
 			// 최신 번호를 하나 가져와야 한다
-			System.out.println(signMapper.recentLimitOne());
 			int no = signMapper.recentLimitOne();
 			breakDownDocument.setNo(no);
-			System.out.println(signMapper.insertBreakDownDocument(breakDownDocument));
 		}else{
-			System.out.println("else다");
 		}
 	}
 
@@ -89,51 +91,37 @@ public class SignsController {
 		ModelAndView mv = new ModelAndView("redirect:/signs");
 		return mv;
 	}
-
-
-	@ResponseBody
-	@RequestMapping(value = "/signs/approval", method = RequestMethod.POST)
-	public void approval(HttpServletRequest request, Principal principal) {
-		System.out.println("승인");
-		String email = principal.getName();
+	
+	@RequestMapping(value = "/signs/moduleApprovalReject", method = RequestMethod.POST)
+	public @ResponseBody void moduleApprovalReject(HttpServletRequest request, Principal principal) {
+		String email = principal.getName(); // 사용자의 계정을 읽어온다
+		int state = Integer.parseInt(request.getParameter("state")); // 파라메터에서 승인 인지 반려 인지 상태를 가져온다
 		String Doc = request.getParameter("Doc"); // 파라메터에서 문서 번호를 가져온다
-		Approval approval = signMapper.getApproval(Doc);
-		String type_code = approval.getType_code(); // 현재 문서에 대한 타입코드를 가져와야 한다
-													// ->
+		Approval approval = signMapper.getApproval(Doc); 
+		String type_code = approval.getType_code(); // 현재 문서에 대한 타입코드를 가져온다.
 		ApprovalSystem approvalSystem = signMapper.getApprovalSystem(type_code, email);
 		int step = approvalSystem.getStep();
 		int lastStep = approvalSystem.getLastStep();
-		// System의 ing와 last가 같은데 recv_id가 자신이면 -> approvals에서 최신상태를 1로 바꾸고
-		signMapper.approvals_sub(Doc, step, lastStep, 1, email, type_code); // 자신이
-																		// 저장한다
-		if (step == lastStep) { // 자신이 마지막 단계이면
-			signMapper.approvalEnd(Doc);
-		} else { // 다음 단계자가 있으면
-			String nextApprovalUser = signMapper.getNextApprovalUser(type_code, step);
-			signMapper.changeApprovalRecvId(nextApprovalUser, Doc); // 현재 상태를 다음 받을 사람의 아이디로 바꿔준다
+		
+		try{
+			signMapper.approvals_sub(Doc, step, lastStep, state, email, type_code); // 시스템에 현재 상태를 입력한다.
+			if(state==1){ // 승인 버튼을 눌렀을 때 
+				if (step == lastStep) { // System의 step과 lastStep이 같은데 recv_id가 자신이면 -> approvals에서 상태를 1로 바꿔서 완료로 만든다. 
+					signMapper.documentStateChange(state, Doc); // 자신이 마지막 단계이면  문서의 상태를 완료로 바꾼다.
+				} else { // 다음 결재 단계자가 있으면
+					String nextApprovalUser = signMapper.getNextApprovalUser(type_code, step); // 다음결재  단계자의 정보를 받아온다
+					signMapper.changeApprovalRecvId(nextApprovalUser, Doc); // 다음 받을 사람의 아이디로 바꿔준다
+				}
+			}else if(state==2){ // 반려 버튼을 눌렀을 때
+				signMapper.documentStateChange(state, Doc); // 반려하면 문서의 상태를 반려로 바꾼다.
+			}
+		}catch(Exception e){
+			logger.info(e.getMessage());
 		}
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/signs/reject", method = RequestMethod.POST)
-	public void reject(HttpServletRequest request, Principal principal) {
-		System.out.println("반려 진입");
-		String Doc = request.getParameter("Doc");
-		String recv_id = principal.getName();
-		Approval approval = signMapper.getApproval(Doc); // 현재 문서에 대한 정보를 가져온다
-		String type_code = approval.getType_code();
-		ApprovalSystem approvalSystem = signMapper.getApprovalSystem(type_code, recv_id);
-		int step = approvalSystem.getStep();
-		int lastStep = approvalSystem.getLastStep();
-
-		signMapper.reject(Doc);
-		signMapper.approvals_sub(Doc, step, lastStep, 2, recv_id, type_code);
-		System.out.println("반려 완료");
-	}
-
-	@RequestMapping(value = "/signs/docAtypicalView", method = RequestMethod.GET)
+	@RequestMapping(value = "/signs/docAtypicalView", method = RequestMethod.GET) // 문서 보기
 	public ModelAndView showDoc(@RequestParam("Doc") String Doc, Principal principal) {
-		System.out.println(Doc);
 		ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView");
 		// 문서의 정보를 가져온다
 		mv.addObject("approval", signMapper.getApproval(Doc));
@@ -148,12 +136,10 @@ public class SignsController {
 		String type_code = approval.getType_code();
 		List<ApprovalSystem> approvalSystem = signMapper.getApprovalSystemList(type_code);
 		mv.addObject("approvalSystem", approvalSystem);
-		System.out.println("정보:" + approvalSystem);
 
 		// 해당 문서 번호에 대한 결재 된 정보를 모두 가져온다
 		List<ApprovalSub> approvalSub = signMapper.getApprovalSubList(Doc); // 이미 없을듯? -> 이게 왜써있지 ㅋㅋ
 		mv.addObject("approvalSub", approvalSub);
-		System.out.println("approvalSub"+approvalSub);
 
 		/*
 		 * 다음 결재자가 몇밍인지 체크하기 위한 로직
@@ -176,7 +162,7 @@ public class SignsController {
 			BreakDownDocument breakDownDocument = signMapper.showBreakDownDocument(Doc);
 			mv.addObject("map",breakDownDocument.getMap());
 		}else{
-			mv.addObject("map","aaaa");
+			mv.addObject("map","errorCase");
 		}
 		return mv;
 	}

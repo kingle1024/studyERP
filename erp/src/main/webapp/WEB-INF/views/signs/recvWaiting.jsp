@@ -28,10 +28,10 @@ function viewDoc(num){
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th width="10%">번호</th>
+					<th width="10%" nowrap>번호</th>
 					<th>제목</th>
-					<th width="10%">보낸이</th>
-					<th width="10%">날짜</th>
+					<th width="10%" nowrap>보낸이</th>
+					<th width="10%" nowrap>날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,7 +46,7 @@ function viewDoc(num){
 			</tbody>
 		</table>
 		<c:if test="${empty approval }">
-			<img src="<c:url value="/image/emptyContent.gif"/>">
+			<img src="<c:url value="/image/emptyContent.gif"/>" width="100%">
 		</c:if>
 	</div>
 
