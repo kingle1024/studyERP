@@ -15,7 +15,6 @@
 <title>메인 페이지</title>
 </head>
 <body>
-
 <div class="jumbotron" id="subNav">
 	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/ )
 </div>
@@ -29,22 +28,26 @@
 			</sec:authorize>
 			
 			<table class="table table-hover">
-			<thread>
+			<thead>
 				<tr>
-					<th width="70px">번호</th>
-					<th>제목</th>
-					<th width="70px">작성자</th>
-					<th width="150px">날짜</th>
-					<th width="70px">조회수</th>
+					<th width="10%" nowrap>번호</th>
+					<th nowrap>제목</th>
+<!-- 					<th width="70px" nowrap>작성자</th> -->
+					<th width="10%" nowrap>날짜</th>
+					<th width="2%" nowrap>조회수</th>
 				</tr>
-			</thread>
+			</thead>
 			<tbody>
 				<c:forEach var="board" items="${boards }" varStatus="status">				
 					<tr>
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }?page=1" /> "> ${ board.title } </a></th>	
-						<th>${ board.author }</th>
-						<th><fmt:formatDate value="${ board.register_date }" pattern="yyyy-MM-dd HH:mm"/></th>
+<%-- 						<th>${ board.author }</th> --%>
+						<th>
+<%-- 							<fmt:formatDate value="${ board.register_date }" pattern="MM-dd HH:mm"/> --%>
+							${ noticeTime[status.index]}
+						</th>
+						
 						<th>${ board.hit } </th>
 					</tr>
 				</c:forEach>
@@ -66,7 +69,7 @@
 			<table class="table table-hover">
 			<thead>
 				<tr>
-					<th width="250px">보낸이</th><th width="670px">제목</th><th width="100px">보낸날짜</th>
+					<th width="10%" nowrap>보낸이</th><th width="" nowrap>제목</th><th width="15%" nowrap>보낸날짜</th>
 				</tr>
 			</thead>
 				<tbody>
@@ -74,13 +77,16 @@
 					<tr>
 						<th>${ myMessage.send_id }</th>
 						<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
-						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
+						<th class="date">
+<%-- 							<fmt:formatDate value="${ myMessage.send_date }" pattern="MM-dd HH:mm"/> --%>
+								${ messageTime[status.index]}
+						</th>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 			<c:if test="${empty myMessages }">
-    			<img src="<c:url value="/image/emptyContent.gif"/>">
+    			<img src="<c:url value="/image/emptyContent.gif"/>" width="100%">
     		</c:if>
 			</div>
 </body>
