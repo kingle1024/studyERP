@@ -19,10 +19,10 @@ import com.mycompany.vo.FileForm;
 public class CommonCollectClass {
 	static int cnt = 0;
 	
-//	private String windowUploadPath = "C:\\Spring\\upload\\";
-	private String commonUploadPath = "C:\\Spring\\upload\\";
-	private String commonUploadTempPath = "C:\\Spring\\temp\\";
-//	private String serverUploadPath = "/root/upload/";
+//	private String commonUploadPath = "C:\\Spring\\upload\\";
+//	private String commonUploadTempPath = "C:\\Spring\\temp\\";
+	private String commonUploadPath = "/upload/";
+	private String commonUploadTempPath = "/upload/temp";
 
 	public String getCommonUploadPath() {
 		return commonUploadPath;
