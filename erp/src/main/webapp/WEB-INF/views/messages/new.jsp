@@ -6,6 +6,8 @@
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <title>쪽지 보내기</title>
+<script src="<c:url value="/js/jquery.1.10.2.min.js" />"></script>
+<script src="<c:url value="/js/jquery.autocomplete.min.js" />"></script>
 <script>
 	$(function() {
 		$('#btn').click(function() {
@@ -15,7 +17,14 @@
 		});
 	});
 </script>
+<style>
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 5px 5px; white-space: nowrap; overflow: hidden; font-size:22px}
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: bold; color: #3399FF; }
+</style>
 </head>
+
 <body>
 <div class="jumbotron" id="subNav">
 	<font size="6">쪽지 보내기</font> - 쪽지를 보낼 수 있습니다.
@@ -26,7 +35,7 @@
 			
 			<div class="form-group form-group-lg">
 				<label class="control-label">받는 이</label>
-				<input name="recv_id" type="text" class="form-control">
+				<input id="w-input-search" name="recv_id" type="text" class="form-control">
 			</div>
 			
 			<div class="form-group form-group-lg">
@@ -44,5 +53,20 @@
 			<button type="submit" class="btn btn-lg btn-primary">전송</button>
 		</form>
 </div>
+ <script>
+	$('#w-input-search').autocomplete({
+		serviceUrl: '${pageContext.request.contextPath}/getTags',
+		paramName: "tagName",
+		delimiter: ",",
+	   transformResult: function(response) {
+		return {
+		  //must convert json to javascript object before process
+		  suggestions: $.map($.parseJSON(response), function(item) {
+		      return { value: item.tagName, data: item.id };
+		   })
+		 };
+            }
+	 });
+  </script>
 </body>
 </html>
