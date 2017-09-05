@@ -118,8 +118,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
    	</select>
    		
-   	
-   
     <insert id="insertUser" parameterType="com.mycompany.vo.Test">
         INSERT INTO
         USER(

@@ -24,7 +24,9 @@
     <body>
     
 <!--         <div class="container"> -->
+<div class="">
             <tiles:insertAttribute name="header" />
+</div>
             <tiles:insertAttribute name="content" />
             <tiles:insertAttribute name="footer" />
 <!--         </div> -->
