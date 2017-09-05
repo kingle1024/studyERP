@@ -22,13 +22,8 @@
 	    <script src="http://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js"></script> <!--  없으면 drop-down 안됨 그리고 이 위치에 있어야 함-->
     </head>
     <body>
-    
-<!--         <div class="container"> -->
-<div class="">
-            <tiles:insertAttribute name="header" />
-</div>
-            <tiles:insertAttribute name="content" />
-            <tiles:insertAttribute name="footer" />
-<!--         </div> -->
+		<tiles:insertAttribute name="header" />
+		<tiles:insertAttribute name="content" />
+        <tiles:insertAttribute name="footer" />
     </body>
 </html>

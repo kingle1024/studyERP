@@ -18,16 +18,16 @@
 				<tr>
 					<th width="9%" nowrap>받은이</th>
 					<th>제목</th>
-					<th width="7%" nowrap>보낸날</th>
-					<th width="7%" nowrap>수신일</th>
+					<th width="10%" nowrap>전송일</th>
+					<th width="10%" nowrap>수신일</th>
 				</tr>
 				<tbody>		
 				<c:forEach var="myMessage" items="${messageList}" varStatus="status">
 					<tr>
 						<th>${ myMessage.recv_id }</th>
 						<th><a href="<c:url value="/messages/sendView/${ myMessage.no }" />">${ myMessage.title }</a></th>
-						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="yyyy-MM-dd HH:mm"/></th>
-						<th><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="yyyy-MM-dd hh:mm"/></th>
+						<th><fmt:formatDate value="${ myMessage.send_date }" pattern="MM-dd HH:mm"/></th>
+						<th><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="MM-dd hh:mm"/></th>
 <%-- 						  <c:if test="${param.guess=='5'}">You guessed my number! --%>
 					</tr>
 				</c:forEach>

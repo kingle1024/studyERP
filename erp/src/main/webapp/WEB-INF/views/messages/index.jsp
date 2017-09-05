@@ -20,7 +20,7 @@
 			<tr>
 				<th width="9%" nowrap>보낸이</th>
 				<th>제목</th>
-				<th width="12%" nowrap>날짜</th>
+				<th width="13%" nowrap>날짜</th>
 			</tr>
 			<tbody>
 				<c:forEach var="myMessage" items="${messageList}" varStatus="status">
@@ -29,7 +29,7 @@
 						<th><a
 							href="<c:url value="/messages/view/${ myMessage.no }" />">${ myMessage.title }</a></th>
 						<th><fmt:formatDate value="${ myMessage.send_date }"
-								pattern="yyyy-MM-dd HH:mm" /></th>
+								pattern="MM-dd HH:mm" /></th>
 					</tr>
 				</c:forEach>
 			</tbody>

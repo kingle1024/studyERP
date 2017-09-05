@@ -1,10 +1,16 @@
 package com.company.myapp;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,18 +20,38 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.mycompany.mapper.userMapper;
 import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Message;
+import com.mycompany.vo.Tag;
+import com.mycompany.vo.User;
 
 @Controller
 public class MessagesController {
+	List<Tag> data = new ArrayList<Tag>();
+	
+	MessagesController(){
+		data.add(new Tag(1, "ruby"));
+		data.add(new Tag(2, "rails"));
+		data.add(new Tag(3, "c / c++"));
+		data.add(new Tag(4, ".net"));
+		data.add(new Tag(5, "python"));
+		data.add(new Tag(6, "java"));
+		data.add(new Tag(7, "javascript"));
+		data.add(new Tag(8, "jscript"));
+	}
 	@Autowired
 	private CommonMapper commonMapper;
 	
 	@Autowired
 	private MessageMapper messageMapper;
+	
+	@Autowired
+	private userMapper userMapper;
 	
 	@Autowired
 	private UserService userService;
@@ -119,4 +145,48 @@ public class MessagesController {
 		return "messages/sendView";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/messages/preview", method=RequestMethod.POST)
+	public ModelAndView messagePreview(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+		System.out.println("들어오긴 하니?");
+		String value = request.getParameter("value");
+		JSONArray list = new JSONArray();
+		JSONObject object = null;
+		List<User> users = userMapper.selectUserAll();
+		
+		for(int i=0; i<users.size(); i++){
+			if( users.get(i).getEmail().indexOf(value) > -1){
+				object = new JSONObject();
+				object.put("data", users.get(i).getEmail());
+				list.add(object);
+			}
+		}
+		ModelAndView mav = new ModelAndView();
+        mav.setViewName("test");
+        mav.addObject("hello", "Hello World!");
+        
+		return mav;
+	}
+	
+	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Tag> getTags(@RequestParam String tagName) {
+		return simulateSearchResult(tagName);
+	}
+	
+	private List<Tag> simulateSearchResult(String tagName) {
+		List<Tag> result = new ArrayList<Tag>();
+
+		// iterate a list and filter by tagName
+		try{
+			for (Tag tag : data) {
+				if (tag.getTagName().contains(tagName)) {
+					result.add(tag);
+				}
+			}
+		}catch(Exception e){
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
 }

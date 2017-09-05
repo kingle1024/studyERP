@@ -75,7 +75,8 @@ public class MyWorkController {
 	
 	@RequestMapping(value="/mywork", method=RequestMethod.GET)
 	public String index(ModelAndView model){
-		model.addObject("message", "success");
+		
+		
 		return "workspaces/index";
 	}
 	
@@ -522,7 +523,6 @@ public class MyWorkController {
 				                } else {
 				                	
 			                	}
-			                	
 			                    break;
 			                    
 			                }
