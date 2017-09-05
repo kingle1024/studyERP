@@ -20,7 +20,7 @@ public class ExcelServiceImpl implements ExcelService {
 		// TODO Auto-generated method stub
 		return excelDao.insertExcel(workExcel);
 	}
-
+	
 	@Override
 	public List<workExcel> getExcel() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -34,7 +34,5 @@ public class ExcelServiceImpl implements ExcelService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		return excelDao.selectFiles(map);
 	}
-	
-	
-	
+
 }

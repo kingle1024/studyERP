@@ -38,7 +38,7 @@ function test(){
 </script>
 	<form action="<c:url value="/workspaces/uploadForm" />" name="inputForm" enctype="multipart/form-data" method="POST">
 		파일업로드<input type="file" id="fileup" name="files[0]" />
-		<input type="submit" value="확인"> 
+		<input type="submit" value="확인">
 	</form>
 </body>
 </html>

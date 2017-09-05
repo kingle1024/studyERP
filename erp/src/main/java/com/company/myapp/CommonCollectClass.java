@@ -1,4 +1,4 @@
-package com.company.myapp;
+﻿package com.company.myapp;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,10 +19,10 @@ import com.mycompany.vo.FileForm;
 public class CommonCollectClass {
 	static int cnt = 0;
 	
-//	private String commonUploadPath = "C:\\Spring\\upload\\";
-//	private String commonUploadTempPath = "C:\\Spring\\temp\\";
-	private String commonUploadPath = "/upload/";
-	private String commonUploadTempPath = "/upload/temp";
+	private String commonUploadPath = "C:\\Spring\\upload\\";
+	private String commonUploadTempPath = "C:\\Spring\\temp\\";
+//	private String commonUploadPath = "/upload/";
+//	private String commonUploadTempPath = "/upload/temp/";
 
 	public String getCommonUploadPath() {
 		return commonUploadPath;

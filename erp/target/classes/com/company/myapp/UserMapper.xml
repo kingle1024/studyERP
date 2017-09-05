@@ -77,7 +77,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		order by no desc
    		LIMIT #{pageHelper.startRow}, #{pageHelper.linePerPage}
    	</select>
-   		
     <insert id="insertExcel" parameterType="com.mycompany.vo.workExcel">
     	insert into 
     	workexcel(
