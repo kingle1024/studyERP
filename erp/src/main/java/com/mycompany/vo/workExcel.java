@@ -1,7 +1,5 @@
 package com.mycompany.vo;
 
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.List;
 
 public class workExcel {
@@ -69,5 +67,10 @@ public class workExcel {
 	public void setUserEmail(String userEmail) {
 		this.userEmail = userEmail;
 	}
-	
+	@Override
+	public String toString() {
+		return "workExcel [no=" + no + ", workDate=" + workDate + ", week=" + week + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", endSubStart=" + endSubStart + ", content=" + content + ", excelList="
+				+ excelList + ", userEmail=" + userEmail + "]";
+	}
 }

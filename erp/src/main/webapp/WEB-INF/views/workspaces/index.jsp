@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,6 +71,27 @@
 		</span>
 		
 <hr>
+<table>
+	<tr>
+		<td>번호</td>
+		<td>날짜</td>
+		<td>근무시작</td>
+		<td>근무종료</td>
+		<td>근무시간</td>
+		<td>내용</td>
+	</tr>
+	<c:forEach var="mywork" items="${ mywork }" varStatus="status" >
+		<tr>
+			<td>${ status.count }</td>
+			<td>${ mywork.workDate }</td>
+			<td>${ mywork.startTime }</td>
+			<td>${ mywork.endTime }</td>
+			<td>${ mywork.endSubStart }
+			<td>${ mywork.content }</td>
+		</tr>
+	</c:forEach>
+</table>
+<br><br>
 <table>
   <thead>
     <th width = "50px" align ="center">번호</th>

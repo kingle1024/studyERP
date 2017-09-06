@@ -10,4 +10,5 @@ public interface ExcelDao {
 	public int insertExcel(workExcel workExcel);
 	public List<workExcel> selectExcel(Map<String, Object> map);
 	public Files selectFiles(Map<String, Object> map);
+	public List<workExcel> selectMywork(Map<String, Object> map, String userEmail);
 }

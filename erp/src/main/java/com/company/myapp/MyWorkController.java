@@ -74,9 +74,10 @@ public class MyWorkController {
 	private ExcelService excelService;
 	
 	@RequestMapping(value="/mywork", method=RequestMethod.GET)
-	public String index(ModelAndView model){
-		
-		
+	public String index(Model model, Principal principal){
+		String userEmail = principal.getName();
+		List<workExcel> workExcel = excelService.myworkList(userEmail);
+		model.addAttribute("mywork", workExcel);
 		return "workspaces/index";
 	}
 	
@@ -280,7 +281,6 @@ public class MyWorkController {
 							cell.setCellStyle(csMonthFormat);
 							cell.setCellValue((Date)getColumn.get(j));
 						}else if(j==6){ // 근로상세내역
-							
 							cell.setCellValue((String)getColumn.get(j));
 						}else{
 							cell.setCellStyle(csFormat);

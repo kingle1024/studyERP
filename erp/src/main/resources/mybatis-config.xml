@@ -20,7 +20,7 @@
     </mappers>
     -->
     <mappers>
-<!--     	<mapper resource="ttestMapper.xml" /> -->
     	<mapper resource="/com/company/myapp/UserMapper.xml" /> 
+    	<mapper resource="/com/company/myapp/ExcelMapper.xml" />
     </mappers>
 </configuration>
