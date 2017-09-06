@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Message;
 import com.mycompany.vo.Tag;
 import com.mycompany.vo.User;
+import com.mycompany.vo.UserPreview;
 
 @Controller
 public class MessagesController {
@@ -169,19 +171,21 @@ public class MessagesController {
 	}
 	
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Tag> getTags(@RequestParam String tagName) {
+	public @ResponseBody List<UserPreview> getTags(@RequestParam String tagName) {
 		return simulateSearchResult(tagName);
 	}
 	
-	private List<Tag> simulateSearchResult(String tagName) {
-		List<Tag> result = new ArrayList<Tag>();
-
-		// iterate a list and filter by tagName
+	private List<UserPreview> simulateSearchResult(String tagName) { 
+		List<User> getEmailFromUser = userMapper.selectUserAll(); // User의 모든 email을 가져온다
+		List<UserPreview> data = new ArrayList<UserPreview>();
+		for(int i=0; i<getEmailFromUser.size(); i++){
+			data.add(new UserPreview(i+1, getEmailFromUser.get(i).getEmail()));
+		}
+		List<UserPreview> result = new ArrayList<UserPreview>();
 		try{
-			for (Tag tag : data) {
-				if (tag.getTagName().contains(tagName)) {
-					result.add(tag);
+			for(UserPreview userPreview : data){
+				if(userPreview.getEmail().contains(tagName)){
+					result.add(userPreview);
 				}
 			}
 		}catch(Exception e){
