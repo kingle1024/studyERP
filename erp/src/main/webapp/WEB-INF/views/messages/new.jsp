@@ -30,23 +30,23 @@
 	<font size="6">쪽지 보내기</font> - 쪽지를 보낼 수 있습니다.
 </div>
 <div class="containerRegulate">
-<form action="<c:url value="/messages" />" method="post">
+<form action="<c:url value="/messages" />" method="post" name="messageForm" onSubmit="return check();">
 			<input name="send_id" type="hidden" value="${ username }">
 			
 			<div class="form-group form-group-lg">
-				<label class="control-label">받는 이</label>
-				<input id="w-input-search" name="recv_id" type="text" class="form-control">
+				<label class="control-label">받는이</label>
+				<input id="recv_id" name="recv_id" type="text" class="form-control" placeholder="email@email.com">
 			</div>
 			
 			<div class="form-group form-group-lg">
 				<label class="control-label">제목</label>
-				<input name="title" type="text" class="form-control">
+				<input name="title" id="title" type="text" class="form-control" placeholder="제목을 입력하세요">
 			</div>
 			
 			<div class="form-group form-group-lg">
 				<label class="control-label">보낼 내용</label>
 <!-- 				<input name="content" type="text" class="form-control"> -->
-				<textarea rows="10" cols="30" id="text" class="form-control" name="content" ></textarea>
+				<textarea rows="10" cols="30" id="text" class="form-control" name="content" placeholder="내용을 입력하세요"></textarea>
 			</div>
 		
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
@@ -54,19 +54,41 @@
 		</form>
 </div>
  <script>
-	$('#w-input-search').autocomplete({
+	$('#recv_id').autocomplete({
 		serviceUrl: '${pageContext.request.contextPath}/getTags',
 		paramName: "tagName",
 		delimiter: ",",
 	   transformResult: function(response) {
 		return {
-		  //must convert json to javascript object before process
+		  // json을 js로 바꿔야 한다
 		  suggestions: $.map($.parseJSON(response), function(item) {
-		      return { value: item.tagName, data: item.id };
+		      return { value: item.email, data: item.id };
 		   })
 		 };
             }
 	 });
+  </script>
+  <script>
+	$(document).ready(function(){
+		var RegexRecvId = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i; //이메일 요휴성검사
+		$("form").submit(function(){
+			if(!RegexRecvId.test($.trim($("#recv_id").val()))){
+				alert("받는이의 이메일을 제대로 입력하세요");
+				$("#recv_id").focus();
+				return false;
+			}
+			if($("#title").val() == ""){
+				alert("제목을 입력하세요");
+				$("#title").focus();
+				return false;
+			}
+			if($("#content").val() == ""){
+				alert("내용을 입력하세요");
+				$("#content").focus();
+				return false;
+			}
+		});
+	});  	
   </script>
 </body>
 </html>
