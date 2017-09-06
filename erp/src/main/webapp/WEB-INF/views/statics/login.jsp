@@ -6,11 +6,11 @@
 </div>
 <c:url var="loginProcessingUrl" value='/user/login' />
 <c:url var="signUpPath" value="/signup"/>
-<form action="${ loginProcessingUrl }" method="post">
+<form action="${ loginProcessingUrl }" method="post" name="loginForm">
     <div class="form-group form-group-lg">
         <div class="form-group">
-            <label>사용자명</label>
-            <input type="text" name="email" class="form-control" placeholder="이메일">
+            <label>아이디</label>
+            <input type="text" name="email" class="form-control" placeholder="이메일" autocomplete="off">
         </div>
         <div class="form-group">
             <label>비밀번호</label>
