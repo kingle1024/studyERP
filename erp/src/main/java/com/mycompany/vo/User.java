@@ -1,14 +1,13 @@
 package com.mycompany.vo;
 
 import java.util.List;
-
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class User {
+	
 	List<Authority> authorities;
 	  public boolean hasRole(String role) {
 	        for (Authority auth : authorities)
@@ -16,8 +15,8 @@ public class User {
 	                return true;
 	        return false;
 	    }
-    private int id;
-    
+
+	private int id;
 //	@Pattern(regexp="^[_0-9a-zA-Z-]+@[0-9a-zA-Z]+(.[_0-9a-zA-Z-]+)*$")
 //    @NotEmpty(message="이메일을 입력해 주세요")
     @Pattern(regexp="[_0-9a-zA-Z-]+@[0-9a-zA-Z]+(.[_0-9a-zA-Z-]+)*$", message="이메일 형식으로 작성해 주세요")
