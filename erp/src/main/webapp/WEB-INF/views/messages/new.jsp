@@ -30,7 +30,7 @@
 	<font size="6">쪽지 보내기</font> - 쪽지를 보낼 수 있습니다.
 </div>
 <div class="containerRegulate">
-<form action="<c:url value="/messages" />" method="post" name="messageForm" onSubmit="return check();">
+<form action="<c:url value="/messages" />" method="post" name="messageForm">
 			<input name="send_id" type="hidden" value="${ username }">
 			
 			<div class="form-group form-group-lg">
@@ -46,10 +46,10 @@
 			<div class="form-group form-group-lg">
 				<label class="control-label">보낼 내용</label>
 <!-- 				<input name="content" type="text" class="form-control"> -->
-				<textarea rows="10" cols="30" id="text" class="form-control" name="content" placeholder="내용을 입력하세요"></textarea>
+				<textarea rows="10" cols="30" class="form-control" name="content" id="content" placeholder="내용을 입력하세요"></textarea>
 			</div>
 		
-		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
+			<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
 			<button type="submit" class="btn btn-lg btn-primary">전송</button>
 		</form>
 </div>
@@ -70,10 +70,11 @@
   </script>
   <script>
 	$(document).ready(function(){
-		var RegexRecvId = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i; //이메일 요휴성검사
+// 		var RegexRecvId = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i; //이메일 요휴성검사
 		$("form").submit(function(){
-			if(!RegexRecvId.test($.trim($("#recv_id").val()))){
-				alert("받는이의 이메일을 제대로 입력하세요");
+// 			if(!RegexRecvId.test($.trim($("#recv_id").val()))){
+			if($("#recv_id").val() == ""){
+				alert("받는이의 이메일을 입력하세요");
 				$("#recv_id").focus();
 				return false;
 			}
@@ -87,6 +88,8 @@
 				$("#content").focus();
 				return false;
 			}
+			alert("전송되었습니다");
+			return true;
 		});
 	});  	
   </script>

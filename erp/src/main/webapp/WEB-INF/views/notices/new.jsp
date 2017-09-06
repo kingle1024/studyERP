@@ -37,12 +37,12 @@ $(document).ready(function() {
 			 <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" />
 				<div class="form-group form-group-lg">
 					<label class="control-label">제목</label>					
-					<input name="title" type="text" class="form-control">				
+					<input name="title" id="title" type="text" class="form-control">				
 				</div>
 				<div class="form-gorup form-group-lg">
 					<label class="control-label">내용</label>
 <!-- 					<input name="content" type="text" class="form-control">				 -->
-					<textarea rows="15" cols="30" id="text" class="form-control" name="content" ></textarea>
+					<textarea rows="15" cols="30" id="content" class="form-control" name="content" ></textarea>
 				</div>
 				<br>
 				<div class="panel panel-default">
@@ -66,5 +66,23 @@ $(document).ready(function() {
 			</form>
 	</div>
 	<script src="<c:url value="/js/commonBack.js" /> " ></script>
+	  <script>
+	$(document).ready(function(){
+		$("form").submit(function(){
+			if($("#title").val() == ""){
+				alert("제목을 입력하세요");
+				$("#title").focus();
+				return false;
+			}
+			if($("#content").val() == ""){
+				alert("내용을 입력하세요");
+				$("#content").focus();
+				return false;
+			}
+			alert("등록되었습니다");
+			return true;
+		});
+	});  	
+  </script>
 </body>
 </html>

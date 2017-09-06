@@ -128,7 +128,7 @@ var tempDel = function(no){
 			name="inputForm" enctype="multipart/form-data">
 		<input type="hidden" name="page" value="${page }"> <!-- 없으면 없다고 오류남 -->
 			<div class="form-group form-group-lg">
-				<label class="control-label">제목</label> <input name="title"
+				<label class="control-label">제목</label> <input name="title" id="title"
 					type="text" class="form-control" value="${ board.title }">
 			</div>
 			<!--     <div class="form-group form-group-lg"> -->
@@ -138,7 +138,7 @@ var tempDel = function(no){
 			<!--     </div> -->
 			<div class="form-group form-group-lg">
 				<label class="control-label">내용</label>
-				<textarea rows="15" cols="30" id="text" class="form-control"
+				<textarea rows="15" cols="30" id="content" class="form-control"
 					name="content">${ board.content }</textarea>
 				<%--         <input name="content" type="text" class="form-control" value="${ board.content }"> --%>
 			</div>
@@ -175,12 +175,6 @@ var tempDel = function(no){
 							   $(this).parents('tr').remove();
 							})
 			</script>
-			<script>
-							function checkcheck(){
-								alert('수정되었습니다.'+arr);
-								return true;
-							}
-						</script>
 			<br>
 				<div class="panel panel-default">
 				<div class="panel-heading">파일 첨부</div>
@@ -196,12 +190,29 @@ var tempDel = function(no){
 				</div>
 				<span style="float:right;">
 					<button onclick="javascript:history.back();" class="btn btn-lg btn-primary ">이전</button>
-					<button type="submit" class="btn btn-lg btn-primary"
-					onclick='return checkcheck()'>수정</button>
+					<button type="submit" class="btn btn-lg btn-primary">수정</button>
 				</span>
 		</form>
 		<!-- <input type="submit" class="btn btn-lg btn-primary" style="width:100%;" value="전송"> -->
 	</div>
 <script src="<c:url value="/js/commonBack.js" /> " ></script>
+  <script>
+	$(document).ready(function(){
+		$("form").submit(function(){
+			if($("#title").val() == ""){
+				alert("제목을 입력하세요");
+				$("#title").focus();
+				return false;
+			}
+			if($("#content").val() == ""){
+				alert("내용을 입력하세요");
+				$("#content").focus();
+				return false;
+			}
+			alert("수정되었습니다");
+			return true;
+		});
+	});  	
+  </script>
 </body>
 </html>

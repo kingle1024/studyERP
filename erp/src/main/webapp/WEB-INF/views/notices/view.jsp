@@ -94,7 +94,7 @@ pre {
 						<strong>${ error.getField() }</strong>: ${ error.getDefaultMessage() }
 					</div>
 				</c:forEach>
-				<f:textarea path="comment" cssClass="form-control" rows="2" /> <!-- path는 이름 -->
+				<f:textarea path="comment" cssClass="form-control" rows="2" id="reviewContent"/> <!-- path는 이름 -->
 				<f:hidden path="board_no" />
 				<button class="btn btn-block btn-primary" type="submit">댓글
 					등록</button>
@@ -111,5 +111,17 @@ pre {
 			href="<c:url value="/notices?page=${page }"/>" class="btn btn-lg btn-primary">목록</a>
 		</span>
 	</div>
+	  <script>
+	$(document).ready(function(){
+		$("form").submit(function(){
+			if($("#reviewContent").val() == ""){
+				alert("내용을 입력하세요");
+				$("#reviewContent").focus();
+				return false;
+			}
+		
+		});
+	});  	
+  </script>
 </body>
 </html>
