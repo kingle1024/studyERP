@@ -25,21 +25,21 @@ pre {
 			class="btn btn-lg btn-primary">목록</a></span>
 		<table border="0" class="table table-inverse">
 			<tr>
-				<th width="1%" nowrap>번호</th>
+				<th bgcolor="#EEEAF8" width="10%" nowrap><center>번호</center></th>
 				<th width="">${ board.id }</th>
-				<th width="" nowrap>작성자</th>
+				<th bgcolor="#EEEAF8" width="10%" nowrap><center>작성자</center></th>
 				<th width="">${ board.author }</th>
 			</tr>
 			<tr>
-				<th nowrap>작성일</th>
+				<th bgcolor="#EEEAF8" nowrap><center>작성일</center></th>
 				<th><fmt:formatDate value="${ board.register_date }"
 						pattern="yyyy-MM-dd hh:mm" /></th>
-				<th nowrap>수정일</th>
+				<th bgcolor="#EEEAF8" nowrap><center>수정일</center></th>
 				<th><fmt:formatDate value="${ board.update_date }"
 						pattern="yyyy-MM-dd hh:mm" /></th>
 			</tr>
 			<tr>
-				<th width="">제목</th>
+				<th bgcolor="#EEEAF8" width="" ><center>제목</center></th>
 				<th width="" colspan="3">${ board.title }</th>
 			</tr>
 			<tr>

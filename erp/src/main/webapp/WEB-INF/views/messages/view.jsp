@@ -14,13 +14,13 @@
 		<table class="table"> 
 			<tbody>
 				<tr>
-					<th width=" " height="">보낸사람</th><td>${sendName}(${ message.send_id })</td>
+					<th bgcolor="#EEEAF8" width="10%" nowrap><center>보낸사람</center></th><td>${sendName}(${ message.send_id })</td>
 				</tr>
 				<tr>
-					<th width="" height="">받은시간</th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>							
+					<th bgcolor="#EEEAF8" width="10%" nowrap><center>받은시간</center></th><td><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>							
 				</tr>	
 				<tr>
-					<th width="" height="">제목</th><td>${ message.title }</td>
+					<th bgcolor="#EEEAF8" width="10%" nowrap><center>제목</center></th><td>${ message.title }</td>
 				</tr>
 				<tr>
 					<td colspan="2"><textarea class="form-control" rows="20" readonly>${message.content }</textarea></td>
