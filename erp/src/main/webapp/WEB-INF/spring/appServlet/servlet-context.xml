@@ -17,6 +17,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/**" location="/resources/" /> <!-- resources 무시 -->
+	<resources mapping="/uploadImage/*" location="c:/spring/upload/" /> <!--  재우코드 -->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
@@ -60,7 +61,7 @@
 <!-- 없으면 오류임 -->
     <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <beans:property name="dataSource" ref="dataSource" />
-        <beans:property name="mapperLocations" value="classpath:com/company/myapp/UserMapper.xml" />
+        <beans:property name="mapperLocations" value="classpath:com/company/myapp/*.xml" />
 <!--         <beans:property name="mapperLocations" value="classpath:ttestMapper.xml" /> -->
     </beans:bean>
     <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
