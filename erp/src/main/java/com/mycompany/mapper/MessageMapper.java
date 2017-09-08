@@ -19,9 +19,6 @@ public interface MessageMapper {
 	public List<Message> getSendMessage(String send_id);
 	
 	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
-	public boolean createMessageR(Message Message);
-	
-	@Insert("insert into messages (recv_id, send_id, title, content, send_date) values (#{recv_id}, #{send_id}, #{title}, #{content}, now())")
 	public boolean answerMessage(Message message);
 	
 	@Select("select * from messages where no=#{no}")

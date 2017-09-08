@@ -28,9 +28,14 @@ public class ExcelDaoImpl implements ExcelDao{
 	}
 
 	@Override
+	public List<workExcel> selectMywork(Map<String, Object> map, String userEmail) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(NS+".myworkList", userEmail);
+	}
+	
+	@Override
 	public Files selectFiles(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NS+".selectFiles");
 	}
-
 }

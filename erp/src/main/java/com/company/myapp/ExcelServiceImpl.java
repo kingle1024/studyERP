@@ -29,10 +29,18 @@ public class ExcelServiceImpl implements ExcelService {
 	}
 
 	@Override
+	public List<workExcel> myworkList(String userEmail) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		// TODO Auto-generated method stub
+		return excelDao.selectMywork(map, userEmail);
+	}
+	
+	@Override
 	public Files getFiles() {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
 		return excelDao.selectFiles(map);
 	}
+
 
 }

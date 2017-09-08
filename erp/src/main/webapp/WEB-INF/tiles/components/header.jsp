@@ -60,9 +60,9 @@
                   <a href="#"><i class="fa fa-database fa-lg"></i> 실습실 관리 <span class="arrow"></span></a>
                 </li>  
 	                <ul class="sub-menu collapse" id="service">
-	                  <li>18302</li>
-	                  <li>18412</li>
-	                  <li>18520</li>
+	                  <li <c:if test="${pno == '18512'}"> class="active"</c:if>><a href="<c:url value="/students?no=18512" />" >18512</a></li>
+	              	<li <c:if test="${pno == '18419'}"> class="active"</c:if>><a href="<c:url value="/students?no=18419" />" >18419</a></li>
+	                 <li <c:if test="${pno == '18312'}"> class="active"</c:if>><a href="<c:url value="/students?no=18312" />" >18312</a></li>
 	                </ul>
 
                 <li data-toggle="collapse" data-target="#new" class="collapsed">

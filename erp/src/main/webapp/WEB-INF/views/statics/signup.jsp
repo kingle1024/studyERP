@@ -42,7 +42,7 @@ $(document).ready(function() {
 <script type="text/javascript">
 var timer = null;
 function checkEmail(){
-$("#email").keyup(function() {	
+$("#email").keyup(function() {
 	$.ajax({
 		url : "${pageContext.request.contextPath}/duplicationCheck.do",
 		type : "post",
@@ -82,40 +82,39 @@ $("#email").keyup(function() {
 </div>
 <c:url var="signUpPath" value="/signup" />
       <article class="container">
-<f:form modelAttribute="user" action="${ signUpPath }" method="post" name="search" onsubmit="return check()">
+<f:form modelAttribute="user" action="${ signUpPath }" method="post" name="search" autocomplete="">
     <div class="form-group form-group-lg">
         <div class="form-group">
 			<input type="hidden" id="check" name="check" value="N" readonly>
             <label>이메일</label>
-            <f:input path="email" cssClass="form-control" placeholder="email@email.com" value="${user.email }" onkeyup="checkEmail()"/>
-            <f:errors path="email" element="div" cssClass="alert text-danger"/>
-	        <div id="duplicateResult">
+            <f:input path="email" cssClass="form-control" placeholder="email@email.com" value="${user.email }" onkeyup="checkEmail()" autocomplete="off"/>
+	        <span id="duplicateResult">
 	            <c:out value="${duplicateUserId}"/>
-	        </div>
+	        </span>
+            <f:errors path="email" element="span" cssClass="alert text-danger"/>
         </div>
         
         <div class="form-group">
             <label>비밀번호</label>
             <f:password path="password" cssClass="form-control" placeholder="비밀번호"/>
-            <f:errors path="password" element="div" cssClass="alert text-danger" value="${ user.password }"/>
             <div id="Pwd"></div>
+            <f:errors path="password" element="span" cssClass="alert text-danger" value="${ user.password }"/>
         </div>
         
         <div class="form-group">
         	<label>비밀번호 확인</label>
         	<f:password path="passwordCheck" cssClass="form-control" placeholder="비밀번호 확인" onkeyup="checkPwd()"/>
-        	<f:errors path="passwordCheck" element="div" cssClass="alert text-danger" />
         	<div id="checkPwd"></div>
-        	
+        	<f:errors path="passwordCheck" element="span" cssClass="alert text-danger" />
         </div>
                 
         <div class="form-group">
             <label>이름</label>
-            <f:input path="name" cssClass="form-control" placeholder="이름" value="${ user.name }"/>
-            <f:errors path="name" element="div" cssClass="alert text-danger"/>
+            <f:input path="name" cssClass="form-control" placeholder="이름" value="${ user.name }" autocomplete="off"/>
+            <f:errors path="name" element="span" cssClass="alert text-danger"/>
         </div>
    		<label for="ex1">주민등록번호</label><div>
-   		<input type="text" placeholder="앞자리" size="10" name="socialNumFront">
+   		<input type="text" placeholder="앞자리" size="10" name="socialNumFront" autocomplete="off">
    			<span>-</span>
        	<input type="text"size="10" readonly >
        	</div>
@@ -131,21 +130,9 @@ $("#email").keyup(function() {
        </div>
           <div class="form-group text-center">
             <s:csrfInput />
-              <button type="submit" class="btn btn-info" onclick="return check()" onkeyPress="if (event.keyCode==13){return false;}">회원가입<i class="fa fa-check spaceLeft"></i></button>
+              <button type="submit" class="btn btn-info" onkeyPress="if(event.keyCode==13){return false;}">회원가입<i class="fa fa-check spaceLeft"></i></button>
               <button type="button" class="btn btn-warning" onclick="location.href='<c:url value="/" />' ">가입취소<i class="fa fa-times spaceLeft"></i></button>
             </div>
     </div>
 </f:form>
 </article>
-<script>
-function check(){	
-	if(search.password.value !=""){
-		alert('hi~');
-		return false;
-	}else{
-		alert('bye');
-		return false;
-	}
-	return false;
-}
-</script>

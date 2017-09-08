@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,21 +30,10 @@ import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Message;
 import com.mycompany.vo.Tag;
 import com.mycompany.vo.User;
+import com.mycompany.vo.UserPreview;
 
 @Controller
 public class MessagesController {
-	List<Tag> data = new ArrayList<Tag>();
-	
-	MessagesController(){
-		data.add(new Tag(1, "ruby"));
-		data.add(new Tag(2, "rails"));
-		data.add(new Tag(3, "c / c++"));
-		data.add(new Tag(4, ".net"));
-		data.add(new Tag(5, "python"));
-		data.add(new Tag(6, "java"));
-		data.add(new Tag(7, "javascript"));
-		data.add(new Tag(8, "jscript"));
-	}
 	@Autowired
 	private CommonMapper commonMapper;
 	
@@ -98,19 +88,18 @@ public class MessagesController {
 	//보낸이의 아이디를 가져와야 한다....
 	@RequestMapping(value = "/messages/answer/{recv_id}", method = RequestMethod.GET) // PathVariable로 {recv_id}를 받는다.
 	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal, @PathVariable String recv_id) {		
-		String name = principal.getName(); // 사용자의 아이디를 가져옴
-	    model.addAttribute("username", name); // jsp파일에서는 ${username} 으로 해야함
-		String recv = recv_id; // 보내는 이의 아이디
-		model.addAttribute("recv", recv); 
+		
+		String recvEmail = recv_id; // 보내는 이의 아이디
+		model.addAttribute("recv", recvEmail);
+		model.addAttribute("recvName",userMapper.getUserList(recvEmail).getName());
 		return "messages/answer";
 	}
 	
 	//메세지를 보내는 과정 hidden 값으로 자신의 아이디를 가지고 있는다.
 	@RequestMapping(value = "/messages", method = RequestMethod.POST)
-	public String createMessage(@ModelAttribute Message Message, ModelMap model, Principal principal) {
-		String name = principal.getName();  
-	    model.addAttribute("username", name);
-	    messageMapper.createMessageR(Message);
+	public String createMessage(@ModelAttribute Message Message, Principal principal) {
+	    Message.setSend_id(principal.getName());
+	    messageMapper.answerMessage(Message);
 		return "redirect:/messages";
 	}
 	
@@ -169,19 +158,21 @@ public class MessagesController {
 	}
 	
 	@RequestMapping(value = "/getTags", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Tag> getTags(@RequestParam String tagName) {
+	public @ResponseBody List<UserPreview> getTags(@RequestParam String tagName) {
 		return simulateSearchResult(tagName);
 	}
 	
-	private List<Tag> simulateSearchResult(String tagName) {
-		List<Tag> result = new ArrayList<Tag>();
-
-		// iterate a list and filter by tagName
+	private List<UserPreview> simulateSearchResult(String tagName) { 
+		List<User> getEmailFromUser = userMapper.selectUserAll(); // User의 모든 email을 가져온다
+		List<UserPreview> data = new ArrayList<UserPreview>();
+		for(int i=0; i<getEmailFromUser.size(); i++){
+			data.add(new UserPreview(i+1, getEmailFromUser.get(i).getEmail()));
+		}
+		List<UserPreview> result = new ArrayList<UserPreview>();
 		try{
-			for (Tag tag : data) {
-				if (tag.getTagName().contains(tagName)) {
-					result.add(tag);
+			for(UserPreview userPreview : data){
+				if(userPreview.getEmail().contains(tagName)){
+					result.add(userPreview);
 				}
 			}
 		}catch(Exception e){

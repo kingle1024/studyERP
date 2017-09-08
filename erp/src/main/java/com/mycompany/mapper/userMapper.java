@@ -60,7 +60,7 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
             + "WHERE email = #{email}")
     public List<Authority> selectAuthority(String email);
 	
-	@Select("select * from users")
+	@Select("select email from users")
 	public List<User> selectUserAll();
 	
 	@Delete("DELETE FROM authorities WHERE email = #{email} AND authority = #{role}")
