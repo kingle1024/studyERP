@@ -20,17 +20,17 @@ pre {
 					<table class="table"> 
 					<tbody>
 						<tr>
-							<th>보낸사람</th><td>${sendName }(${ message.send_id })</td><td>	
+							<th bgcolor="#EEEAF8"><center>보낸사람</center></th><td>${sendName }(${ message.send_id })</td><td>	
 							<button type="button" onclick="location.href='javascript:window.close()' " class="btn btn-warning" style="width: 100%;">창닫기</button>
 <!-- 							<a href="javascript:window.close()" class="btn btn-warning" style="width: 100%;">창닫기</a>  -->
 							</td>
 						</tr>
 						<tr>
-							<th>보낸시간</th><td colspan="2"><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>
+							<th bgcolor="#EEEAF8"><center>보낸시간</center></th><td colspan="2"><fmt:formatDate value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm"/></td>
 						</tr>
 						
 					<tr>
-					<th>제목</th><td colspan="2">${ message.title }</td>
+					<th bgcolor="#EEEAF8"><center>제목</center></th><td colspan="2">${ message.title }</td>
 					</tr>
 					<tr>
 						<td colspan="3" height="73px"><textarea class="form-control" rows="4" readonly>${ message.content }</textarea></td>
