@@ -14,8 +14,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +24,8 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.Region;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -43,8 +43,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.mapper.BoardMapper;
@@ -123,7 +121,8 @@ public class MyWorkController {
 	    
 		// cell style 만듬
 		XSSFCellStyle cs = workbook.createCellStyle();
-		cs.setAlignment(CellStyle.ALIGN_CENTER);
+		cs.setAlignment(HorizontalAlignment.CENTER);
+		cs.setVerticalAlignment(VerticalAlignment.CENTER);
 	    cs.setBorderRight(CellStyle.BORDER_THIN);
 	    cs.setBorderLeft(CellStyle.BORDER_THIN);
 	    cs.setBorderTop(CellStyle.BORDER_THIN);
@@ -131,7 +130,8 @@ public class MyWorkController {
 	    cs.setFont(font);
 	    
 	    XSSFCellStyle csTime = workbook.createCellStyle();
-	    csTime.setAlignment(CellStyle.ALIGN_CENTER);
+	    csTime.setAlignment(HorizontalAlignment.CENTER);
+	    csTime.setVerticalAlignment(VerticalAlignment.CENTER);
 	    byte[] rgb = new byte[3];
 	    rgb[0] = (byte) 197; // red	
 	    rgb[1] = (byte) 217; // green
@@ -141,15 +141,17 @@ public class MyWorkController {
 	    csTime.setFillPattern(CellStyle.SOLID_FOREGROUND);
 	    
 	    XSSFCellStyle csTimeForamt = workbook.createCellStyle();
+	    csTimeForamt.setAlignment(HorizontalAlignment.CENTER);
+	    csTimeForamt.setVerticalAlignment(VerticalAlignment.CENTER);
+	    
 	    XSSFDataFormat format = workbook.createDataFormat();
 	    csTimeForamt.setDataFormat(format.getFormat("hh:mm"));
 	    
 	    XSSFCellStyle csMonthFormat = workbook.createCellStyle();
+	    csMonthFormat.setAlignment(HorizontalAlignment.CENTER);
+	    csMonthFormat.setVerticalAlignment(VerticalAlignment.CENTER);
 	    XSSFDataFormat monthFormat = workbook.createDataFormat();
 	    csMonthFormat.setDataFormat(format.getFormat("mm월 dd일"));
-	    
-	    XSSFCellStyle csHidden = workbook.createCellStyle();
-	    csHidden.setHidden(true);
 	    
 		//2차는 sheet생성
 		XSSFSheet sheet = workbook.createSheet("근무일지");
@@ -230,8 +232,7 @@ public class MyWorkController {
 		    cell.setCellValue("* 하루 중 근로 시간이 분산되어 근무하는 경우, 각각 작성");
 		    
 		    row = sheet.createRow((short)7);
-//		    row.setRowStyle(csHidden);	
-//		    cell.setCellStyle(csHidden);
+		    row.setHeight((short)0);
 		    cell = row.createCell(0);
 			cell.setCellValue("workDate");
 			cell = row.createCell(1);
@@ -299,6 +300,12 @@ public class MyWorkController {
 							cell.setCellFormula((String)(getColumn.get(j)));
 						}
 						else if(j==6){ // 근로상세내역
+							sheet.addMergedRegion(new CellRangeAddress( // 셀 병합
+									startIndex-1, // 시작 행 번호
+									startIndex-1, // 마지막 행 번호
+									j, // 시작 열 번호
+									j+1  // 마지막 열 번호
+									));
 							cell.setCellValue((String)getColumn.get(j));
 						}else{
 							cell.setCellStyle(csTimeForamt);
