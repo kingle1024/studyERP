@@ -132,16 +132,16 @@ public class MyWorkController {
 	    XSSFCellStyle csTime = workbook.createCellStyle();
 	    csTime.setAlignment(CellStyle.ALIGN_CENTER);
 	    byte[] rgb = new byte[3];
-	    rgb[0] = (byte) 197; // red
+	    rgb[0] = (byte) 197; // red	
 	    rgb[1] = (byte) 217; // green
 	    rgb[2] = (byte) 241; // blue
 	    XSSFColor myColor = new XSSFColor(rgb); // #f2dcdb
 	    csTime.setFillForegroundColor(myColor);
 	    csTime.setFillPattern(CellStyle.SOLID_FOREGROUND);
 	    
-	    XSSFCellStyle csFormat = workbook.createCellStyle();
+	    XSSFCellStyle csTimeForamt = workbook.createCellStyle();
 	    XSSFDataFormat format = workbook.createDataFormat();
-	    csFormat.setDataFormat(format.getFormat("hh:mm"));
+	    csTimeForamt.setDataFormat(format.getFormat("hh:mm"));
 	    
 	    XSSFCellStyle csMonthFormat = workbook.createCellStyle();
 	    XSSFDataFormat monthFormat = workbook.createDataFormat();
@@ -257,10 +257,12 @@ public class MyWorkController {
 		}
 		List<workExcel> workExcel = excelService.getExcel();
 		int cnt=0;
+		int startIndex;
 		for(int i=0; i<workExcel.size(); i++){
 				try{
 					if(workExcel.get(i).getUserEmail().equals(principal.getName())){
 					row = sheet.createRow((short)9+cnt);
+					startIndex = 9+cnt+1;
 					ArrayList<Object> getColumn = new ArrayList<Object>();
 					SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
 					Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
@@ -269,8 +271,15 @@ public class MyWorkController {
 					getColumn.add(workExcel.get(i).getWeek());
 					getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
 					getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
-					getColumn.add(moduleDayToString(workExcel.get(i).getEndSubStart(),1));
-					getColumn.add("-");
+					getColumn.add("D"+(startIndex)+"-C"+(startIndex)+"");
+//					getColumn.add(moduleDayToString(workExcel.get(i).getEndSubStart(),1));
+					
+//					getColumn.add("-");
+					if(cnt == 0){
+						getColumn.add("+E"+(startIndex));
+					}else{
+						getColumn.add("F"+(startIndex-1)+"+E"+(startIndex));
+					}
 					getColumn.add(workExcel.get(i).getContent());
 					
 					for(int j=0; j<getColumn.size(); j++){
@@ -279,11 +288,19 @@ public class MyWorkController {
 							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 							cell.setCellStyle(csMonthFormat);
 							cell.setCellValue((Date)getColumn.get(j));
-						}else if(j==6){ // 근로상세내역
-							
+						}else if(j==4){ // 근무시간
+							cell.setCellType(Cell.CELL_TYPE_FORMULA);
+							cell.setCellStyle(csTimeForamt); // hh:mm format
+							cell.setCellFormula((String)(getColumn.get(j)));
+						}else if(j==5){
+							cell.setCellType(Cell.CELL_TYPE_FORMULA);
+							cell.setCellStyle(csTimeForamt); // hh:mm format
+							cell.setCellFormula((String)(getColumn.get(j)));
+						}
+						else if(j==6){ // 근로상세내역
 							cell.setCellValue((String)getColumn.get(j));
 						}else{
-							cell.setCellStyle(csFormat);
+							cell.setCellStyle(csTimeForamt);
 							cell.setCellValue((String)getColumn.get(j));
 						}
 					}
