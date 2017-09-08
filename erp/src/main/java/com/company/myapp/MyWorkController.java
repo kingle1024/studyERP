@@ -289,7 +289,16 @@ public class MyWorkController {
 							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 							cell.setCellStyle(csMonthFormat);
 							cell.setCellValue((Date)getColumn.get(j));
-						}else if(j==6){ // 근로상세내역
+						}else if(j==4){ // 근무시간
+							cell.setCellType(Cell.CELL_TYPE_FORMULA);
+							cell.setCellStyle(csTimeForamt); // hh:mm format
+							cell.setCellFormula((String)(getColumn.get(j)));
+						}else if(j==5){
+							cell.setCellType(Cell.CELL_TYPE_FORMULA);
+							cell.setCellStyle(csTimeForamt); // hh:mm format
+							cell.setCellFormula((String)(getColumn.get(j)));
+						}
+						else if(j==6){ // 근로상세내역
 							cell.setCellValue((String)getColumn.get(j));
 						}else{
 							cell.setCellStyle(csTimeForamt);

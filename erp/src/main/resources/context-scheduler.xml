@@ -8,5 +8,4 @@
     <bean id="cronTask" class="com.mycompany.schedule.Schedule" />
     <task:scheduler id="cronScheduler" pool-size="10" />
     <task:annotation-driven scheduler="cronScheduler" />
- 
 </beans>
