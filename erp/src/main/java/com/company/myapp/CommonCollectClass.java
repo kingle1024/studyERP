@@ -23,6 +23,16 @@ public class CommonCollectClass {
 	private String commonUploadTempPath = "C:\\Spring\\temp\\";
 //	private String commonUploadPath = "/upload/";
 //	private String commonUploadTempPath = "/upload/temp/";
+	
+	private String myWorkExcelMatchingToString ="[날짜, 요일, 근무시작, 근무종료, 근무시간, 누계, 근로상세내역]";
+
+	public String getMyWorkExcelMatchingToString() {
+		return myWorkExcelMatchingToString;
+	}
+
+	public void setMyWorkExcelMatchingToString(String myWorkExcelMatchingToString) {
+		this.myWorkExcelMatchingToString = myWorkExcelMatchingToString;
+	}
 
 	public String getCommonUploadPath() {
 		return commonUploadPath;
