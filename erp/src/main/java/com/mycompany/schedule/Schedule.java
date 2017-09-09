@@ -15,7 +15,7 @@ import com.company.myapp.CommonCollectClass;
 @Service 
 public class Schedule {
 	CommonCollectClass collect = new CommonCollectClass();
-	private static final Logger logger = LoggerFactory.getLogger(CronTask.class);
+	private static final Logger logger = LoggerFactory.getLogger(Schedule.class);
 	
 	@Scheduled(cron = "0 0 02 * * ?") // 매일 새벽 2시에 실행
     public void scheduleRun() {

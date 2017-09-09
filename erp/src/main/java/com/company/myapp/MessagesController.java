@@ -137,7 +137,6 @@ public class MessagesController {
 	@ResponseBody
 	@RequestMapping(value="/messages/preview", method=RequestMethod.POST)
 	public ModelAndView messagePreview(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
-		System.out.println("들어오긴 하니?");
 		String value = request.getParameter("value");
 		JSONArray list = new JSONArray();
 		JSONObject object = null;
