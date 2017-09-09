@@ -9,10 +9,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
 public class DownloadView extends AbstractView {
+	private static final Logger logger = LoggerFactory.getLogger(DownloadView.class);
 	 public void Download(){ // download.action?name=
 	        setContentType("application/download; utf-8");
 	    }
@@ -33,25 +36,25 @@ public class DownloadView extends AbstractView {
 		// TODO Auto-generated method stub
 		File file = (File)model.get("download");
 		String real_name = (String) model.get("real_name");
-        System.out.println("DownloadView --> file.getPath() : " + file.getPath());
-        System.out.println("DownloadView --> file.getName() : " + file.getName());
-        
+        logger.info("DownloadView --> file.getPath() : " + file.getPath());
+        logger.info("DownloadView --> file.getName() : " + file.getName());
         response.setContentType(getContentType());
         response.setContentLength((int)file.length());
         
         String header = getBrowser(request);
+        String docName;
         if (header.contains("MSIE")) { // 모두 UTF-8로 변환해주는 과정
-               String docName = URLEncoder.encode(real_name,"UTF-8").replaceAll("\\+", "%20");
-               response.setHeader("Content-Disposition", "attachment;filename=" + docName + ";");
+           docName = URLEncoder.encode(real_name,"UTF-8").replaceAll("\\+", "%20");
+           response.setHeader("Content-Disposition", "attachment;filename=" + docName + ";");
         } else if (header.contains("Firefox")) {
-               String docName = new String(real_name.getBytes("UTF-8"), "ISO-8859-1");
-               response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
+           docName = new String(real_name.getBytes("UTF-8"), "ISO-8859-1");
+           response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
         } else if (header.contains("Opera")) {
-               String docName = new String(real_name.getBytes("UTF-8"), "ISO-8859-1");
-               response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
+           docName = new String(real_name.getBytes("UTF-8"), "ISO-8859-1");
+           response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
         } else if (header.contains("Chrome")) {
-               String docName = new String(real_name.getBytes("UTF-8"), "ISO-8859-1");
-               response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
+           docName = new String(real_name.getBytes("UTF-8"), "ISO-8859-1");
+           response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
         }
         response.setHeader("Content-Type", "application/octet-stream");
         response.setHeader("Content-Transfer-Encoding", "binary;");
