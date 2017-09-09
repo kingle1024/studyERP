@@ -11,6 +11,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +44,7 @@ import com.company.myapp.CommonCollectClass;
 @Controller
 //@SessionAttributes(value = { "sessionUser" })
 public class BoardsController {
+	private static final Logger logger = LoggerFactory.getLogger(BoardsController.class);
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
 	
 	static int cnt = 0;
@@ -71,7 +74,6 @@ public class BoardsController {
 		model.addAttribute("boards", boards);
 
 		List<Board> boardList = userService.getNoticeList(page, word);
-//		System.out.println(boardList);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
 		model.addAttribute("lastPage", userService.getNoticeLastPage());
@@ -100,7 +102,6 @@ public class BoardsController {
 		boardMapper.createNotice(board); // 게시글 생성 후 번호를 받아와야 한다..................
 		int no = boardMapper.getLastID(); // 생성 후 바로 게시글의 번호를 가져오는 과정.
 		List<MultipartFile> files = uploadForm.getFiles(); // 
-		System.out.println("files:"+files);
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
 
@@ -117,7 +118,6 @@ public class BoardsController {
 	@RequestMapping(value="/testUploadRemove", method = RequestMethod.GET) // 게시판 삭제시
 //	public void testUpload(@RequestParam(value="fileArray[]")List <String> arrayParams, @RequestParam(value="fileNo[]")List <String> arrayNos, @RequestParam(value="testArray[]")ArrayList <String> arrayTest){
 	public void testUpload(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
-		System.out.println("/testUploadRemove 진입");	
 		for(int j=0; j< arrayTest.size(); j++){ // 효율적인 방법은 아닌 것 같지만 일단 구현. 이 방식이 비효율적인 이유는 항상 인덱스가 0부터 size까지 돌기 때문이다
 			List<Files> files;
 			files = fileMapper.getFileEditUpLoadList(Integer.parseInt(arrayTest.get(j).trim())); // 해당하는 값을 List로 받아온다.
@@ -125,11 +125,11 @@ public class BoardsController {
 			for (int i = 0; i < files.size(); i++) {
 				File f = new File(files.get(i).getPath() + files.get(i).getSave_name()); // 저장한 이름을 가져온다.
 				if (f.delete()) { // 삭제한다.
-					System.out.println(files.get(i).getPath() + files.get(i).getSave_name());
-					System.out.println("삭제 성공!" + files.get(i).getSave_name());
+					logger.info(files.get(i).getPath() + files.get(i).getSave_name());
+					logger.info("삭제 성공!" + files.get(i).getSave_name());
 				}else {
-					System.out.println(files.get(i).getPath() + files.get(i).getSave_name());
-					System.out.println("삭제 실패!" + files.get(i).getSave_name());
+					logger.info(files.get(i).getPath() + files.get(i).getSave_name());
+					logger.info("삭제 실패!" + files.get(i).getSave_name());
 				}
 			}
 			fileMapper.deleteFileInEdit(Integer.parseInt(arrayTest.get(j).trim())); // 디비에서 삭제
@@ -139,7 +139,8 @@ public class BoardsController {
 	//파일 다운로드
 	@RequestMapping("/download.action")
 	public ModelAndView download(@RequestParam("name") String name) {
-		System.out.println(name);
+		logger.info(name);
+		
 		ModelAndView mav = new ModelAndView();
 		// 파라미터를 이용하여 file객체 생성
 //		File f = new File("c:/Spring/upload/" + name); // 경로에 있는 파일을 가져온다
@@ -208,7 +209,6 @@ public class BoardsController {
 		
 		// 업로드 파일 가져오기
 		List<Files> files = fileMapper.getFileList(id);
-		System.out.println(files);
 		model.addAttribute("files", files);
 		model.addAttribute("no",id); // 글 no가 몇인지 ?
 		model.addAttribute("page",page); // 몇페이지인지?
@@ -223,9 +223,9 @@ public class BoardsController {
 		for (int i = 0; i < files.size(); i++) {
 			File f = new File(files.get(i).getPath() + files.get(i).getSave_name()); // 저장한 이름을 가져온다.
 			if (f.delete()) { // 삭제한다.
-				System.out.println("삭제 성공!" + files.get(i).getSave_name());
+				logger.info("삭제 성공!" + files.get(i).getSave_name());
 			} else {
-				System.out.println("삭제 실패!" + files.get(i).getSave_name());
+				logger.info("삭제 실패!" + files.get(i).getSave_name());
 			}
 		}
 		return "redirect:/notices";

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,13 +30,15 @@ import com.mycompany.mapper.BoardMapper;
 import com.mycompany.mapper.userMapper;
 @Controller
 public class SessionsController {
+	private static final Logger logger = LoggerFactory.getLogger(SessionsController.class);
+	
 	@Autowired
 	private userMapper userMapper;
 	
 	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
     public String create(@Valid @ModelAttribute User user, BindingResult result, RedirectAttributes flash){
 		if (result.hasErrors()) {
-			System.out.println("에러 진입");
+			logger.info("에러 진입");
 	        List<FieldError> fieldErrors = result.getFieldErrors();
 	        flash.addFlashAttribute("fieldErrors", fieldErrors);
 	        flash.addFlashAttribute("user", user);	        
@@ -43,7 +47,7 @@ public class SessionsController {
 		user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt(11)));
     	userMapper.insertUser(user);
     	userMapper.insertAuthority(user.getEmail(),  "ROLE_USER");
-    	System.out.println("회원가입 성공");
+    	logger.info("회원가입 성공");
     	return "popUp/statics/login";
     }
 	

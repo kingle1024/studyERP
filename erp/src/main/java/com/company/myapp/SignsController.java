@@ -32,7 +32,7 @@ import com.mycompany.vo.BreakDownDocument;
 
 @Controller
 public class SignsController {
-	private static final Logger logger = LoggerFactory.getLogger(CronTask.class);
+	private static final Logger logger = LoggerFactory.getLogger(SignsController.class);
 	
 	@Autowired
 	private CommonMapper commonMapper;
@@ -42,7 +42,6 @@ public class SignsController {
 
 	@RequestMapping(value = "/signs", method = RequestMethod.GET)
 	public ModelAndView indexSigns(Model model) {
-		System.out.println("/signs ");
 		ModelAndView mv = new ModelAndView("signs/index");
 		return mv;
 	}
@@ -60,14 +59,13 @@ public class SignsController {
 	@RequestMapping(value = "/signs/atypicalDoc", method = RequestMethod.POST) // 비정형
 	public void stockDocData(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute Approval approval, BreakDownDocument breakDownDocument, Principal principal) {
-		System.out.println("/signs/atypicalDoc");
 		ModelAndView mv = new ModelAndView("redirect:/signs"); 
 		// 문서를 하나 insert한다
 		approval.setSend_id(principal.getName());
 		String type_code = request.getParameter("type_code"); // 문서마다 있는 hidden
 		String recv_id = signMapper.ListgetApprovalSystem(type_code); // 문서의 형식이
 		approval.setRecv_id(recv_id);
-		System.out.println("저장여부:"+signMapper.insertApproval(approval)); // 디비 저장
+		logger.info("저장여부:"+signMapper.insertApproval(approval)); // 디비 저장
 
 		if(type_code.equals("1100")){ 
 			// 최신 번호를 하나 가져와야 한다
@@ -192,7 +190,7 @@ public class SignsController {
 				break;
 			}
 			default: {
-				System.out.println("Recvdefault");
+				logger.info("Recvdefault");
 			}
 		}
 		if(approval != null){ // approval에 데이터가 있다면 send_id를 getEmailFromUsers를 통해서 사용자의 이름을 가져온다.
@@ -222,10 +220,9 @@ public class SignsController {
 				break;
 			}
 			default: {
-				System.out.println("Senddefault");
+				logger.info("Senddefault");
 			}
 		}
 		return mv;
 	}
-
 }

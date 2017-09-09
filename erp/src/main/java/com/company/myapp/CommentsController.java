@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,13 +22,16 @@ import com.mycompany.mapper.BoardMapper;
 import com.mycompany.vo.Comment;
 @Controller
 public class CommentsController {
+	private static final Logger logger = LoggerFactory.getLogger(CommentsController.class);
+	
 	@Autowired
 	private BoardMapper boardMapper;
 	
 	@RequestMapping(value ="/comments", method= RequestMethod.POST)
 	public String index(@Valid @ModelAttribute Comment comment, BindingResult result, RedirectAttributes flash, Principal principal, @RequestParam(value = "page") int page ){
 		if (result.hasErrors()) { // 만약 에러면
-			System.out.println("에러네");
+			logger.info("에러네");
+			
 			List<FieldError> fieldErrors = result.getFieldErrors();
 			flash.addFlashAttribute("fieldErrors", fieldErrors);
 			flash.addFlashAttribute("comment", comment);

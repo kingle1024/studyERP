@@ -2,6 +2,8 @@ package com.company.myapp;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import com.mycompany.mapper.BoardMapper;
 
 @Controller
 public class HandcodingController {
+	private static final Logger logger = LoggerFactory.getLogger(HandcodingController.class);
 	@Autowired
 	private BoardMapper boardMapper;
 	
@@ -30,7 +33,8 @@ public class HandcodingController {
 	    String filePath = "c:\\Spring\\upload";
 	    Map<String, List<String>> fileNames = new HandlerFile(multipartRequest, filePath).getUploadFileName();
 	    // 실제저장파일명과 원본파일명 DB저장처리
-	    System.err.println("업로드성공"+fileNames.toString());
+	    logger.info("업로드성공"+fileNames.toString());
+	    
 	    //파일 업로드 성공여부 체크
 	    return true;
 	  }
