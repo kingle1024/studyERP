@@ -13,7 +13,6 @@ import com.mycompany.vo.User;
 import com.mycompany.mapper.userMapper;
 @Controller
 public class AdminsController {
-	
 	@Autowired
     private userMapper userMapper;
 	

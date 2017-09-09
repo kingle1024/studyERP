@@ -23,6 +23,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -98,7 +100,8 @@ public class MyWorkController {
 	    
 		// cell style 만듬
 		XSSFCellStyle cs = workbook.createCellStyle();
-		cs.setAlignment(CellStyle.ALIGN_CENTER);
+		cs.setAlignment(HorizontalAlignment.CENTER);
+		cs.setVerticalAlignment(VerticalAlignment.CENTER);
 	    cs.setBorderRight(CellStyle.BORDER_THIN);
 	    cs.setBorderLeft(CellStyle.BORDER_THIN);
 	    cs.setBorderTop(CellStyle.BORDER_THIN);
@@ -106,7 +109,8 @@ public class MyWorkController {
 	    cs.setFont(font);
 	    
 	    XSSFCellStyle csTime = workbook.createCellStyle();
-	    csTime.setAlignment(CellStyle.ALIGN_CENTER);
+	    csTime.setAlignment(HorizontalAlignment.CENTER);
+	    csTime.setVerticalAlignment(VerticalAlignment.CENTER);
 	    byte[] rgb = new byte[3];
 	    rgb[0] = (byte) 197; // red	
 	    rgb[1] = (byte) 217; // green
@@ -114,6 +118,11 @@ public class MyWorkController {
 	    XSSFColor myColor = new XSSFColor(rgb); // #f2dcdb
 	    csTime.setFillForegroundColor(myColor);
 	    csTime.setFillPattern(CellStyle.SOLID_FOREGROUND);
+	    
+	    XSSFCellStyle csTimeForamt = workbook.createCellStyle();
+	    csTimeForamt.setAlignment(HorizontalAlignment.CENTER);
+	    csTimeForamt.setVerticalAlignment(VerticalAlignment.CENTER);
+	    
 	    XSSFDataFormat format = workbook.createDataFormat();
 	    
 	    XSSFCellStyle csTimeFormatRed = workbook.createCellStyle();
@@ -124,11 +133,10 @@ public class MyWorkController {
 	    csTimeFormat.setDataFormat(format.getFormat("hh:mm"));
 	    
 	    XSSFCellStyle csMonthFormat = workbook.createCellStyle();
+	    csMonthFormat.setAlignment(HorizontalAlignment.CENTER);
+	    csMonthFormat.setVerticalAlignment(VerticalAlignment.CENTER);
 	    XSSFDataFormat monthFormat = workbook.createDataFormat();
 	    csMonthFormat.setDataFormat(format.getFormat("mm월 dd일"));
-	    
-	    XSSFCellStyle csHidden = workbook.createCellStyle();
-	    csHidden.setHidden(true);
 	    
 		//2차는 sheet생성
 		XSSFSheet sheet = workbook.createSheet("근무일지");
@@ -255,6 +263,12 @@ public class MyWorkController {
 							cell.setCellFormula((String)(getColumn.get(j)));
 						}
 						else if(j==6){ // 근로상세내역
+							sheet.addMergedRegion(new CellRangeAddress( // 셀 병합
+									startIndex-1, // 시작 행 번호
+									startIndex-1, // 마지막 행 번호
+									j, // 시작 열 번호
+									j+1  // 마지막 열 번호
+									));
 							cell.setCellValue((String)getColumn.get(j));
 						}else{
 							cell.setCellStyle(csTimeFormat);
