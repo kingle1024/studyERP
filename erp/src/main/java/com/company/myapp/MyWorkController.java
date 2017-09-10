@@ -119,23 +119,22 @@ public class MyWorkController {
 	    csTime.setFillForegroundColor(myColor);
 	    csTime.setFillPattern(CellStyle.SOLID_FOREGROUND);
 	    
-	    XSSFCellStyle csTimeForamt = workbook.createCellStyle();
-	    csTimeForamt.setAlignment(HorizontalAlignment.CENTER);
-	    csTimeForamt.setVerticalAlignment(VerticalAlignment.CENTER);
-	    
 	    XSSFDataFormat format = workbook.createDataFormat();
 	    
 	    XSSFCellStyle csTimeFormatRed = workbook.createCellStyle();
+	    csTimeFormatRed.setAlignment(HorizontalAlignment.CENTER);
+	    csTimeFormatRed.setVerticalAlignment(VerticalAlignment.CENTER);
 	    csTimeFormatRed.setDataFormat(format.getFormat("hh:mm"));
 	    csTimeFormatRed.setFont(fontColorRed);
 	    
 	    XSSFCellStyle csTimeFormat = workbook.createCellStyle();
 	    csTimeFormat.setDataFormat(format.getFormat("hh:mm"));
+	    csTimeFormat.setAlignment(HorizontalAlignment.CENTER);
+	    csTimeFormat.setVerticalAlignment(VerticalAlignment.CENTER);
 	    
 	    XSSFCellStyle csMonthFormat = workbook.createCellStyle();
 	    csMonthFormat.setAlignment(HorizontalAlignment.CENTER);
 	    csMonthFormat.setVerticalAlignment(VerticalAlignment.CENTER);
-	    XSSFDataFormat monthFormat = workbook.createDataFormat();
 	    csMonthFormat.setDataFormat(format.getFormat("mm월 dd일"));
 	    
 		//2차는 sheet생성
@@ -170,7 +169,6 @@ public class MyWorkController {
 	    cell.setCellStyle(cs);
 	    cell.setCellValue("학 기");
 	    
-	    
 	    cell = row.createCell(4); cell.setCellStyle(cs); cell = row.createCell(5); cell.setCellStyle(cs);
 	    
 	    cell = row.createCell(7);
@@ -189,7 +187,6 @@ public class MyWorkController {
 	    cell = row.createCell(4); cell.setCellStyle(cs); cell = row.createCell(5); cell.setCellStyle(cs);
 	    cell = row.createCell(7);
 	    cell.setCellStyle(cs);
-	    
 	    
 	    row = sheet.createRow((short)5);
 	    row.setHeight((short)460);
@@ -221,73 +218,79 @@ public class MyWorkController {
 	    	cell.setCellValue(header.get(i));
 	    	cell.setCellStyle(csTime);
 	    }
+	    sheet.addMergedRegion(new CellRangeAddress( // 근로상세내역 병합
+				row.getRowNum(), // 시작 행 번호
+				row.getRowNum(), // 마지막 행 번호
+				header.size()-1, // 시작 열 번호
+				header.size()  // 마지막 열 번호
+		));
 		    
-		List<workExcel> workExcel = excelService.getExcel();
-		int cnt=0;
+		List<workExcel> workExcel = excelService.myworkList(principal.getName());
+		System.out.println(workExcel);
 		int startIndex=0;
 		for(int i=0; i<workExcel.size(); i++){
 			try{
-				if(workExcel.get(i).getUserEmail().equals(principal.getName())){
-					startIndex = 8+cnt+1;
-					row = sheet.createRow((short)startIndex-1);
-					ArrayList<Object> getColumn = new ArrayList<Object>();
-					SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
-					Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
-					
-					getColumn.add(toYMD);
-					getColumn.add(workExcel.get(i).getWeek());
-					getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-					getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
-					getColumn.add("D"+(startIndex)+"-C"+(startIndex)+"");
-					
-					if(cnt == 0){
-						getColumn.add("+E"+(startIndex));
-					}else{
-						getColumn.add("F"+(startIndex-1)+"+E"+(startIndex));
-					}
-					getColumn.add(workExcel.get(i).getContent());
+				startIndex = 9+cnt;
+				row = sheet.createRow((short)startIndex-1);
+				ArrayList<Object> getColumn = new ArrayList<Object>();
+				SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+				Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
 				
-					for(int j=0; j<getColumn.size(); j++){
-						cell = row.createCell(j);
-						if(j==0){
-							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-							cell.setCellStyle(csMonthFormat);
-							cell.setCellValue((Date)getColumn.get(j));
-						}else if(j==4){ // 근무시간
-							cell.setCellType(Cell.CELL_TYPE_FORMULA);
-							cell.setCellStyle(csTimeFormatRed); // hh:mm format
-							cell.setCellFormula((String)(getColumn.get(j)));
-						}else if(j==5){
-							cell.setCellType(Cell.CELL_TYPE_FORMULA);
-							cell.setCellStyle(csTimeFormat); // hh:mm format
-							cell.setCellFormula((String)(getColumn.get(j)));
-						}
-						else if(j==6){ // 근로상세내역
-							sheet.addMergedRegion(new CellRangeAddress( // 셀 병합
-									startIndex-1, // 시작 행 번호
-									startIndex-1, // 마지막 행 번호
-									j, // 시작 열 번호
-									j+1  // 마지막 열 번호
-									));
-							cell.setCellValue((String)getColumn.get(j));
-						}else{
-							cell.setCellStyle(csTimeFormat);
-							cell.setCellValue((String)getColumn.get(j));
-						}
-					}
-					cnt++;
+				getColumn.add(toYMD);
+				getColumn.add(workExcel.get(i).getWeek());
+				getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
+				getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
+				getColumn.add("D"+(startIndex)+"-C"+(startIndex)+"");
+				
+				if(cnt == 0){
+					getColumn.add("+E"+(startIndex));
+				}else{
+					getColumn.add("F"+(startIndex-1)+"+E"+(startIndex));
 				}
+				getColumn.add(workExcel.get(i).getContent());
+			
+				for(int j=0; j<getColumn.size(); j++){
+					cell = row.createCell(j);
+					if(j==0){
+						cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+						cell.setCellStyle(csMonthFormat);
+						cell.setCellValue((Date)getColumn.get(j));
+					}else if(j==4){ // 근무시간
+						cell.setCellType(Cell.CELL_TYPE_FORMULA);
+						cell.setCellStyle(csTimeFormatRed); // hh:mm format
+						cell.setCellFormula((String)(getColumn.get(j)));
+					}else if(j==5){
+						cell.setCellType(Cell.CELL_TYPE_FORMULA);
+						cell.setCellStyle(csTimeFormat); // hh:mm format
+						cell.setCellFormula((String)(getColumn.get(j)));
+					}
+					else if(j==6){ // 근로상세내역
+						if(i!=workExcel.size()-1){
+							sheet.addMergedRegion(new CellRangeAddress( // 셀 병합
+								startIndex, // 시작 행 번호
+								startIndex, // 마지막 행 번호
+								j, // 시작 열 번호
+								j+1  // 마지막 열 번호
+							));
+						}
+						cell.setCellValue((String)getColumn.get(j));
+					}else{
+						cell.setCellStyle(csTimeFormat);
+						cell.setCellValue((String)getColumn.get(j));
+					}
+				}
+				cnt++;
 			}catch(Exception e){
 				
 			}
 		}
-		row = sheet.createRow(startIndex);
+		row = sheet.createRow(startIndex+1);
 		cell = row.createCell(6);
 		cell.setCellValue("근로장학생 : ");
 		cell = row.createCell(7);
 		cell.setCellValue("(자필서명)");
 		
-		row = sheet.createRow(startIndex+1);
+		row = sheet.createRow(startIndex+2);
 		cell = row.createCell(0);
 		cell.setCellValue("** 상기와 같이 근무하였음을 확인하며, 사실과 다를 경우 근로장학금을 환불할 것을 서약합니다.");
 		/* 파일명을 현재시간으로 생성 */
@@ -475,7 +478,6 @@ public class MyWorkController {
 				                    case Cell.CELL_TYPE_NUMERIC:
 				                        System.out.println("Last evaluated as: " + cell.getNumericCellValue());
 				                        value = fommatter.format(cell.getNumericCellValue())+"수식1";
-				                        
 				                        break;
 				                    case Cell.CELL_TYPE_STRING:	
 				                        System.out.println("Last evaluated as \"" + cell.getRichStringCellValue() + "\"");
