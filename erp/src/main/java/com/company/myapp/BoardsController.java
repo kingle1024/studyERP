@@ -35,6 +35,7 @@ import com.mycompany.vo.Board;
 import com.mycompany.vo.Comment;
 import com.mycompany.vo.FileForm;
 import com.mycompany.vo.Files;
+import com.mycompany.vo.Message;
 import com.mycompany.vo.User;
 import com.company.myapp.UserService;
 import com.company.myapp.CommonCollectClass;
@@ -115,7 +116,7 @@ public class BoardsController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/testUploadRemove", method = RequestMethod.GET) // 게시판 삭제시
+	@RequestMapping(value="/uploadRemove", method = RequestMethod.GET) // 게시판 삭제시
 //	public void testUpload(@RequestParam(value="fileArray[]")List <String> arrayParams, @RequestParam(value="fileNo[]")List <String> arrayNos, @RequestParam(value="testArray[]")ArrayList <String> arrayTest){
 	public void testUpload(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
 		for(int j=0; j< arrayTest.size(); j++){ // 효율적인 방법은 아닌 것 같지만 일단 구현. 이 방식이 비효율적인 이유는 항상 인덱스가 0부터 size까지 돌기 때문이다
@@ -157,8 +158,8 @@ public class BoardsController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/notice/view/{id}", method = RequestMethod.GET) // 게시판 보기
-	public String adminViewBoard(@PathVariable int id, Model model, Principal principal,
+	@RequestMapping(value = "/notice/view/{id}/{state}", method = RequestMethod.GET) // 게시판 보기
+	public String adminViewBoard(@PathVariable int id, @PathVariable int state, Model model, Principal principal,
 			@RequestParam(value = "page") int page) {
 		String name = principal.getName(); // 아이디를 가져온다
 		String email = name;
@@ -187,9 +188,13 @@ public class BoardsController {
 		
 		model.addAttribute("page",page);
 
+		if(state == 1){
 		return "notices/view";
+		}else{
+			return "popUp/notices/viewWindow";
+		}
 	}
-
+	
 	@RequestMapping(value = "/notice/new", method = RequestMethod.GET)
 	public String newBoard(ModelMap model, Principal principal) {
 		String email = principal.getName(); // 사용자의 아이디(email)를 가져옴
