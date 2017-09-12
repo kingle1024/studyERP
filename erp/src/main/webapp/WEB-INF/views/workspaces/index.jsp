@@ -58,7 +58,7 @@
 	 <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>내 작업대</strong> 
+                   <i class="fa fa-folder-open"></i>  <strong>내 작업대</strong> 
                </div>
            </div>
        </div>

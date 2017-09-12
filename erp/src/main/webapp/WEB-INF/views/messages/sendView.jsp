@@ -11,7 +11,7 @@
  <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>보낸 쪽지 보기</strong> 
+                   <i class="fa fa-comments"></i>  <strong>보낸 쪽지 보기</strong> 
                </div>
            </div>
        </div>

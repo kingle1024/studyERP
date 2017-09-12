@@ -33,7 +33,7 @@ $(document).ready(function() {
  <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>공지사항 작성</strong> 
+                   <i class="fa fa-table"></i>  <strong>공지사항 작성</strong> 
                </div>
            </div>
        </div>

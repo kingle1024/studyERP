@@ -103,17 +103,8 @@ public class MessagesController {
 		return "redirect:/messages";
 	}
 	
-	@RequestMapping(value="/messages/viewWindow/{no}", method = RequestMethod.GET)
-	public String messageViewWindow(@PathVariable int no, Model model){
-		Message message = messageMapper.getMessage(no);
-		model.addAttribute("sendName",commonMapper.getEmailFromUsers(message.getSend_id()));
-		
-		model.addAttribute("message", message);
-		return "popUp/messages/viewWindow";
-	}
-	
-	@RequestMapping(value="/messages/view/{no}", method = RequestMethod.GET)
-	public String messageView(@PathVariable int no, Model model){
+	@RequestMapping(value="/messages/view/{no}/{state}", method = RequestMethod.GET)
+	public String messageView(@PathVariable int no, @PathVariable int state, Model model){
 		Message message = messageMapper.getMessage(no); // 메세지에 대한 정보를 불러온다
 		model.addAttribute("sendName",commonMapper.getEmailFromUsers(message.getSend_id()));
 		
@@ -121,7 +112,11 @@ public class MessagesController {
 		if(message.getRecv_date() == null){ // 해당 쪽지가 미수신이였으면  수신으로 바꾼다.
 			messageMapper.updateMessageRecvDate(no);
 		}
-		return "messages/view";
+		if(state == 1){
+			return "messages/view";
+		}else{
+			return "popUp/messages/viewWindow";	
+		}
 	}
 	
 	@RequestMapping(value="/messages/sendView/{no}", method = RequestMethod.GET)

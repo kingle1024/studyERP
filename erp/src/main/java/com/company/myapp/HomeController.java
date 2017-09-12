@@ -75,20 +75,21 @@ public class HomeController {
 		ArrayList<String> messageTime = new ArrayList<String>();
 //		String emailToName = null;
 		for(int i=0; i<myMessages.size(); i++){
-			String emailToName = myMessages.get(i).getSend_id();
-			myMessages.get(i).setSend_id(commonMapper.getEmailFromUsers(emailToName));
-			if(myMessages.get(i).getRecv_date() != null){ // 널값이 있을 수도 있기 때문에 널값 체크
-				messageTime.add(formatTimeString(myMessages.get(i).getRecv_date()));
-			}
+			messageTime.add(formatTimeString(myMessages.get(i).getSend_date()));
 		}
 		model.addAttribute("myMessages",myMessages);
 		model.addAttribute("messageTime",messageTime);
 		String email = name;
 		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email));
-		session.setAttribute("sessionMyMessages", myMessages);
+		session.setAttribute("sessionMyMessages", myMessages); // 세션에 저장
 		
 		List<Approval> approval = signMapper.showRecvWaitingList(email);
+		ArrayList<String> approvalTime = new ArrayList<String>();
+		for(int i=0; i<approval.size(); i++){
+			approvalTime.add(formatTimeString(approval.get(i).getRegister_date()));
+		}
 		model.addAttribute("approval",approval);
+		model.addAttribute("approvalTime",approvalTime);
 		
 		return "mains/index";
 	}

@@ -4,6 +4,11 @@
 <html>
 <head>
 <title>홈</title>
+<script>
+function viewDoc(num){
+	window.open("${pageContext.request.contextPath}/signs/docAtypicalView?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
+}  
+</script>
 </head>
 <body>
 <div id="page-wrapper">
@@ -112,20 +117,24 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-clock-o fa-fw"></i> 쪽지
+							<i class="fa fa-comments fa-fw"></i> 쪽지
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="list-group">
+						<script>
+							var popupX = (window.screen.width / 2) - (200 / 2);
+							// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+			
+							var popupY= (window.screen.height /2) - (300 / 2);
+							// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+						</script>
 							<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
-								<a href="#" class="list-group-item"> <span class="badge">${ messageTime[status.index]}</span>
+								<a href="#" onclick="window.open('<c:url value="/messages/view/${ myMessage.no }/2" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)" class="list-group-item"> <span class="badge badge-info">${ messageTime[status.index]}</span>
 									<i class="fa fa-fw fa-comments"></i>${ myMessage.title }
 								</a>
 							</c:forEach>
 						</div>
-						<div class="text-right">
-							<a href="#">쪽지 더보기 <i class="fa fa-arrow-circle-right"></i></a>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -133,30 +142,16 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-money fa-fw"></i> 공지사항
+							<i class="fa fa-table fa-fw"></i> 공지사항
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="table-responsive">
-							<table class="table table-bordered table-hover table-striped">
-								<thead>
-									<tr>
-										<th>제목</th>
-										<th nowrap width="17%">시간</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="board" items="${boards }" varStatus="status">
-										<tr>
-											<td>${ board.title }</td>
-											<td nowrap>${ noticeTime[status.index]}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
-						<div class="text-right">
-							<a href="#">공지사항 더보기 <i class="fa fa-arrow-circle-right"></i></a>
+							<c:forEach var="board" items="${boards }" varStatus="status">
+								<a href="#" onclick="window.open('<c:url value="/notice/view/${board.id }/2?page=1" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)" class="list-group-item"><span class="badge badge-success" style="float:right;">${ noticeTime[status.index]}</span> 
+									<i class="fa fa-fw fa-table"></i>${ board.title }
+								</a>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -165,20 +160,17 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-clock-o fa-fw"></i> 받은문서함
+							<i class="fa fa-paper-plane fa-fw"></i> 받은문서함
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="approval" items="${approval }"
 								varStatus="status">
-								<a href="#" class="list-group-item"> <span class="badge">
-								</span> <i class="fa fa-fw fa-comment"></i>${approval.title }
+								<a href="#" onclick="viewDoc(${approval.no })" class="list-group-item"> <span class="badge badge-warning"> ${ approvalTime[status.index] } </span> 
+									<i class="fa fa-fw fa-paper-plane"></i>${approval.title }
 								</a>
 							</c:forEach>
-						</div>
-						<div class="text-right">
-							<a href="#">받은문서 더보기 <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -187,20 +179,17 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-clock-o fa-fw"></i> 받은문서함
+							<i class="fa fa-clock-o fa-fw"></i> 내 작업대
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="list-group">
 							<c:forEach var="approval" items="${approval }"
 								varStatus="status">
-								<a href="#" class="list-group-item"> <span class="badge">
-								</span> <i class="fa fa-fw fa-comment"></i>${approval.title }
+								<a href="#" onclick="viewDoc(${approval.no })" class="list-group-item"> <span class="badge badge-error"> ${ approvalTime[status.index] } </span> 
+									<i class="fa fa-fw fa-comment"></i>${approval.title }
 								</a>
 							</c:forEach>
-						</div>
-						<div class="text-right">
-							<a href="#">내작업대 더보기 <i class="fa fa-arrow-circle-right"></i></a>
 						</div>
 					</div>
 				</div>
