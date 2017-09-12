@@ -14,14 +14,14 @@ pre {
 	background-color: #ffffff;
 }
 </style>
-<title>공지 보기</title>
+<title>공지사항 보기</title>
 </head>
 <body>
 	<div id="page-wrapper">
  <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>공지사항 보기</strong> 
+                   <i class="fa fa-table"></i>  <strong>공지사항 보기</strong> 
                </div>
            </div>
        </div></div>
@@ -62,7 +62,7 @@ pre {
 				</c:forEach>
 		</table>
 	</div>
-  </div>
+ 	</div>
   		<!-- 관리자 권한 부분 -->
 		<sec:authorize access="hasRole('ADMIN')">
 		

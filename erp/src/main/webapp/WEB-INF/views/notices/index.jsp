@@ -20,7 +20,7 @@
 	  <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>공지사항</strong> 
+                   <i class="fa fa-table"></i>  <strong>공지사항</strong> 
                </div>
            </div>
        </div>
@@ -37,7 +37,7 @@
 				<c:forEach var="board" items="${boardList }" varStatus="status">
 					<tr>
 						<th>${ board.id }</th>
-						<th><a href="<c:url value="/notice/view/${ board.id }?page=${page }" /> ">
+						<th><a href="<c:url value="/notice/view/${ board.id }/1?page=${page }" /> ">
 								${ board.title } </a></th>
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }"

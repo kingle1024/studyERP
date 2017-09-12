@@ -93,14 +93,14 @@ var tempDel = function(no){
 		test.push(no);
 // 		testArray.push(no);
 		$.ajax({
-			url:"${pageContext.request.contextPath}/testUploadRemove/",
+			url:"${pageContext.request.contextPath}/uploadRemove/",
 			type:'GET',
 			data:allData,
 			success:function(data){
 				alert("삭제 완료~");
 			},
 			error:function(jqXHR, testStatus, errorThrown){
-				alert("에러 발생~~ㅋㅋㅋ쿠ㅜㅜㅠㅠㅠㅠ");
+				alert("에러 발생~~");
 			}
 		});
 	}
@@ -124,7 +124,7 @@ var tempDel = function(no){
  <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>공지사항 수정</strong> 
+                   <i class="fa fa-table"></i>  <strong>공지사항 수정</strong> 
                </div>
            </div>
        </div>

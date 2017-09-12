@@ -15,7 +15,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">실습실 관리센터</a>
+                <a class="navbar-brand" href="<c:url value="/index"/>">실습실 관리센터</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">

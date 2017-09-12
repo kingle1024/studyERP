@@ -11,7 +11,7 @@
 	 <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>받은 쪽지함</strong> 
+                   <i class="fa fa-comments"></i>  <strong>받은 쪽지함</strong> 
                </div>
            </div>
        </div>
@@ -31,7 +31,7 @@
 					<tr>
 						<th>${ myMessage.send_id }</th>
 						<th><a
-							href="<c:url value="/messages/view/${ myMessage.no }" />">${ myMessage.title }</a></th>
+							href="<c:url value="/messages/view/${ myMessage.no }/1" />">${ myMessage.title }</a></th>
 						<th><fmt:formatDate value="${ myMessage.send_date }"
 								pattern="MM-dd HH:mm" /></th>
 					</tr>

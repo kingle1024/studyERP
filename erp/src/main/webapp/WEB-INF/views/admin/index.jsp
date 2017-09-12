@@ -12,7 +12,7 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="alert alert-info alert-dismissable">
-				<i class="fa fa-info-circle"></i>  <strong>관리자 페이지</strong> 
+				<i class="fa fa-users"></i>  <strong>관리자 페이지</strong> 
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
 	           근장 /
 	       </c:when>
 	       <c:when test="${authority.authority == 'ROLE_USER'}">
-	           	학생
+	           	학생 /
 	       </c:when>
 	       <c:otherwise>
 	           다른 데이터가 들어왔습니다

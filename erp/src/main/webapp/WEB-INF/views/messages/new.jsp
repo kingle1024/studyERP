@@ -26,13 +26,13 @@
 
 <body>
 <div id="page-wrapper">
- <div class="row">
-           <div class="col-lg-12">
-               <div class="alert alert-info alert-dismissable">
-                   <i class="fa fa-info-circle"></i>  <strong>쪽지 보내기</strong> 
-               </div>
-           </div>
+<div class="row">
+	<div class="col-lg-12">
+       <div class="alert alert-info alert-dismissable">
+       		<i class="fa fa-comments"></i>  <strong>쪽지 보내기</strong> 
        </div>
+    </div>
+</div>
 <form action="<c:url value="/messages" />" method="post" name="messageForm">
 			<input name="send_id" type="hidden" value="${ username }">
 			
