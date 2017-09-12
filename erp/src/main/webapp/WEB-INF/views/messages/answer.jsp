@@ -8,10 +8,10 @@
 <title>쪽지 답장하기</title>
 </head>
 <body>
+<div id="page-wrapper">
 <div class="jumbotron" id="subNav">
 	<font size="6">쪽지 답장하기</font> - 쪽지를 답장을 보낼 수 있습니다.
 </div>
-<div class="containerRegulate">
 <form action="<c:url value="/messages" />" method="post">
 			<input name="recv_id" type="hidden" value="${ recv }">
 			<div class="form-group form-group-lg">

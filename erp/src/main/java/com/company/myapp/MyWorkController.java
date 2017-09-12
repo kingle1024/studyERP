@@ -1,5 +1,5 @@
 package com.company.myapp;
-
+ 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,12 +19,18 @@ import javax.servlet.http.HttpSession;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.Region;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -50,7 +56,7 @@ import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.FileMapper;
 import com.mycompany.vo.FileForm;
 import com.mycompany.vo.workExcel;
-
+ 
 @Controller
 @Service
 public class MyWorkController {
@@ -58,7 +64,7 @@ public class MyWorkController {
 	
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
 	
-	static int cnt = 0;
+//	static int cnt = 0;
 	
 	@Autowired
 	private BoardMapper boardMapper;
@@ -102,10 +108,7 @@ public class MyWorkController {
 		XSSFCellStyle cs = workbook.createCellStyle();
 		cs.setAlignment(HorizontalAlignment.CENTER);
 		cs.setVerticalAlignment(VerticalAlignment.CENTER);
-	    cs.setBorderRight(CellStyle.BORDER_THIN);
-	    cs.setBorderLeft(CellStyle.BORDER_THIN);
-	    cs.setBorderTop(CellStyle.BORDER_THIN);
-	    cs.setBorderBottom(CellStyle.BORDER_THIN);
+	    cs.setBorderRight(CellStyle.BORDER_THIN); cs.setBorderLeft(CellStyle.BORDER_THIN); cs.setBorderTop(CellStyle.BORDER_THIN); cs.setBorderBottom(CellStyle.BORDER_THIN);
 	    cs.setFont(font);
 	    
 	    XSSFCellStyle csTime = workbook.createCellStyle();
@@ -118,25 +121,28 @@ public class MyWorkController {
 	    XSSFColor myColor = new XSSFColor(rgb); // #f2dcdb
 	    csTime.setFillForegroundColor(myColor);
 	    csTime.setFillPattern(CellStyle.SOLID_FOREGROUND);
-	    
-	    XSSFCellStyle csTimeForamt = workbook.createCellStyle();
-	    csTimeForamt.setAlignment(HorizontalAlignment.CENTER);
-	    csTimeForamt.setVerticalAlignment(VerticalAlignment.CENTER);
+	    csTime.setBorderRight(CellStyle.BORDER_THIN); csTime.setBorderLeft(CellStyle.BORDER_THIN); csTime.setBorderTop(CellStyle.BORDER_THIN); csTime.setBorderBottom(CellStyle.BORDER_THIN);
 	    
 	    XSSFDataFormat format = workbook.createDataFormat();
 	    
 	    XSSFCellStyle csTimeFormatRed = workbook.createCellStyle();
+	    csTimeFormatRed.setAlignment(HorizontalAlignment.CENTER);
+	    csTimeFormatRed.setVerticalAlignment(VerticalAlignment.CENTER);
 	    csTimeFormatRed.setDataFormat(format.getFormat("hh:mm"));
 	    csTimeFormatRed.setFont(fontColorRed);
+	    csTimeFormatRed.setBorderRight(CellStyle.BORDER_THIN); csTimeFormatRed.setBorderLeft(CellStyle.BORDER_THIN); csTimeFormatRed.setBorderTop(CellStyle.BORDER_THIN); csTimeFormatRed.setBorderBottom(CellStyle.BORDER_THIN);
 	    
 	    XSSFCellStyle csTimeFormat = workbook.createCellStyle();
 	    csTimeFormat.setDataFormat(format.getFormat("hh:mm"));
+	    csTimeFormat.setAlignment(HorizontalAlignment.CENTER);
+	    csTimeFormat.setVerticalAlignment(VerticalAlignment.CENTER);
+	    csTimeFormat.setBorderRight(CellStyle.BORDER_THIN); csTimeFormat.setBorderLeft(CellStyle.BORDER_THIN); csTimeFormat.setBorderTop(CellStyle.BORDER_THIN); csTimeFormat.setBorderBottom(CellStyle.BORDER_THIN);
 	    
 	    XSSFCellStyle csMonthFormat = workbook.createCellStyle();
 	    csMonthFormat.setAlignment(HorizontalAlignment.CENTER);
 	    csMonthFormat.setVerticalAlignment(VerticalAlignment.CENTER);
-	    XSSFDataFormat monthFormat = workbook.createDataFormat();
 	    csMonthFormat.setDataFormat(format.getFormat("mm월 dd일"));
+	    csMonthFormat.setBorderRight(CellStyle.BORDER_THIN); csMonthFormat.setBorderLeft(CellStyle.BORDER_THIN); csMonthFormat.setBorderTop(CellStyle.BORDER_THIN); csMonthFormat.setBorderBottom(CellStyle.BORDER_THIN);
 	    
 		//2차는 sheet생성
 		XSSFSheet sheet = workbook.createSheet("근무일지");
@@ -170,7 +176,6 @@ public class MyWorkController {
 	    cell.setCellStyle(cs);
 	    cell.setCellValue("학 기");
 	    
-	    
 	    cell = row.createCell(4); cell.setCellStyle(cs); cell = row.createCell(5); cell.setCellStyle(cs);
 	    
 	    cell = row.createCell(7);
@@ -189,7 +194,6 @@ public class MyWorkController {
 	    cell = row.createCell(4); cell.setCellStyle(cs); cell = row.createCell(5); cell.setCellStyle(cs);
 	    cell = row.createCell(7);
 	    cell.setCellStyle(cs);
-	    
 	    
 	    row = sheet.createRow((short)5);
 	    row.setHeight((short)460);
@@ -216,78 +220,108 @@ public class MyWorkController {
 	    
 	    row = sheet.createRow((short)7);		    
 	    row.setHeight((short)540);
-	    for(int i=0; i<header.size(); i++){
+	    for(int i=0; i<header.size()+1; i++){
 	    	cell = row.createCell(i);
-	    	cell.setCellValue(header.get(i));
+	    	if(i!=header.size()){
+	    		cell.setCellValue(header.get(i));
+	    	}
 	    	cell.setCellStyle(csTime);
 	    }
-		    
-		List<workExcel> workExcel = excelService.getExcel();
-		int cnt=0;
+	    sheet.addMergedRegion(new CellRangeAddress( // 근로상세내역 병합
+				row.getRowNum(), // 시작 행 번호
+				row.getRowNum(), // 마지막 행 번호
+				header.size()-1, // 시작 열 번호
+				header.size()  // 마지막 열 번호
+		));
+		logger.info("나의 이름은:"+principal.getName());
+		List<workExcel> workExcel = excelService.myworkList(principal.getName());
+		System.out.println("workExcel size:"+workExcel.size());
 		int startIndex=0;
+		int cnt = 0;
 		for(int i=0; i<workExcel.size(); i++){
 			try{
-				if(workExcel.get(i).getUserEmail().equals(principal.getName())){
-					startIndex = 8+cnt+1;
-					row = sheet.createRow((short)startIndex-1);
-					ArrayList<Object> getColumn = new ArrayList<Object>();
-					SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
-					Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
-					
-					getColumn.add(toYMD);
-					getColumn.add(workExcel.get(i).getWeek());
-					getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-					getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
-					getColumn.add("D"+(startIndex)+"-C"+(startIndex)+"");
-					
-					if(cnt == 0){
-						getColumn.add("+E"+(startIndex));
-					}else{
-						getColumn.add("F"+(startIndex-1)+"+E"+(startIndex));
-					}
-					getColumn.add(workExcel.get(i).getContent());
+				startIndex = 9+cnt;
+				row = sheet.createRow((short)startIndex-1);
+				ArrayList<Object> getColumn = new ArrayList<Object>();
+				SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+				Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
 				
-					for(int j=0; j<getColumn.size(); j++){
-						cell = row.createCell(j);
-						if(j==0){
+				getColumn.add(toYMD);
+				getColumn.add(workExcel.get(i).getWeek());
+				getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
+				getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
+				getColumn.add("D"+(startIndex)+"-C"+(startIndex)+"");
+				
+				if(cnt == 0){
+					getColumn.add("+E"+(startIndex));
+				}else{
+					getColumn.add("F"+(startIndex-1)+"+E"+(startIndex));
+				}
+				getColumn.add(workExcel.get(i).getContent());
+			
+				for(int j=0; j<getColumn.size()+1; j++){
+					cell = row.createCell(j);
+					switch(j){
+						case 0:{
 							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
 							cell.setCellStyle(csMonthFormat);
 							cell.setCellValue((Date)getColumn.get(j));
-						}else if(j==4){ // 근무시간
+							break;
+						}
+//						case 2: case 3:{
+//							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+//							cell.setCellValue((double)getColumn.get(j));
+//							cell.setCellStyle(csTimeFormat);
+//							cell.setCellValue((S)getColumn.get(j));
+//						}
+						case 4:{ // 근무시간
 							cell.setCellType(Cell.CELL_TYPE_FORMULA);
-							cell.setCellStyle(csTimeFormatRed); // hh:mm format
+							cell.setCellStyle(csTimeFormatRed);
 							cell.setCellFormula((String)(getColumn.get(j)));
-						}else if(j==5){
+							break;
+						}
+						case 5:{
 							cell.setCellType(Cell.CELL_TYPE_FORMULA);
 							cell.setCellStyle(csTimeFormat); // hh:mm format
 							cell.setCellFormula((String)(getColumn.get(j)));
+							break;
 						}
-						else if(j==6){ // 근로상세내역
-							sheet.addMergedRegion(new CellRangeAddress( // 셀 병합
-									startIndex-1, // 시작 행 번호
-									startIndex-1, // 마지막 행 번호
+						case 6:{ // 근로상세내역
+							if(i!=workExcel.size()-1){
+								sheet.addMergedRegion(new CellRangeAddress( // 셀 병합
+									startIndex, // 시작 행 번호
+									startIndex, // 마지막 행 번호
 									j, // 시작 열 번호
 									j+1  // 마지막 열 번호
-									));
+								));
+							}
+							cell.setCellStyle(csTimeFormat); // 글자여서 타임포맷으로 해도 상관없음
 							cell.setCellValue((String)getColumn.get(j));
-						}else{
+							break;
+						}
+						case 7:{
+							cell.setCellStyle(csTimeFormat);
+							break;
+						}
+						default:{
 							cell.setCellStyle(csTimeFormat);
 							cell.setCellValue((String)getColumn.get(j));
+							break;
 						}
 					}
-					cnt++;
 				}
+				cnt++;
 			}catch(Exception e){
 				
 			}
 		}
-		row = sheet.createRow(startIndex);
+		row = sheet.createRow(startIndex+1);
 		cell = row.createCell(6);
 		cell.setCellValue("근로장학생 : ");
 		cell = row.createCell(7);
 		cell.setCellValue("(자필서명)");
 		
-		row = sheet.createRow(startIndex+1);
+		row = sheet.createRow(startIndex+2);
 		cell = row.createCell(0);
 		cell.setCellValue("** 상기와 같이 근무하였음을 확인하며, 사실과 다를 경우 근로장학금을 환불할 것을 서약합니다.");
 		/* 파일명을 현재시간으로 생성 */
@@ -363,7 +397,6 @@ public class MyWorkController {
 			}
 		}
 	}
-	
 	@RequestMapping(value="/workspaces/uploadView", method=RequestMethod.GET)
 	public String excelUpload(Model model,HttpSession session) throws IOException{
 		String filePath = (String)session.getAttribute("excelFileName");
@@ -386,13 +419,13 @@ public class MyWorkController {
 	    
 	    mGroupList = new ArrayList<ArrayList<String>>();
         mChildList = new ArrayList<String>();
-
+ 
 		//시트 수 (첫번째에만 존재하므로 0을 준다)
 		//만약 각 시트를 읽기위해서는 FOR문을 한번더 돌려준다
 		XSSFSheet sheet=workbook.getSheetAt(0);
 		//행의 수
 		int rows=sheet.getPhysicalNumberOfRows();
-		int startRowindex = 9;
+		int startRowindex = 8;
 		XSSFRow row;
 		String value;
 		XSSFCell cell;
@@ -427,13 +460,13 @@ public class MyWorkController {
 								}
 			                    break;
 			                case XSSFCell.CELL_TYPE_BLANK:
-			                    value=cell.toString()+"오류";
+			                    value=cell.toString()+"";
 			                    break;
 			                case XSSFCell.CELL_TYPE_ERROR:
 			                    value=cell.getErrorCellValue()+"#5번#";
 			                    break;
 			                default:
-			                  	value=cell.toString()+"오류";
+			                  	value=cell.toString()+"";
 			                   	break;
 			              }
 		            }
@@ -462,46 +495,38 @@ public class MyWorkController {
 		                //타입별로 내용 읽기
 		                switch (cell.getCellType()){
 			                case XSSFCell.CELL_TYPE_FORMULA:{ // 수식이 적용되어 있으면
-			                	FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-			                	evaluator.evaluateAll();
-			                	System.out.println("계산"+evaluator.evaluateFormulaCell(cell));
-			                	System.out.println("1:"+evaluator.evaluate(cell));
-//			                	System.out.println("2:"+evaluator.evaluateInCell(cell));
-			                	fommatter = new SimpleDateFormat("HH:mm");
-//			                	
-			                	System.out.println("Formula is " + cell.getCellFormula());
-			                	
-			                	switch(cell.getCachedFormulaResultType()) {
-				                    case Cell.CELL_TYPE_NUMERIC:
-				                        System.out.println("Last evaluated as: " + cell.getNumericCellValue());
-				                        value = fommatter.format(cell.getNumericCellValue())+"수식1";
-				                        
-				                        break;
-				                    case Cell.CELL_TYPE_STRING:	
-				                        System.out.println("Last evaluated as \"" + cell.getRichStringCellValue() + "\"");
-				                        value = fommatter.format(cell.getRichStringCellValue())+"수식2";
-				                        break;
-			                        default:
-			                    	   value="슈발";
-//			                    	   System.out.println(cell.getStringCellValue());	   
-			                           break;
-			                }
-
-			                    break;
+			                	if( HSSFDateUtil.isCellDateFormatted(cell)){ // 시간 형식
+//			                		fommatter = new SimpleDateFormat("H:mm");
+//			                		value = fommatter.format(cell.getDateCellValue())+"z";
+			                		
+			                		
+			                		cell = row.getCell(3);
+			                		double endTime = cell.getNumericCellValue();
+			                		cell = row.getCell(2);
+			                		double startTime = cell.getNumericCellValue();
+			                		fommatter = new SimpleDateFormat("HH:mm");
+			                		value = fommatter.format((endTime-startTime))+"";
+			                		
+			                		System.out.println(rowindex+","+columnindex);
+			                		
+			                	}else{
+			                		value=cell.getDateCellValue()+"";
+			                	}
+			                	break;
 			                }
 			                case XSSFCell.CELL_TYPE_NUMERIC:{ // 숫자 형식이면
 			                	ddata = cell.getNumericCellValue();
 			                	if( HSSFDateUtil.isCellDateFormatted(cell)){ // 시간 형식
 		                			fommatter = new SimpleDateFormat("HH:mm");
-			                		value = fommatter.format(cell.getDateCellValue())+"";
+			                		value = fommatter.format(cell.getDateCellValue())+"1";
 			                	} else if ( HSSFDateUtil.isValidExcelDate(ddata) ){ // 날짜 형식
 			                		fommatter = new SimpleDateFormat("yyyy-MM-dd");
-			                		value = fommatter.format(cell.getDateCellValue())+""; 
+			                		value = fommatter.format(cell.getDateCellValue())+"2"; 
 				                }
 			                    break;
 			                }
 			                case XSSFCell.CELL_TYPE_STRING:{ // 문자 형식이면
-			                    value=cell.getStringCellValue()+"";
+			                    value=cell.getStringCellValue()+"3";
 			                    break;
 			                }
 			                case XSSFCell.CELL_TYPE_BLANK:{ // 공백이면
@@ -522,6 +547,7 @@ public class MyWorkController {
 		            }else{
 		            	if(array.toString().equals(collect.getMyWorkExcelMatchingToString())){ // 내작업대 문서이면
 			            	columnName.add("workDate"); columnName.add("week"); columnName.add("startTime"); columnName.add("endTime"); columnName.add("endSubStart"); columnName.add("accumulate"); columnName.add("content");
+			            	
 			            	excelData.add(CommonCollectClass.excelUploadCategoryGetModule("excelList",rowindex-startRowindex, columnName.get(columnindex),value));
 		            	}
 		            }
@@ -629,4 +655,5 @@ public class MyWorkController {
 				7
 		));
 	}
+	
 }

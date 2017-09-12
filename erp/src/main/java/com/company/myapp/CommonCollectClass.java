@@ -19,10 +19,10 @@ import com.mycompany.vo.FileForm;
 public class CommonCollectClass {
 	static int cnt = 0;
 	
-	private String commonUploadPath = "C:\\Spring\\upload\\";
-	private String commonUploadTempPath = "C:\\Spring\\temp\\";
-//	private String commonUploadPath = "/upload/";
-//	private String commonUploadTempPath = "/upload/temp/";
+//	private String commonUploadPath = "C:\\Spring\\upload\\";
+//	private String commonUploadTempPath = "C:\\Spring\\temp\\";
+	private String commonUploadPath = "/upload/";
+	private String commonUploadTempPath = "/upload/temp/";
 	
 	private String myWorkExcelMatchingToString ="[날짜, 요일, 근무시작, 근무종료, 근무시간, 누계, 근로상세내역]";
 

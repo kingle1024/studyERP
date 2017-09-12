@@ -8,10 +8,14 @@
 </head>
 
 <body>
-<div class="jumbotron" id="subNav">
-	<font size="6">관리자 페이지</font> - 회원을 관리할 수 있습니다.
-</div>
-<div class="containerRegulate">
+<div id="page-wrapper">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="alert alert-info alert-dismissable">
+				<i class="fa fa-info-circle"></i>  <strong>관리자 페이지</strong> 
+            </div>
+        </div>
+    </div>
 <table class="table table-striped">
 	
     <thead>

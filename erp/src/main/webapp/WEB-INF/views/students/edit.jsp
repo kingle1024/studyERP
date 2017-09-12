@@ -16,10 +16,14 @@
 </head>
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 <body>
-	<div class="jumbotron" id="subNav">
-		<font size="6">건의게시판 수정</font>-건의게시판 수정을 수행할 수 있습니다.
-	</div>
-	<div class="container">
+	<div id="page-wrapper">
+ <div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-info-circle"></i>  <strong>건의 게시판 수정</strong> 
+               </div>
+           </div>
+       </div>
 		<form action="<c:url value='/student/update' />" method="post"
 			name="inputForm">
 			<div class="form-group form-group-lg">

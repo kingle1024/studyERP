@@ -14,10 +14,14 @@ function viewDoc(num){
 </script>
 </head>
 <body>
-	<div class="jumbotron" id="subNav">
-		<font size="6">받은 문서(진행)</font>- 진행 문서함 입니다.
-	</div>
-	<div class="containerRegulate">
+	<div id="page-wrapper">
+ <div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-info-circle"></i>  <strong>받은 문서(진행)</strong> 
+               </div>
+           </div>
+       </div>
 		<ul class="nav nav-tabs">
 			<li><a href="<c:url value="/signs/recv?type=recvWaiting" /> ">대기</a></li>
 			<li class="active"><a

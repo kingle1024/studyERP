@@ -7,10 +7,14 @@
 <title>받은 쪽지함</title>
 </head>
 <body>
-	<div class="jumbotron" id="subNav">
-		<font size="6">받은 쪽지함</font> - 쪽지 기능을 수행할 수 있습니다.
-	</div>
-	<div class="containerRegulate">
+	<div id="page-wrapper">
+	 <div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-info-circle"></i>  <strong>받은 쪽지함</strong> 
+               </div>
+           </div>
+       </div>
 		<a href="<c:url value="/messages/sendIndex " />"
 			class="btn btn-lg btn-primary">보낸쪽지함</a><br> <a
 			href="<c:url value="/messages/new" />"
