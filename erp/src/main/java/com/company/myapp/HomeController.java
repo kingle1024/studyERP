@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.mycompany.mapper.BoardMapper;
 import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.MessageMapper;
+import com.mycompany.mapper.SignMapper;
+import com.mycompany.vo.Approval;
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
 
@@ -42,6 +44,9 @@ public class HomeController {
 	
 	@Autowired
 	private MessageMapper messageMapper;
+	
+	@Autowired
+	private SignMapper signMapper;
 	
 	@RequestMapping(value="/api", method= RequestMethod.GET)
 	public String apiGo(){
@@ -78,9 +83,13 @@ public class HomeController {
 		}
 		model.addAttribute("myMessages",myMessages);
 		model.addAttribute("messageTime",messageTime);
-		
 		String email = name;
 		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email));
+		session.setAttribute("sessionMyMessages", myMessages);
+		
+		List<Approval> approval = signMapper.showRecvWaitingList(email);
+		model.addAttribute("approval",approval);
+		
 		return "mains/index";
 	}
 	

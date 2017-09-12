@@ -16,10 +16,14 @@
 <title>공지사항</title>
 </head>
 <body>
-	<div class="jumbotron" id="subNav">
-		<font size="6">공지사항</font>-공지사항 기능을 수행할 수 있습니다.
-	</div>
-	<div class="containerRegulate">
+<div id="page-wrapper">
+	  <div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-info-circle"></i>  <strong>공지사항</strong> 
+               </div>
+           </div>
+       </div>
 		<!-- 		<div class="jumbotron" id="jumbo"> -->
 		<table class="table table-striped">
 			<tr>
@@ -63,5 +67,6 @@
 				class="btn btn-lg btn-primary" style="width: 100%;"> 글쓰기</a>
 		</sec:authorize>
 	</div>
+</div>
 </body>
 </html>

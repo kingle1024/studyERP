@@ -54,10 +54,15 @@
 </script>
 </head>
 <body>
-	<div class="jumbotron" id="subNav">
-		<font size="6">내 작업대</font>- 내 작업대를 작성합니다
-	</div>
-	<div class="containerRegulate">
+<div id="page-wrapper">
+	 <div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-info-circle"></i>  <strong>내 작업대</strong> 
+               </div>
+           </div>
+       </div>
+	
 		<!-- 		<input type="button" id="ReadingExcelDownload" value="엑셀 다운로드" /> -->
 		<span data-tooltip-text="엑셀 다운로드"> 
 			<a href="<c:url value="/workspaces/download"/>">

@@ -181,10 +181,10 @@ $(document).ready(function() {
 <title>Insert title here</title>
 </head>
 <body>
+	<div id="page-wrapper">
 	<div class="jumbotron" id="subNav">
 		<font size="6">테스트</font>- 테스트 기능 수행
 	</div>
-	<div class="container">
 		<form name="uploadForm" method="post" enctype="multipart/form-data" action="<c:url value="/books/test"/>">
 			Upload Directory : <input type="text" name="upDir" value="c:/spring/upload/"/><br><br>
 		    <input id="addFile" type="button" value="File Add" />    

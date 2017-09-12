@@ -29,10 +29,14 @@ $(document).ready(function() {
 <title>게시글 생성</title>
 </head>
 <body>
-<div class="jumbotron" id="subNav">
-	<font size="6">공지사항 작성</font>-공지사항 작성을 수행할 수 있습니다.
-</div>
-	<div class="containerRegulate">
+	<div id="page-wrapper">
+ <div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-info-circle"></i>  <strong>공지사항 작성</strong> 
+               </div>
+           </div>
+       </div>
 			<form action="<c:url value="/notice" />" method="post" name="inputForm" enctype="multipart/form-data">
 			 <input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }" />
 				<div class="form-group form-group-lg">

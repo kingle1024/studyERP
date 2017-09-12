@@ -1,93 +1,210 @@
-<%@page import="com.mycompany.vo.Message"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	<html>
+<html>
 <head>
-<style>
-	#jumbo{
-		  padding-top: 20px;
-  		  padding-bottom: 20px;
-	}
-</style>
-<title>메인 페이지</title>
+<title>홈</title>
 </head>
 <body>
-<div class="jumbotron" id="subNav">
-	<font size="6">홈</font>-공지사항 및 쪽지 기능을 수행할 수 있습니다.(ver.2017/ )
-</div>
-<div class="containerRegulate">
-			<center><h1>공지사항</h1></center>			
-				<a href="<c:url value="/notices" />" class="btn btn-default pull-right">
-				공지사항 이동</a>
-			<sec:authorize access="hasRole('ADMIN')">
-				<a href="<c:url value="/notice/new" />" class="btn btn-default pull-right">
-				공지사항 작성</a>
-			</sec:authorize>
-			
-			<table class="table table-hover">
-			<thead>
-				<tr>
-					<th width="10%" nowrap>번호</th>
-					<th nowrap>제목</th>
-<!-- 					<th width="70px" nowrap>작성자</th> -->
-					<th width="10%" nowrap>날짜</th>
-					<th width="2%" nowrap>조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="board" items="${boards }" varStatus="status">				
-					<tr>
-						<th>${ board.id }</th>
-						<th><a href="<c:url value="/notice/view/${ board.id }?page=1" /> "> ${ board.title } </a></th>	
-<%-- 						<th>${ board.author }</th> --%>
-						<th>
-<%-- 							<fmt:formatDate value="${ board.register_date }" pattern="MM-dd HH:mm"/> --%>
-							${ noticeTime[status.index]}
-						</th>
-						
-						<th>${ board.hit } </th>
-					</tr>
-				</c:forEach>
-			</tbody>
-			</table>
-			
-			<center><h1>쪽지</h1></center>
-		<a href="<c:url value="/messages" />" class="btn btn-default pull-right">
-				쪽지함 이동</a>
-		<a href="<c:url value="/messages/new" />" class="btn btn-default pull-right">
-				쪽지 보내기</a>
-			<script>
-				var popupX = (window.screen.width / 2) - (200 / 2);
-				// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-				var popupY= (window.screen.height /2) - (300 / 2);
-				// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
-			</script>
-			<table class="table table-hover">
-			<thead>
-				<tr>
-					<th width="10%" nowrap>보낸이</th><th width="" nowrap>제목</th><th width="15%" nowrap>보낸날짜</th>
-				</tr>
-			</thead>
-				<tbody>
-				<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
-					<tr>
-						<th>${ myMessage.send_id }</th>
-						<th><a href="#" onclick="window.open('<c:url value="/messages/viewWindow/${ myMessage.no }" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)">${ myMessage.title }</a></th>
-						<th class="date">
-<%-- 							<fmt:formatDate value="${ myMessage.send_date }" pattern="MM-dd HH:mm"/> --%>
-								${ messageTime[status.index]}
-						</th>
-					</tr>
-				</c:forEach>
-				</tbody>
-			</table>
-			<c:if test="${empty myMessages }">
-    			<img src="<c:url value="/image/emptyContent.gif"/>" width="100%">
-    		</c:if>
+<div id="page-wrapper">
+	<div class="container-fluid">
+		<div class="row">
+           <div class="col-lg-12">
+               <div class="alert alert-info alert-dismissable">
+                   <i class="fa fa-home"></i>  <strong>홈</strong> 
+               </div>
+           </div>
+        </div>
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-comments fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">26</div>
+								<div>New Comments!</div>
+							</div>
+						</div>
+					</div>
+					<a href="<c:url value="/messages" />">
+						<div class="panel-footer">
+							<span class="pull-left">더보기</span> <span
+								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
 			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-table fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">12</div>
+								<div>New Tasks!</div>
+							</div>
+						</div>
+					</div>
+					<a href="<c:url value="/notices" />">
+						<div class="panel-footer">
+							<span class="pull-left">더보기</span> <span
+								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-yellow">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-paper-plane fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">124</div>
+								<div>New Orders!</div>
+							</div>
+						</div>
+					</div>
+					<a href="<c:url value="/signs/recv" />">
+						<div class="panel-footer">
+							<span class="pull-left">더보기</span> <span
+								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-red">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-xs-3">
+								<i class="fa fa-folder-open fa-5x"></i>
+							</div>
+							<div class="col-xs-9 text-right">
+								<div class="huge">13</div>
+								<div>Support Tickets!</div>
+							</div>
+						</div>
+					</div>
+					<a href="<c:url value="/mywork"/>">
+						<div class="panel-footer">
+							<span class="pull-left">더보기</span> <span
+								class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+							<div class="clearfix"></div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-clock-o fa-fw"></i> 쪽지
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="list-group">
+							<c:forEach var="myMessage" items="${myMessages}" varStatus="status">
+								<a href="#" class="list-group-item"> <span class="badge">${ messageTime[status.index]}</span>
+									<i class="fa fa-fw fa-comments"></i>${ myMessage.title }
+								</a>
+							</c:forEach>
+						</div>
+						<div class="text-right">
+							<a href="#">쪽지 더보기 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-money fa-fw"></i> 공지사항
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover table-striped">
+								<thead>
+									<tr>
+										<th>제목</th>
+										<th nowrap width="17%">시간</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach var="board" items="${boards }" varStatus="status">
+										<tr>
+											<td>${ board.title }</td>
+											<td nowrap>${ noticeTime[status.index]}</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+						<div class="text-right">
+							<a href="#">공지사항 더보기 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-clock-o fa-fw"></i> 받은문서함
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="list-group">
+							<c:forEach var="approval" items="${approval }"
+								varStatus="status">
+								<a href="#" class="list-group-item"> <span class="badge">
+								</span> <i class="fa fa-fw fa-comment"></i>${approval.title }
+								</a>
+							</c:forEach>
+						</div>
+						<div class="text-right">
+							<a href="#">받은문서 더보기 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<i class="fa fa-clock-o fa-fw"></i> 받은문서함
+						</h3>
+					</div>
+					<div class="panel-body">
+						<div class="list-group">
+							<c:forEach var="approval" items="${approval }"
+								varStatus="status">
+								<a href="#" class="list-group-item"> <span class="badge">
+								</span> <i class="fa fa-fw fa-comment"></i>${approval.title }
+								</a>
+							</c:forEach>
+						</div>
+						<div class="text-right">
+							<a href="#">내작업대 더보기 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>
