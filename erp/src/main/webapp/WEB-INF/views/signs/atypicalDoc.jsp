@@ -21,8 +21,13 @@ $(function() {
 });
 </script>
 <script src="<c:url value="/js/approvalModule.js" />"></script>
-	<div class="">
-	<h1>비정형 문서</h1>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<i class="fa fa-paper-plane fa-fw"></i> 비정형 문서
+		</h3>
+	</div>
+	<div class="panel-body">
 	<div style="float:right;">
 	<table cellpadding="20px" border="1">
 		<tr>
@@ -65,5 +70,6 @@ $(function() {
 		<input type="hidden" name="type_code" value="1000">
 	</form>
 	</div>
+</div>
 </body>
 </html>

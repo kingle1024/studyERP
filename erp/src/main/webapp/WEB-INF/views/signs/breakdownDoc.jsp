@@ -17,9 +17,13 @@ th,td{
 </head>
 <script src="<c:url value="/js/approvalModule.js" />"></script>
 <body>
-	<div class="container">
-		<div class="">
-		<h1>실습실 고장 신청 문서</h1>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<i class="fa fa-paper-plane fa-fw"></i> 고장 신청 문서
+		</h3>
+	</div>
+	<div class="panel-body">
 		<div style="float:right;">
 		<table cellpadding="20px" border="1">
 			<tr>

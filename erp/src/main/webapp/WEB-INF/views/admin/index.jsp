@@ -30,20 +30,20 @@
                 <td width="30%">${user.name } (${ user.email })</td>
                 <td width="">
                     <c:forEach var="authority" items="${ user.authorities }">
-	                    <c:choose>
-					       <c:when test="${authority.authority == 'ROLE_ADMIN'}">
+                    	<c:choose>
+                    		<c:when test="${authority.authority == 'ROLE_ADMIN'}">
 	          				 	관리자 /
-	     				  </c:when>
-	    				   <c:when test="${authority.authority == 'ROLE_MANAGER'}">
-	           근장 /
-	       </c:when>
-	       <c:when test="${authority.authority == 'ROLE_USER'}">
-	           	학생 /
-	       </c:when>
-	       <c:otherwise>
-	           다른 데이터가 들어왔습니다
-	       </c:otherwise>
-	   			</c:choose>
+	     				    </c:when>
+	    				    <c:when test="${authority.authority == 'ROLE_MANAGER'}">
+	           					근장 /
+	       					</c:when>
+	       					<c:when test="${authority.authority == 'ROLE_USER'}">
+	           					학생 /
+	       					</c:when>
+	       					<c:otherwise>
+	           					다른 데이터가 들어왔습니다
+	       					</c:otherwise>
+	   					</c:choose>
                     </c:forEach>
                 </td>
                   <td width="21%">
