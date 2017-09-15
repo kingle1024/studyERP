@@ -86,13 +86,17 @@ public class MessagesController {
 	}
 	
 	//보낸이의 아이디를 가져와야 한다....
-	@RequestMapping(value = "/messages/answer/{recv_id}", method = RequestMethod.GET) // PathVariable로 {recv_id}를 받는다.
-	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal, @PathVariable String recv_id) {		
+	@RequestMapping(value = "/messages/answer/{recv_id}/{state}", method = RequestMethod.GET) // PathVariable로 {recv_id}를 받는다.
+	public String answerMessage(@ModelAttribute Message Message, ModelMap model,Principal principal, @PathVariable String recv_id, @PathVariable int state) {		
 		
 		String recvEmail = recv_id; // 보내는 이의 아이디
 		model.addAttribute("recv", recvEmail);
 		model.addAttribute("recvName",userMapper.getUserList(recvEmail).getName());
+		if(state == 1){
 		return "messages/answer";
+		}else{
+			return "popUp/messages/answer";
+		}
 	}
 	
 	//메세지를 보내는 과정 hidden 값으로 자신의 아이디를 가지고 있는다.

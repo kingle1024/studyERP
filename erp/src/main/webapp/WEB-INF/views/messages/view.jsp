@@ -32,9 +32,7 @@
 			
 			</tbody>
 		</table>
-		<form>
-			<a href="<c:url value="/messages/answer/${ message.send_id }" />" class="btn btn-lg btn-primary">답장하기</a>
-		</form>
+			<a href="<c:url value="/messages/answer/${ message.send_id }/1" />" class="btn btn-lg btn-primary">답장하기</a>
 	
 	</div>
 </body>

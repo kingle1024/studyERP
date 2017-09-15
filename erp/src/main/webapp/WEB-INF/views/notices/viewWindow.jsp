@@ -5,10 +5,19 @@
 <html>
 <head>
 <title>공지사항 보기</title>
+<link href="<c:url value="/theme/css/bootstrap.min.css" />"
+	rel="stylesheet">
 </head>
 <body>
 	<div class="col-md-4">
 		<div class="thumbnail">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="alert alert-info alert-dismissable">
+						<i class="fa fa-table"></i> <strong>공지사항 보기</strong>
+					</div>
+				</div>
+			</div>
 			<table class="table">
 				<tbody>
 					<tr>
