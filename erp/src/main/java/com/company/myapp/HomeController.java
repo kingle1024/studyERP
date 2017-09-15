@@ -19,9 +19,11 @@ import com.mycompany.mapper.BoardMapper;
 import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.MessageMapper;
 import com.mycompany.mapper.SignMapper;
+import com.mycompany.mapper.userMapper;
 import com.mycompany.vo.Approval;
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
+import com.mycompany.vo.User;
 
 /**
  * Handles requests for the application home page.
@@ -48,6 +50,9 @@ public class HomeController {
 	@Autowired
 	private SignMapper signMapper;
 	
+	@Autowired
+	private userMapper userMapper;
+	
 	@RequestMapping(value="/api", method= RequestMethod.GET)
 	public String apiGo(){
 		return "";
@@ -73,16 +78,20 @@ public class HomeController {
 		
 		List<Message> myMessages = messageMapper.getMyMessage(name);
 		ArrayList<String> messageTime = new ArrayList<String>();
+		ArrayList<String> profileImagePath = new ArrayList<String>();
+		
 //		String emailToName = null;
 		for(int i=0; i<myMessages.size(); i++){
 			messageTime.add(formatTimeString(myMessages.get(i).getSend_date()));
+			profileImagePath.add(userMapper.selectProfileImageByEmail(myMessages.get(i).getSend_id()));
+			myMessages.get(i).setSend_id(commonMapper.getEmailFromUsers(myMessages.get(i).getSend_id()));
 		}
 		model.addAttribute("myMessages",myMessages);
 		model.addAttribute("messageTime",messageTime);
 		String email = name;
-		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email));
+		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email)); // 유저 이름 저장
 		session.setAttribute("sessionMyMessages", myMessages); // 세션에 저장
-		
+		session.setAttribute("sessionSendUserProfileImagePath",profileImagePath); // 보낸이의 프로필 사진 경로 저장
 		List<Approval> approval = signMapper.showRecvWaitingList(email);
 		ArrayList<String> approvalTime = new ArrayList<String>();
 		for(int i=0; i<approval.size(); i++){

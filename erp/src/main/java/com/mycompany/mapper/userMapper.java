@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.mycompany.vo.Authority;
 import com.mycompany.vo.User;
@@ -32,6 +33,9 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 	})
 	public List<User> selectUsers();
 	
+	@Select("SELECT profileImagePath FROM users WHERE email = #{email}")
+	public String selectProfileImageByEmail(@Param("email") String email); 
+	
 	@Select("SELECT id, email FROM users WHERE id = #{userId}")
 	@Results(value = {
 	        @Result(property = "id", column = "id"),
@@ -40,8 +44,18 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 	})
 	public User selectUserById(int userId);
 	
-	@Select("select * from users where email=#{email}")
+	@Select("SELECT id, email, name, socialNumFront, profileImagePath, register_date FROM users WHERE email=#{email}")
+	@Results(value = {
+	        @Result(property = "id", column = "id"),
+	        @Result(property = "email", column = "email"),
+	        @Result(property = "name", column = "name"),
+	        @Result(property = "socialNumFront", column = "socialNumFront"),
+	        @Result(property = "profileImagePath", column = "profileImagePath"),
+	        @Result(property = "register_date", column = "register_date"),
+	        @Result(property = "authorities", column = "email", javaType = List.class, many = @Many(select = "selectAuthority"))
+	})
 	public User getUserList(String email);
+	
 	
 	@Select("select email from users where email=#{email}")
 	public String getUserEmail(@Param("email") String email);
@@ -67,5 +81,11 @@ public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 	public void deleteAuthority(@Param("email") String email, @Param("role") String role);
 
 	@Delete("delete from users where id = #{userId}")
-	public void deleteUser(@Param("userId") int userId);	
+	public void deleteUser(@Param("userId") int userId);
+	
+	@Update("UPDATE users SET profileImagePath = #{profileImagePath} WHERE email = #{email}")
+	public void updateUserProfilePath(@Param("profileImagePath") String profileImagePath, @Param("email") String email);
+	
+	@Update("UPDATE users SET name = #{name}, socialNumFront = #{socialNumFront} WHERE email = #{email}")
+	public boolean updateUserProfile(User user);
 }

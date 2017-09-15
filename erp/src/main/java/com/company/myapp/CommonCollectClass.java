@@ -19,11 +19,22 @@ import com.mycompany.vo.FileForm;
 public class CommonCollectClass {
 	static int cnt = 0;
 	
-//	private String commonUploadPath = "C:\\Spring\\upload\\";
-//	private String commonUploadTempPath = "C:\\Spring\\temp\\";
-	private String commonUploadPath = "/upload/";
-	private String commonUploadTempPath = "/upload/temp/";
+	private String commonUploadPath = "C:\\Spring\\upload\\";
+	private String commonUploadTempPath = "C:\\Spring\\temp\\";
+	private String commonUserProfileImagePath ="C:\\Spring\\userProfile\\";
 	
+//	private String commonUploadPath = "/upload/";
+//	private String commonUploadTempPath = "/upload/temp/";
+//	private String commonUserProfileImagePath ="/upload/userProfile/";
+	
+	public String getCommonUserProfileImagePath() {
+		return commonUserProfileImagePath;
+	}
+
+	public void setCommonUserProfileImagePath(String commonUserProfileImagePath) {
+		this.commonUserProfileImagePath = commonUserProfileImagePath;
+	}
+
 	private String myWorkExcelMatchingToString ="[날짜, 요일, 근무시작, 근무종료, 근무시간, 누계, 근로상세내역]";
 
 	public String getMyWorkExcelMatchingToString() {
@@ -94,7 +105,6 @@ public class CommonCollectClass {
 		HashMap<String,String> rq = new HashMap<String,String>();
 		List<String> fileNames = new ArrayList<String>();
 		List<MultipartFile> files = uploadForm.getFiles(); //
-
 		if (null != files && files.size() > 0) { // 파일이 존재하면
 			Date dt = new Date();
 			String sdfFiletoString  = null;
@@ -117,10 +127,12 @@ public class CommonCollectClass {
 				p = Pattern.compile(pattern); // 패턴을 컴파일
 				m = p.matcher(fileName); // fileName에 정규식 적용
 				extension = "";
-//				String fileUploadPath = "/root/upload/";
-				if(no==0){
+				if(no==0){// 임시 파일
 					fileUploadPath = getCommonUploadTempPath();
-				}else{
+				}else if(no == -1){ // 프로필 파일
+					fileUploadPath = getCommonUserProfileImagePath();
+				}
+				else {
 					fileUploadPath = getCommonUploadPath();
 				}
 				// 디렉토리가 없으면 생성해준다

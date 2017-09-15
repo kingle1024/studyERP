@@ -1,5 +1,6 @@
 package com.mycompany.vo;
 
+import java.util.Date;
 import java.util.List;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -33,8 +34,21 @@ public class User {
     
     @Size(min=6, max=6, message="주민등록번호 앞자리를 입력해 주세요")
     private String socialNumFront;
-    
-    public int getId() {
+    private String profileImagePath;
+    private Date register_date;
+    public Date getRegister_date() {
+		return register_date;
+	}
+	public void setRegister_date(Date register_date) {
+		this.register_date = register_date;
+	}
+	public String getProfileImagePath() {
+		return profileImagePath;
+	}
+	public void setProfileImagePath(String profileImagePath) {
+		this.profileImagePath = profileImagePath;
+	}
+	public int getId() {
         return id;
     }
     public void setId(int id) {
@@ -80,6 +94,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [authorities=" + authorities + ", id=" + id + ", email=" + email + ", name=" + name + ", password="
-				+ password + ", passwordCheck=" + passwordCheck + ", socialNumFront=" + socialNumFront + "]";
+				+ password + ", passwordCheck=" + passwordCheck + ", socialNumFront=" + socialNumFront
+				+ ", profileImagePath=" + profileImagePath + ", register_date=" + register_date + "]";
 	}
+	
 }
