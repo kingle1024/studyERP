@@ -499,14 +499,14 @@ public class MyWorkController {
 //			                		fommatter = new SimpleDateFormat("H:mm");
 //			                		value = fommatter.format(cell.getDateCellValue())+"z";
 			                		
+//			                		cell = row.getCell(3);
+//			                		double endTime = cell.getNumericCellValue();
+//			                		cell = row.getCell(2);
+//			                		double startTime = cell.getNumericCellValue();
+//			                		fommatter = new SimpleDateFormat("HH:mm");
+//			                		value = fommatter.format((endTime-startTime))+"";
 			                		
-			                		cell = row.getCell(3);
-			                		double endTime = cell.getNumericCellValue();
-			                		cell = row.getCell(2);
-			                		double startTime = cell.getNumericCellValue();
-			                		fommatter = new SimpleDateFormat("HH:mm");
-			                		value = fommatter.format((endTime-startTime))+"";
-			                		
+			                		value ="";
 			                		System.out.println(rowindex+","+columnindex);
 			                		
 			                	}else{
@@ -518,15 +518,15 @@ public class MyWorkController {
 			                	ddata = cell.getNumericCellValue();
 			                	if( HSSFDateUtil.isCellDateFormatted(cell)){ // 시간 형식
 		                			fommatter = new SimpleDateFormat("HH:mm");
-			                		value = fommatter.format(cell.getDateCellValue())+"1";
+			                		value = fommatter.format(cell.getDateCellValue())+"";
 			                	} else if ( HSSFDateUtil.isValidExcelDate(ddata) ){ // 날짜 형식
 			                		fommatter = new SimpleDateFormat("yyyy-MM-dd");
-			                		value = fommatter.format(cell.getDateCellValue())+"2"; 
+			                		value = fommatter.format(cell.getDateCellValue())+""; 
 				                }
 			                    break;
 			                }
 			                case XSSFCell.CELL_TYPE_STRING:{ // 문자 형식이면
-			                    value=cell.getStringCellValue()+"3";
+			                    value=cell.getStringCellValue()+"";
 			                    break;
 			                }
 			                case XSSFCell.CELL_TYPE_BLANK:{ // 공백이면
