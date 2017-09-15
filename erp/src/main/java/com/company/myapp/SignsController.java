@@ -1,7 +1,6 @@
 package com.company.myapp;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.CronTask;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -118,9 +116,9 @@ public class SignsController {
 		}
 	}
 
-	@RequestMapping(value = "/signs/docAtypicalView", method = RequestMethod.GET) // 문서 보기
+	@RequestMapping(value = "/signs/docView", method = RequestMethod.GET) // 문서 보기
 	public ModelAndView showDoc(@RequestParam("Doc") String Doc, Principal principal) {
-		ModelAndView mv = new ModelAndView("popUp/signs/DocAtypicalView");
+		ModelAndView mv = new ModelAndView("popUp/signs/DocView");
 		// 문서의 정보를 가져온다
 		mv.addObject("approval", signMapper.getApproval(Doc));
 		// 만약 상태가 0이면서 recv_id가 자신이면 보이게 하기 위해 jsp에 자신의 아이디의 정보를 보낸다

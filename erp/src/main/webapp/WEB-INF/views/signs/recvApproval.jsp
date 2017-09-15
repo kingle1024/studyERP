@@ -9,7 +9,7 @@
 <title>승인 문서</title>
 <script>
 	function viewDoc(num){
-		window.open("${pageContext.request.contextPath}/signs/docAtypicalView?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
+		window.open("${pageContext.request.contextPath}/signs/docView?Doc="+num, "네이버새창", "width=800, height=700, toolbar=no, menubar=no, scrollbars=yes, resizable=yes" );  
 	}  
 </script>
 </head>
