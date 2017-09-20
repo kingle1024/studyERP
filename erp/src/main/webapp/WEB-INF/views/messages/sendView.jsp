@@ -19,13 +19,13 @@
 			<table class="table"> 
 			<tbody>
 				<tr>
-					<th width=" " height="">받은사람</th><td>${recvName}(${ message.recv_id })</td>
+					<th bgcolor="#EEEAF8" width="10%" height="">받은사람</th><td>${recvName}(${ message.recv_id })</td>
 				</tr>
 				<tr>
-					<th width="" height="">받은시간</th><td><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
+					<th bgcolor="#EEEAF8" width="10%" width="" height="">받은시간</th><td><c:if test="${myMessage.recv_date == null }">미수신</c:if><fmt:formatDate value="${ myMessage.recv_date }" pattern="yyyy-MM-dd hh:mm"/></td>							
 				</tr>	
 			<tr>
-			<th width="" height="">제목</th><td>${ message.title }</td>
+			<th bgcolor="#EEEAF8" width="10%" height="">제목</th><td>${ message.title }</td>
 			</tr>
 			<tr>
 				<td colspan="2"><textarea class="form-control" rows="20" readonly>${message.content }</textarea></td>
