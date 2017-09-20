@@ -45,7 +45,8 @@ $(document).ready(function(){
 <%-- <form:form name="inputForm"  id="ReadingInfoSelectForm" method="post" modelAttribute="MultiExcel" > --%>
 <%-- <form:form method="post"  modelAttribute="contactForm"> --%>
 
-<form:form commandName="dataForm" name="dataForm" id="dataForm" onsubmit="return validateForm()" >
+<%-- <form:form commandName="dataForm" name="dataForm" id="dataForm" onsubmit="return validateForm()" > --%>
+<form:form commandName="dataForm" name="dataForm" id="dataForm"  >
 	<table border="1" id="table">
 		<c:forEach var="uploadHeader" items="${uploadHeader }">
 		<tr>
@@ -61,11 +62,11 @@ $(document).ready(function(){
 			</c:forEach>
 		</tr>
 	</table>
-	<input type="hidden" value="test" name="test">
-	<input type="button"  id="ReadingInfoSelectBtn" value="제출">&nbsp;
-	<input type="button" onclick="history.back(-1); return false;" value="취소">
+	<input type="button"  id="ReadingInfoSelectBtn" value="저장" class="btn btn-primary">&nbsp;
+	<input type="button" onclick="history.back(-1); return false;" value="취소" class="btn btn-danger">
 </form:form>
 <script>
+
 // $('#dataForm').validate({
 // 	onfocusout: false,
 // 	rules: {
