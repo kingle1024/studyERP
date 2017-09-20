@@ -28,7 +28,7 @@ pre {
 			<table class="table">
 				<tbody>
 					<tr>
-						<th bgcolor="#EEEAF8"><center>보낸사람</center></th>
+						<th width="15%" bgcolor="#EEEAF8"><center>보낸사람</center></th>
 						<td>${sendName }(${ message.send_id })</td>
 						<td>
 							<button type="button"
@@ -37,13 +37,13 @@ pre {
 						</td>
 					</tr>
 					<tr>
-						<th bgcolor="#EEEAF8"><center>보낸시간</center></th>
+						<th width="15%" bgcolor="#EEEAF8"><center>보낸시간</center></th>
 						<td colspan="2"><fmt:formatDate
 								value="${ message.send_date }" pattern="yyyy-MM-dd HH:mm" /></td>
 					</tr>
 
 					<tr>
-						<th bgcolor="#EEEAF8"><center>제목</center></th>
+						<th width="15%" bgcolor="#EEEAF8"><center>제목</center></th>
 						<td colspan="2">${ message.title }</td>
 					</tr>
 					<tr>
