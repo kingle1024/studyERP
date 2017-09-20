@@ -51,6 +51,12 @@ public class SessionsController {
     	return "popUp/statics/login";
     }
 	
+	@RequestMapping(value="/termsConditions", method=RequestMethod.GET)
+	public String termsConditions(){
+		
+		return "popUp/statics/termsAndConditions";
+	}
+	
     @RequestMapping(value = "/login", method = RequestMethod.GET) // 세션없이 접근했을때
     public String home() {
         return "popUp/statics/login";

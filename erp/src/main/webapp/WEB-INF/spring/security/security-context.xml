@@ -25,6 +25,7 @@
 		<sec:intercept-url pattern="/" access="permitAll" />
 		<sec:intercept-url pattern="/login" access="permitAll" />
 		<sec:intercept-url pattern="/signup" access="permitAll" />
+		<sec:intercept-url pattern="/termsConditions" access="permitAll" />
 		<sec:intercept-url pattern="//duplicationCheck.do" access="permitAll" />
 		<!-- 가입자 -->
 		<sec:intercept-url pattern="/**" access="hasRole('USER')" />
