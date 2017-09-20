@@ -1,14 +1,11 @@
 package com.company.myapp;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -67,19 +64,20 @@ public class BoardsController {
 	 * Required 애트리뷰트를 false로 설정하면 스프링이 호환되는 빈을 찾지 못하여도, 예외처리 없이 프로퍼티를 설정하지 않은
 	 * 채로 남겨둘 것이다.
 	 */
-
 	@RequestMapping(value = "/notices", method = RequestMethod.GET) // 게시판 리스트 가져오기
-	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "word", required = false) String word) {
-		List<Board> boards = boardMapper.getBoardList();
-		model.addAttribute("boards", boards);
-
+	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page,   
+			@RequestParam(value = "word", required = false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage) throws UnsupportedEncodingException {
 		List<Board> boardList = userService.getNoticeList(page, word);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
-		model.addAttribute("lastPage", userService.getNoticeLastPage());
+		model.addAttribute("word",word); // 다시 디코드 해서 보내기.
+		model.addAttribute("lastPage", userService.getNoticeLastPage(word));
+		System.out.println("/notices");
+		System.out.println("page:"+page+", word="+word+"/lastPage:"+userService.getNoticeLastPage(word));
 		return "notices/index";
 	}
+
+	
 	
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정
 	public String update(@ModelAttribute("inputForm") FileForm uploadForm, @ModelAttribute Board board, HttpServletRequest request, MultipartHttpServletRequest multipartRequest, @RequestParam(value = "page") int page) throws Exception{
