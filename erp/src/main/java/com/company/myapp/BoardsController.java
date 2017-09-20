@@ -2,6 +2,7 @@ package com.company.myapp;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,6 @@ import com.mycompany.vo.Board;
 import com.mycompany.vo.Comment;
 import com.mycompany.vo.FileForm;
 import com.mycompany.vo.Files;
-import com.mycompany.vo.Message;
 import com.mycompany.vo.User;
 import com.company.myapp.UserService;
 import com.company.myapp.CommonCollectClass;
@@ -66,14 +66,14 @@ public class BoardsController {
 	 */
 	@RequestMapping(value = "/notices", method = RequestMethod.GET) // 게시판 리스트 가져오기
 	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page,   
-			@RequestParam(value = "word", required = false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage) throws UnsupportedEncodingException {
+			@RequestParam(value = "word", required = false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage, HttpServletRequest request) throws UnsupportedEncodingException {
 		List<Board> boardList = userService.getNoticeList(page, word);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
-		model.addAttribute("word",word); // 다시 디코드 해서 보내기.
+		if(word != null){
+			model.addAttribute("word", URLEncoder.encode(word, "utf-8")); // 익스에서는 파라메터로 한글을 못받기 때문에 encode 처리
+		}
 		model.addAttribute("lastPage", userService.getNoticeLastPage(word));
-		System.out.println("/notices");
-		System.out.println("page:"+page+", word="+word+"/lastPage:"+userService.getNoticeLastPage(word));
 		return "notices/index";
 	}
 
@@ -110,13 +110,12 @@ public class BoardsController {
 		}
 		
 		return "redirect:/notices";
-//		return "redirect: " + request.getContextPath() + "/notices";
 	}
 
 	@ResponseBody
 	@RequestMapping(value="/uploadRemove", method = RequestMethod.GET) // 게시판 삭제시
 //	public void testUpload(@RequestParam(value="fileArray[]")List <String> arrayParams, @RequestParam(value="fileNo[]")List <String> arrayNos, @RequestParam(value="testArray[]")ArrayList <String> arrayTest){
-	public void testUpload(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
+	public void uploadRemove(@RequestParam(value="testArray[]")ArrayList <String> arrayTest){ // testArray[]를 파라메터 값으로 받는다.
 		for(int j=0; j< arrayTest.size(); j++){ // 효율적인 방법은 아닌 것 같지만 일단 구현. 이 방식이 비효율적인 이유는 항상 인덱스가 0부터 size까지 돌기 때문이다
 			List<Files> files;
 			files = fileMapper.getFileEditUpLoadList(Integer.parseInt(arrayTest.get(j).trim())); // 해당하는 값을 List로 받아온다.
@@ -142,8 +141,6 @@ public class BoardsController {
 		
 		ModelAndView mav = new ModelAndView();
 		// 파라미터를 이용하여 file객체 생성
-//		File f = new File("c:/Spring/upload/" + name); // 경로에 있는 파일을 가져온다
-//		File f = new File("/root/upload/" + name); // 경로에 있는 파일을 가져온다
 		File f = new File(collect.getCommonUploadPath() + name); // 경로에 있는 파일을 가져온다
 		
 		// file 객체를 저장
@@ -156,18 +153,16 @@ public class BoardsController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/notice/view/{id}/{state}", method = RequestMethod.GET) // 게시판 보기
-	public String adminViewBoard(@PathVariable int id, @PathVariable int state, Model model, Principal principal,
-			@RequestParam(value = "page") int page) {
+	@RequestMapping(value = "/notice/view/{id}", method = RequestMethod.GET) // 게시판 보기
+	public String adminViewBoard(@RequestParam(value="state", defaultValue="1") int state, @PathVariable int id, Model model, Principal principal,
+			@RequestParam(value = "page", defaultValue="1") int page, @RequestParam(value="lastPage", defaultValue="1") int lastPage, @RequestParam(value="word", required=false) String word) throws UnsupportedEncodingException {
 		String name = principal.getName(); // 아이디를 가져온다
 		String email = name;
 		Board board = boardMapper.getBoard(id);
 		model.addAttribute("board", board);
 		model.addAttribute("username", name);
 		boardMapper.updateNoticeHit(id); // 조회수 1 증가
-
-		model.addAttribute("page", page); // 게시판 페이지 번호
-
+		
 		// 댓글 가져오기 왜 2개지? 정리 필요 할듯;
 		List<Comment> comments = boardMapper.getComments(id); // 코멘트 가져오기
 		for(int i=0; i<comments.size(); i++){
@@ -179,15 +174,17 @@ public class BoardsController {
 		comment.setBoard_no(id);
 		
 		model.addAttribute("comment", comment);
-
 		// 업로드 파일 가져오기
 		List<Files> files = fileMapper.getFileList(id);
 		model.addAttribute("files", files);
-		
-		model.addAttribute("page",page);
+		model.addAttribute("page",page); // 게시판 페이지 번호
 
+		model.addAttribute("lastPage", lastPage);
+		if(word != null){
+			model.addAttribute("word", URLEncoder.encode(word, "utf-8")); // 익스에서는 파라메터로 한글을 못받기 때문에 encode 처리
+		}
 		if(state == 1){
-		return "notices/view";
+			return "notices/view";
 		}else{
 			return "popUp/notices/viewWindow";
 		}

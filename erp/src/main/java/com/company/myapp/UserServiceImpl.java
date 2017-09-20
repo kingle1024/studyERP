@@ -31,8 +31,6 @@ public class UserServiceImpl implements UserService{
 	public int getNoticeLastPage(String word) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("word", word);
-		System.out.println("ServiceImpl 진입");
-		System.out.println("여기는..:"+(int)(Math.ceil((double)userDao.selectTotalNoticeCount(map)/LINE_PER_PAGE)));
 		return (int)(Math.ceil((double)userDao.selectTotalNoticeCount(map)/LINE_PER_PAGE));
 	}
   

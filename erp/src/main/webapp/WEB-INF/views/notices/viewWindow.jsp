@@ -21,7 +21,7 @@
 			<table class="table">
 				<tbody>
 					<tr>
-						<th bgcolor="#EEEAF8"><center>작성자</center></th>
+						<th bgcolor="#EEEAF8" width="15%"><center>작성자</center></th>
 						<td>${ board.author }</td>
 						<td>
 							<button type="button"
@@ -30,12 +30,12 @@
 						</td>
 					</tr>
 					<tr>
-						<th bgcolor="#EEEAF8"><center>작성일</center></th>
+						<th bgcolor="#EEEAF8" width="15%"><center>작성일</center></th>
 						<td colspan="2"><fmt:formatDate
 								value="${ board.register_date }" pattern="yyyy-MM-dd HH:mm" /></td>
 					</tr>
 					<tr>
-						<th bgcolor="#EEEAF8"><center>제목</center></th>
+						<th bgcolor="#EEEAF8" width="15%"><center>제목</center></th>
 						<td colspan="2">${ board.title }</td>
 					</tr>
 					<tr>
