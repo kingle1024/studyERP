@@ -15,11 +15,13 @@
 }
 </style>
 <script type="text/javascript">
- 
+
 		function actionModify() 
 		{
 			 $("#frm").submit();
 		}
+ 
+       
  
         function resizeImg2(osrc)
  
@@ -164,10 +166,8 @@
 		<input type="file" name="img1_org">
 		<input type="file" name="img2_org">
 		<input type="file" name="img3_org"> 
-		<!-- 시간표  -->
-		<input type="file" name="img4_org"> 
 		
-		<img src="/uploadImage/${pv.img1_fake}" class="img-circle" width="150px" height="150px"> 
+		<img src="/uploadImage/${pv.img1_fake}"class="img-circle" width="150px" height="150px"> 
 			<img src="/uploadImage/${pv.img2_fake}" class="img-circle" width="150px" height="150px">
 			<img src="/uploadImage/${pv.img3_fake}"  class="img-circle" width="150px" height="150px"> 
 			
@@ -180,8 +180,9 @@
 				<h2>${pv.no} 시간표</h2>
 				<hr style="border: solid 1.5px grey">	
 				<%-- <img src="<c:url value ="/image/table1.png"/>"onclick="resizeImg2(this.src)" class="img-responsive" alt=" " > --%>
-				<a href="/uploadImage/${pv.img4_fake}"
-					data-lightbox="image-1" data-title="시간표"><img src="/uploadImage/${pv.img4_fake}"  class="img-circle" width="150px" height="150px"> </a>
+						<!-- 시간표  -->
+		<input type="file" name="img4_org"> 
+				<img src="/uploadImage/${pv.img4_fake}" width="250px" height="350px"> 
 				<script>
 					// box 옵션 설정
 				    lightbox.option({
@@ -190,7 +191,7 @@
 				       maxWidth : 1000,
 				       maxHeight: 800
 				    })
-				</script>					
+				</script>									
 				
 				<%-- <hr style="border: solid 1.5px grey">
 				<div class="col-sm-4 portfolio-item">
@@ -280,7 +281,8 @@
 		</div>
 	
 	<sec:authorize access="hasRole('ADMIN')">
-	<a href="javascript:actionModify()" class="btn btn-lg btn-primary" >수정완료</a>	
+	<%-- <a href="<c:url value="/students?no=${pv.no}" />" class="btn btn-lg btn-primary" >수정완료</a>	 --%>
+	<a href="javascript:actionModify()" class="btn btn-lg btn-primary" >수정완료</a>
 	</sec:authorize>
 	
 	</div>

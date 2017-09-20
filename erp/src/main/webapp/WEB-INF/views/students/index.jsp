@@ -1,13 +1,15 @@
 <%@page import="com.mycompany.vo.Message"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	<html>
+<html>
 <head>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 <style>
 #jumbo {
 	padding-top: 20px;
@@ -103,18 +105,18 @@
         }
  
     </script>
-<script src="<c:url value="/resources/css/freelancer.min.js"/>" ></script>
+<script src="<c:url value="/resources/css/freelancer.min.js"/>"></script>
 <script src="<c:url value="/js/lightbox/js/lightbox.js"/>"></script>
 <link href="<c:url value="/js/lightbox/css/lightbox.min.css"/>" rel="stylesheet">
-
 <title>실습실 관리</title>
 <!-- Bootstrap Core CSS -->
-<link href="<c:url value ="/resources//css/bootstrap.min.css"/>" rel="stylesheet">
+<link href="<c:url value ="/resources//css/bootstrap.min.css"/>"
+	rel="stylesheet">
 <%-- <link href="<c:url value ="/resources//css/freelancer.min.css"/>" rel="stylesheet">
 <link href="<c:url value ="/resources/css/font-awesome.min.css"/>" rel="stylesheet" type="text/css"> --%>
 
 
- 	<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+<!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 	
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 	
@@ -148,7 +150,7 @@
 		<div class="row">
 			<div class="col-lg-10 text-center">
 				`
-				<h2>${pv.no} 실습실 근로장학생</h2>
+				<h2>${pv.no}실습실 근로장학생</h2>
 				<hr style="border: solid 1.5px grey">
 			</div>
 		</div>
@@ -159,12 +161,11 @@
 	<div style="float: right; width: 30%;">
 		<div class="row">
 			<div class="col-lg-8 text-center">
-				
-				<h2>${pv.no} 시간표</h2>
+
+					<h2>${pv.no} 시간표</h2>
 				<hr style="border: solid 1.5px grey">	
-				<%-- <img src="<c:url value ="/image/table1.png"/>"onclick="resizeImg2(this.src)" class="img-responsive" alt=" " > --%>
 				<a href="/uploadImage/${pv.img4_fake}"
-					data-lightbox="image-1" data-title="시간표"><img src="/uploadImage/${pv.img4_fake}"  class="img-circle" width="150px" height="150px"> </a>
+					data-lightbox="image-1" data-title="시간표"><img src="/uploadImage/${pv.img4_fake}" width="250px" height="350px"> </a>
 				<script>
 				    lightbox.option({
 				      'resizeDuration': 200,
@@ -172,8 +173,7 @@
 				       maxWidth : 1000,
 				       maxHeight: 800
 				    })
-				</script>				
-				
+				</script>	
 				<%-- <hr style="border: solid 1.5px grey">
 				<div class="col-sm-4 portfolio-item">
 					<a href="#portfolioModal1" class="portfolio-link" data-toggle="modal">
@@ -207,11 +207,13 @@
 						<div class="modal-body">
 							<h2>Project Title</h2>
 							<hr class="star-primary">
-							<img src="<c:url value ="/image/table.png"/>"class="img-responsive img-centered" alt="" width="400px"height="650px"> 
-								
-						
-							
-					<!-- 		<ul class="list-inline item-details">
+							<img src="<c:url value ="/image/table.png"/>"
+								class="img-responsive img-centered" alt="" width="400px"
+								height="650px">
+
+
+
+							<!-- 		<ul class="list-inline item-details">
 								<li>Client: <strong><a
 										href="http://startbootstrap.com">Start Bootstrap</a> </strong>
 								</li>
@@ -238,77 +240,74 @@
 			<div class="col-lg-8 text-center">
 				<h2>강의실 상세정보</h2>
 				<hr style="border: solid 1.5px grey">
-				
+
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="col-lg-8 text-center">
-		<table class="table table-striped table-bordered table-hover" height="110px">
-			<tr>
-				<th width="70px"> 
-			강의실 : ${pv.no } </th>
-			</tr>
-			<tr>
-			<th>	
-			
-			컴퓨터 수 :  ${pv.information }</th>
-			</tr>
-			<tr>
-			<th>
-			설치프로그램 : ${pv.program }
-			</th></tr></table>
-		</div>
-	<sec:authorize access="hasRole('ADMIN')">
-
-	<a href="<c:url value="/studentsUpdt?no=${pv.no}" />" class="btn btn-lg btn-primary" >
-					수정</a>	
-					</sec:authorize>
-	
-	<div class="container">
-		<!-- <div class="jumbotron" id="jumbo"> -->
-		<br>
-		<br>
-		<div class="col-lg-10 text-center">
-			<h2>건의게시판</h2>
-			<table class="table table-striped">
-				<thread>
+			<table class="table table-striped table-bordered table-hover"
+				height="110px">
 				<tr>
-					<th width="70px">번호</th>
-					<th>제목</th>
-					<th width="70px">작성자</th>
-					<th width="150px">날짜</th>
-					<th width="70px">조회수</th>
+					<th width="70px">강의실 : ${pv.no }</th>
 				</tr>
-				</thread>
-				<tbody>
-					<c:forEach var="studentboard" items="${studentboards}"
-						varStatus="status">
-						<tr>
-							<th>${ studentboard.id }</th>
-							<th><a
-								href="<c:url value="/students/view/${ studentboard.id }" /> ">
-									${ studentboard.title } </a></th>
-							<th>${ studentboard.author }</th>
-							<th><fmt:formatDate value="${ studentboard.register_date }"
-									pattern="yyyy-MM-dd HH:mm" /></th>
-							<th>${ studentboard.hit }</th>
-						</tr>
-					</c:forEach>
-				</tbody>
+				<tr>
+					<th>컴퓨터 수 : ${pv.information }</th>
+				</tr>
+				<tr>
+					<th>설치프로그램 : ${pv.program }</th>
+				</tr>
 			</table>
-			<div class="text-center">
-				<ul class="pagination">
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-				</ul>
-			</div>
 		</div>
-		
-<!-- 			 jQuery
+		<sec:authorize access="hasRole('ADMIN')">
+
+			<a href="<c:url value="/studentsUpdt?no=${pv.no}" />"
+				class="btn btn-lg btn-primary"> 수정</a>
+		</sec:authorize>
+
+		<div class="container">
+			<!-- <div class="jumbotron" id="jumbo"> -->
+			<br> <br>
+			<div class="col-lg-10 text-center">
+				<h2>건의게시판</h2>
+				<table class="table table-striped">
+					<thread>
+					<tr>
+						<th width="70px">번호</th>
+						<th>제목</th>
+						<th width="70px">작성자</th>
+						<th width="150px">날짜</th>
+						<th width="70px">조회수</th>
+					</tr>
+					</thread>
+					<tbody>
+						<c:forEach var="studentboard" items="${studentboards}"
+							varStatus="status">
+							<tr>
+								<th>${ studentboard.id }</th>
+								<th><a
+									href="<c:url value="/students/view/${ studentboard.id }" /> ">
+										${ studentboard.title } </a></th>
+								<th>${ studentboard.author }</th>
+								<th><fmt:formatDate value="${ studentboard.register_date }"
+										pattern="yyyy-MM-dd HH:mm" /></th>
+								<th>${ studentboard.hit }</th>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<div class="text-center">
+					<ul class="pagination">
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- 			 jQuery
     <script src="vendor/jquery/jquery.min.js"></script>
 
     Bootstrap Core JavaScript
@@ -323,18 +322,18 @@
 
     Theme JavaScript
     <script src="js/freelancer.min.js"></script> -->
-				<sec:authorize access="hasRole('ADMIN')">
-					<a href="<c:url value="/students/new" />" class="btn btn-lg btn-primary" style="width:100%;">
-					글쓰기</a>	
-				</sec:authorize>
+			<sec:authorize access="hasRole('ADMIN')">
+				<a href="<c:url value="/students/new" />"
+					class="btn btn-lg btn-primary" style="width: 100%;"> 글쓰기</a>
+			</sec:authorize>
 
-    <!-- jQuery -->
-<!--     <script src="jquery.min.js"></script> -->
+			<!-- jQuery -->
+			<!--     <script src="jquery.min.js"></script> -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+			<!-- Bootstrap Core JavaScript -->
+			<script src="js/bootstrap.min.js"></script>
 
-<!--     Plugin JavaScript
+			<!--     Plugin JavaScript
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
     Contact Form JavaScript
@@ -343,7 +342,6 @@
 
     Theme JavaScript
     <script src="js/freelancer.min.js"></script> -->
-
 </body>
 
 </html>
