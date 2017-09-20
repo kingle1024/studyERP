@@ -3,6 +3,17 @@
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@ page pageEncoding="utf-8"%>
 <title>회원가입 페이지</title>
+<style>
+.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}
+.glyphicon-ok:before{
+	content: "V";
+}
+</style>
 <script src="${pageContext.request.contextPath}/js/jquery-3.2.0.min.js"></script>
 <script>
 	function checkPwd() {
@@ -41,55 +52,52 @@
 <script type="text/javascript">
 	var timer = null;
 	function checkEmail() {
-		$("#email")
-				.keyup(
-						function() {
-							$
-									.ajax({
-										url : "${pageContext.request.contextPath}/duplicationCheck.do",
-										type : "post",
-										data : $("form").serialize(),
-										success : function(data) {
-											document.getElementById('check').value = "N"; // 초깃값을 N 으로 해놓는다
-											if (data.length > 0) {
-												// 			document.getElementById("duplicateResult").value = "이미 해당 아이디로 가입된 회원가 있습니다.";
-												document
-														.getElementById('duplicateResult').style.color = "red";
-												document
-														.getElementById('duplicateResult').innerHTML = "이미 해당 아이디로 가입된 회원 아이디가 있습니다.";
-											} else {
-												if ($("#email").val().length < 5
-														|| $("#email").val()
-																.indexOf("@") == -1) {
-													document
-															.getElementById('duplicateResult').style.color = "red";
-													// 				document.getElementById("duplicateResult").value = "아이디를 5자 이상 입력해주세요.";
-													document
-															.getElementById('duplicateResult').innerHTML = "아이디를 5자 이상 이메일 형식으로 입력해주세요.";
-												} else {
-													// 					document.getElementById("duplicateResult").value = "사용 가능한 아이디입니다.";
-													document
-															.getElementById('duplicateResult').style.color = "green";
-													document
-															.getElementById('duplicateResult').innerHTML = "사용 가능한 아이디입니다.";
-													document
-															.getElementById('check').value = "Y";
-												}
-											}
-										},
-										error : function(error) {
-											// 			alert(error.statusText);
-											document
-													.getElementById('duplicateResult').innerHTML = "에러가 생겼다"
-													+ data;
-										}
-									});
-							return false;
-						});
+		$("#email").keyup(
+			function() {
+				$.ajax({
+					url : "${pageContext.request.contextPath}/duplicationCheck.do",
+					type : "post",
+					data : $("form").serialize(),
+					success : function(data) {
+						document.getElementById('check').value = "N"; // 초깃값을 N 으로 해놓는다
+						if (data.length > 0) {
+							// 			document.getElementById("duplicateResult").value = "이미 해당 아이디로 가입된 회원가 있습니다.";
+							document
+									.getElementById('duplicateResult').style.color = "red";
+							document
+									.getElementById('duplicateResult').innerHTML = "이미 해당 아이디로 가입된 회원 아이디가 있습니다.";
+						} else {
+							if ($("#email").val().length < 5
+									|| $("#email").val()
+											.indexOf("@") == -1) {
+								document
+										.getElementById('duplicateResult').style.color = "red";
+								// 				document.getElementById("duplicateResult").value = "아이디를 5자 이상 입력해주세요.";
+								document
+										.getElementById('duplicateResult').innerHTML = "아이디를 5자 이상 이메일 형식으로 입력해주세요.";
+							} else {
+								// 					document.getElementById("duplicateResult").value = "사용 가능한 아이디입니다.";
+								document
+										.getElementById('duplicateResult').style.color = "green";
+								document
+										.getElementById('duplicateResult').innerHTML = "사용 가능한 아이디입니다.";
+								document
+										.getElementById('check').value = "Y";
+							}
+						}
+					},
+					error : function(error) {
+						// 			alert(error.statusText);
+						document
+								.getElementById('duplicateResult').innerHTML = "에러가 생겼다"
+								+ data;
+					}
+				});
+		return false;
+	});
 
 	}
 </script>
-
 <div class="jumbotron">
 	<h1>가입하기</h1>
 </div>
@@ -133,19 +141,20 @@
 					value="${ user.name }" autocomplete="off" />
 				<f:errors path="name" element="span" cssClass="alert text-danger" />
 			</div>
-			<label for="ex1">주민등록번호</label>
+			<label for="ex1">생년월일</label>
 			<div>
-				<input type="text" placeholder="앞자리" size="10" name="socialNumFront"
-					autocomplete="off"> <span>-</span> <input type="text"
-					size="10" readonly>
+				<input type="text" placeholder="앞자리" size="10" name="socialNumFront" class="form-control"
+					autocomplete="off"> 
 			</div>
+			<br/>
 			<div class="form-group">
 				<label>약관 동의</label>
 				<div data-toggle="buttons">
-					<label class="btn btn-primary active"> <span
-						class="fa fa-check"></span> <input id="agree" type="checkbox"
-						autocomplete="off" checked>
-					</label> <a href="#">이용약관</a>에 동의합니다.
+					<label class="btn btn-primary active"> 
+						<input type="checkbox" autocomplete="off">
+				<span class="glyphicon glyphicon-ok"></span>
+					</label> <a href="#" onclick="window.open('<c:url value="/termsConditions"/>', '_blank', 'width=1000 height=350')">이용약관</a>에 동의합니다.
+					
 				</div>
 			</div>
 			<div class="form-group text-center">
