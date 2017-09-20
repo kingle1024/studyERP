@@ -35,7 +35,7 @@ public class CommonCollectClass {
 		this.commonUserProfileImagePath = commonUserProfileImagePath;
 	}
 
-	private String myWorkExcelMatchingToString ="[날짜, 요일, 근무시작, 근무종료, 근무시간, 누계, 근로상세내역]";
+	private String myWorkExcelMatchingToString ="[날짜, 요일, 근무시작, 근무종료, 근무시간, 근로상세내역]";
 
 	public String getMyWorkExcelMatchingToString() {
 		return myWorkExcelMatchingToString;
@@ -84,7 +84,8 @@ public class CommonCollectClass {
 				break;
 			}
 			case "accumluate":{
-				column = "<input type='text' name='"+name+"["+index+"]."+column+"' value='"+value+"'>";
+//				column = "<input type='text' name='"+name+"["+index+"]."+column+"' value='"+value+"'>";
+				column = "";
 				break;
 			}
 			case "content":{
@@ -92,7 +93,7 @@ public class CommonCollectClass {
 				break;
 			}
 			default:{
-				column="<center>-</center>";
+				column="";
 				break;
 			}
 				

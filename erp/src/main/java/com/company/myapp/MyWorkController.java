@@ -1,11 +1,12 @@
 package com.company.myapp;
- 
+import java.sql.Time;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,8 +14,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.util.CellRangeAddress;
@@ -22,15 +21,10 @@ import org.apache.poi.hssf.util.Region;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellValue;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
@@ -61,10 +55,7 @@ import com.mycompany.vo.workExcel;
 @Service
 public class MyWorkController {
 	private static final Logger logger = LoggerFactory.getLogger(MyWorkController.class);
-	
 	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
-	
-//	static int cnt = 0;
 	
 	@Autowired
 	private BoardMapper boardMapper;
@@ -233,11 +224,11 @@ public class MyWorkController {
 				header.size()-1, // 시작 열 번호
 				header.size()  // 마지막 열 번호
 		));
-		logger.info("나의 이름은:"+principal.getName());
+		logger.info("다운로드 사용자:"+principal.getName());
 		List<workExcel> workExcel = excelService.myworkList(principal.getName());
-		System.out.println("workExcel size:"+workExcel.size());
 		int startIndex=0;
-		int cnt = 0;
+		int cnt=0;
+		double doubleTime=0;
 		for(int i=0; i<workExcel.size(); i++){
 			try{
 				startIndex = 9+cnt;
@@ -245,11 +236,14 @@ public class MyWorkController {
 				ArrayList<Object> getColumn = new ArrayList<Object>();
 				SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
 				Date toYMD = transFormatYMD.parse(workExcel.get(i).getWorkDate());
+				DateFormat formatter = new SimpleDateFormat("HH:mm");
+				Time endTime = new Time(formatter.parse(workExcel.get(i).getEndTime()).getTime());
+				Time startTime = new Time(formatter.parse(workExcel.get(i).getStartTime()).getTime());				
 				
 				getColumn.add(toYMD);
 				getColumn.add(workExcel.get(i).getWeek());
-				getColumn.add(moduleDayToString(workExcel.get(i).getStartTime(),1));
-				getColumn.add(moduleDayToString(workExcel.get(i).getEndTime(),1));
+				getColumn.add(startTime);
+				getColumn.add(endTime);
 				getColumn.add("D"+(startIndex)+"-C"+(startIndex)+"");
 				
 				if(cnt == 0){
@@ -268,12 +262,13 @@ public class MyWorkController {
 							cell.setCellValue((Date)getColumn.get(j));
 							break;
 						}
-//						case 2: case 3:{
-//							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
-//							cell.setCellValue((double)getColumn.get(j));
-//							cell.setCellStyle(csTimeFormat);
-//							cell.setCellValue((S)getColumn.get(j));
-//						}
+						case 2: case 3:{ // https://stackoverflow.com/questions/43925075/apache-poi-to-excel-zero-date
+							cell.setCellType(Cell.CELL_TYPE_NUMERIC);
+							cell.setCellStyle(csTimeFormat);
+							doubleTime = DateUtil.getExcelDate((Time)getColumn.get(j));
+							cell.setCellValue(doubleTime-25569); // 1900년을 빼준다.
+							break;
+						}
 						case 4:{ // 근무시간
 							cell.setCellType(Cell.CELL_TYPE_FORMULA);
 							cell.setCellStyle(csTimeFormatRed);
@@ -363,40 +358,6 @@ public class MyWorkController {
 		return "redirect:/workspaces/uploadView";
 	}
 	
-	@RequestMapping(value="/workspaces/upload", method=RequestMethod.POST)
-	public @ResponseBody void upload(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpServletRequest req, HttpServletResponse resp, HttpSession session, Principal principal) throws Exception{
-		ArrayList<String> list = (ArrayList<String>)session.getAttribute("productlist"); //
-		session.removeAttribute("productlist"); // 세션에 있는 자원 해제
-		List<workExcel> workExcelList = workExcel.getExcelList();
-		
-		SimpleDateFormat transFormat; // 원하는 형식으로 바꾼다.
-		Date end; // 종료시간을 가져온다.
-		Date start; // 시작시간을 가져온다.
-		long diff; // 전체 분
-		long hourGet; // 시간
-		long minutGet; // 시간을 제외한 분
-		String minute; // 분을 String으로 변환
-		// list값을 비교해서 무슨 엑셀 파일인지 구분한다. 그 뒤에 엑셀 업로드를 한다
-		if(list.toString().equals(collect.getMyWorkExcelMatchingToString())){ // 무슨 엑셀 파일인지 확인 한다 
-			if(null != workExcel.getExcelList() && workExcel.getExcelList().size() > 0 ){ 
-				for(workExcel work : workExcelList){ // 업로드 내용을 가져온다.
-					work.setUserEmail(principal.getName()); // 사용자를 판별하기 위해 현재 로그인한 사용자의 계정을 입력한다. 
-			        transFormat = new SimpleDateFormat("HH:mm"); // 원하는 형식으로 바꾼다.
-			        end = transFormat.parse(work.getEndTime()); // 종료시간을 가져온다.
-			        start = transFormat.parse(work.getStartTime()); // 시작시간을 가져온다.
-			        diff = (end.getTime() - start.getTime()) / 60000 ; 
-			        hourGet = diff/60;
-			        minutGet = diff%60;
-			        minute = Long.toString(minutGet); 
-			        if(minutGet < 10){
-			        	minute = "0"+Long.toString(minutGet); // 한 자리 숫자인 경우 앞에 0을 추가한다.
-			        }
-			        work.setEndSubStart(Long.toString(hourGet)+":"+minute); 	
-			        excelService.addExcel(work); // DB에 엑셀 업로드 내용을 저장한다.
-				}
-			}
-		}
-	}
 	@RequestMapping(value="/workspaces/uploadView", method=RequestMethod.GET)
 	public String excelUpload(Model model,HttpSession session) throws IOException{
 		String filePath = (String)session.getAttribute("excelFileName");
@@ -433,6 +394,7 @@ public class MyWorkController {
 		SimpleDateFormat fommatter;
 		double ddata;
 		ArrayList<String> columnName = new ArrayList<String>();
+
 		/*
 		 * form에 헤더 그리기
 		 */
@@ -454,10 +416,14 @@ public class MyWorkController {
 		                //타입별로 내용 읽기
 		                switch (cell.getCellType()){
 			                case XSSFCell.CELL_TYPE_STRING:
-			                    value=cell.getStringCellValue()+"";
-								if(!(value.equals(""))){
-									array.add(value); // 컬럼명을 하나하나 수집
-								}
+			                	if(cell.getStringCellValue().equals("누계")){
+				                    
+			                	}else{
+			                		value=cell.getStringCellValue()+"";
+									if(!(value.equals(""))){
+										array.add(value); // 컬럼명을 하나하나 수집
+									}
+			                	}
 			                    break;
 			                case XSSFCell.CELL_TYPE_BLANK:
 			                    value=cell.toString()+"";
@@ -480,6 +446,8 @@ public class MyWorkController {
 		/*
 		 * 본문 내용 가져오기
 		 */
+		Date end;
+		Date start;
 		rows=sheet.getPhysicalNumberOfRows();
 		for(rowindex=startRowindex; rowindex<rows;rowindex++){ 
 		    //행을읽는다
@@ -496,19 +464,14 @@ public class MyWorkController {
 		                switch (cell.getCellType()){
 			                case XSSFCell.CELL_TYPE_FORMULA:{ // 수식이 적용되어 있으면
 			                	if( HSSFDateUtil.isCellDateFormatted(cell)){ // 시간 형식
-//			                		fommatter = new SimpleDateFormat("H:mm");
-//			                		value = fommatter.format(cell.getDateCellValue())+"z";
-			                		
-//			                		cell = row.getCell(3);
-//			                		double endTime = cell.getNumericCellValue();
-//			                		cell = row.getCell(2);
-//			                		double startTime = cell.getNumericCellValue();
-//			                		fommatter = new SimpleDateFormat("HH:mm");
-//			                		value = fommatter.format((endTime-startTime))+"";
-			                		
-			                		value ="";
-			                		System.out.println(rowindex+","+columnindex);
-			                		
+			                		// 종료시간을 가져온다
+			                		cell = row.getCell(3);
+			                		end = cell.getDateCellValue();
+			                		// 시작시간을 가져온다
+			                		cell = row.getCell(2);
+			                		start = cell.getDateCellValue();
+			                		// 종료시간 - 시간시간을 String으로 반환해주는 메소드
+			                		value = endSubStartTime(end, start);
 			                	}else{
 			                		value=cell.getDateCellValue()+"";
 			                	}
@@ -547,7 +510,6 @@ public class MyWorkController {
 		            }else{
 		            	if(array.toString().equals(collect.getMyWorkExcelMatchingToString())){ // 내작업대 문서이면
 			            	columnName.add("workDate"); columnName.add("week"); columnName.add("startTime"); columnName.add("endTime"); columnName.add("endSubStart"); columnName.add("accumulate"); columnName.add("content");
-			            	
 			            	excelData.add(CommonCollectClass.excelUploadCategoryGetModule("excelList",rowindex-startRowindex, columnName.get(columnindex),value));
 		            	}
 		            }
@@ -579,10 +541,50 @@ public class MyWorkController {
 		}
 		model.addAttribute("uploadHeader",mGroupList);
 		session.setAttribute("productlist", array);
-		
 		return "popUp/workspaces/excelUpload";
 		
 	}
+	
+	@ResponseBody 
+	@RequestMapping(value="/workspaces/upload", method=RequestMethod.POST)
+	public void upload(@ModelAttribute("dataForm") workExcel workExcel, @RequestParam HashMap<String, String> params, HttpSession session, Principal principal) throws Exception{
+		System.out.println("/workspaces/upload에 들어왔습니다");
+		ArrayList<String> list = (ArrayList<String>)session.getAttribute("productlist"); //
+		session.removeAttribute("productlist"); // 세션에 있는 자원 해제
+		List<workExcel> workExcelList = workExcel.getExcelList();
+		
+		SimpleDateFormat transFormat; // 원하는 형식으로 바꾼다.
+		Date end; // 종료시간을 가져온다.
+		Date start; // 시작시간을 가져온다.
+		long diff; // 전체 분
+		long hourGet; // 시간
+		long minutGet; // 시간을 제외한 분
+		String minute; // 분을 String으로 변환
+		// list값을 비교해서 무슨 엑셀 파일인지 구분한다. 그 뒤에 엑셀 업로드를 한다
+		if(list.toString().equals(collect.getMyWorkExcelMatchingToString())){ // 무슨 엑셀 파일인지 확인 한다 
+			if(null != workExcel.getExcelList() && workExcel.getExcelList().size() > 0 ){
+				for(workExcel work : workExcelList){ // 업로드 내용을 가져온다.
+					work.setUserEmail(principal.getName()); // 사용자를 판별하기 위해 현재 로그인한 사용자의 계정을 입력한다.
+			        transFormat = new SimpleDateFormat("HH:mm"); // 원하는 형식으로 바꾼다.
+			        end = transFormat.parse(work.getEndTime()); // 종료시간을 가져온다.
+			        start = transFormat.parse(work.getStartTime()); // 시작시간을 가져온다.
+			        diff = (end.getTime() - start.getTime()) / 60000 ; 
+			        hourGet = diff/60;
+			        minutGet = diff%60;
+			        minute = Long.toString(minutGet); 
+			        if(minutGet < 10){
+			        	minute = "0"+Long.toString(minutGet); // 한 자리 숫자인 경우 앞에 0을 추가한다.
+			        }
+			        work.setEndSubStart(Long.toString(hourGet)+":"+minute);
+			        System.out.println("디비 넣는 값:"+Long.toString(hourGet)+":"+minute);
+					excelService.addExcel(work); // DB에 엑셀 업로드 내용을 저장한다.
+				}
+			}
+		}else{
+			logger.info("엑셀 양식과 다름!");
+		}
+	}
+	
 	public String moduleDayToString(String st,int num) throws ParseException{
 		Date to;
 		SimpleDateFormat fommat;
@@ -655,5 +657,20 @@ public class MyWorkController {
 				7
 		));
 	}
-	
+	public String endSubStartTime(Date end, Date start){
+		long diff; // 전체 분
+		long hourGet; // 시간
+		long minuteGet; // 시간을 제외한 분
+		String minute; // 분을 String으로 변환
+		
+		diff = (end.getTime()-start.getTime()) / 60000;
+		hourGet = diff/60;
+		minuteGet = diff%60;
+		
+		minute = Long.toString(minuteGet); 
+        if(minuteGet < 10){
+        	minute = "0"+Long.toString(minuteGet); // 한 자리 숫자인 경우 앞에 0을 추가한다.
+        }
+        return Long.toString(hourGet)+":"+minute;
+	}
 }
