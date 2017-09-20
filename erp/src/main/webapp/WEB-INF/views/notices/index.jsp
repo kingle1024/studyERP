@@ -82,7 +82,7 @@
 				<c:forEach var="board" items="${boardList }" varStatus="status">
 					<tr>
 						<th>${ board.id }</th>
-						<th><a href="<c:url value="/notice/view/${ board.id }/1?page=${page }&lastPage=${lastPage }" /> ">
+						<th><a href="<c:url value="/notice/view/${ board.id }/?page=${page }&lastPage=${lastPage }&word=${word }" /> ">
 								${ board.title } </a></th>
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }"

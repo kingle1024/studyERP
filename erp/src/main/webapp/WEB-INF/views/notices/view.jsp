@@ -27,7 +27,7 @@ pre {
 		</div>
 	</div>
 	<span style="float: right;"><a
-		href="<c:url value="/notices?page=${page }"/>"
+		href="<c:url value="/notices?page=${page }&lastPage=${lastPage }&word=${word }"/>"
 		class="btn btn-lg btn-primary">목록</a></span>
 	<table border="0" class="table table-inverse">
 		<tr>
@@ -120,21 +120,21 @@ pre {
 		href="<c:url value="/notice/delete/${ board.id }" />"
 		class="btn btn-lg btn-primary"
 		onclick="if(!confirm('삭제 하시겠습니까?')){return false;}">삭제</a> <a
-		href="<c:url value="/notices?page=${page }"/>"
+		href="<c:url value="/notices?page=${page }&lastPage=${lastPage }&word=${word }"/>"
 		class="btn btn-lg btn-primary">목록</a>
 	</span>
-	</div>
-	<script>
-		$(document).ready(function() {
-			$("form").submit(function() {
-				if ($("#reviewContent").val() == "") {
-					alert("내용을 입력하세요");
-					$("#reviewContent").focus();
-					return false;
-				}
+<script>
+	$(document).ready(function() {
+		$("form").submit(function() {
+			if ($("#reviewContent").val() == "") {
+				alert("내용을 입력하세요");
+				$("#reviewContent").focus();
+				return false;
+			}
 
-			});
 		});
-	</script>
+	});
+</script>
+	
 </body>
 </html>

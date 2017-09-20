@@ -148,7 +148,7 @@ function viewDoc(num){
 					<div class="panel-body">
 						<div class="table-responsive">
 							<c:forEach var="board" items="${boards }" varStatus="status">
-								<a href="#" onclick="window.open('<c:url value="/notice/view/${board.id }/2?page=1" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)" class="list-group-item"><span class="badge badge-success" style="float:right;">${ noticeTime[status.index]}</span> 
+								<a href="#" onclick="window.open('<c:url value="/notice/view/${board.id }/?page=${page }&state=2" />', '_blank', 'status=no, height=400, width=700, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY)" class="list-group-item"><span class="badge badge-success" style="float:right;">${ noticeTime[status.index]}</span> 
 									<i class="fa fa-fw fa-table"></i>${ board.title }
 								</a>
 							</c:forEach>
