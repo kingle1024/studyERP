@@ -28,15 +28,24 @@ public class UserServiceImpl implements UserService{
     }
     
     @Override
-	public int getNoticeLastPage() {
-		// TODO Auto-generated method stub
-		return (int)(Math.ceil((double)userDao.selectTotalNoticeCount()/LINE_PER_PAGE));
+	public int getNoticeLastPage(String word) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("word", word);
+		System.out.println("ServiceImpl 진입");
+		System.out.println("여기는..:"+(int)(Math.ceil((double)userDao.selectTotalNoticeCount(map)/LINE_PER_PAGE)));
+		return (int)(Math.ceil((double)userDao.selectTotalNoticeCount(map)/LINE_PER_PAGE));
 	}
   
     @Override
-	public int getMessageLastPage() {
+	public int getRecvMessageLastPage(String recv_id) {
 		// TODO Auto-generated method stub
-		return (int)(Math.ceil((double)userDao.selectTotalMessageCount()/LINE_PER_PAGE));
+		return (int)(Math.ceil((double)userDao.selectTotalRecvMessageCount(recv_id)/LINE_PER_PAGE));
+	}
+    
+    @Override
+	public int getSendMessageLastPage(String send_id) {
+		// TODO Auto-generated method stub
+		return (int)(Math.ceil((double)userDao.selectTotalSendMessageCount(send_id)/LINE_PER_PAGE));
 	}
     
     @Override
@@ -78,6 +87,17 @@ public class UserServiceImpl implements UserService{
 		map.put("word", word);
 		map.put("send_id", send_id); 
 		return userDao.selectSendMessageList(map);
+	}
+
+	@Override
+	public List<Board> getNoticeExploreList(int page, String word) {
+		// TODO Auto-generated method stub
+		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pageHelpder", pageHelper);
+		map.put("word", word);
+		
+		return userDao.selectExploreNoticeList(map);
 	}
 
 }

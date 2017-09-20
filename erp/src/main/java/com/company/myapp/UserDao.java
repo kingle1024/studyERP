@@ -12,13 +12,17 @@ public interface UserDao {
 
 	public int selectTotalCount();
 
-	public int selectTotalNoticeCount();
+	public int selectTotalNoticeCount(Map<String, Object> map);
 	
-	public int selectTotalMessageCount();
+	public int selectTotalRecvMessageCount(String recv_id);
+	
+	public int selectTotalSendMessageCount(String send_id);
 
 	public List<User> selectUserList(Map<String, Object> map);
 
 	public List<Board> selectNoticeList(Map<String, Object> map);
+	
+	public List<Board> selectExploreNoticeList(Map<String, Object> map);
 	
 	public List<Message> selectRecvMessageList(Map<String, Object> map);
 	

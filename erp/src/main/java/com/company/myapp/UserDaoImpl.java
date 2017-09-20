@@ -1,10 +1,12 @@
 package com.company.myapp;
 import java.util.List;
 import java.util.Map;
- 
+
+import org.apache.maven.model.Model;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
@@ -29,17 +31,23 @@ public class UserDaoImpl implements UserDao {
     }
     
 	@Override
-	public int selectTotalNoticeCount() {
-		// TODO Auto-generated method stub
+	public int selectTotalNoticeCount(Map<String, Object> map) {
 		return sqlSession.selectOne(
-				NS+".selectTotalNoticeCount");
+				NS+".selectTotalNoticeCount", map);
 	}
 
 	@Override
-	public int selectTotalMessageCount() {
+	public int selectTotalRecvMessageCount(String recv_id) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(
-				NS+".selectTotalMessageCount");
+				NS+".selectTotalRecvMessageCount",recv_id);
+	}
+	
+	@Override
+	public int selectTotalSendMessageCount(String send_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(
+				NS+".selectTotalSendMessageCount",send_id);
 	}
 	
     public List<User> selectUserList(Map<String, Object> map) {
@@ -66,6 +74,12 @@ public class UserDaoImpl implements UserDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(
 				NS+".selectSendMessageList",map);
+	}
+
+	@Override
+	public List<Board> selectExploreNoticeList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(NS+".selectExploreNoticeList", map);
 	}
 
 }

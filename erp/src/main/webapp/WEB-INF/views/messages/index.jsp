@@ -51,9 +51,11 @@
 								${previous }</a></li>
 					</c:forEach>
 				</c:if>
-				<li class="active"><a href="#">${page }</a></li>
-				<c:forEach var="next" begin="${page+1 }" end="${lastPage }" step="1">
-					<li><a href="<c:url value="/messagqes?page=${next }" /> ">${next }</a></li>
+				<li class="active"><a href="#">${ page }</a></li>
+				<c:forEach var="next" begin="${ page+1 }" end="${ lastPage }" step="1">
+					<li>
+						<a href="<c:url value="/messagqes?page=${ next }" /> ">${next }</a>
+					</li>
 				</c:forEach>
 			</ul>
 		</div>

@@ -57,7 +57,7 @@ public class MessagesController {
 		}
 	    model.addAttribute("messageList", messageList);
 	    model.addAttribute("page", page);
-	    model.addAttribute("lastPage", userService.getMessageLastPage());
+	    model.addAttribute("lastPage", userService.getRecvMessageLastPage(recv_id));
 	    
 		return "messages/index";
 	}
@@ -66,14 +66,14 @@ public class MessagesController {
 	public String sendView(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1") int page, 
 							@RequestParam(value="word", required=false)String word){
 		String name = principal.getName();
-		String recv_id = name;
-		 List<Message> messageList = userService.getSendMessageList(page, word, recv_id);
+		String send_id = name;
+		 List<Message> messageList = userService.getSendMessageList(page, word, send_id);
 		 for(int i=0; i<messageList.size(); i++){
 			 messageList.get(i).setRecv_id(commonMapper.getEmailFromUsers(messageList.get(i).getRecv_id())); // 받은사람의 email을 가지고 users 테이블에 가서 이름을 가져온다
 		 }
 		 model.addAttribute("messageList", messageList);
 		 model.addAttribute("page", page);
-		 model.addAttribute("lastPage", userService.getMessageLastPage());
+		 model.addAttribute("lastPage", userService.getSendMessageLastPage(send_id));
 		
 		return "messages/sendIndex";
 	}

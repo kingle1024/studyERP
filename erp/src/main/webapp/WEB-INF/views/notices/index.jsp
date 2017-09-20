@@ -12,6 +12,37 @@
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+#custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
 </style>
 <title>공지사항</title>
 </head>
@@ -23,8 +54,22 @@
                    <i class="fa fa-table"></i>  <strong>공지사항</strong> 
                </div>
            </div>
-       </div>
-		<!-- 		<div class="jumbotron" id="jumbo"> -->
+       </div>      	
+          <form action="<c:url value="/notices"/>" method="GET" id="exploreForm">
+	       <div class="col-lg-6" style="float:right;">
+	       		<div id="custom-search-input">
+	                <div class="input-group col-md-12">
+		                    <input type="text" name="word" class="form-control input-lg" placeholder="검색" />
+		                    <span class="input-group-btn">
+		                        <button type="submit" class="btn btn-info btn-lg" form="exploreForm">
+		                            <i class="glyphicon glyphicon-search"></i>
+		                        </button>
+		                    </span>
+	                </div>
+	            </div>
+	        </div>
+       </form>
+       <br/><br/><br/>
 		<table class="table table-striped">
 			<tr>
 				<th width="5%" nowrap>번호</th>
@@ -37,7 +82,7 @@
 				<c:forEach var="board" items="${boardList }" varStatus="status">
 					<tr>
 						<th>${ board.id }</th>
-						<th><a href="<c:url value="/notice/view/${ board.id }/1?page=${page }" /> ">
+						<th><a href="<c:url value="/notice/view/${ board.id }/1?page=${page }&lastPage=${lastPage }" /> ">
 								${ board.title } </a></th>
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }"
@@ -53,12 +98,12 @@
 			<ul class="pagination">
 				<c:if test="${page>1}"> <!-- 2페이지 이후일 때 부터 출력 -->
 					<c:forEach var="previous" begin="1" end="${page-1}" step="1">
-						<li><a href="<c:url value="/notices?page=${previous }" /> ">${previous}</a></li>					
+						<li><a href="<c:url value="/notices?page=${previous }&lastPage=${lastPage }&word=${word }" /> ">${previous}</a></li>					
 					</c:forEach>
 				</c:if>				
 				<li class="active"><a href="#">${page}</a></li> <!-- 현재 페이지 -->
 				<c:forEach var="next" begin="${page+1}" end="${lastPage}" step="1">
-					<li><a href="<c:url value="/notices?page=${next }" /> ">${next }</a></li>
+					<li><a href="<c:url value="/notices?page=${next }&lastPage=${lastPage }&word=${word }" /> ">${next }</a></li>
 				</c:forEach>
 			</ul>
 		</div>
@@ -67,6 +112,5 @@
 				class="btn btn-lg btn-primary" style="width: 100%;"> 글쓰기</a>
 		</sec:authorize>
 	</div>
-</div>
 </body>
 </html>

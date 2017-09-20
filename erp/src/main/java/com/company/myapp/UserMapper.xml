@@ -23,14 +23,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     		resultType="Integer">
     	SELECT
     		COUNT(*)
-    	FROM boards		
+    	FROM boards
+    	<where>
+    		<if test="word != null">
+    			title like CONCAT('%', #{word}, '%')
+    		</if>
+    	</where>		
     </select>
     
-    <select id="selectTotalMessageCount"
+    <select id="selectTotalRecvMessageCount"
     		resultType="Integer">
     	SELECT
     		COUNT(*)
     	FROM messages		
+    	WHERE recv_id = #{recv_id}
+    </select>
+    
+    <select id="selectTotalSendMessageCount"
+    		resultType="Integer">
+    	SELECT
+    		COUNT(*)
+    	FROM messages		
+    	WHERE send_id = #{send_id}
     </select>
    
    <select id="selectNoticeList"
