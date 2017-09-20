@@ -19,7 +19,7 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>사용자</th>
+            <th>사용자asdasd</th>
             <th>권한</th>
         </tr>
     </thead>
