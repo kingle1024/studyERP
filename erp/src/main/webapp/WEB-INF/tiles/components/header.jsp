@@ -94,7 +94,7 @@
 				<li><sec:authorize access="isAuthenticated()">
 						<c:url var="logoutUrl" value="/logout" />
 						<a href="${ logoutUrl }"><i class="fa fa-fw fa-power-off"></i>
-							Log Out</a>
+							로그아웃</a>
 						<input type="hidden" name="${_csrf.parameterName}"
 							value="${_csrf.token}" />
 					</sec:authorize></li>

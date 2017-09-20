@@ -99,7 +99,7 @@ th,td{
 			<br><br><br>
 			<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
 			<input type="hidden" name="type_code" value="1100">
-			<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-info" style="width:100%" value="제출">		
+			<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-info" style="width:100%" value="결재 하기">		
 		</form>
 		</div>
 	</div>
