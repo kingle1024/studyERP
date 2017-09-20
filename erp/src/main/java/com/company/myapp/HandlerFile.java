@@ -63,27 +63,33 @@ public class HandlerFile {
 	    Iterator<String> itr = multipartRequest.getFileNames();
 	    List<String> oldNames = new ArrayList<String>();
 	    List<String> saveNames = new ArrayList<String>();
+	    List<String> names = new ArrayList<String>();
 	    StringBuffer sb = null;
 	    while (itr.hasNext()) { // 받은 파일들을 모두 돌린다.
 	      MultipartFile mpf = multipartRequest.getFile(itr.next());
 	      sb = new StringBuffer();
 	      String oldFileName = mpf.getOriginalFilename(); // 파일명
-	      String saveFileName = sb.append(new SimpleDateFormat("yyyyMMddhhmmss")
-	                              .format(System.currentTimeMillis()))
-	                              .append(UUID.randomUUID().toString())
-	                              .append(oldFileName.substring(oldFileName.lastIndexOf("."))).toString();
-	      String fileFullPath = filePath + "/" + saveFileName; // 파일 전체 경로
-	      try {
-	        // 파일 저장
-	        mpf.transferTo(new File(fileFullPath));
-	        oldNames.add(oldFileName);
-	        saveNames.add(saveFileName);
-	      } catch (Exception e) {
-	        e.printStackTrace();
-	      }
+	      String inputName = mpf.getName();
+	      if (oldFileName != null && oldFileName != "") {
+		      String saveFileName = sb.append(new SimpleDateFormat("yyyyMMddhhmmss")
+		                              .format(System.currentTimeMillis()))
+		                              .append(UUID.randomUUID().toString())
+		                              .append(oldFileName.substring(oldFileName.lastIndexOf("."))).toString();
+		      String fileFullPath = filePath + "/" + saveFileName; // 파일 전체 경로
+		      try {
+		        // 파일 저장
+		        mpf.transferTo(new File(fileFullPath));
+		        oldNames.add(oldFileName);
+		        saveNames.add(saveFileName);
+		        names.add(inputName);
+		      } catch (Exception e) {
+		        e.printStackTrace();
+		      }
+		    }
 	    }
 	    fileNames.put("oldNames", oldNames);
 	    fileNames.put("saveNames", saveNames);
+	    fileNames.put("names", names);
 	  }
 	  // down
 	  private void dowonload() {
