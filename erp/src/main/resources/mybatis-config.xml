@@ -22,5 +22,6 @@
     <mappers>
     	<mapper resource="/com/company/myapp/UserMapper.xml" /> 
     	<mapper resource="/com/company/myapp/ExcelMapper.xml" />
+    	<mapper resource="/com/company/myapp/PracticeMapper.xml" /> 
     </mappers>
 </configuration>
