@@ -75,6 +75,7 @@ public class BoardsController {
 		}
 		model.addAttribute("lastPage", userService.getNoticeLastPage(word));
 		return "notices/index";
+		
 	}
 
 	

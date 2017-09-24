@@ -116,7 +116,19 @@ public class StudentBoardsController {
 
 			practiceMapper.updatepractice(pr);
 
-	
+			// System.out.println("pr.getImg1_org() ==>" + pr.getImg1_org());
+			// System.out.println("asdfasdfasdf"+multipartRequest.getAttribute("img1_org").toString());
+			// System.out.println("in");
+			// int no = Integer.parseInt(request.getParameter("no"));
+			// List<StudentBoard> studentboards =
+			// bookMapper.getStudentBoardList();
+			// model.addAttribute("studentboards", studentboards);
+			/*
+			 * Practiceroom pv= practiceMapper.selectpractice(pr);
+			 * model.addAttribute("pv", pv);
+			 * 
+			 * model.addAttribute("pno",pr.getNo());
+			 */
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
