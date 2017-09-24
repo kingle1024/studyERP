@@ -1,6 +1,7 @@
 package com.company.myapp;
 
 import java.io.File;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.Principal;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +62,7 @@ public class BoardsController {
 	
 	@Autowired
 	private UserService userService;
+	
 	/*
 	 * Required 애트리뷰트를 false로 설정하면 스프링이 호환되는 빈을 찾지 못하여도, 예외처리 없이 프로퍼티를 설정하지 않은
 	 * 채로 남겨둘 것이다.
@@ -87,7 +90,7 @@ public class BoardsController {
 		List<String> fileNames = new ArrayList<String>();		
 		// 파일 업로드 시작하는 부분 
 		int no = board.getId();	
-		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm);
+		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm, collect.getCommonUploadPath());
 		if(rs.size() > 0){
 			fileMapper.insertFiles(no, rs.get("save_name"), rs.get("real_name"), rs.get("path"));
 		}
@@ -104,7 +107,7 @@ public class BoardsController {
 		// success.jsp로 보낼 파일 이름 저장
 		List<String> fileNames = new ArrayList<String>();
 
-		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm);
+		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm, collect.getCommonUploadPath());
 		if(rs.size() > 0){
 			fileMapper.insertFiles(no, rs.get("save_name"), rs.get("real_name"), rs.get("path"));
 		}

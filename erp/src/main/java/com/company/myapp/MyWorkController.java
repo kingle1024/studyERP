@@ -350,7 +350,7 @@ public class MyWorkController {
 	@RequestMapping(value="/workspaces/uploadForm", method=RequestMethod.POST)
 	public String excelUploadForm(@ModelAttribute("inputForm") FileForm uploadForm, HttpSession session) throws Exception{
 		int no = 0;
-		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm);
+		HashMap<String, String> rs = collect.insertFileModule(no, uploadForm, collect.getCommonUploadTempPath());
 		String excelFileName = rs.get("path")+rs.get("save_name");
 		
 		session.setAttribute("excelFileName", excelFileName );
