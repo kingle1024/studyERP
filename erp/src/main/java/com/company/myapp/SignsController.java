@@ -24,6 +24,7 @@ import com.mycompany.vo.Approval;
 import com.mycompany.vo.ApprovalSub;
 import com.mycompany.vo.ApprovalSystem;
 import com.mycompany.vo.BreakDownDocument;
+import com.mycompany.vo.workExcel;
 
 // 참고할 만한 사이트
 // http://jp1020.tistory.com/entry/%EB%B7%B0-%EC%9D%B4%EB%A6%84-%EB%AA%85%EC%8B%9C%EC%A0%81-%EC%A7%80%EC%A0%95-ModelAndView%EC%99%80-String-%EB%A6%AC%ED%84%B4-%ED%83%80%EC%9E%85
@@ -31,6 +32,9 @@ import com.mycompany.vo.BreakDownDocument;
 @Controller
 public class SignsController {
 	private static final Logger logger = LoggerFactory.getLogger(SignsController.class);
+	
+	@Autowired
+	private ExcelService excelService;
 	
 	@Autowired
 	private CommonMapper commonMapper;
@@ -44,12 +48,39 @@ public class SignsController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/signs/atypicalDoc", method = RequestMethod.GET)
-	public ModelAndView stockDoc() {
-		ModelAndView mv = new ModelAndView("popUp/signs/atypicalDoc");
-		String type_code = "1000";
-		List<ApprovalSystem> approvalSystem = signMapper.getApprovalSystemList(type_code);
+	@RequestMapping(value = "/signs/signDoc", method = RequestMethod.GET)
+	public ModelAndView showDoc(Model model, Principal principal, @RequestParam("docType") String docType){
+		ModelAndView mv = null;
+		List<ApprovalSystem> approvalSystem = null;
+		String type_code = null;
+		switch(docType){
+			case "atypicalDoc":{
+				type_code = "1000";
+				mv = new ModelAndView("popUp/signs/atypicalDoc");
+				System.out.println("atypicalDoc");
+				break;
+			}
+			case "breakDownDoc":{
+				type_code = "1100";
+				mv = new ModelAndView("popUp/signs/breakdownDoc");
+				System.out.println("breakDownDoc");
+				break;
+			}
+			case "scholarshipDoc":{
+				List<workExcel> workExcel = excelService.myworkList(principal.getName());
+				model.addAttribute("mywork", workExcel);
+				type_code = "1200";
+				mv = new ModelAndView("popUp/signs/scholarshipDoc");
+				System.out.println("scholarShipDoc");
+				break;
+			}
+		}
+		System.out.println("type_code:"+type_code);
+		approvalSystem = signMapper.getApprovalSystemList(type_code);
+		System.out.println("approvalSsystem:"+approvalSystem);
 		mv.addObject("approvalSystem", approvalSystem);
+		
+		
 		return mv;
 	}
 
@@ -71,21 +102,6 @@ public class SignsController {
 			breakDownDocument.setNo(no);
 		}else{
 		}
-	}
-
-	@RequestMapping(value = "/signs/breakdownDoc", method = RequestMethod.GET )
-	public ModelAndView breakdown() {
-		ModelAndView mv = new ModelAndView("popUp/signs/breakdownDoc");
-		String type_code = "1100";
-		List<ApprovalSystem> approvalSystem = signMapper.getApprovalSystemList(type_code);
-		mv.addObject("approvalSystem", approvalSystem);
-		return mv;
-	}
-	
-	@RequestMapping(value = "/signs/breakdownDoc", method = RequestMethod.POST)
-	public ModelAndView breakdownData(Principal principal, @ModelAttribute Approval approval) {
-		ModelAndView mv = new ModelAndView("redirect:/signs");
-		return mv;
 	}
 	
 	@RequestMapping(value = "/signs/moduleApprovalReject", method = RequestMethod.POST)

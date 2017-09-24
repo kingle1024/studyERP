@@ -50,6 +50,7 @@ public class MessagesController {
 	public String indexTestR(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1")int page, 
 								@RequestParam(value="word", required=false) String word){
 		String recv_id = principal.getName();
+		System.out.println("recv_id:"+recv_id);
 	    List<Message> messageList = userService.getRecvMessageList(page, word, recv_id);
 	    for(int i=0; i<messageList.size(); i++){
 			String email = messageList.get(i).getSend_id();

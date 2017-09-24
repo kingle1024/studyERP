@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,15 +19,17 @@ import com.mycompany.vo.FileForm;
 
 @Service
 public class CommonCollectClass {
+	private HttpServletRequest request;
 	static int cnt = 0;
 	
 	private String commonUploadPath = "C:\\Spring\\upload\\";
 	private String commonUploadTempPath = "C:\\Spring\\temp\\";
 	private String commonUserProfileImagePath ="C:\\Spring\\userProfile\\";
-	
+//	private String commonUserProfileImagePath ="/resources"+"/image/profileImage/";
 //	private String commonUploadPath = "/upload/";
 //	private String commonUploadTempPath = "/upload/temp/";
-//	private String commonUserProfileImagePath ="/upload/userProfile/";
+	
+	
 	
 	public String getCommonUserProfileImagePath() {
 		return commonUserProfileImagePath;
@@ -102,7 +106,12 @@ public class CommonCollectClass {
 		return column;
 	}
 	
-	public HashMap<String,String> insertFileModule(int no, FileForm uploadForm) throws IOException{
+	public HashMap<String,String> insertFileModule(int no, FileForm uploadForm, String fileUploadPath) throws IOException{
+		/* 
+		 * no = 0 임시파일
+		 * no = -1 프로필 파일
+		 * else 일반 업로드 파일
+		 */
 		HashMap<String,String> rq = new HashMap<String,String>();
 		List<String> fileNames = new ArrayList<String>();
 		List<MultipartFile> files = uploadForm.getFiles(); //
@@ -114,7 +123,6 @@ public class CommonCollectClass {
 			pattern = "(.*)\\.(.*)";
 			String extension = null;
 			String extensionCheck = "(txt|pdf|pptx|docx|hwp|xls|xlsx|png|PNG|jpg|JPG|war|zip|egg|sql|SQL)"; // 파일 형식 제어
-			String fileUploadPath = null;
 			Pattern p = null;
 			Matcher m = null;
 			File fileuploadPath = null;
@@ -128,14 +136,6 @@ public class CommonCollectClass {
 				p = Pattern.compile(pattern); // 패턴을 컴파일
 				m = p.matcher(fileName); // fileName에 정규식 적용
 				extension = "";
-				if(no==0){// 임시 파일
-					fileUploadPath = getCommonUploadTempPath();
-				}else if(no == -1){ // 프로필 파일
-					fileUploadPath = getCommonUserProfileImagePath();
-				}
-				else {
-					fileUploadPath = getCommonUploadPath();
-				}
 				// 디렉토리가 없으면 생성해준다
 				fileuploadPath = new File(fileUploadPath);
 				if(!fileuploadPath.exists()) fileuploadPath.mkdirs(); 

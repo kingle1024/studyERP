@@ -36,13 +36,11 @@ public class UserServiceImpl implements UserService{
   
     @Override
 	public int getRecvMessageLastPage(String recv_id) {
-		// TODO Auto-generated method stub
 		return (int)(Math.ceil((double)userDao.selectTotalRecvMessageCount(recv_id)/LINE_PER_PAGE));
 	}
     
     @Override
 	public int getSendMessageLastPage(String send_id) {
-		// TODO Auto-generated method stub
 		return (int)(Math.ceil((double)userDao.selectTotalSendMessageCount(send_id)/LINE_PER_PAGE));
 	}
     
@@ -57,7 +55,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Board> getNoticeList(int page, String word) { // 공지사항
-		// TODO Auto-generated method stub
 		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageHelper", pageHelper);
@@ -67,7 +64,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Message> getRecvMessageList(int page, String word, String recv_id) {
-		// TODO Auto-generated method stub
 		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageHelper", pageHelper);
@@ -78,7 +74,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Message> getSendMessageList(int page, String word, String send_id) {
-		// TODO Auto-generated method stub
 		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageHelper", pageHelper);
@@ -89,13 +84,17 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<Board> getNoticeExploreList(int page, String word) {
-		// TODO Auto-generated method stub
 		PageHelper pageHelper = new PageHelper(page, LINE_PER_PAGE);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageHelpder", pageHelper);
 		map.put("word", word);
 		
 		return userDao.selectExploreNoticeList(map);
+	}
+
+	@Override
+	public int getNoticeTotal(String recv_id) {
+		return userDao.selectTotalRecvMessageCount(recv_id);
 	}
 
 }

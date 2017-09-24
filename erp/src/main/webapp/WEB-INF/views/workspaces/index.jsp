@@ -61,7 +61,7 @@
                    <i class="fa fa-folder-open"></i>  <strong>내 작업대</strong> 
                </div>
            </div>
-       </div>
+     </div>
 	
 		<!-- 		<input type="button" id="ReadingExcelDownload" value="엑셀 다운로드" /> -->
 		<span data-tooltip-text="엑셀 다운로드"> 
@@ -99,12 +99,14 @@
 <br><br>
 <table>
   <thead>
-    <th width = "50px" align ="center">번호</th>
-    <th width = "100px">날짜</th>
-    <th width = "120px">근무 시간</th>
-    <th width = "120px">누계 시간</th>
-    <th width = "500px">내용</th>
-    <th colspan="2"></th>
+  	<tr>
+    	<th width = "50px" align ="center">번호</th>
+    	<th width = "100px">날짜</th>
+    	<th width = "120px">근무 시간</th>
+	    <th width = "120px">누계 시간</th>
+    	<th width = "500px">내용</th>
+    	<th colspan="2"></th>
+    </tr>
   </thead>
   <tbody id="my-tbody">
   </tbody>
