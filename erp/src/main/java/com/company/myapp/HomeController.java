@@ -6,12 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +21,6 @@ import com.mycompany.mapper.userMapper;
 import com.mycompany.vo.Approval;
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
-import com.mycompany.vo.User;
 import com.mycompany.vo.workExcel;
 
 /**

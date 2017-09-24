@@ -31,17 +31,23 @@ public class UserServiceImpl implements UserService{
 	public int getNoticeLastPage(String word) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("word", word);
-		return (int)(Math.ceil((double)userDao.selectTotalNoticeCount(map)/LINE_PER_PAGE));
+		double cal = userDao.selectTotalNoticeCount(map)/LINE_PER_PAGE;
+		int calToInt = (int)Math.ceil(cal);
+		return calToInt;
 	}
   
     @Override
 	public int getRecvMessageLastPage(String recv_id) {
-		return (int)(Math.ceil((double)userDao.selectTotalRecvMessageCount(recv_id)/LINE_PER_PAGE));
+    	double cal = userDao.selectTotalRecvMessageCount(recv_id)/LINE_PER_PAGE;
+    	int calToInt = (int)Math.ceil(cal);
+		return calToInt;
 	}
     
     @Override
 	public int getSendMessageLastPage(String send_id) {
-		return (int)(Math.ceil((double)userDao.selectTotalSendMessageCount(send_id)/LINE_PER_PAGE));
+    	double cal = userDao.selectTotalSendMessageCount(send_id)/LINE_PER_PAGE;
+    	int calToInt = (int)Math.ceil(cal);
+		return calToInt;
 	}
     
     @Override

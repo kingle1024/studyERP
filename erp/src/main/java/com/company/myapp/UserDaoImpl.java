@@ -6,13 +6,14 @@ import org.apache.maven.model.Model;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
 import com.mycompany.vo.User;
 
-@Repository
+@Service
 public class UserDaoImpl implements UserDao {
 	
 	private final String NS = "com.company.myapp";
@@ -38,14 +39,12 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int selectTotalRecvMessageCount(String recv_id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(
 				NS+".selectTotalRecvMessageCount",recv_id);
 	}
 	
 	@Override
 	public int selectTotalSendMessageCount(String send_id) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(
 				NS+".selectTotalSendMessageCount",send_id);
 	}

@@ -13,7 +13,7 @@ public interface UserService {
 	public int getLastPage();
 	
 	public int getNoticeLastPage(String word);
-	
+
 	public int getNoticeTotal(String recv_id);
 
 	public int getRecvMessageLastPage(String recv_id);
@@ -29,5 +29,4 @@ public interface UserService {
 	public List<Message> getRecvMessageList(int page, String word, String recv_id);
 	
 	public List<Message> getSendMessageList(int page, String word, String send_id);
-
 }

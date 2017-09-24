@@ -76,6 +76,7 @@ public class BoardsController {
 		if(word != null){
 			model.addAttribute("word", URLEncoder.encode(word, "utf-8")); // 익스에서는 파라메터로 한글을 못받기 때문에 encode 처리
 		}
+		word="";
 		model.addAttribute("lastPage", userService.getNoticeLastPage(word));
 		return "notices/index";
 		

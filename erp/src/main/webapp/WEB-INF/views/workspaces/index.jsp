@@ -91,7 +91,7 @@
 			<td>${ mywork.workDate }</td>
 			<td>${ mywork.startTime }</td>
 			<td>${ mywork.endTime }</td>
-			<td>${ mywork.endSubStart }
+			<td>${ mywork.endSubStart }</td>
 			<td>${ mywork.content }</td>
 		</tr>
 	</c:forEach>
@@ -100,34 +100,48 @@
 <table>
   <thead>
   	<tr>
-    	<th width = "50px" align ="center">번호</th>
-    	<th width = "100px">날짜</th>
-    	<th width = "120px">근무 시간</th>
-	    <th width = "120px">누계 시간</th>
-    	<th width = "500px">내용</th>
-    	<th colspan="2"></th>
+	  	<th width = "50" align ="center">번호</th>
+	    <th width = "100">날짜</th>
+	    <th width = "120">근무 시작</th>
+	    <th width = "120">근무 종료</th>
+	    <th width = "120">근무 시간</th>
+	    <th width = "120">누계 시간</th>
+	    <th width = "500">내용</th>
+	    <th></th>
+	    <th></th>
     </tr>
   </thead>
   <tbody id="my-tbody">
   </tbody>
 </table>
 <p>
-<input type = "text" size = 10 id ="date">
-<input type = "text" size = 12 id ="time">
+ 날짜
+<input type = "text" size="10" id="date">
+시작시간
+<input type = "text" size = 12 id ="time_start">
+종료시간
+<input type = "text" size = 12 id ="time_end">
+누계시간
 <input type = "text" size = 12 id ="timeSum">
+내용
 <input type = "text" size = 60 id ="input">
 
 <button onclick="add_row()">추가</button>
 <button onclick="delete_row()">삭제</button>
 </p>
 <script>
+  var count = 0;
+  var data = new Array();
   function add_row() {
     var my_tbody = document.getElementById('my-tbody');
     var date = document.getElementById('date');
-    var time = document.getElementById('time');
+    var time_start = document.getElementById('time_start');
+    var time_end = document.getElementById('time_end');
     var timeSum = document.getElementById('timeSum');
     var input = document.getElementById('input');
-    var count = 1;
+    var tableNum = count;
+    
+   
 
     if(my_tbody.rows.length < 30){
     // var row = my_tbody.insertRow(0); // 상단에 추가
@@ -138,45 +152,69 @@
     var cell4 = row.insertCell(3);
     var cell5 = row.insertCell(4);
     var cell6 = row.insertCell(5);
-    var cell7 = row.insertCell(6); //나중에 for문으로 바꾸기
+    var cell7 = row.insertCell(6);
+    var cell8 = row.insertCell(7);
+    var cell9 = row.insertCell(8); //나중에 for문으로 바꾸기
+  
     
-    cell1.innerHTML = count;
+    cell1.innerHTML = my_tbody.rows.length;
     cell2.innerHTML = date.value;
-    cell3.innerHTML = time.value;
-    cell4.innerHTML = timeSum.value;
-    cell5.innerHTML = input.value;
-    cell6.innerHTML = '<button onclick="add_row()">+</button>';
-    cell7.innerHTML = '<button onclick="delete_row()">-</button>';
+    cell3.innerHTML = time_start.value;
+    cell4.innerHTML = time_end.value;
+    cell5.innerHTML = time_end.value - time_start.value;
+    cell6.innerHTML = timeSum.value;
+    cell7.innerHTML = input.value;
+    cell8.innerHTML = '<button onclick="add_row()">+</button>';
+    cell9.innerHTML = '<button onclick="delete_middle() id='+ count +'">-</button>';
     
-    count++;
+    data[0][0] = my_tbody.rows.length;
+    data[count][1] = cell2.innerHTML;
+    data[count][2] = cell3.innerHTML;
+    data[count][3] = cell4.innerHTML;
+    data[count][4] = cell5.innerHTML;
+    data[count][5] = cell6.innerHTML;
+    data[count][6] = cell7.innerHTML;
+    data[count][7] = cell8.innerHTML;
+    data[count][8] = cell9.innerHTML;
+   
+   
+    count ++;
   }
     else
-       {
-          alert("더이상 생성할 수 없습니다.");
-          return;
-       }
+    	{
+    		alert("더이상 생성할 수 없습니다.");
+    		return;
+    	}
 
   }
 
   function delete_row() {
     var my_tbody = document.getElementById('my-tbody');
     if (my_tbody.rows.length < 1) {
-       alert("삭제할 행이 없습니다.");
-       return;
+    	alert("삭제할 행이 없습니다.");
+    	return;
     }
     // my_tbody.deleteRow(0); // 상단부터 삭제
-    my_tbody.deleteRow(  my_tbody.rows.length-1); // 하단부터 삭제 my_tbody.rows.length-1
+    my_tbody.deleteRow(my_tbody.rows.length-1); // 하단부터 삭제 my_tbody.rows.length-1
+    count --;
+  }
+  function update_row(){
+	  var my_tbody = document.getElementById('my-tbody');
+	  
+  }
+  function delete_middle(){
+	  var my_tbody = document.getElementById('my-tbody');
+	 
+	  my_tbody.deleteRow(document.getElementById('count'));
   }
   
-  function delete_middle(){
-     var my_tbody = document.getElementById('my-tbody');
-     my_tbody.deleteRow(1);
-  }
+  //document.write(my_tbody.);
 </script>
-		
+		<button onclick="add_row()">저장</button>
 	</div>
 	<!-- 
 	엑셀 아이콘 : http://www.iconninja.com/spreadsheet-excel-table-file-xls-xls-document-icon-768
 	 -->
+	 
 </body>
 </html>
