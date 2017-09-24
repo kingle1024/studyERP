@@ -69,7 +69,7 @@ input.hidden {
 										<input type="text" name="profileImgFileText" id="profileImgFileText" style="display:none;">
 										<c:set var="filePath" value="" />
 										<c:if test="${!empty user.profileImagePath }">
-											<c:set var="filePath" value="/imgTom/${ user.profileImagePath}" />
+											<c:set var="filePath" value="image/profileImage/${ user.profileImagePath}" />
 										</c:if>
 																				
 										<img id="profile" alt="User Pic" src="${ filePath }" onerror="this.src='<c:url value="/image/student.png"/>'" border='0' onclick="document.all.profileImgFile.click(); document.all.profileImgFileText.value=document.all.profileImgFile.value" class="img-circle img-responsive">

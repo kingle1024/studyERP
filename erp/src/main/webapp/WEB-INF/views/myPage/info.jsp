@@ -48,7 +48,7 @@ input.hidden {
 								<div class="col-sm-5">
 									<div align="center">
 										<form action="<c:url value="/myInfoEdit" />" method="post" name="uploadForm" enctype="multipart/form-data">
-											<img id="profile-image1" src="/imgTom/${user.profileImagePath }" onerror="this.src='<c:url value="/image/student.png"/>'" border='0'  class="img-circle img-responsive">
+											<img id="profile-image1" src="<c:url value="/image/profileImage/${user.profileImagePath }"/>" onerror="this.src='<c:url value="/image/student.png"/>'" border='0'  class="img-circle img-responsive">
 										</form>
 										<!--Upload Image Js And Css-->
 									</div>

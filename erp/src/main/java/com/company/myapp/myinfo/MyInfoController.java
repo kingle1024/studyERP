@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import com.company.myapp.CommonCollectClass;
@@ -27,11 +31,11 @@ public class MyInfoController {
 	private userMapper userMapper;
 	
 	@RequestMapping(value="/myInfo", method=RequestMethod.GET)
-	public ModelAndView myinfo(Principal principal){
+	public ModelAndView myinfo(Principal principal, HttpServletRequest request){
 		User user = userMapper.getUserList(principal.getName());
 		ModelAndView mv = new ModelAndView("myPage/info");
 		mv.addObject("user",user);
-		
+
 		return mv;
 	}
 	@RequestMapping(value="/myInfoEdit", method=RequestMethod.GET)
@@ -43,9 +47,12 @@ public class MyInfoController {
 	}
 	
 	@RequestMapping(value="/myInfoEdit", method=RequestMethod.POST)
-	public ModelAndView editMyInfoPost(@ModelAttribute("uploadForm") FileForm uploadForm, @ModelAttribute User user, MultipartHttpServletRequest multipartRequest, Principal principal) throws IOException{
+	public ModelAndView editMyInfoPost(HttpServletRequest request, @ModelAttribute("uploadForm") FileForm uploadForm, @ModelAttribute User user, MultipartHttpServletRequest multipartRequest, Principal principal) throws IOException{
 		ModelAndView mv = new ModelAndView("redirect:/myInfo"); // 메인 페이지로 redirect 해준다
-		HashMap<String, String> rs = collect.insertFileModule(-1, uploadForm);
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
+		System.out.println("fileUploadPath:"+fileUploadPath);
+		HashMap<String, String> rs = collect.insertFileModule(-1, uploadForm, fileUploadPath);
 		String email = principal.getName();
 		if(rs.size() > 0){
 			userMapper.updateUserProfilePath(rs.get("save_name"), email); // img 경로를 update 해준다.
@@ -55,12 +62,3 @@ public class MyInfoController {
 		return mv;
 	}
 }
-
-
-
-
-
-
-
-
-
