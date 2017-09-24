@@ -15,25 +15,15 @@ public interface SignMapper {
 	@Select("select * from approvals where recv_id = #{recv_id} and state = 0 order by no desc ")
 	public List<Approval> showRecvWaitingList(@Param("recv_id")String recv_id); // 자신이 받는 상태에서 대기인 것 모두
 	
-	/*
-	 * select * 
-	 * from approvals 
-	 * where recv_id != 'admin' and state = 0 and (type_code) 
-	 * in (
-	 * 	select type_code 
-	 * 	from approvals_system 
-	 * 	where recv_id='admin'
-	 * ) order by no desc 
-	 */
 	@Select(""
-			+ "select * "
-			+ "from approvals "
-			+ "where recv_id != #{recv_id} and state = 0 and (type_code) "
-			+ "in ("
-			+ "	select type_code "
-			+ "	from approvals_system "
-			+ "	where recv_id=#{recv_id} "
-			+ ") order by no desc ")
+			+ "SELECT * "
+			+ "FROM approvals "
+			+ "WHERE recv_id != #{recv_id} and state = 0 and (type_code) "
+			+ "IN ("
+			+ "	SELECT type_code "
+			+ "	FROM approvals_system "
+			+ "	WHERE recv_id=#{recv_id} "
+			+ ") ORDER BY no desc ")
 	public List<Approval> showRecvIngList(@Param("recv_id")String recv_id ); // 상태가 0인것 중에서 approval_system에 자신의 아이디가 포함되어 있는 것, 진행
 	
 	@Select("select * from approvals where recv_id = #{recv_id} and state = 1 order by no desc") 
@@ -54,6 +44,8 @@ public interface SignMapper {
 	@Select("select * from approvals where no = #{doc} ")
 	public Approval getApproval(@Param("doc")String doc);
 	
+	@Select("select count(no) from approvals where recv_id=#{recv_id} and state=0")
+	public int getApprovalTotalCount(@Param("recv_id")String recv_id);
 	
 	@Select("select * from approvals_sub where doc = #{doc} and send_id = #{send_id}")
 	public ApprovalSub getApprovalSub(@Param("doc")String doc, @Param("send_id")String send_id);

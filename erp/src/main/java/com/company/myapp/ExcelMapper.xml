@@ -10,4 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    	WHERE userEmail = #{userEmail}
    	ORDER BY no desc
    </select>
+  
+  <select id="myworkTotalCount" parameterType="String" resultType="Integer">
+  	SELECT
+  		count(no)
+  	FROM workexcel
+  	WHERE userEmail = #{userEmail}
+  </select>
 </mapper>

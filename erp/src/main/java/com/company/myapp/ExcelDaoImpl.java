@@ -17,25 +17,26 @@ public class ExcelDaoImpl implements ExcelDao{
 	
 	@Override
 	public int insertExcel(workExcel workExcel) {
-		// TODO Auto-generated method stub
 		return sqlSession.insert(NS+".insertExcel", workExcel);
 	}
 
 	@Override
 	public List<workExcel> selectExcel(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList(NS+".selectExcel");
 	}
 
 	@Override
 	public List<workExcel> selectMywork(Map<String, Object> map, String userEmail) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList(NS+".myworkList", userEmail);
 	}
 	
 	@Override
 	public Files selectFiles(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(NS+".selectFiles");
+	}
+
+	@Override
+	public int getMyworkTotalCount(String userEmail) {
+		return sqlSession.selectOne(NS+".myworkTotalCount", userEmail);
 	}
 }

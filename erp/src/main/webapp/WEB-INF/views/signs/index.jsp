@@ -14,9 +14,9 @@
                </div>
            </div>
        </div>
-		<a href="#" onclick="window.open('<c:url value="/signs/atypicalDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary" >비정형 문서</a>
-		<a href="#" onclick="window.open('<c:url value="/signs/breakdownDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary" >실습실 고장 문서</a>
-<%-- 		<a href="#" onclick="window.open('<c:url value="/signs/scholarshipDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary">장학금 신청 문서</a> --%>
+		<a href="#" onclick="window.open('<c:url value="/signs/signDoc?docType=atypicalDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary" >비정형 문서</a>
+		<a href="#" onclick="window.open('<c:url value="/signs/signDoc?docType=breakDownDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary" >실습실 고장 문서</a>
+		<a href="#" onclick="window.open('<c:url value="/signs/signDoc?docType=scholarshipDoc"/>', '_blank', 'width=1300 height=750')" class="btn btn-lg btn-primary">장학금 신청 문서</a>
 	</div>
 </body>
 </html>

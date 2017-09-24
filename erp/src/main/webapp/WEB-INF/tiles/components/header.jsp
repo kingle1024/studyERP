@@ -38,7 +38,7 @@
 									<c:if
 										test="${!empty sessionSendUserProfileImagePath[status.index] }">
 										<c:set var="filePath"
-											value="/imgTom/${ sessionSendUserProfileImagePath[status.index]}" />
+											value="image/profileImage/${ sessionSendUserProfileImagePath[status.index]}" />
 									</c:if> <img id="profileHeader" src="${ filePath }"
 									onerror="this.src='<c:url value="/image/student.png"/>'"
 									border='0'

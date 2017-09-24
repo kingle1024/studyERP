@@ -17,7 +17,6 @@ public class ExcelServiceImpl implements ExcelService {
 	
 	@Override
 	public int addExcel(workExcel workExcel) {
-		// TODO Auto-generated method stub
 		return excelDao.insertExcel(workExcel);
 	}
 	
@@ -25,21 +24,24 @@ public class ExcelServiceImpl implements ExcelService {
 	public List<workExcel> getExcel() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		return excelDao.selectExcel(map);
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public List<workExcel> myworkList(String userEmail) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		// TODO Auto-generated method stub
 		return excelDao.selectMywork(map, userEmail);
 	}
 	
 	@Override
 	public Files getFiles() {
-		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<String, Object>();
 		return excelDao.selectFiles(map);
+	}
+
+	@Override
+	public int getMyworkTotalCount(String userEmail) {
+		System.out.println("totalWork:"+excelDao.getMyworkTotalCount(userEmail));
+		return excelDao.getMyworkTotalCount(userEmail);
 	}
 
 }

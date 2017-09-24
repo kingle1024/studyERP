@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>결재 하기</title>
+<title>비정형 문서</title>
 <style>
 .setPadding{
 	padding:10px;

@@ -13,6 +13,8 @@ public interface UserService {
 	public int getLastPage();
 	
 	public int getNoticeLastPage(String word);
+	
+	public int getNoticeTotal(String recv_id);
 
 	public int getRecvMessageLastPage(String recv_id);
 	

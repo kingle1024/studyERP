@@ -1,6 +1,8 @@
 package com.company.myapp;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +26,7 @@ import com.mycompany.vo.Approval;
 import com.mycompany.vo.Board;
 import com.mycompany.vo.Message;
 import com.mycompany.vo.User;
+import com.mycompany.vo.workExcel;
 
 /**
  * Handles requests for the application home page.
@@ -53,10 +56,11 @@ public class HomeController {
 	@Autowired
 	private userMapper userMapper;
 	
-	@RequestMapping(value="/api", method= RequestMethod.GET)
-	public String apiGo(){
-		return "";
-	}
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private ExcelService excelService;
 	
 	@RequestMapping(value ="/", method = RequestMethod.GET)
 	public String index(Model model){
@@ -64,15 +68,17 @@ public class HomeController {
 	}		
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String goToIndex(Model model, Principal principal, HttpSession session) {
+	public String goToIndex(Model model, Principal principal, HttpSession session) throws ParseException {
+		int i;
 		String name = principal.getName(); 
 	    model.addAttribute("username", name);
 	   
 		List<Board> boards = boardMapper.mainBoardList();
 		ArrayList<String> noticeTime = new ArrayList<String>();
-		for(int i=0; i<boards.size(); i++){
+		for(i=0; i<boards.size(); i++){
 			noticeTime.add(formatTimeString(boards.get(i).getRegister_date()));
 		}
+		model.addAttribute("noticeTotal", boardMapper.getCountBoard());
 		model.addAttribute("boards", boards);
 		model.addAttribute("noticeTime",noticeTime);
 		
@@ -80,26 +86,47 @@ public class HomeController {
 		ArrayList<String> messageTime = new ArrayList<String>();
 		ArrayList<String> profileImagePath = new ArrayList<String>();
 		
-//		String emailToName = null;
-		for(int i=0; i<myMessages.size(); i++){
+		for(i=0; i<myMessages.size(); i++){
 			messageTime.add(formatTimeString(myMessages.get(i).getSend_date()));
 			profileImagePath.add(userMapper.selectProfileImageByEmail(myMessages.get(i).getSend_id()));
 			myMessages.get(i).setSend_id(commonMapper.getEmailFromUsers(myMessages.get(i).getSend_id()));
 		}
+		String email = name;
 		model.addAttribute("myMessages",myMessages);
 		model.addAttribute("messageTime",messageTime);
-		String email = name;
+		model.addAttribute("messageTotal",userService.getNoticeTotal(email));
+		
 		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email)); // 유저 이름 저장
 		session.setAttribute("sessionMyMessages", myMessages); // 세션에 저장
 		session.setAttribute("sessionSendUserProfileImagePath",profileImagePath); // 보낸이의 프로필 사진 경로 저장
 		List<Approval> approval = signMapper.showRecvWaitingList(email);
 		ArrayList<String> approvalTime = new ArrayList<String>();
-		for(int i=0; i<approval.size(); i++){
+		for(i=0; i<approval.size(); i++){
 			approvalTime.add(formatTimeString(approval.get(i).getRegister_date()));
 		}
 		model.addAttribute("approval",approval);
 		model.addAttribute("approvalTime",approvalTime);
+		model.addAttribute("approvalTotal", signMapper.getApprovalTotalCount(email));
 		
+		List<workExcel> workExcel = excelService.myworkList(email);
+		ArrayList<String> workExcelTime = new ArrayList<String>();
+		SimpleDateFormat transFormatYMD = new SimpleDateFormat("yyyy-MM-dd");
+
+		String startTime[]; // 시작시간 
+		String endTime[]; // 종료시간
+		String endSubStart[]; // 종료시간-시작시간
+		for(i=0; i<workExcel.size(); i++){
+			startTime = workExcel.get(i).getStartTime().split(":"); // :로 나눠서 배열에 저장
+			endTime = workExcel.get(i).getEndTime().split(":"); // :로 나눠서 배열에 저장
+			endSubStart = workExcel.get(i).getEndSubStart().split(":"); // :로 나눠서 배열에 저장
+			workExcelTime.add(formatTimeString(transFormatYMD.parse(workExcel.get(i).getWorkDate())));
+			workExcel.get(i).setStartTime(startTime[0]+":"+startTime[1]);
+			workExcel.get(i).setEndTime(endTime[0]+":"+endTime[1]);
+			workExcel.get(i).setEndSubStart(endSubStart[0]+":"+endSubStart[1]);
+		}
+		model.addAttribute("mywork", workExcel);
+		model.addAttribute("myworkTime", workExcelTime);
+		model.addAttribute("myworkTotalCount",excelService.getMyworkTotalCount(email));
 		return "mains/index";
 	}
 	

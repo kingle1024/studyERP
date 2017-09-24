@@ -17,7 +17,7 @@ import com.mycompany.vo.User;
 
 public interface userMapper { // HEX(AES_ENCRYPT(#{password},'db'))
 //	@Insert("INSERT INTO users (email, password, enabled) " + "VALUES (#{email}, HEX(AES_ENCRYPT(#{password},'db')), true)")
-	@Insert("INSERT INTO users (email, password, name, socialNumFront, enabled) " + "VALUES (#{email}, #{password}, #{name}, #{socialNumFront}, true)")
+	@Insert("INSERT INTO users (email, password, name, socialNumFront, enabled, register_date) " + "VALUES (#{email}, #{password}, #{name}, #{socialNumFront}, true, now())")
 	public boolean insertUser(User user);
 	// insert ubti users (e,p,n,e) values( 'uid', 'sdfjksdfhkdjsfhjksdfksdjfsdfsdf'
 	@Insert("INSERT INTO authorities (email, authority) " + "VALUES (#{email}, #{authority} )")

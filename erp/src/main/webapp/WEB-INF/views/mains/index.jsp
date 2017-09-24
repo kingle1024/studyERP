@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,7 +30,7 @@ function viewDoc(num){
 								<i class="fa fa-comments fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">26</div>
+								<div class="huge">${messageTotal}</div>
 								<div>New Comments!</div>
 							</div>
 						</div>
@@ -51,7 +52,7 @@ function viewDoc(num){
 								<i class="fa fa-table fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">12</div>
+								<div class="huge">${noticeTotal }</div>
 								<div>New Tasks!</div>
 							</div>
 						</div>
@@ -73,7 +74,7 @@ function viewDoc(num){
 								<i class="fa fa-paper-plane fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">124</div>
+								<div class="huge">${approvalTotal }</div>
 								<div>New Orders!</div>
 							</div>
 						</div>
@@ -95,8 +96,8 @@ function viewDoc(num){
 								<i class="fa fa-folder-open fa-5x"></i>
 							</div>
 							<div class="col-xs-9 text-right">
-								<div class="huge">13</div>
-								<div>Support Tickets!</div>
+								<div class="huge">${myworkTotalCount }</div>
+								<div>New Works!</div>
 							</div>
 						</div>
 					</div>
@@ -179,15 +180,15 @@ function viewDoc(num){
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
-							<i class="fa fa-clock-o fa-fw"></i> 내 작업대
+							<i class="fa fa-folder-open fa-fw"></i> 내 작업대
 						</h3>
 					</div>
 					<div class="panel-body">
 						<div class="list-group">
-							<c:forEach var="approval" items="${approval }"
-								varStatus="status">
-								<a href="#" onclick="viewDoc(${approval.no })" class="list-group-item"> <span class="badge badge-error"> ${ approvalTime[status.index] } </span> 
-									<i class="fa fa-fw fa-comment"></i>${approval.title }
+							<c:forEach var="mywork" items="${mywork }" varStatus="status">
+								<a href="#" class="list-group-item"> <span class="badge badge-error"> ${myworkTime[status.index]}</span> 
+									<i class="fa fa-fw fa-clock-o"></i>
+									${mywork.startTime }~${mywork.endTime } (${mywork.endSubStart })
 								</a>
 							</c:forEach>
 						</div>

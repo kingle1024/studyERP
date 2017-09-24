@@ -21,7 +21,7 @@ function viewDoc(num){
                    <i class="fa fa-paper-plane"></i>  <strong>받은 문서(반려)</strong> 
                </div>
            </div>
-       </div>	</div>
+       </div>	
 		<ul class="nav nav-tabs">
 			<li><a href="<c:url value="/signs/recv?type=recvWaiting" /> ">대기</a></li>
 			<li><a href="<c:url value="/signs/recv?type=recvIng" /> ">진행</a></li>
