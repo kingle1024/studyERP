@@ -69,6 +69,7 @@ public class SignsController {
 			case "scholarshipDoc":{
 				List<workExcel> workExcel = excelService.myworkList(principal.getName());
 				model.addAttribute("mywork", workExcel);
+				
 				type_code = "1200";
 				mv = new ModelAndView("popUp/signs/scholarshipDoc");
 				System.out.println("scholarShipDoc");
@@ -173,6 +174,10 @@ public class SignsController {
 		if(type_code.equals("1100")){ // 고장신청 문서이면
 			BreakDownDocument breakDownDocument = signMapper.showBreakDownDocument(Doc);
 			mv.addObject("map",breakDownDocument.getMap());
+		}else if(type_code.equals("1200")){
+			System.out.println("장학금신청문서");
+			List<workExcel> workExcel = excelService.myworkList(principal.getName());
+			mv.addObject("mywork", workExcel);
 		}else{
 			mv.addObject("map","errorCase");
 		}

@@ -12,7 +12,7 @@
 }
 
 .setDiv {
-	padding-top: 100px;
+	padding-top: 50px;
 	text-align: center;
 }
 
@@ -34,9 +34,6 @@
 table { 
 	border-collapse:collapse; text-align:center; 
 }  
-th, td { 
-	border:1px solid gray; 
-}
 </style>
 </head>
 <body>
@@ -113,7 +110,7 @@ th, td {
 											</h3>
 										</div>
 										<div class="panel-body">
-										<table>
+										<table class="table">
 											<tr>
 												<td>번호</td>
 												<td>날짜</td>
@@ -136,17 +133,17 @@ th, td {
 									<input type="button" href="#" style="width: 100%;" class="close" value="닫기" />
 									</div>
 								</div>		
-							</div>
-						</td>
-					</tr>
-				</table>
-				<br>
-				<br>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<br>
+					<br>
 				<br> <input type="button" id="ReadingInfoSelectBtn"
 					name="ReadingInfoSelectBtn" class="btn btn-lg btn-info"
 					style="width: 100%" value="결재 하기"> <input type="hidden"
 					name="${ _csrf.parameterName }" value="${ _csrf.token }" /> <input
-					type="hidden" name="type_code" value="1000">
+					type="hidden" name="type_code" value="1200">
 			</form>
 		</div>
 	</div>
