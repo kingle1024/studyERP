@@ -15,6 +15,9 @@ public interface MessageMapper {
 	@Select("select * from messages where recv_id = #{recv_id} order by no desc")
 	public List<Message> getMyMessage(String recv_id);
 	
+	@Select("select * from messages where recv_id = #{recv_id} order by no desc limit 5")
+	public List<Message> getMyMessageLimit(String recv_id);
+	
 	@Select("select * from messages where send_id = #{send_id} order by no desc")
 	public List<Message> getSendMessage(String send_id);
 	
