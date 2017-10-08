@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,15 +16,14 @@ import com.mycompany.vo.FileForm;
 
 @Service
 public class CommonCollectClass {
-	private HttpServletRequest request;
 	static int cnt = 0;
 	
-	private String commonUploadPath = "C:\\Spring\\upload\\";
-	private String commonUploadTempPath = "C:\\Spring\\temp\\";
-	private String commonUserProfileImagePath ="C:\\Spring\\userProfile\\";
-//	private String commonUserProfileImagePath ="/resources"+"/image/profileImage/";
-//	private String commonUploadPath = "/upload/";
-//	private String commonUploadTempPath = "/upload/temp/";
+//	private String commonUploadPath = "C:\\Spring\\upload\\";
+//	private String commonUploadTempPath = "C:\\Spring\\temp\\";
+//	private String commonUserProfileImagePath ="C:\\Spring\\userProfile\\";
+	private String commonUserProfileImagePath ="resources"+"/image/profileImage/";
+	private String commonUploadPath = "/upload/";
+	private String commonUploadTempPath = "/upload/temp/";
 	
 	
 	

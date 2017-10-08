@@ -50,7 +50,8 @@ public class MyInfoController {
 	public ModelAndView editMyInfoPost(HttpServletRequest request, @ModelAttribute("uploadForm") FileForm uploadForm, @ModelAttribute User user, MultipartHttpServletRequest multipartRequest, Principal principal) throws IOException{
 		ModelAndView mv = new ModelAndView("redirect:/myInfo"); // 메인 페이지로 redirect 해준다
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
+//		String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
+		String fileUploadPath = rootPath+collect.getCommonUserProfileImagePath();
 		System.out.println("fileUploadPath:"+fileUploadPath);
 		HashMap<String, String> rs = collect.insertFileModule(-1, uploadForm, fileUploadPath);
 		String email = principal.getName();

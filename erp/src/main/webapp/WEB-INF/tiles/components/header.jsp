@@ -62,34 +62,34 @@
 				<li class="message-footer"><a
 					href="<c:url value="/messages" />">쪽지함으로 이동</a></li>
 			</ul></li>
-		<li class="dropdown"><a href="#" class="dropdown-toggle"
-			data-toggle="dropdown"><i class="fa fa-bell"></i> <b
-				class="caret"></b></a>
-			<ul class="dropdown-menu alert-dropdown">
-				<li><a href="#">Alert Name <span
-						class="label label-default">Alert Badge</span></a></li>
-				<li><a href="#">Alert Name <span
-						class="label label-primary">Alert Badge</span></a></li>
-				<li><a href="#">Alert Name <span
-						class="label label-success">Alert Badge</span></a></li>
-				<li><a href="#">Alert Name <span class="label label-info">Alert
-							Badge</span></a></li>
-				<li><a href="#">Alert Name <span
-						class="label label-warning">Alert Badge</span></a></li>
-				<li><a href="#">Alert Name <span class="label label-danger">Alert
-							Badge</span></a></li>
-				<li class="divider"></li>
-				<li><a href="#">View All</a></li>
-			</ul></li>
+<!-- 		<li class="dropdown"><a href="#" class="dropdown-toggle" -->
+<!-- 			data-toggle="dropdown"><i class="fa fa-bell"></i> <b -->
+<!-- 				class="caret"></b></a> -->
+<!-- 			<ul class="dropdown-menu alert-dropdown"> -->
+<%-- 				<li><a href="#">Alert Name <span --%>
+<%-- 						class="label label-default">Alert Badge</span></a></li> --%>
+<%-- 				<li><a href="#">Alert Name <span --%>
+<%-- 						class="label label-primary">Alert Badge</span></a></li> --%>
+<%-- 				<li><a href="#">Alert Name <span --%>
+<%-- 						class="label label-success">Alert Badge</span></a></li> --%>
+<%-- 				<li><a href="#">Alert Name <span class="label label-info">Alert --%>
+<%-- 							Badge</span></a></li> --%>
+<%-- 				<li><a href="#">Alert Name <span --%>
+<%-- 						class="label label-warning">Alert Badge</span></a></li> --%>
+<%-- 				<li><a href="#">Alert Name <span class="label label-danger">Alert --%>
+<%-- 							Badge</span></a></li> --%>
+<!-- 				<li class="divider"></li> -->
+<!-- 				<li><a href="#">View All</a></li> -->
+<!-- 			</ul></li> -->
 		<li class="dropdown"><a href="#" class="dropdown-toggle"
 			data-toggle="dropdown"><i class="fa fa-user"></i>
 				${sessionUserName} 님<b class="caret"></b></a>
 			<ul class="dropdown-menu">
 				<li><a href="<c:url value="/myInfo" />"><i
 						class="fa fa-fw fa-user"></i> 프로필</a></li>
-				<li><a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-				</li>
-				<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li>
+<!-- 				<li><a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a> -->
+<!-- 				</li> -->
+<!-- 				<li><a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a></li> -->
 				<li class="divider"></li>
 				<li><sec:authorize access="isAuthenticated()">
 						<c:url var="logoutUrl" value="/logout" />
@@ -103,7 +103,7 @@
 	<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav side-nav">
-			<li class="active"><a href="<c:url value="/" />"><i
+			<li class=""><a href="<c:url value="/" />"><i
 					class="fa fa-fw fa-home"></i> 홈</a></li>
 			<li><a href="<c:url value="/messages" />"><i
 					class="fa fa-fw fa-comments"></i> 쪽지함</a></li>
