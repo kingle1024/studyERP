@@ -76,7 +76,7 @@
 		</span>
 		
 <hr>
-<table>
+<table class="table">
 	<tr>
 		<td>번호</td>
 		<td>날짜</td>
@@ -124,10 +124,10 @@
 누계시간
 <input type = "text" size = 12 id ="timeSum">
 내용
-<input type = "text" size = 60 id ="input">
+<input type = "text" size = 50 id ="input">
 
-<button onclick="add_row()">추가</button>
-<button onclick="delete_row()">삭제</button>
+<button onclick="add_row()" class="btn btn-primary">추가</button>
+<button onclick="delete_row()" class="btn btn-danger">삭제</button>
 </p>
 <script>
   var count = 0;
@@ -210,7 +210,7 @@
   
   //document.write(my_tbody.);
 </script>
-		<button onclick="add_row()">저장</button>
+		<button onclick="add_row()" class="btn btn-info">저장</button>
 	</div>
 	<!-- 
 	엑셀 아이콘 : http://www.iconninja.com/spreadsheet-excel-table-file-xls-xls-document-icon-768
