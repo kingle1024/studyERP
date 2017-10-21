@@ -7,12 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -90,8 +85,8 @@ public class HomeController {
 		model.addAttribute("noticeTotal", boardMapper.getCountBoard());
 		model.addAttribute("boards", boards);
 		model.addAttribute("noticeTime",noticeTime);
-		
-		List<Message> myMessages = messageMapper.getMyMessageLimit(name);
+		String recv_id = name;
+		List<Message> myMessages = messageMapper.getMyMessageLimit(recv_id);
 		ArrayList<String> messageTime = new ArrayList<String>();
 		ArrayList<String> profileImagePath = new ArrayList<String>();
 		
@@ -103,7 +98,7 @@ public class HomeController {
 		String email = name;
 		model.addAttribute("myMessages",myMessages);
 		model.addAttribute("messageTime",messageTime);
-		model.addAttribute("messageTotal",userService.getNoticeTotal(email));
+		model.addAttribute("messageTotal",userService.getNoticeTotal(recv_id));
 		
 		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email)); // 유저 이름 저장
 		session.setAttribute("sessionMyMessages", myMessages); // 세션에 저장
