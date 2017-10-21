@@ -34,8 +34,10 @@
 	height: auto;
 	z-index: 99999;
 }
-table { 
-}  
+html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing{
+	font-family : '맑은 고딕';
+	font-size : 12px;
+}
 </style>
 </head>
 <body>
@@ -113,9 +115,9 @@ table {
 							</table>
 						</div>
 						<br> <br> <br> <br> <br> <br> <br>
-						<table border="0">
+						<table class="table table-hover">
 							<tr>
-								<td width="" align="center" bgcolor="#EEEAF8" nowrap>제 목</td>
+								<td width="100px" align="center" bgcolor="#EEEAF8" nowrap>제 목</td>
 								<td colspan="3">${approval.title }</td>
 							</tr>
 							<tr>
@@ -130,12 +132,8 @@ table {
 								<!-- 			<td width="" align="center" bgcolor="#EEEAF8" nowrap>문서 양식</td> -->
 								<!-- 			<td nowrap>비정형 문서</td> -->
 							</tr>
-							<tr>
-								<td style="border: hidden;">&nbsp;</td>
-							</tr>
-							<tr>
-								<td style="border: hidden;">&nbsp;</td>
-							</tr>
+							</table>
+							<table width="100px" class="table table-hover">
 							<c:set var="data" value="${ map }" />
 							<c:if test="${data ne 'errorCase' }">
 								<c:forEach var="entry" items="${map}" varStatus="status">
