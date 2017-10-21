@@ -76,12 +76,9 @@ public class BoardsController {
 		if(word != null){
 			model.addAttribute("word", URLEncoder.encode(word, "utf-8")); // 익스에서는 파라메터로 한글을 못받기 때문에 encode 처리
 		}
-		word="";
 		model.addAttribute("lastPage", userService.getNoticeLastPage(word));
 		return "notices/index";
 	}
-
-	
 	
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정
 	public String update(@ModelAttribute("inputForm") FileForm uploadForm, @ModelAttribute Board board, HttpServletRequest request, MultipartHttpServletRequest multipartRequest, @RequestParam(value = "page") int page) throws Exception{
