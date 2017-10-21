@@ -5,12 +5,12 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class Review {
-	Integer id;
+	private Integer id;
     @NotEmpty
-    String text;
+    private String text;
     @NotNull
-    Integer bookId;
-    Integer userId;
+    private Integer bookId;
+    private Integer userId;
     
 	public Integer getId() {
 		return id;

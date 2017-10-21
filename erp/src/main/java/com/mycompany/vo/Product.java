@@ -1,10 +1,10 @@
 package com.mycompany.vo;
 
 public class Product {
-	int id;
-	String name;
-	String location;
-	int count;
+	private int id;
+	private String name;
+	private String location;
+	private int count;
 	public int getId() {
 		return id;
 	}

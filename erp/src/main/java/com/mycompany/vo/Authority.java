@@ -1,8 +1,8 @@
 package com.mycompany.vo;
 
 public class Authority {
-	String email;
-	String authority;
+	private String email;
+	private String authority;
 	
 	public boolean isRole(String role){
 		return authority.equals("ROLE_"+ role.toUpperCase());

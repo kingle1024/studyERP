@@ -1,8 +1,8 @@
 package com.mycompany.vo;
 
 public class UserPreview {
-	int id;
-	String email;
+	private int id;
+	private String email;
 	public UserPreview(int id, String email) {
 		super();
 		this.id = id;

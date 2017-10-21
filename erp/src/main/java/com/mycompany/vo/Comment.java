@@ -8,17 +8,17 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class Comment {	
-	Date register_date;
-	Date update_date;
-	Integer type_code;
-	Integer no;
+	private Date register_date;
+	private Date update_date;
+	private Integer type_code;
+	private Integer no;
 	
 	@NotNull
-	Integer board_no;
+	private Integer board_no;
 	
 	@NotEmpty
-	String comment;
-	String author;
+	private String comment;
+	private String author;
 	
 	
 	

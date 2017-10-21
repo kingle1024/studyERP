@@ -3,14 +3,14 @@ package com.mycompany.vo;
 import java.util.Date;
 
 public class StudentBoard {
-	int id;
-	String title;
-	String content;
-	String author;
-	int hit;
-	Date register_date;
-	Date update_date;
-	boolean delete_yn;
+	private int id;
+	private String title;
+	private String content;
+	private String author;
+	private int hit;
+	private Date register_date;
+	private Date update_date;
+	private boolean delete_yn;
 	
 	public int getId() {
 		return id;
