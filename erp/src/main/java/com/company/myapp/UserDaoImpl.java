@@ -56,7 +56,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Board> selectNoticeList(Map<String, Object> map) {
-		// TODO Auto-generated method stub
+		System.out.println("daoImpl:"+map.get("word"));
 		return sqlSession.selectList(
 				NS+".selectNoticeList", map);
 	}

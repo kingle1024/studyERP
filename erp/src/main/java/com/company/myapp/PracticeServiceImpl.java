@@ -1,15 +1,10 @@
 package com.company.myapp;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.vo.Board;
 import com.mycompany.vo.Practiceroom;
-import com.mycompany.vo.User;
 
 @Service
 public class PracticeServiceImpl implements PracticeService {

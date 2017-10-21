@@ -69,8 +69,10 @@ public class BoardsController {
 	 */
 	@RequestMapping(value = "/notices", method = RequestMethod.GET) // 게시판 리스트 가져오기
 	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page,   
-			@RequestParam(value = "word", required = false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage, HttpServletRequest request) throws UnsupportedEncodingException {
+			@RequestParam(value = "word", required = false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage) throws UnsupportedEncodingException {
+		System.out.println("전:"+word);
 		List<Board> boardList = userService.getNoticeList(page, word);
+		System.out.println("후:"+word);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
 		if(word != null){
