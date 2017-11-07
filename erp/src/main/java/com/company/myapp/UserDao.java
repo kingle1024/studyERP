@@ -27,5 +27,4 @@ public interface UserDao {
 	public List<Message> selectRecvMessageList(Map<String, Object> map);
 	
 	public List<Message> selectSendMessageList(Map<String, Object> map);
-
 }

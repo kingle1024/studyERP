@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -131,7 +131,6 @@ pre {
 				$("#reviewContent").focus();
 				return false;
 			}
-
 		});
 	});
 </script>

@@ -93,11 +93,4 @@ public class Practiceroom {
 				+ ", img3_org=" + img3_org + ", img3_fake=" + img3_fake + ", img4_org=" + img4_org + ", img4_fake="
 				+ img4_fake + ", path=" + path + "]";
 	}
-	
-	
-	
-	
-	
-	
-
 }

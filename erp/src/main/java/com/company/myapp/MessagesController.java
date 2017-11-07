@@ -1,10 +1,8 @@
 package com.company.myapp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +26,6 @@ import com.mycompany.mapper.userMapper;
 import com.mycompany.mapper.CommonMapper;
 import com.mycompany.mapper.MessageMapper;
 import com.mycompany.vo.Message;
-import com.mycompany.vo.Tag;
 import com.mycompany.vo.User;
 import com.mycompany.vo.UserPreview;
 
@@ -50,7 +47,6 @@ public class MessagesController {
 	public String indexTestR(ModelMap model, Principal principal, @RequestParam(value="page", defaultValue="1")int page, 
 								@RequestParam(value="word", required=false) String word){
 		String recv_id = principal.getName();
-		System.out.println("recv_id:"+recv_id);
 	    List<Message> messageList = userService.getRecvMessageList(page, word, recv_id);
 	    for(int i=0; i<messageList.size(); i++){
 			String email = messageList.get(i).getSend_id();
