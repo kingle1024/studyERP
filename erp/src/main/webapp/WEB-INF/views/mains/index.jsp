@@ -343,7 +343,7 @@ function viewDoc(num){
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h3 class="panel-title">
-								<i class="fa fa-folder-open fa-fw"></i> 방문자 통계
+								<i class="fa fa-folder-open fa-fw"></i> 통계
 							</h3>
 						</div>
 						<div class="panel-body">
@@ -351,7 +351,7 @@ function viewDoc(num){
 								<div class="row">
 									<div class="second circle">
 								      <strong></strong>
-								      <span>animation <br> progress</span>
+								      <span>처리  현황</span>
 								    </div>
 									<!-- JavaScript -->
 									<!-- html -->

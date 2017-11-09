@@ -12,13 +12,16 @@ public class PracticeServiceImpl implements PracticeService {
     private PracticeDao PracticeDao;
     
 	public Practiceroom selectpractice(Practiceroom pr) {
-		// TODO Auto-generated method stub
 		return PracticeDao.selectpractice(pr);
 	}
 
 	public int updatepractice(Practiceroom pr) {
-		// TODO Auto-generated method stub
 		return PracticeDao.updatepractice(pr);
+	}
+
+	@Override
+	public int insertPractice(Practiceroom pr) {
+		return PracticeDao.insertPractice(pr);
 	}
 	
 
