@@ -123,8 +123,8 @@
 	</c:forEach>
 </table>
 <br><br>
-<table>
-<!--   <thead>
+<!-- <table>
+  <thead>
   	<tr>
 	  	<th width = "50" align ="center">번호</th>
 	    <th width = "100">날짜</th>
@@ -139,10 +139,10 @@
   </thead> 
   <tbody id="my-tbody">
   </tbody>
-  -->
-</table>
+ 
+</table> -->
 <form action='<c:url value="/table" />' method="post" id="reset_form" >
-날짜2
+날짜
 <input name ="Date" type = "text" size="10" id="date" >
 시작시간
 <input name ="time_start"  type = "text" size = 12 id ="time_start" >
@@ -153,7 +153,7 @@
 내용
 <input name ="Context" type = "text" size = 60 id ="input" >
 
-<button type="submit" >저장</button>
+<button type="submit" onclick="add_row()">저장</button>
 </form>
 <div id = "result"></div>
 </p>

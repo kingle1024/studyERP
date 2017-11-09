@@ -40,7 +40,6 @@ public class ExcelServiceImpl implements ExcelService {
 
 	@Override
 	public int getMyworkTotalCount(String userEmail) {
-		System.out.println("totalWork:"+excelDao.getMyworkTotalCount(userEmail));
 		return excelDao.getMyworkTotalCount(userEmail);
 	}
 

@@ -1,3 +1,4 @@
+
 package com.mycompany.vo;
 
 import java.util.Date;
@@ -47,3 +48,5 @@ public class Review {
 	}
 	
 }
+    
+

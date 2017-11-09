@@ -7,14 +7,14 @@
 <title>받은 쪽지함</title>
 </head>
 <body>
-	<div id="page-wrapper">
+<div id="page-wrapper">
 	 <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
                    <i class="fa fa-comments"></i>  <strong>받은 쪽지함</strong> 
                </div>
            </div>
-       </div>
+     </div>
 		<a href="<c:url value="/messages/sendIndex " />"
 			class="btn btn-lg btn-primary">보낸쪽지함</a><br> <a
 			href="<c:url value="/messages/new" />"
@@ -59,6 +59,6 @@
 				</c:forEach>
 			</ul>
 		</div>
-	</div>
+</div>
 </body>
 </html>

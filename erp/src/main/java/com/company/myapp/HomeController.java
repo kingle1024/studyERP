@@ -4,9 +4,18 @@ import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +72,7 @@ public class HomeController {
 	}		
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String goToIndex(Model model, Principal principal, HttpSession session) throws ParseException {
+	public String goToIndex(HttpServletRequest request, HttpServletResponse response, Model model, Principal principal, HttpSession session) throws ParseException {
 		int i;
 		String name = principal.getName(); 
 	    model.addAttribute("username", name);
@@ -76,8 +85,8 @@ public class HomeController {
 		model.addAttribute("noticeTotal", boardMapper.getCountBoard());
 		model.addAttribute("boards", boards);
 		model.addAttribute("noticeTime",noticeTime);
-		
-		List<Message> myMessages = messageMapper.getMyMessage(name);
+		String recv_id = name;
+		List<Message> myMessages = messageMapper.getMyMessageLimit(recv_id);
 		ArrayList<String> messageTime = new ArrayList<String>();
 		ArrayList<String> profileImagePath = new ArrayList<String>();
 		
@@ -89,7 +98,7 @@ public class HomeController {
 		String email = name;
 		model.addAttribute("myMessages",myMessages);
 		model.addAttribute("messageTime",messageTime);
-		model.addAttribute("messageTotal",userService.getNoticeTotal(email));
+		model.addAttribute("messageTotal",userService.getNoticeTotal(recv_id));
 		
 		session.setAttribute("sessionUserName", commonMapper.getEmailFromUsers(email)); // 유저 이름 저장
 		session.setAttribute("sessionMyMessages", myMessages); // 세션에 저장
@@ -122,11 +131,55 @@ public class HomeController {
 		model.addAttribute("mywork", workExcel);
 		model.addAttribute("myworkTime", workExcelTime);
 		model.addAttribute("myworkTotalCount",excelService.getMyworkTotalCount(email));
+		
+		
+		Cookie[] getCookie = request.getCookies();
+		int cnt=0;
+		if(getCookie != null){
+			for(i=0; i< getCookie.length; i++){
+				Cookie c = getCookie[i];
+				if((c.getName().equals("visit"))){ // 만약 쿠키 이름 중 'visit'이 있으면 cnt하고 break;
+					cnt++;
+					break;
+				}
+			}
+			if(cnt == 0){ // 'visit' 쿠키가 없으면 생성해줌
+				Cookie setCookie = new Cookie("visit",principal.getName());
+				setCookie.setMaxAge(60*60*24); // 기간을 하루로 지정
+				response.addCookie(setCookie);
+				commonMapper.insertToday(); // DB에 오늘 날짜 추가
+			}
+		}
+		JSONObject jsonObject = new JSONObject();
+		JSONArray array = new JSONArray();
+		JSONObject info;
+		
+		for(i=0; i<5; i++){
+			Calendar c1 = new GregorianCalendar();
+			c1.add(Calendar.DATE, -i);
+			String d = transFormatYMD.format(c1.getTime());
+			info = new JSONObject();
+			info.put("visitCount", commonMapper.getTodayCount(d));
+			info.put("date", d);
+			array.add(info);
+		}
+		jsonObject.put("graph", array); // 다끝나고 이거
+		
+		//http://huskdoll.tistory.com/38
+		model.addAttribute("morrisData", jsonObject);
+		
+		
 		return "mains/index";
 	}
 	
 	@RequestMapping(value= "/books/test", method = RequestMethod.GET)
-	public String tt(){
+	public String tt(HttpServletRequest request, HttpServletResponse response){
+		// 특정 쿠키만 삭제하기
+	    Cookie kc = new Cookie("visit", null) ;
+	    kc.setMaxAge(0) ;
+	    response.addCookie(kc) ;
+	    System.out.println("쿠키제거");
+
 		return "books/testIndex";
 	}
 	
@@ -156,6 +209,8 @@ public class HomeController {
 		}
 		return msg;
 	}
+	
+	
 }
 
 

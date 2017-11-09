@@ -3,13 +3,13 @@ package com.mycompany.vo;
 import java.util.Date;
 
 public class Message {
-	int no;
-	String recv_id;
-	String send_id;
-	String title;
-	String content;
-	Date recv_date;
-	Date send_date;
+	private int no;
+	private String recv_id;
+	private String send_id;
+	private String title;
+	private String content;
+	private Date recv_date;
+	private Date send_date;
 	public int getNo() {
 		return no;
 	}
@@ -57,8 +57,5 @@ public class Message {
 		return "Message [no=" + no + ", recv_id=" + recv_id + ", send_id=" + send_id + ", title=" + title + ", content="
 				+ content + ", recv_date=" + recv_date + ", send_date=" + send_date + "]";
 	}
-	
-	
-	
 	
 }

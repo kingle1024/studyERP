@@ -28,5 +28,4 @@ public interface UserDao {
 	
 	public List<Message> selectSendMessageList(Map<String, Object> map);
 
-
 }

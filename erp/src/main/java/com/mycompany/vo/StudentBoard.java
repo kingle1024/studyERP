@@ -3,12 +3,13 @@ package com.mycompany.vo;
 import java.util.Date;
 
 public class StudentBoard {
-	String uniqueID;
-	String userID;
-	String title;
-	String content;
-	Date date;
-	String lectureRoom;
+
+	private String uniqueID;
+	private String userID;
+	private String title;
+	private String content;
+	private Date date;
+	private String lectureRoom;
 	public String getUniqueID() {
 		return uniqueID;
 	}
