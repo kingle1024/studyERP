@@ -3,6 +3,8 @@ package com.company.myapp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.mycompany.mapper.BookMapper;
 import com.mycompany.mapper.userMapper;
 import com.mycompany.vo.Practiceroom;
+import com.mycompany.vo.Review;
 import com.mycompany.vo.StudentBoard;
 import com.mycompany.vo.User;
 
@@ -44,7 +47,11 @@ public class StudentBoardsController {
 
 		System.out.println("pr.getNo() ===>" + pr.getNo());
 		List<StudentBoard> studentboards = bookMapper.getStudentBoardList();
+		for(int i=0; i<studentboards.size(); i++){
+			studentboards.get(i).setUserID(bookMapper.getName(studentboards.get(i).getUserID()));
+		}
 		model.addAttribute("studentboards", studentboards);
+
 
 		Practiceroom pv = practiceMapper.selectpractice(pr);
 		model.addAttribute("pv", pv);
@@ -71,8 +78,15 @@ public class StudentBoardsController {
 	public String studentsUpdtOk(Model model, HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest multipartRequest) throws Exception {
 
+		/*
+		 * String rootPath = request.getSession().getServletContext().getRealPath("/");
+			String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
+		 */
+		
 		String filePath = "/spring/upload";
-
+//		String rootPath = request.getSession().getServletContext().getRealPath("/");
+//		String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
+		System.out.println(filePath);
 		Practiceroom pr = new Practiceroom();
 		try {
 			Map<String, List<String>> fileNames = new HandlerFile(multipartRequest, filePath).getUploadFileName();
@@ -158,13 +172,56 @@ public class StudentBoardsController {
 		return "redirect: " + request.getContextPath() + "/students";
 	}
 
-	@RequestMapping(value = "/students/view/{id}", method = RequestMethod.GET)
-	public String adminViewBoard(@PathVariable int id, Model model) {
-		StudentBoard studentboard = bookMapper.getStudentBoard(id);
+	@RequestMapping(value = "/students/view/{uniqueID}", method = RequestMethod.GET)
+	public String adminViewBoard(@PathVariable String uniqueID, Model model) {
+		StudentBoard studentboard = bookMapper.getStudentBoard(uniqueID);
+		studentboard.setUserID(bookMapper.getName(studentboard.getUserID()));
 		model.addAttribute("studentboard", studentboard);
-		bookMapper.updateStudentHit(id);
+		/*List<Review> reviews = bookMapper.getBoardReview(studentboard.getUniqueID()); // 보드 아이디에 관련된 리뷰를 가져온다
+		System.out.println("ㅎㅇ5");
+		model.addAttribute("reviews", reviews);*/
+		List<Review> review = bookMapper.getBoardReview(uniqueID);
+		for(int i=0; i<review.size();i++){
+			review.get(i).setUserID(bookMapper.getName(review.get(i).getUserID()));
+		}
+		
+		//review.setBoardID(uniqueID);
+		model.addAttribute("review", review);
+		
+		System.out.println("reviews:"+review);
+		
+		
+		/*Review review = new Review();
+		review.setBoardID(uniqueID);
+		model.addAttribute("review", review);
+		System.out.println("reviews:"+review);*/
 		return "students/view";
 	}
+	
+	@RequestMapping(value="/students/review", method = RequestMethod.POST)
+	public String reviewAdd(@ModelAttribute("reviewsForm") Review review, Principal principal){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss"); // 날짜 포맷 형식
+		String sdfFiletoString  = null;
+		Date dt = new Date();
+		sdfFiletoString = sdf.format(dt).toString();
+		review.setUniqueID(sdfFiletoString); // 현재 시간을 유니크 값으로 준다
+		User user = userMapper.getUserList(principal.getName());
+		review.setUserID(user.getName());
+		
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm"); // 날짜 포맷 형식
+		Date dt1 = new Date();
+		String sdfFiletoString1  = null;
+		sdfFiletoString1 = sdf1.format(dt1).toString();
+		review.setDate(dt1);
+		
+		System.out.println(review);
+		bookMapper.createReview(review);
+		System.out.println("댓글 쓰기");
+		
+		
+		return "redirect:/students/view/"+review.getBoardID();
+	}
+
 
 	@RequestMapping(value = "/students/new")
 	public String newStudentBoard(ModelMap model, Principal principal) {
@@ -181,13 +238,13 @@ public class StudentBoardsController {
 		return "redirect: " + request.getContextPath() + "/students";
 	}
 
-	@RequestMapping(value = "/student/edit/{id}", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/student/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable int id, Model model) {
 		StudentBoard studentboard = bookMapper.getStudentBoard(id);
 		// 뷰 페이지로 데이터를 전달(key/value 형식)
 		model.addAttribute("studentboard", studentboard);
 		return "students/edit";
-	}
+	}*/
 
 	@RequestMapping(value = "/student/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable int id) {

@@ -115,10 +115,10 @@ ul.alert-dropdown {
 @media(min-width:768px) {
     .side-nav {
         position: fixed;
+        left: 240px;
         top: 51px;
-        left: 225px;
         width: 225px;
-        margin-left: -225px;
+        margin-left: -240px;
         border: none;
         border-radius: 0;
         overflow-y: auto;

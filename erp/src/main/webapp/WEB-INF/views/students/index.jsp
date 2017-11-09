@@ -77,7 +77,25 @@
 		<font size="6">실습실 관리</font> -실습실 현황을 볼 수 있습니다.<font size="5">-강의실
 			${pv.no}</font>
 	</div>
+	<div>
+	
+<select id="term_year" name="term_year">
+		<option value="2017" selected>2017</option>
+		<option value="2016">2016</option> 
+		<option value="2016">2015</option> 
+		<option value="2016">2014</option> 
+	</select>
+	<select id="term_cd" name="term_cd">
+		<option value="10" selected> 1학기</option>
+	    <option value="20">2학기</option>
+	</select>
+	<input type="submit" value="검색" class="search_board search_lecture">
+	<sec:authorize access="hasRole('ADMIN')">
 
+	<a class="btn btn-lg btn-primary" >
+					수정</a>	
+					</sec:authorize>
+	</div>
 	<div style="float: left; width: 30%; margin-left: 450px">
 		<div class="row">
 			<div class="col-lg-10 text-center">
@@ -86,10 +104,12 @@
 				<hr style="border: solid 1.5px grey">
 			</div>
 		</div>
+		<%-- <img src="<c:url value="/image/profileImage/${pv.img1_fake}"/>" onerror="this.src='<c:url value="/image/student.png"/>'"> --%>
 		<img src="/uploadImage/${pv.img1_fake}" class="img-circle" width="150px" height="150px"> 
 			<img src="/uploadImage/${pv.img2_fake}" class="img-circle" width="150px" height="150px">
 			<img src="/uploadImage/${pv.img3_fake}"  class="img-circle" width="150px" height="150px"> 
 	</div>
+	
 	<div style="float: right; width: 30%;">
 		<div class="row">
 			<div class="col-lg-8 text-center">
@@ -143,57 +163,46 @@
 					수정</a>	
 					</sec:authorize>
 	
-	<div class="container">
-		<!-- <div class="jumbotron" id="jumbo"> -->
-		<br>
-		<br>
-		<div class="col-lg-10 text-center">
-			<h2>건의게시판</h2>
-			<table class="table table-striped">
-				<thread>
-				<tr>
-					<th width="70px">번호</th>
-					<th>제목</th>
-					<th width="70px">작성자</th>
-					<th width="150px">날짜</th>
-					<th width="70px">조회수</th>
-				</tr>
-				</thread>
-				
-				<tbody>
-				<c:forEach var="studentboards" items="${studentboards }" varStatus="status">
+		<div class="container">
+			<!-- <div class="jumbotron" id="jumbo"> -->
+			<br> <br>
+			<div class="col-lg-10 text-center">
+				<h2>건의게시판</h2>
+				<table class="table table-striped">
+					<thread>
 					<tr>
-						<th>${ studentboards.id }</th>
-						<th><a href="<c:url value="/students/view/${ studentboards.id }?page=${page }" /> ">
-								${ studentboards.title } </a></th>
-						<th>${ studentboards.author }</th>
-						<th><fmt:formatDate value="${ studentboards.register_date }"
-								pattern="yyyy-MM-dd HH:mm" /></th>
-						<th>${ studentboards.hit }</th>
+						<th width="70px">번호</th>
+						<th>제목</th>
+						<th width="70px">작성자</th>
+						<th width="70px">강의실</th>
+						<th width="150px">날짜</th>
+						
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div class="text-center">
-			<!-- http://coderbycode.tistory.com/111  -->
-			<!-- 페이징 처리 -->
-			<ul class="pagination">
-				<c:if test="${page>1}"> <!-- 2페이지 이후일 때 부터 출력 -->
-					<c:forEach var="previous" begin="1" end="${page-1}" step="1">
-						<li><a href="<c:url value="/students?page=${previous }" /> ">${previous}</a></li>					
-					</c:forEach>
-				</c:if>				
-				<li class="active"><a href="#">${page}</a></li> <!-- 현재 페이지 -->
-				<c:forEach var="next" begin="${page+1}" end="${lastPage}" step="1">
-					<li><a href="<c:url value="/students?page=${next }" /> ">${next }</a></li>
-				</c:forEach>
-			</ul>
-		</div>
-		<sec:authorize access="hasRole('ADMIN')">
-			<a href="<c:url value="/stduents/new" />"
-				class="btn btn-lg btn-primary" style="width: 100%;"> 글쓰기</a>
-		</sec:authorize>
-	</div>
+					</thread>
+					<tbody>
+					
+							
+						<c:forEach var="studentboard" items="${studentboards}"
+							varStatus="status">
+							<tr>	
+								<th>${status.count}</th>
+								<th><a href="<c:url value="/students/view/${studentboard.uniqueID}" /> ">
+										${ studentboard.title } </a></th>
+								<th>${studentboard.userID}</th>
+								<th>${studentboard.lectureRoom}</th>
+								<th><fmt:formatDate value="${ studentboard.date }"
+										pattern="yyyy-MM-dd HH:mm" /></th>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<div class="text-center">
+					<ul class="pagination">
+						<li class="active"><a href="#">1</a></li>
+					</ul>
+				</div>
+			</div>
+
 </body>
 </html>
 			<%-- 	<tbody>
