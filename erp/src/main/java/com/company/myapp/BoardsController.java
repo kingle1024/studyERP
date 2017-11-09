@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,16 +61,22 @@ public class BoardsController {
 	@Autowired
 	private UserService userService;
 	
+	@RequestMapping(value = "/notices/updtComment", method = RequestMethod.POST)
+	public String updtComment(Model model){
+		
+		List<Comment> comment = boardMapper.getComments(1);
+		model.addAttribute("","");
+		
+		return "/notices/updt_comment";
+	}
 	/*
 	 * Required 애트리뷰트를 false로 설정하면 스프링이 호환되는 빈을 찾지 못하여도, 예외처리 없이 프로퍼티를 설정하지 않은
 	 * 채로 남겨둘 것이다.
 	 */
 	@RequestMapping(value = "/notices", method = RequestMethod.GET) // 게시판 리스트 가져오기
-	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page,   
-			@RequestParam(value = "word", required = false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage) throws UnsupportedEncodingException {
-		System.out.println("전:"+word);
+	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request,   
+			@RequestParam(value = "word", required =false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage) throws UnsupportedEncodingException {
 		List<Board> boardList = userService.getNoticeList(page, word);
-		System.out.println("후:"+word);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
 		if(word != null){
@@ -94,7 +98,6 @@ public class BoardsController {
 		if(rs.size() > 0){
 			fileMapper.insertFiles(no, rs.get("save_name"), rs.get("real_name"), rs.get("path"));
 		}
-		
 		return "redirect:/notice/view/"+no+"?page="+page;
 	}
 	
