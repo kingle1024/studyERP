@@ -3,20 +3,23 @@ package com.mycompany.vo;
 import java.util.Date;
 
 public class StudentBoard {
-	private int id;
+	private String uniqueID;
+	private String userID;
 	private String title;
 	private String content;
-	private String author;
-	private int hit;
-	private Date register_date;
-	private Date update_date;
-	private boolean delete_yn;
-	
-	public int getId() {
-		return id;
+	private Date date;
+	private String lectureRoom;
+	public String getUniqueID() {
+		return uniqueID;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
+	}
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
 	public String getTitle() {
 		return title;
@@ -24,49 +27,27 @@ public class StudentBoard {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getAuthor() {
-		return author;
-	}
-	public void setAuthor(String author) {
-		this.author = author;
-	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getHit() {
-		return hit;
+	public Date getDate() {
+		return date;
 	}
-	public void setHit(int hit) {
-		this.hit = hit;
+	public void setDate(Date date) {
+		this.date = date;
 	}
-	public Date getRegister_date() {
-		return register_date;
+	public String getLectureRoom() {
+		return lectureRoom;
 	}
-	public void setRegister_date(Date register_date) {
-		this.register_date = register_date;
-	}
-	public Date getUpdate_date() {
-		return update_date;
-	}
-	public void setUpdate_date(Date update_date) {
-		this.update_date = update_date;
-	}
-	public boolean isDelete_yn() {
-		return delete_yn;
-	}
-	public void setDelete_yn(boolean delete_yn) {
-		this.delete_yn = delete_yn;
+	public void setLectureRoom(String lectureRoom) {
+		this.lectureRoom = lectureRoom;
 	}
 	@Override
 	public String toString() {
-		return "StudentBoard [id=" + id + ", title=" + title + ", content=" + content + ", author=" + author + ", hit=" + hit
-				+ ", register_date=" + register_date + ", update_date=" + update_date + ", delete_yn=" + delete_yn
-				+ "]";
+		return "StudentBoard [uniqueID=" + uniqueID + ", userID=" + userID + ", title=" + title + ", content=" + content
+				+ ", date=" + date + ", lectureRoom=" + lectureRoom + "]";
 	}
-	
-	
-	
 }

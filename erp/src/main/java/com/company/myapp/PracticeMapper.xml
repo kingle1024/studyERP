@@ -5,28 +5,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.company.myapp">
 	<update id="updatePractice" parameterType="com.mycompany.vo.Practiceroom">
 		Update practice_room set
-		no=no
-		<if test="information !='' and information !=null">
+		no = no
+		<if test="information !='' and information != null">
 			,information=#{information}
 		</if>
-		<if test="program !='' and program !=null">
+		<if test="program !='' and program != null">
 			,program=#{program}
 		</if>
-		<if test="img1_org !='' and img1_org !=null">
+		<if test="img1_org !='' and img1_org != null">
 			,img1_org=#{img1_org} , img1_fake=#{img1_fake}
 		</if>
-		<if test="img2_org !='' and img2_org !=null">
+		<if test="img2_org !='' and img2_org != null">
 			,img2_org=#{img2_org} , img2_fake=#{img2_fake}
 		</if>
-		<if test="img3_org !='' and img3_org !=null">
+		<if test="img3_org !='' and img3_org != null">
 			,img3_org=#{img3_org} , img3_fake=#{img3_fake}
 		</if>
-		<if test="img4_org !='' and img4_org !=null">
+		<if test="img4_org !='' and img4_org != null">
 			,img4_org=#{img4_org} , img4_fake=#{img4_fake}
 		</if>
 		where no=#{no}
 	</update>
 
+	<insert id="insertPractice" parameterType="com.mycompany.vo.Practiceroom">
+		INSERT INTO
+		practice_room(
+			no,
+			information,
+			program,
+			img1_org,
+			img1_fake,
+			img2_org,
+			img2_fake,
+			img3_org,
+			img3_fake,
+			img4_org,
+			img4_fake
+		) values(
+			#{no},
+			#{information},
+			#{program},
+			#{img1_org},
+			#{img1_fake},
+			#{img2_org},
+			#{img2_fake},
+			#{img3_org},
+			#{img3_fake},
+			#{img4_org},
+			#{img4_fake}
+		)
+	</insert>
+	
 	<select id="selectPractice" parameterType="com.mycompany.vo.Practiceroom"
 		resultType="com.mycompany.vo.Practiceroom">
 		Select * from practice_room where no=#{no}

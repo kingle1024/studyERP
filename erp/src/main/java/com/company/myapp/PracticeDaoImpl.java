@@ -15,7 +15,6 @@ public class PracticeDaoImpl implements PracticeDao {
 
 	@Override
 	public Practiceroom selectpractice(Practiceroom pr) {
-
 		return sqlSession.selectOne(NS + ".selectPractice", pr);
 	}
 
@@ -25,4 +24,8 @@ public class PracticeDaoImpl implements PracticeDao {
 		return sqlSession.update(NS + ".updatePractice", pr);
 	}
 
+	@Override
+	public int insertPractice(Practiceroom pr) {
+		return sqlSession.insert(NS + ".insertPractice", pr);
+	}
 }
