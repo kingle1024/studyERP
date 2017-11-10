@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -100,8 +100,8 @@
 					<div class="col-lg-6 text-center">
 						<h3>${pno}시간표</h3>
 						<hr style="border: solid 1.5px grey">
-						<a href="/uploadImage/${pv.img4_fake}" data-lightbox="image-1"
-							data-title="시간표"><img src="/uploadImage/${pv.img4_fake}"
+						<a href="<c:url value="/image/profileImage/${pv.img4_fake}"/>" data-lightbox="image-1"
+							data-title="시간표"><img src="<c:url value="/image/profileImage/${pv.img4_fake}"/>"
 							onerror="this.src='<c:url value="/image/emptyContent.gif"/>'"
 							width="250px" height="350px"> </a>
 						<script>

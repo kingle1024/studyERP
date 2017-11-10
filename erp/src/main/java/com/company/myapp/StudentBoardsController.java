@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mycompany.mapper.BookMapper;
@@ -29,7 +28,8 @@ import com.mycompany.vo.User;
 
 @Controller
 public class StudentBoardsController {
-
+	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
+	
 	@Autowired
 	private BookMapper bookMapper;
 
@@ -74,13 +74,12 @@ public class StudentBoardsController {
 	@RequestMapping(value = "/studentsUpdt", method = RequestMethod.POST)
 	public String studentsUpdtOk(Model model, HttpServletRequest request, HttpServletResponse response,
 			MultipartHttpServletRequest multipartRequest) throws Exception {
-
 		/*
 		 * String rootPath = request.getSession().getServletContext().getRealPath("/");
 			String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
 		 */
-		
-		String filePath = "/spring/upload";
+//		String filePath = "C:/spring/upload";
+		String filePath = collect.getCommonUserProfileImagePath();
 //		String rootPath = request.getSession().getServletContext().getRealPath("/");
 //		String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
 		System.out.println(filePath);
