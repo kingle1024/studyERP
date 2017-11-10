@@ -51,17 +51,12 @@ public interface BookMapper {
 	@Update("update studentboards set hit = hit+1 where id= #{id}")
 	public boolean updateStudentHit(int id);
 
-
 	@Delete("delete from studentboards where id = #{id}")
 	public boolean deleteStudent(int id);
 	@Update("update practice_room set information = #{information}, program= #{program} where no = #{no}")
 	public boolean updatePractice(Practiceroom practiceroom);
 	
-	   @Insert("insert into workexcel (workDate,startTime,endTime,endSubStart,content)"
+	@Insert("insert into workexcel (workDate, startTime, endTime, endSubStart, content)"
 		         + " values (#{Date}, #{time_start}, #{time_end},#{work_time},#{Context})")
-		   public void create(Book books);
-	
-	
-	
-	
+	public void create(Book books);
 }

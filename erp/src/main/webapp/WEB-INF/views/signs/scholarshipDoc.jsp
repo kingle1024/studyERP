@@ -31,9 +31,10 @@
 	height: auto;
 	z-index: 99999;
 }
-table { 
-	border-collapse:collapse; text-align:center; 
-}  
+html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing{
+	font-family : '맑은 고딕';
+	font-size : 12px;
+}
 </style>
 </head>
 <body>
@@ -74,66 +75,62 @@ table {
 				</table>
 			</div>
 			<br /> <br /> <br /> <br /> <br /> <br />
-			<%-- 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> "> --%>
 			<form id="formname1" method="post">
-				<table cellpadding="1">
+				<table cellpadding="1" class="table table-hover">
 					<tr>
-						<td width="100px" align="center" bgcolor="#EEEAF8">제목</td>
-						<td width="90%"><input type="text" class="form-control"
+						<td width="10%" align="center" bgcolor="#EEEAF8">제목</td>
+						<td width=""><input type="text" class="form-control"
 							name="title"></td>
 					</tr>
 				</table>
 				<br> <br>
-				<table cellpadding="1">
+				<table cellpadding="1" class="table table-hover">
 					<tr>
-						<td width="100px" align="center" bgcolor="#EEEAF8">내용</td>
-						<td width="100px" bgcolor="#EEEAF8"><textarea cols="110"
-								rows="10" name="content"></textarea></td>
+						<td width="10%" align="center" bgcolor="#EEEAF8">내용</td>
+						<td><textarea cols="110" rows="10" name="content"></textarea></td>
 					</tr>
 					<tr>
 					</tr>
 					<tr>
-						<td width="100px" align="center" bgcolor="#EEEAF8">기타</td>
-						<td width="100px"><input type="text" class="form-control"
+						<td align="center" bgcolor="#EEEAF8">기타</td>
+						<td><input type="text" class="form-control"
 							name="etc"></td>
 					</tr>
 					<tr>
 						<td>
-							<div class="setDiv">
-								<a href="#" class="showMask">내 근무일지 확인</a>
-								<div class="mask"></div>
-								<div class="window">
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h3 class="panel-title">
-												<i class="fa fa-paper-plane fa-fw"></i> 장학금 신청 문서
-											</h3>
-										</div>
-										<div class="panel-body">
-										<table class="table">
-											<tr>
-												<td>번호</td>
-												<td>날짜</td>
-												<td>근무시작</td>
-												<td>근무종료</td>
-												<td>근무시간</td>
-												<td>내용</td>
-											</tr>
-											<c:forEach var="mywork" items="${ mywork }" varStatus="status">
-												<tr>
-													<td>${ status.count }</td>
-													<td>${ mywork.workDate }</td>
-													<td>${ mywork.startTime }</td>
-													<td>${ mywork.endTime }</td>
-													<td>${ mywork.endSubStart }<td>${ mywork.content }</td>
-												</tr>
-											</c:forEach>
-										</table>
-										</div>	
-									<input type="button" href="#" style="width: 100%;" class="close" value="닫기" />
+							<a href="#" class="showMask">내 근무일지 확인</a>
+							<div class="mask"></div>
+							<div class="window">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h3 class="panel-title">
+											<i class="fa fa-paper-plane fa-fw"></i> 장학금 신청 문서
+										</h3>
 									</div>
-								</div>		
+									<div class="panel-body">
+									<table class="table">
+										<tr>
+											<td>번호</td>
+											<td>날짜</td>
+											<td>근무시작</td>
+											<td>근무종료</td>
+											<td>근무시간</td>
+											<td>내용</td>
+										</tr>
+										<c:forEach var="mywork" items="${ mywork }" varStatus="status">
+											<tr>
+												<td>${ status.count }</td>
+												<td>${ mywork.workDate }</td>
+												<td>${ mywork.startTime }</td>
+												<td>${ mywork.endTime }</td>
+												<td>${ mywork.endSubStart }<td>${ mywork.content }</td>
+											</tr>
+										</c:forEach>
+									</table>
+									</div>	
+								<input type="button" href="#" style="width: 100%;" class="close" value="닫기" />
 								</div>
+							</div>		
 							</td>
 						</tr>
 					</table>

@@ -1,12 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" session="false"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>비정형 문서</title>
 <style>
 .setPadding{
 	padding:10px;
+}
+html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing{
+	font-family : '맑은 고딕';
+	font-size : 12px;
 }
 </style>
 </head>
@@ -44,24 +48,24 @@ $(function() {
 	</table>
 	</div>
 	<br/><br/><br/><br/><br/><br/>
-<%-- 		<form id="formname1" method="post" action="<c:url value="/signs/atypicalDoc" /> "> --%>
 	<form id="formname1" method="post" >
-		<table cellpadding="1">				
+		<table cellpadding="1" class="table table-hover">				
 			<tr>
-				<td width="100px" align="center" bgcolor="#EEEAF8">제목</td><td width="90%"><input type="text" class="form-control" name="title"></td>
+				<td width="10%" align="center" bgcolor="#EEEAF8">제목</td>
+				<td width=""><input type="text" class="form-control" name="title"></td>
 			</tr>
 		</table>
 		<br><br>				
-		<table cellpadding="1">
+		<table cellpadding="1" class="table table-hover">
 			<tr>
-				<td width="100px" align="center" bgcolor="#EEEAF8">내용</td>
-				<td width="100px" bgcolor="#EEEAF8"><textarea cols="110" rows="10" name="content"></textarea></td>
+				<td width="10%" align="center" bgcolor="#EEEAF8">내용</td>
+				<td><textarea cols="110" rows="10" name="content"></textarea></td>
 			</tr>
 			<tr>
 			</tr>
 			<tr>
-				<td width="100px" align="center" bgcolor="#EEEAF8">기타</td>
-				<td width="100px"><input type="text" class="form-control" name="etc"></td>
+				<td align="center" bgcolor="#EEEAF8">기타</td>
+				<td><input type="text" class="form-control" name="etc"></td>
 			</tr>
 		</table>	
 		<br><br><br>
