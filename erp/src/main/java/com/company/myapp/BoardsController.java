@@ -61,14 +61,6 @@ public class BoardsController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "/notices/updtComment", method = RequestMethod.POST)
-	public String updtComment(Model model){
-		
-		List<Comment> comment = boardMapper.getComments(1);
-		model.addAttribute("","");
-		
-		return "/notices/updt_comment";
-	}
 	/*
 	 * Required 애트리뷰트를 false로 설정하면 스프링이 호환되는 빈을 찾지 못하여도, 예외처리 없이 프로퍼티를 설정하지 않은
 	 * 채로 남겨둘 것이다.

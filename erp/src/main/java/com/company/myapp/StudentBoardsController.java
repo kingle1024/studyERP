@@ -29,6 +29,7 @@ import com.mycompany.vo.User;
 
 @Controller
 public class StudentBoardsController {
+	CommonCollectClass collect = new CommonCollectClass(); // 파일 업로드 경로를 가져온다
    @Autowired
    private BookMapper bookMapper;
 
@@ -75,18 +76,20 @@ public class StudentBoardsController {
        * request.getSession().getServletContext().getRealPath("/"); String
        * fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
        */
-//      String filePath = "\\Spring\\upload\\";
+//      String filePath = "C:\\Spring\\upload\\";
+      String filePath = collect.getCommonUserProfileImagePath();
+//      String rootPath = request.getSession().getServletContext().getRealPath("/");
+//      String filePath = rootPath+"/resources"+"/image/profileImage/";
       
-      String rootPath = request.getSession().getServletContext().getRealPath("/");
       // String rootPath =
       // request.getSession().getServletContext().getRealPath("/");
-       String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
+//      String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
       System.out.println(filePath);
       Practiceroom pr = new Practiceroom();
       System.out.println("updt의 no:"+no);
       try {
          Map<String, List<String>> fileNames = new HandlerFile(multipartRequest, filePath).getUploadFileName();
-
+         
          if (fileNames != null) {
             List<String> oldNames = fileNames.get("oldNames");
             List<String> saveNames = fileNames.get("saveNames");
@@ -152,7 +155,6 @@ public class StudentBoardsController {
          practiceMapper.updatepractice(pr);
          return "redirect: " + request.getContextPath() + "/students";
       } catch (Exception e) {
-         // TODO: handle exception
          System.out.println("error");
          e.printStackTrace();
       }

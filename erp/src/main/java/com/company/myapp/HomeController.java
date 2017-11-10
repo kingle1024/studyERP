@@ -85,7 +85,7 @@ public class HomeController {
 		model.addAttribute("noticeTotal", boardMapper.getCountBoard());
 		model.addAttribute("boards", boards);
 		model.addAttribute("noticeTime",noticeTime);
-		String recv_id = name;
+		String recv_id = principal.getName();
 		List<Message> myMessages = messageMapper.getMyMessageLimit(recv_id);
 		ArrayList<String> messageTime = new ArrayList<String>();
 		ArrayList<String> profileImagePath = new ArrayList<String>();
@@ -132,7 +132,6 @@ public class HomeController {
 		model.addAttribute("myworkTime", workExcelTime);
 		model.addAttribute("myworkTotalCount",excelService.getMyworkTotalCount(email));
 		
-		
 		Cookie[] getCookie = request.getCookies();
 		int cnt=0;
 		if(getCookie != null){
@@ -167,7 +166,6 @@ public class HomeController {
 		
 		//http://huskdoll.tistory.com/38
 		model.addAttribute("morrisData", jsonObject);
-		
 		
 		return "mains/index";
 	}
@@ -209,9 +207,4 @@ public class HomeController {
 		}
 		return msg;
 	}
-	
-	
 }
-
-
-

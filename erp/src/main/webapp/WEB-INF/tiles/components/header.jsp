@@ -108,9 +108,9 @@
 			<li><a href="<c:url value="/messages" />"><i
 					class="fa fa-fw fa-comments"></i> 쪽지함</a></li>
 			<li><a href="<c:url value="/notices" />"><i
-					class="fa fa-fw fa-table"></i>공지사항</a></li>
+					class="fa fa-fw fa-table"></i> 공지사항</a></li>
 			<li><a href="javascript:;" data-toggle="collapse"
-				data-target="#students"><i class="fa fa-fw fa-database"></i>실습실관리<span
+				data-target="#students"><i class="fa fa-fw fa-database"></i> 실습실관리<span
 					style="float: right;"><i class="fa fa-fw fa-arrows-v"></i></span></a>
 				<ul id="students" class="collapse">
 					<li <c:if test="${pno == '18512'}"> class="active"</c:if>><a
@@ -121,7 +121,7 @@
 						href="<c:url value="/students?no=18312" />">18312</a></li>
 				</ul></li>
 			<li><a href="javascript:;" data-toggle="collapse"
-				data-target="#approvals"><i class="fa fa-fw fa-paper-plane"></i>결재<span
+				data-target="#approvals"><i class="fa fa-fw fa-paper-plane"></i> 결재<span
 					style="float: right;"><i class="fa fa-fw fa-arrows-v"></i></span></a>
 				<ul id="approvals" class="collapse">
 					<li class="active"><a href="<c:url value="/signs/" />">결재</a></li>
@@ -130,8 +130,10 @@
 				</ul></li>
 			<li><a href="<c:url value="/mywork"/>"><i
 					class="fa fa-fw fa-folder-open"></i> 내 작업대</a></li>
+			<sec:authorize access="hasRole('ADMIN')">
 			<li><a href="<c:url value="/admin"/>"><i
 					class="fa fa-fw fa-users"></i> 회원 관리</a></li>
+			</sec:authorize>
 		</ul>
 	</div>
 	<!-- /.navbar-collapse -->
