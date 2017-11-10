@@ -76,6 +76,7 @@ public class BoardsController {
 		}
 		model.addAttribute("lastPage", userService.getNoticeLastPage(word));
 		return "notices/index";
+		
 	}
 	
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST) // 수정

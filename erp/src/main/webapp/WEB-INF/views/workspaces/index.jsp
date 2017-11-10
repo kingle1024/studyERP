@@ -1,10 +1,35 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
+
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
-<title>내 작업대</title>
+<!-- 라이브러리 로드 순서는 아래와 같다. cdnjs 저장소에서 라이브러리를 로드하였다. -->
+
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.2/moment-with-locales.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+
+        <script>
+        
+        $('#date').datetimepicker({ language : 'ko', pickTime : false, defalutDate : new Date() });
+
+      
+         $(function() {
+           
+                $("#btn_reset").click(function(){
+                   $("#reset_form").each(function(){
+                      this.reset();
+                   })
+                })
+             });
+
+        </script>
+        <!-- 달력 여기까지 -->
+     <!--시간 입력 - timeepicker -->
+
 <style>
 [data-tooltip-text]:hover {
 	position: relative;
@@ -55,6 +80,7 @@
 </head>
 <body>
 <div id="page-wrapper">
+
 	 <div class="row">
            <div class="col-lg-12">
                <div class="alert alert-info alert-dismissable">
@@ -76,7 +102,7 @@
 		</span>
 		
 <hr>
-<table class="table">
+<table class="table table-striped">
 	<tr>
 		<td>번호</td>
 		<td>날짜</td>
@@ -97,7 +123,7 @@
 	</c:forEach>
 </table>
 <br><br>
-<table>
+<!-- <table>
   <thead>
   	<tr>
 	  	<th width = "50" align ="center">번호</th>
@@ -110,26 +136,61 @@
 	    <th></th>
 	    <th></th>
     </tr>
-  </thead>
+  </thead> 
   <tbody id="my-tbody">
   </tbody>
-</table>
-<p>
- 날짜
-<input type = "text" size="10" id="date">
+ 
+</table> -->
+<form action='<c:url value="/table" />' method="post" id="reset_form" >
+날짜
+<input name ="Date" type = "text" size="10" id="date" >
 시작시간
-<input type = "text" size = 12 id ="time_start">
+<input name ="time_start"  type = "text" size = 12 id ="time_start" >
 종료시간
-<input type = "text" size = 12 id ="time_end">
-누계시간
-<input type = "text" size = 12 id ="timeSum">
+<input name ="time_end"  type = "text" size = 12 id ="time_end">
+근로시간
+<input name ="work_time" type = "text" size = 12 id ="work_time">
 내용
-<input type = "text" size = 50 id ="input">
+<input name ="Context" type = "text" size = 60 id ="input" >
 
-<button onclick="add_row()" class="btn btn-primary">추가</button>
-<button onclick="delete_row()" class="btn btn-danger">삭제</button>
+<button type="submit" onclick="add_row()">저장</button>
+</form>
+<div id = "result"></div>
 </p>
+<!-- <button id="btn_reset" onclick="add_row()">추가</button>
+<button onclick="delete_row()">삭제</button>  -->
+
+
 <script>
+
+$(function() {
+    $.datepicker.setDefaults($.datepicker.regional['ko']); //datepicker 한국어로 사용하기 위한 언어설정
+    $('#date').datepicker();
+  });
+  
+  
+  $(function() {               
+     // $('#time_start').timepicker();
+      var date1 = new Date($('#time_start').timepicker());
+   //   return date1;
+    });
+  
+  $(function() {               
+     // $('#time_end').timepicker();
+      var date2 = new Date($('#time_end').timepicker());
+   //   return date2;
+    });
+             
+  
+  $(function(){
+      $("#btn_reset").click(function(){
+         $("#reset_form").each(function(){
+            this.reset();
+         })
+      })
+   });
+  
+
   var count = 0;
   var data = new Array();
   function add_row() {
@@ -167,16 +228,7 @@
     cell8.innerHTML = '<button onclick="add_row()">+</button>';
     cell9.innerHTML = '<button onclick="delete_middle() id='+ count +'">-</button>';
     
-    data[0][0] = my_tbody.rows.length;
-    data[count][1] = cell2.innerHTML;
-    data[count][2] = cell3.innerHTML;
-    data[count][3] = cell4.innerHTML;
-    data[count][4] = cell5.innerHTML;
-    data[count][5] = cell6.innerHTML;
-    data[count][6] = cell7.innerHTML;
-    data[count][7] = cell8.innerHTML;
-    data[count][8] = cell9.innerHTML;
-   
+
    
     count ++;
   }
@@ -210,7 +262,7 @@
   
   //document.write(my_tbody.);
 </script>
-		<button onclick="add_row()" class="btn btn-info">저장</button>
+	<!-- 	<button onclick="add_row()">저장</button> -->
 	</div>
 	<!-- 
 	엑셀 아이콘 : http://www.iconninja.com/spreadsheet-excel-table-file-xls-xls-document-icon-768

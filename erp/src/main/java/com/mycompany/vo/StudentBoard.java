@@ -3,6 +3,7 @@ package com.mycompany.vo;
 import java.util.Date;
 
 public class StudentBoard {
+
 	private String uniqueID;
 	private String userID;
 	private String title;

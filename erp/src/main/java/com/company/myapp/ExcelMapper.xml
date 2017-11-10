@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    		*
    	FROM workexcel
    	WHERE userEmail = #{userEmail}
-   	ORDER BY no desc
+   	ORDER BY no
    </select>
   
   <select id="myworkTotalCount" parameterType="String" resultType="Integer">
@@ -17,4 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	FROM workexcel
   	WHERE userEmail = #{userEmail}
   </select>
+  
+  
+  
+  
+  
 </mapper>

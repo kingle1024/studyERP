@@ -80,7 +80,7 @@
 				<th width="1%" nowrap>조회수</th>
 			</tr>
 			<tbody>
-				<c:forEach var="board" items="${boardList }" varStatus="status">
+				<c:forEach var="board" items="${boardList}" varStatus="status">
 					<tr>
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }/?page=${page }&lastPage=${lastPage }&word=${word }" /> ">

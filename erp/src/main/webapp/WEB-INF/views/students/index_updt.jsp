@@ -244,6 +244,43 @@
 				</div>
 			</div>
 		</div>
+
+	</div>
+	<div class="container">
+		<div class="col-lg-8 text-center">
+		<table class="table table-striped table-bordered table-hover" height="110px">
+			<tr>
+				<th width="70px"> 
+			강의실 : ${pv.no} </th>
+			</tr>
+			<tr>
+			<th>	
+			
+			컴퓨터 수 :  <input type="text" id="information" name="information" value="${pv.information}">
+			</th>
+			</tr>
+			<tr>
+			<th>
+			설치프로그램 : <input type="text" id="program" name="program" value="${pv.program}">
+			</th></tr></table>
+		</div>
+	
+	<sec:authorize access="hasRole('ADMIN')">
+	<%-- <a href="<c:url value="/students?no=${pv.no}" />" class="btn btn-lg btn-primary" >수정완료</a>	 --%>
+	<a href="javascript:actionModify()" class="btn btn-lg btn-primary" >수정완료</a>
+	</sec:authorize>
+	
+	</div>
+
+	
+		
+		
+<!-- 			 jQuery
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    Bootstrap Core JavaScript
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+=======
 		<div class="container">
 			<div class="col-lg-10 text-center">
 				<table class="table table-striped table-bordered table-hover"
@@ -274,6 +311,7 @@
 		</sec:authorize>
 		</form>
 		<script src="js/bootstrap.min.js"></script>
+>>>>>>> 66cfa88bd18252e75ab43c1fc988c98cc727b0a7
 
 		<!-- 			 jQuery
    <script src="vendor/jquery/jquery.min.js"></script>
