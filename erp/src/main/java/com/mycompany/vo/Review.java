@@ -1,46 +1,48 @@
 package com.mycompany.vo;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
+import java.util.Date;
 
 public class Review {
-	private Integer id;
-    @NotEmpty
-    private String text;
-    @NotNull
-    private Integer bookId;
-    private Integer userId;
-    
-	public Integer getId() {
-		return id;
+
+	private String uniqueID;
+	private String boardID;
+	private String userID;
+	private String content;
+	private Date date;
+	
+	public String getUniqueID() {
+		return uniqueID;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUniqueID(String uniqueID) {
+		this.uniqueID = uniqueID;
 	}
-	public String getText() {
-		return text;
+	public String getBoardID() {
+		return boardID;
 	}
-	public void setText(String text) {
-		this.text = text;
+	public void setBoardID(String boardID) {
+		this.boardID = boardID;
 	}
-	public Integer getBookId() {
-		return bookId;
+	public String getUserID() {
+		return userID;
 	}
-	public void setBookId(Integer bookId) {
-		this.bookId = bookId;
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
-	public Integer getUserId() {
-		return userId;
+	public String getContent() {
+		return content;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", text=" + text + ", bookId=" + bookId + ", userId=" + userId + "]";
+		return "Review [uniqueID=" + uniqueID + ", boardID=" + boardID + ", userID=" + userID + ", content=" + content
+				+ ", date=" + date + "]";
 	}
-    
-    
-    
 }
