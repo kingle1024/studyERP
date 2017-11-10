@@ -87,7 +87,7 @@
 						}
 					},
 					error : function(error) {
-						// 			alert(error.statusText);
+									alert(error.statusText);
 						document
 								.getElementById('duplicateResult').innerHTML = "에러가 생겼다"
 								+ data;
@@ -143,8 +143,10 @@
 			</div>
 			<label for="ex1">생년월일</label>
 			<div>
-				<input type="text" placeholder="앞자리" size="10" name="socialNumFront" class="form-control"
-					autocomplete="off"> 
+				<f:input type="text" placeholder="주민등록번호 앞자리" size="10" path="socialNumFront" cssClass="form-control"
+					autocomplete="off" /> 
+				<f:errors path="socialNumFront" element="span"
+					cssClass="alert text-danger" value="${ user.socialNumFront }" />	
 			</div>
 			<br/>
 			<div class="form-group">
