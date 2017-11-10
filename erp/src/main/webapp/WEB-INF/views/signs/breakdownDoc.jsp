@@ -1,12 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page pageEncoding="utf-8" session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="utf-8" session="false"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <title>고장 신청 문서</title>
-<script src="<c:url value="/js/jquery.1.10.2.min.js" />"></script>
-<script src="<c:url value="/js/jquery.autocomplete.min.js" />"></script>
 <style>
 .setPadding{
 	padding:10px;
@@ -14,11 +12,23 @@
 th,td{
 	padding:2px;
 }
+html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing{
+	font-family : '맑은 고딕';
+	font-size : 12px;
+}
 </style>
-<link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
 </head>
-<script src="<c:url value="/js/approvalModule.js" />"></script>
 <body>
+<script>
+$(function() {
+	$('#btn').click(function() {
+		var dbTxt = $('#src').html();
+		dbTxt = dbTxt.replace(/<br>/g, '\n');
+		$('#trg textarea').text(dbTxt);
+	});
+});
+</script>
+<script src="<c:url value="/js/approvalModule.js" />"></script>
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h3 class="panel-title">
@@ -42,16 +52,16 @@ th,td{
 		</table>
 		</div>
 		<br/><br/><br/><br/><br/><br/>
-		<form id="formName" name="formName" method="post" onsubmit="return frmsubmit();">
-			<table>										
+		<form id="formname1" method="post" >
+			<table class="table table-hover">										
 				<tr>
-					<td width="100px" align="center" bgcolor="#EEEAF8">제목</td><td width="90%" style="border:hidden;"><input type="text" class="form-control" name="title" id="title"></td>
+					<td width="10%" align="center" bgcolor="#EEEAF8">제목</td><td width="90%" style="border:hidden;"><input type="text" class="form-control" name="title" id="title"></td>
 				</tr>
 			</table>
 			<br>				
-			<table>
+			<table class="table table-hover">
 				<tr>
-					<td width="100px" align="center" bgcolor="#EEEAF8">구분</td>
+					<td width="10%" align="center" bgcolor="#EEEAF8">구분</td>
 					<td style="border:hidden;">
 						<select name="distinguish">
 							<option>기자재</option>
@@ -61,7 +71,7 @@ th,td{
 					</td>
 				</tr>
 				<tr>
-					<td width="100px" align="center" bgcolor="#EEEAF8">물품</td>
+					<td align="center" bgcolor="#EEEAF8">물품</td>
 					<td style="border:hidden;">
 						<select name="item">
 							<option>상하 리프트</option>
@@ -77,7 +87,7 @@ th,td{
 					</td>
 				</tr>
 				<tr>
-					<td width="100px" align="center" bgcolor="#EEEAF8">실습실 번호</td>
+					<td align="center" bgcolor="#EEEAF8">실습실 번호</td>
 					<td >
 					<select name="room_num">
 						<option>18312</option>
@@ -87,12 +97,12 @@ th,td{
 					</td>
 				</tr>
 				<tr>
-					<td width="100px" align="center" bgcolor="#EEEAF8">내용</td>
-					<td width="100px"><textarea cols="110" rows="10" name="content" id="content"></textarea></td>
+					<td align="center" bgcolor="#EEEAF8">내용</td>
+					<td><textarea cols="110" rows="10" name="content" id="content"></textarea></td>
 				</tr>
 				<tr>
-					<td width="100px" align="center" bgcolor="#EEEAF8">기타</td>
-					<td width="100px"><input type="text" class="form-control" name="etc"></td>
+					<td align="center" bgcolor="#EEEAF8">기타</td>
+					<td><input type="text" class="form-control" name="etc"></td>
 				</tr>
 			</table>	
 			<br><br><br>

@@ -90,18 +90,17 @@ public class SignsController {
 	public void stockDocData(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute Approval approval, BreakDownDocument breakDownDocument, Principal principal) {
 		ModelAndView mv = new ModelAndView("redirect:/signs"); 
-		// 문서를 하나 insert한다
 		approval.setSend_id(principal.getName());
 		String type_code = request.getParameter("type_code"); // 문서마다 있는 hidden
+		// 문서를 하나 insert한다
 		String recv_id = signMapper.ListgetApprovalSystem(type_code); // 문서의 형식이
 		approval.setRecv_id(recv_id);
 		logger.info("저장여부:"+signMapper.insertApproval(approval)); // 디비 저장
-
 		if(type_code.equals("1100")){ 
 			// 최신 번호를 하나 가져와야 한다
 			int no = signMapper.recentLimitOne();
 			breakDownDocument.setNo(no);
-		}else{
+			signMapper.insertBreakDownDocument(breakDownDocument);
 		}
 	}
 	
@@ -172,6 +171,7 @@ public class SignsController {
 		 * 
 		 */
 		if(type_code.equals("1100")){ // 고장신청 문서이면
+			System.out.println("Doc:"+Doc);
 			BreakDownDocument breakDownDocument = signMapper.showBreakDownDocument(Doc);
 			mv.addObject("map",breakDownDocument.getMap());
 		}else if(type_code.equals("1200")){
