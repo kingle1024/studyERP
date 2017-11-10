@@ -38,6 +38,7 @@ public class SessionsController {
 	@RequestMapping(value = "/signup", method= RequestMethod.POST) // 회원가입 클릭 시 
     public String create(@Valid @ModelAttribute User user, BindingResult result, RedirectAttributes flash){
 		if (result.hasErrors()) {
+			System.out.println(result.getAllErrors());
 			logger.info("에러 진입");
 	        List<FieldError> fieldErrors = result.getFieldErrors();
 	        flash.addFlashAttribute("fieldErrors", fieldErrors);
