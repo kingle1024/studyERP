@@ -88,7 +88,11 @@ pre {
 						<td>${ comment.comment }</td>
 						<td><fmt:formatDate value="${ comment.register_date }"
 								pattern="MM-dd HH:mm" /></td>
-						<td><a
+						<td>
+						<a
+							href="<c:url value="/commentEdit/${board.id }/${comment.no }?page=${page }" />"
+							class="btn btn-block btn-warning">수정</a>
+						<a
 							href="<c:url value="/commentDelete/${board.id }/${comment.no }?page=${page }" />"
 							class="btn btn-block btn-danger">삭제</a></td>
 					</tr>

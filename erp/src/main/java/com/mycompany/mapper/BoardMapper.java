@@ -36,6 +36,13 @@ public interface BoardMapper {
 	@Select("SELECT * FROM board_comment WHERE board_no = #{board_no} and type_code = 1001 " ) // 댓글 가져오기
 	List<Comment> getComments(int board_no);
 	
+	@Select("SELECT * FROM board_comment WHERE no = #{no} and type_code = 1001")
+	Comment getComment(int no);
+	
+	// register_date -> update_date로 바꾸고, view페이지에서 처리해주기
+	@Update("UPDATE board_comment set comment = #{comment}, register_date = now() where no = #{no} ")
+	public boolean updateComment(Comment comment);
+	
 	@Update("UPDATE boards set title = #{title}, content= #{content}, author = #{author}, update_date = now() where id = #{id}")
 	public boolean updateNotice(Board board);
 	
