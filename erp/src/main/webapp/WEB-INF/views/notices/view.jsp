@@ -71,14 +71,17 @@ pre {
 	<sec:authorize access="hasRole('ADMIN')">
 
 	</sec:authorize>
-	<div class="jumbotron">
-		<table class="table table-stripeed">
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">댓글</div>
+	   <div class="panel-body">
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th width="10%" nowrap>작성자</th>
-					<th width="">내용</th>
-					<th width="16%">날짜</th>
-					<th width="2%"></th>
+					<th scope="col" width="10%" nowrap>작성자</th>
+					<th scope="col" width="">내용</th>
+					<th scope="col" width="16%">날짜</th>
+					<th scope="col" width="10%"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -89,12 +92,10 @@ pre {
 						<td><fmt:formatDate value="${ comment.register_date }"
 								pattern="MM-dd HH:mm" /></td>
 						<td>
-						<a
-							href="<c:url value="/commentEdit/${board.id }/${comment.no }?page=${page }" />"
-							class="btn btn-block btn-warning">수정</a>
-						<a
-							href="<c:url value="/commentDelete/${board.id }/${comment.no }?page=${page }" />"
-							class="btn btn-block btn-danger">삭제</a></td>
+							<button onclick="location.href='<c:url value="/commentEdit/${board.id }/${comment.no }?page=${page }" />'" class="btn btn-warning btn-sm">수정</button>
+							<button onclick="location.href='<c:url value="/commentDelete/${board.id }/${comment.no }?page=${page }" />'" class="btn btn-danger btn-sm">삭제</button>
+						</td>
+							
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -117,6 +118,7 @@ pre {
 			<input name="author" type="hidden" value="${ username }" />
 			<!-- Controller에서 username을 받아온다 -->
 		</f:form>
+	</div>
 	</div>
 	<span style="float: right;"> <a
 		href="<c:url value="/notice/edit/${ board.id }?page=${page }" />"
