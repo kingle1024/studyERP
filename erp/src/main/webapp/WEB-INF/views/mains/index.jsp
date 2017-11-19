@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>홈</title>
@@ -19,114 +19,115 @@ function viewDoc(num){
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:300"
+	rel="stylesheet">
 <style>
 /* http://kottenator.github.io/jquery-circle-progress/ */
 .new-tab-link {
-  padding-right: 14px;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3ggXDSIzCeRHfQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAA9SURBVBjTY2RAA/+XMvxHF2NkwAOwacCq4P9Shv8suFQzRiNsYUEXwKoJ2VhkNrIaJgYiAAs2N2BVRMirAD6JHi10MCdVAAAAAElFTkSuQmCC) no-repeat right center;
+	padding-right: 14px;
+	background:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3ggXDSIzCeRHfQAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAA9SURBVBjTY2RAA/+XMvxHF2NkwAOwacCq4P9Shv8suFQzRiNsYUEXwKoJ2VhkNrIaJgYiAAs2N2BVRMirAD6JHi10MCdVAAAAAElFTkSuQmCC)
+		no-repeat right center;
 }
 
 .page-title {
-  font: 400 40px/1.5 Open Sans, sans-serif;
-  text-align: center;
+	font: 400 40px/1.5 Open Sans, sans-serif;
+	text-align: center;
 }
 
 .circles {
-  margin-bottom: -10px;
+	margin-bottom: -10px;
 }
 
 .circle {
-  width: 100px;
-  margin: 6px 6px 20px;
-  display: inline-block;
-  position: relative;
-  text-align: center;
-  line-height: 1.2;
+	width: 100px;
+	margin: 6px 6px 20px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	line-height: 1.2;
 }
 
 .circle canvas {
-  vertical-align: top;
+	vertical-align: top;
 }
 
 .circle strong {
-  position: absolute;
-  top: 30px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  line-height: 40px;
-  font-size: 30px;
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	font-size: 30px;
 }
 
 .circle strong i {
-  font-style: normal;
-  font-size: 0.6em;
-  font-weight: normal;
+	font-style: normal;
+	font-size: 0.6em;
+	font-weight: normal;
 }
 
 .circle span {
-  display: block;
-  color: #aaa;
-  margin-top: 12px;
+	display: block;
+	color: #aaa;
+	margin-top: 12px;
 }
 
 /* p { */
 /*   margin: 40px 0; */
 /* } */
-
 .install {
-  display: inline-block;
+	display: inline-block;
 }
 
 .install a {
-  display: block;
-  width: auto;
-  vertical-align: middle;
-  padding: 6px 12px;
-  line-height: 20px;
-  background-color: #111;
-  color: #fff;
-  border-radius: 3px;
-  text-decoration: none;
-  margin: 5px auto;
-  transition: all .3s;
+	display: block;
+	width: auto;
+	vertical-align: middle;
+	padding: 6px 12px;
+	line-height: 20px;
+	background-color: #111;
+	color: #fff;
+	border-radius: 3px;
+	text-decoration: none;
+	margin: 5px auto;
+	transition: all .3s;
 }
 
 .install code {
-  padding: 6px 12px;
-  display: block;
-  font: 13px/20px Courier New, Liberation Mono, monospase;
-  background-color: #333333;
-  border-radius: 4px;
-  margin: 5px 0;
-  white-space: nowrap;
+	padding: 6px 12px;
+	display: block;
+	font: 13px/20px Courier New, Liberation Mono, monospase;
+	background-color: #333333;
+	border-radius: 4px;
+	margin: 5px 0;
+	white-space: nowrap;
 }
 
 .install a:hover {
-  background-color: #222;
+	background-color: #222;
 }
 
 .credits {
-  color: #aaa;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+	color: #aaa;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
 }
 
 .credits img {
-  margin-left: 4px;
-  border-radius: 4px;
-  vertical-align: middle;
+	margin-left: 4px;
+	border-radius: 4px;
+	vertical-align: middle;
 }
 
-@media (max-height: 600px), (max-width: 480px) {
-  .credits {
-    position: inherit;
-  }
+@media ( max-height : 600px) , ( max-width : 480px) {
+	.credits {
+		position: inherit;
+	}
 }
-
 </style>
 </head>
 <body>
@@ -321,6 +322,8 @@ function viewDoc(num){
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-lg-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -350,9 +353,8 @@ function viewDoc(num){
 							<div class="list-group">
 								<div class="row">
 									<div class="second circle">
-								      <strong></strong>
-								      <span>처리  현황</span>
-								    </div>
+										<strong></strong> <span>처리 현황</span>
+									</div>
 									<!-- JavaScript -->
 									<!-- html -->
 								</div>
@@ -363,9 +365,9 @@ function viewDoc(num){
 			</div>
 		</div>
 	</div>
-	
+
 	<h1>${todayCount }</h1>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			var grpah = ${morrisData}.graph;
@@ -392,8 +394,9 @@ function viewDoc(num){
 			});
 		})
 	</script>
-	 <script src="https://rawgit.com/kottenator/jquery-circle-progress/1.2.2/dist/circle-progress.js"></script>
-	 <script>
+	<script
+		src="https://rawgit.com/kottenator/jquery-circle-progress/1.2.2/dist/circle-progress.js"></script>
+	<script>
 	 
 	 /* Examples */
 	 (function($) {
@@ -478,6 +481,6 @@ function viewDoc(num){
 	   });
 	 })(jQuery);
 	 </script>
-	 
+
 </body>
 </html>
