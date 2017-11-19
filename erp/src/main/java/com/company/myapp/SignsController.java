@@ -57,28 +57,22 @@ public class SignsController {
 			case "atypicalDoc":{
 				type_code = "1000";
 				mv = new ModelAndView("popUp/signs/atypicalDoc");
-				System.out.println("atypicalDoc");
 				break;
 			}
 			case "breakDownDoc":{
 				type_code = "1100";
 				mv = new ModelAndView("popUp/signs/breakdownDoc");
-				System.out.println("breakDownDoc");
 				break;
 			}
 			case "scholarshipDoc":{
 				List<workExcel> workExcel = excelService.myworkList(principal.getName());
 				model.addAttribute("mywork", workExcel);
-				
 				type_code = "1200";
 				mv = new ModelAndView("popUp/signs/scholarshipDoc");
-				System.out.println("scholarShipDoc");
 				break;
 			}
 		}
-		System.out.println("type_code:"+type_code);
 		approvalSystem = signMapper.getApprovalSystemList(type_code);
-		System.out.println("approvalSsystem:"+approvalSystem);
 		mv.addObject("approvalSystem", approvalSystem);
 		
 		
@@ -171,12 +165,10 @@ public class SignsController {
 		 * 
 		 */
 		if(type_code.equals("1100")){ // 고장신청 문서이면
-			System.out.println("Doc:"+Doc);
 			BreakDownDocument breakDownDocument = signMapper.showBreakDownDocument(Doc);
 			mv.addObject("map",breakDownDocument.getMap());
 		}else if(type_code.equals("1200")){
-			System.out.println("장학금신청문서");
-			List<workExcel> workExcel = excelService.myworkList(principal.getName());
+			List<workExcel> workExcel = excelService.myworkList(approval.getSend_id());
 			mv.addObject("mywork", workExcel);
 		}else{
 			mv.addObject("map","errorCase");
