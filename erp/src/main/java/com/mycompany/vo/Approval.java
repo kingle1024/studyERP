@@ -1,6 +1,6 @@
 package com.mycompany.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Approval {
 	private int no;
