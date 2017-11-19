@@ -5,12 +5,15 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <style>
 	#profileHeader{
 		width:60px;
 		height:28%;
 	}
+	html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing{
+	font-family : '맑은 고딕';
+	font-size : 12px;
+}
 </style>
 
 <!-- Navigation -->
