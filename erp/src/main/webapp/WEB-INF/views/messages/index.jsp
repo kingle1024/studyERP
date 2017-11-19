@@ -40,7 +40,7 @@
 			<%-- 					<fmt:formatDate value="${ myMessage.send_date}" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
 		</table>
 		<c:if test="${empty messageList }">
-			<img src="<c:url value="/image/emptyContent.gif"/>" width="100%">
+			<img src="<c:url value="/image/emptyContent.gif"/>" width="75%">
 		</c:if>
 		<hr>
 		<div class="text-center">
