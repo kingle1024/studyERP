@@ -12,6 +12,8 @@ public interface UserDao {
 
 	public int selectTotalCount();
 
+	public int selectTotalCommentCount(Map<String, Object> map);
+	
 	public int selectTotalNoticeCount(Map<String, Object> map);
 	
 	public int selectTotalRecvMessageCount(String recv_id);

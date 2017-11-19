@@ -15,6 +15,8 @@ public interface UserService {
 	public int getNoticeLastPage(String word);
 
 	public int getNoticeTotal(String recv_id);
+	
+	public int getCommentTotal(int board_no);
 
 	public int getRecvMessageLastPage(String recv_id);
 	

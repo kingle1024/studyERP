@@ -31,6 +31,12 @@ public class UserDaoImpl implements UserDao {
                 NS+".selectTotalCount");
     }
     
+    @Override
+	public int selectTotalCommentCount(Map<String, Object> map) {
+		return sqlSession.selectOne(
+				NS+".selectTotalComment", map);
+	}
+    
 	@Override
 	public int selectTotalNoticeCount(Map<String, Object> map) {
 		return sqlSession.selectOne(
@@ -59,7 +65,7 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.selectList(
 				NS+".selectNoticeList", map);
 	}
-
+	
 	@Override
 	public List<Message> selectRecvMessageList(Map<String, Object> map) {
 		return sqlSession.selectList(
@@ -76,5 +82,6 @@ public class UserDaoImpl implements UserDao {
 	public List<Board> selectExploreNoticeList(Map<String, Object> map) {
 		return sqlSession.selectList(NS+".selectExploreNoticeList", map);
 	}
+
 
 }

@@ -94,7 +94,6 @@ public class UserServiceImpl implements UserService{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pageHelpder", pageHelper);
 		map.put("word", word);
-		
 		return userDao.selectExploreNoticeList(map);
 	}
 
@@ -103,4 +102,10 @@ public class UserServiceImpl implements UserService{
 		return userDao.selectTotalRecvMessageCount(recv_id);
 	}
 
+	@Override
+	public int getCommentTotal(int board_no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_no", board_no);
+		return userDao.selectTotalCommentCount(map);
+	}
 }

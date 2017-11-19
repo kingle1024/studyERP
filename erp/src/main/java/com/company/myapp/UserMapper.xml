@@ -31,6 +31,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	</where>		
     </select>
     
+    <select id="selectTotalComment"
+    		resultType="Integer">
+    	SELECT
+    		COUNT(*)
+    	FROM board_comment
+    	WHERE board_no = #{board_no}		
+    </select>
+    
     <select id="selectTotalRecvMessageCount"
     		resultType="Integer">
     	SELECT

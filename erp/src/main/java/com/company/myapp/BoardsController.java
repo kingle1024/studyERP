@@ -69,6 +69,11 @@ public class BoardsController {
 	public String index(Model model, @RequestParam(value = "page", defaultValue = "1") int page, HttpServletRequest request,   
 			@RequestParam(value = "word", required =false) String word, @RequestParam(value ="lastPage", defaultValue="1") int lastPage) throws UnsupportedEncodingException {
 		List<Board> boardList = userService.getNoticeList(page, word);
+		ArrayList<Integer> commentCount = new ArrayList<Integer>();
+		for(int i=0; i<boardList.size(); i++){
+			commentCount.add(userService.getCommentTotal(boardList.get(i).getId()));
+		}
+		model.addAttribute("commentCount", commentCount);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("page", page);
 		if(word != null){

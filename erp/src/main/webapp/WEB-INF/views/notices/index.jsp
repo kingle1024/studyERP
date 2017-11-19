@@ -84,7 +84,9 @@
 					<tr>
 						<th>${ board.id }</th>
 						<th><a href="<c:url value="/notice/view/${ board.id }/?page=${page }&lastPage=${lastPage }&word=${word }" /> ">
-								${ board.title } </a></th>
+								${ board.title } </a>
+								  &nbsp;&nbsp;<span class="badge badge-pill badge-info">${ commentCount[status.count-1] }</span>
+								</th>
 						<th>${ board.author }</th>
 						<th><fmt:formatDate value="${ board.register_date }"
 								pattern="MM-dd HH:mm" /></th>
