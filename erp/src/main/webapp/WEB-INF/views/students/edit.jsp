@@ -2,10 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <style>
 #jumbo {
 	padding-top: 20px;
@@ -35,7 +34,6 @@
 					type="text" class="form-control" value="${ studentboard.author }">
 			</div>
 			<div class="form-group form-group-lg">
-				</script>
 				<label class="control-label">내용</label>x
 				<textarea rows="15" cols="30" id="text" class="form-control"
 					name="content">${ studentboard.content }</textarea>
