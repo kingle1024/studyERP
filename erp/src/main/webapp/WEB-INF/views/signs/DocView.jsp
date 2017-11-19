@@ -14,11 +14,9 @@
 .setPadding {
 	padding: 10px;
 }
-
 .setDiv {
 	padding-top: 50px;
 }
-
 .mask {
 	position: absolute;
 	left: 0;
@@ -27,7 +25,6 @@
 	background-color: #000;
 	display: none;
 }
-
 .window {
 	display: none;
 	background-color: #ffffff;
@@ -84,13 +81,13 @@ html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing
 												<c:when
 													test="${ approvalState eq 0 and principal eq approvalName and currentIng eq i}">
 													<button onclick="moduleApprovalReject(1,<%=Doc%>)"
-														class="btn btn-success">
+														class="btn btn-success" onclick="if(!confirm('승인 하시겠습니까?')){return false;}">
 														<i class="fa fa-circle-o" aria-hidden="true">승인</i>
 													</button>
 													<%-- 								<a href="#" onclick="check(1,<%=Doc%>)"><img src="<c:url value="/image/approval.png" />" width="80%" height="60%" ></a> --%>
 													<br />
 													<button onclick="moduleApprovalReject(2,<%=Doc%>)"
-														class="btn btn-danger">
+														class="btn btn-danger" onclick="if(!confirm('반려 하시겠습니까?')){return false;}">
 														<i class="fa fa-times" aria-hidden="true">반려</i>
 													</button>
 													<%-- 								<a href="#" onclick="check(2,<%=Doc%>)"><img src="<c:url value="/image/reject.png" />" width="80%" height="60%"></a> --%>
