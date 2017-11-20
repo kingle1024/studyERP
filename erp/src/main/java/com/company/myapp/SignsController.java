@@ -178,9 +178,8 @@ public class SignsController {
 
 	@RequestMapping(value = "/signs/recv", method = { RequestMethod.GET })
 	public ModelAndView recv(@RequestParam(value = "type", defaultValue = "recvWaiting") String type,
-			Principal principal, HttpServletRequest request, HttpServletResponse response) {
+			Principal principal) {
 		ModelAndView mv = new ModelAndView("signs/" + type); // 진행, 대기, 승인, 반려
-																// 페이지로 이동
 		String email = principal.getName(); // 로그인한 사람의 계정
 		List<Approval> approval = null;
 		switch (type) {
@@ -217,22 +216,29 @@ public class SignsController {
 	public ModelAndView send(@RequestParam(value = "type", defaultValue = "sendIng") String type, Principal principal) {
 		ModelAndView mv = new ModelAndView("signs/" + type); // 진행, 대기, 승인, 반려
 		String email = principal.getName();
+		List<Approval> approval = null;
 		switch (type) {
 			case "sendIng": {
-				mv.addObject("approval", signMapper.showSendIng(email));
+				approval =  signMapper.showSendIng(email);
 				break;
 			}
 			case "sendApproval": {
-				mv.addObject("approval", signMapper.showSendApprovalList(email));
+				approval = signMapper.showSendApprovalList(email);
 				break;
 			}
 			case "sendReject": {
-				mv.addObject("approval", signMapper.showSendReject(email));
+				approval = signMapper.showSendReject(email);
 				break;
 			}
 			default: {
 				logger.info("Senddefault");
 			}
+		}
+		if(approval != null){ // approval에 데이터가 있다면 send_id를 getEmailFromUsers를 통해서 사용자의 이름을 가져온다.
+			for(int i=0; i<approval.size(); i++){
+				approval.get(i).setSend_id(commonMapper.getEmailFromUsers(approval.get(i).getSend_id()));
+			}
+			mv.addObject("approval",approval);
 		}
 		return mv;
 	}

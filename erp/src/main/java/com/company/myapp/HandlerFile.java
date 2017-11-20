@@ -57,7 +57,6 @@ public class HandlerFile {
 	      file.delete();
 	    }
 	  }
-	   
 	  
 	  // 파일 업로드 처리
 	  private void upload() {
@@ -78,6 +77,7 @@ public class HandlerFile {
 		                              .append(oldFileName.substring(oldFileName.lastIndexOf("."))).toString();
 		      String fileFullPath = filePath + "/" + saveFileName; // 파일 전체 경로
 		      try {
+		    	  System.out.println("저장경로:"+fileFullPath);
 		        // 파일 저장
 		        mpf.transferTo(new File(fileFullPath));
 		        oldNames.add(oldFileName);
