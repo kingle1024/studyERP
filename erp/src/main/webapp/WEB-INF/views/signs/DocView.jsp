@@ -3,7 +3,7 @@
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>문서 보기</title>
@@ -125,7 +125,8 @@ html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing
 							</tr>
 							<tr>
 								<td width="" align="center" bgcolor="#EEEAF8">기 안 일</td>
-								<td>${approval.register_date }</td>
+								<td><fmt:formatDate value="${approval.register_date }" 
+									pattern="yyyy-MM-dd HH:mm" /></td>
 								<!-- 			<td width="" align="center" bgcolor="#EEEAF8" nowrap>문서 양식</td> -->
 								<!-- 			<td nowrap>비정형 문서</td> -->
 							</tr>

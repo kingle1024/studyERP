@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>반려 문서</title>
@@ -44,7 +44,8 @@ function viewDoc(num){
 						<td>${approval.no }</td>
 						<td><a href="#" onclick="viewDoc(${approval.no })">${approval.title }</a></td>
 						<td>${approval.send_id }</td>
-						<td>${approval.register_date }</td>
+						<td><fmt:formatDate value="${approval.register_date }" 
+									pattern="MM-dd HH:mm" /></td>
 					</tr>
 				</c:forEach>
 			</tbody>
