@@ -1,10 +1,9 @@
-<%@page import="com.mycompany.vo.Message"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page pageEncoding="utf-8" session="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-	<html>
+<!DOCTYPE html>
+<html>
 <head>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
@@ -14,16 +13,18 @@
 	padding-bottom: 20px;
 }
 </style>
-<title>view Board</title>
+<title>건의 게시판 보기</title>
 </head>
-
-
 <link href="<c:url value ="/resources//css/bootstrap.min.css"/>" rel="stylesheet">
-
 <body>
-<div class="jumbotron" id="subNav">
-	<font size="6">건의게시판 보기</font> - 건의게시판을 확인할 수 있습니다.
-</div>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="alert alert-info alert-dismissable">
+					<i class="fa fa-comments"></i> <strong>건의 게시판 보기</strong>
+				</div>
+			</div>
+		</div>
 	<div class="container">			
 			<table border="0" class="table table-inverse">					
 			<tr>
@@ -79,6 +80,7 @@
 	</span> --%>
 			</form>
 				<a href="<c:url value="/students"/>" class="btn btn-lg btn-primary" >목록</a>
+	</div>
 	</div>
 </body>
 </html>
