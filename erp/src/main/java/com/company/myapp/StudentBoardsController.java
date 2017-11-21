@@ -79,9 +79,10 @@ public class StudentBoardsController {
 			String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
 		 */
 //		String filePath = "C:/spring/upload";
-		String filePath = collect.getCommonUserProfileImagePath();
-//		String rootPath = request.getSession().getServletContext().getRealPath("/");
-//		String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
+		String rootPath = request.getSession().getServletContext().getRealPath("/");
+		String filePath =  rootPath+collect.getCommonUserProfileImagePath();
+
+		//		String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
 		System.out.println(filePath);
 		Practiceroom pr = new Practiceroom();
 		try {
