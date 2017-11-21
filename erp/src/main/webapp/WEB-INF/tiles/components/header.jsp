@@ -116,13 +116,13 @@
 				data-target="#students"><i class="fa fa-fw fa-database"></i> 실습실관리<span
 					style="float: right;"><i class="fa fa-fw fa-arrows-v"></i></span></a>
 				<ul id="students" class="collapse">
-					<li <c:if test="${pno == '18512'}"> class="active"</c:if>><a
+					<li <c:if test="${pno == '18512'}"> class="active" </c:if>><a
 						href="<c:url value="/students?no=18512" />">18512</a></li>
-					<li <c:if test="${pno == '18419'}"> class="active"</c:if>><a
+					<li <c:if test="${pno == '18419'}"> class="active" </c:if>><a
 						href="<c:url value="/students?no=18419" />">18419</a></li>
-					<li <c:if test="${pno == '18312'}"> class="active"</c:if>><a
+					<li <c:if test="${pno == '18312'}"> class="active" </c:if>><a
 						href="<c:url value="/students?no=18312" />">18312</a></li>
-				</ul></li>
+				</ul></li>	
 			<li><a href="javascript:;" data-toggle="collapse"
 				data-target="#approvals"><i class="fa fa-fw fa-paper-plane"></i> 결재<span
 					style="float: right;"><i class="fa fa-fw fa-arrows-v"></i></span></a>

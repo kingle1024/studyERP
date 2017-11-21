@@ -78,8 +78,9 @@ public class StudentBoardsController {
 		 * String rootPath = request.getSession().getServletContext().getRealPath("/");
 			String fileUploadPath = rootPath+"\\resources"+"\\image\\profileImage\\";
 		 */
-//		String filePath = "C:/spring/upload";
-		String filePath = collect.getCommonUserProfileImagePath();
+		String filePath = "C:/spring/upload";
+//		String filePath = collect.getCommonUserProfileImagePath();
+		
 //		String rootPath = request.getSession().getServletContext().getRealPath("/");
 //		String filePath = rootPath+"\\resources"+"\\image\\profileImage\\";
 		System.out.println(filePath);

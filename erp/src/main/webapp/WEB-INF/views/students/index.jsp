@@ -84,16 +84,25 @@
 					<div class="col-lg-6 text-center">
 						<h3>${pno}실습실근로장학생</h3>
 						<hr style="border: solid 1.5px grey">
-						<img src="<c:url value="/image/profileImage/${pv.img1_fake }"/>"
-							onerror="this.src='<c:url value="/image/student.png"/>'"
-							class="img-circle" width="150px" height="150px"> 
-						<img
-							src="<c:url value="/image/profileImage/${pv.img2_fake}"/>"
-							onerror="this.src='<c:url value="/image/student.png"/>'"
-							class="img-circle" width="150px" height="150px"> <img
-							src="<c:url value="/image/profileImage/${pv.img3_fake}"/>"
-							onerror="this.src='<c:url value="/image/student.png"/>'"
-							class="img-circle" width="150px" height="150px">
+<%-- 						<img src="<c:url value="/image/profileImage/${pv.img1_fake }"/>" --%>
+<%-- 							onerror="this.src='<c:url value="/image/student.png"/>'" --%>
+<!-- 							class="img-circle" width="150px" height="150px">  -->
+<!-- 						<img -->
+<%-- 							src="<c:url value="/image/profileImage/${pv.img2_fake}"/>" --%>
+<%-- 							onerror="this.src='<c:url value="/image/student.png"/>'" --%>
+<!-- 							class="img-circle" width="150px" height="150px"> <img -->
+<%-- 							src="<c:url value="/image/profileImage/${pv.img3_fake}"/>" --%>
+<%-- 							onerror="this.src='<c:url value="/image/student.png"/>'" --%>
+<!-- 							class="img-circle" width="150px" height="150px"> -->
+							<img src="/uploadImage/${pv.img1_fake}"
+								onerror="this.src='<c:url value="/image/student.png"/>'"
+								class="img-circle" width="150px" height="150px"> <img
+								src="/uploadImage/${pv.img2_fake}"
+								onerror="this.src='<c:url value="/image/student.png"/>'"
+								class="img-circle" width="150px" height="150px"> <img
+								src="/uploadImage/${pv.img3_fake}"
+								onerror="this.src='<c:url value="/image/student.png"/>'"
+								class="img-circle" width="150px" height="150px">
 					</div>
 				</div>
 				<div class="col">
@@ -101,9 +110,15 @@
 						<h3>${pno}시간표</h3>
 						<hr style="border: solid 1.5px grey">
 						<a href="<c:url value="/image/profileImage/${pv.img4_fake}"/>" data-lightbox="image-1"
-							data-title="시간표"><img src="<c:url value="/image/profileImage/${pv.img4_fake}"/>"
+							data-title="시간표">
+<%-- 							<img src="<c:url value="/image/profileImage/${pv.img4_fake}"/>" --%>
+<%-- 							onerror="this.src='<c:url value="/image/emptyContent.gif"/>'" --%>
+<!-- 							width="250px" height="350px">  -->
+							<img
+							src="/uploadImage/${pv.img4_fake}"
 							onerror="this.src='<c:url value="/image/emptyContent.gif"/>'"
-							width="250px" height="350px"> </a>
+							width="250px" height="350px">
+							</a> 
 						<script>
 							lightbox.option({
 								'resizeDuration' : 200,
