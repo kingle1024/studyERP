@@ -69,7 +69,7 @@ $(function() {
 			</tr>
 		</table>	
 		<br><br><br>
-		<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-info" style="width:100%" value="결재 하기">
+		<input type="button" id="ReadingInfoSelectBtn" name="ReadingInfoSelectBtn" class="btn btn-lg btn-info" style="width:100%" value="결재 요청">
 		<input type="hidden" name="${ _csrf.parameterName }" value="${ _csrf.token }"/>
 		<input type="hidden" name="type_code" value="1000">
 	</form>

@@ -26,7 +26,7 @@
 		            결재 단계 : 1차<br>
 		            결재자 : 근장장
 					</p>
-		          <p><a class="btn btn-primary" onclick="window.open('<c:url value="/signs/signDoc?docType=atypicalDoc"/>', '_blank', 'width=1300 height=750')" role="button">결재하기</a></p>
+		          <p><a class="btn btn-primary" onclick="window.open('<c:url value="/signs/signDoc?docType=atypicalDoc"/>', '_blank', 'width=1300 height=750')" role="button">결재요청</a></p>
 		        </div>
 	        </div>
         </div>
@@ -42,7 +42,7 @@
 	          			결재 단계 : 2차<br>
 	          			결재자 : 근장장, 관리자
 	          			</p>
-	          			<p><a class="btn btn-primary" onclick="window.open('<c:url value="/signs/signDoc?docType=breakDownDoc"/>', '_blank', 'width=1300 height=750')" role="button">결재하기</a></p>
+	          			<p><a class="btn btn-primary" onclick="window.open('<c:url value="/signs/signDoc?docType=breakDownDoc"/>', '_blank', 'width=1300 height=750')" role="button">결재요청</a></p>
 	          		</div>
 	          	</div>
      	   </div>
@@ -59,7 +59,7 @@
 		          	결재 단계 : 3차<br>
           			결재자 : 근장장, 관리자, 학교
           			</p>
-			          <p><a class="btn btn-primary" onclick="window.open('<c:url value="/signs/signDoc?docType=scholarshipDoc"/>', '_blank', 'width=1300 height=750')" role="button">결재하기</a></p>
+			          <p><a class="btn btn-primary" onclick="window.open('<c:url value="/signs/signDoc?docType=scholarshipDoc"/>', '_blank', 'width=1300 height=750')" role="button">결재요청</a></p>
           		</div>
           	</div>
         </div>
