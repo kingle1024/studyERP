@@ -5,7 +5,7 @@
 <html>
 <head>
 <title>쪽지 보내기</title>
-<script src="<c:url value="/js/jquery.1.10.2.min.js" />"></script>
+<script src="<c:url value="/js/jquery-3.2.0.min.js" />"></script>
 <script src="<c:url value="/js/jquery.autocomplete.min.js" />"></script>
 <script>
 	$(function() {
