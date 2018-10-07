@@ -23,12 +23,13 @@
 		if (pw1.length < 4) {
 			document.getElementById('Pwd').style.color = "red";
 			document.getElementById('Pwd').innerHTML = "4자 이상 입력해 주세요";
-		} else if (pw1 != pw2) {
+		}else if (pw2 != pw1) {
 			document.getElementById('checkPwd').style.color = "red";
 			document.getElementById('checkPwd').innerHTML = "동일한 암호를 입력하세요.";
 			document.getElementById('check').value = "N";
 		} else {
 			document.getElementById('checkPwd').style.color = "green";
+			document.getElementById('Pwd').innerHTML = "";
 			document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다.";
 			document.getElementById('check').value = "Y";
 		}
