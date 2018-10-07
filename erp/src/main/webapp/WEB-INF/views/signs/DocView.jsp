@@ -144,10 +144,12 @@ html, body, input, textarea, select, button, table, pre, xmp, plaintext, listing
 							<tr>
 								<td width="100px" align="center" bgcolor="#EEEAF8">내용</td>
 								<td><textarea cols="78" rows="6" readonly>${approval.content }</textarea></td>
+<%-- 								<td>${approval.content }</td> --%>
 							</tr>
 							<tr>
 								<td width="100px" align="center" bgcolor="#EEEAF8">기타</td>
 								<td><textarea cols="78" rows="3" readonly>${approval.etc }</textarea></td>
+<%-- 								<td>${approval.etc }</td> --%>
 							</tr>
 							<c:if test="${!empty mywork }">
 							<tr>
